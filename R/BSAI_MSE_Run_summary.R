@@ -1,0 +1,5 @@
+load("~/GitHub/Rceattle_MSE/R/Runs/mse1.RData")
+load("~/GitHub/Rceattle_MSE/R/Runs/mse2.RData")
+load("~/GitHub/Rceattle_MSE/R/Runs/mse3.RData")
+load("~/GitHub/Rceattle_MSE/R/Runs/mse4.RData")
+load("~/GitHub/Rceattle_MSE/R/Runs/mse5.RData")
