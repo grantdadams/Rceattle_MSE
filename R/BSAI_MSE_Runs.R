@@ -53,24 +53,59 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
                             suitMode = 0, # empirical suitability
                             silent = TRUE)
 
+# mse1 MS-OM, SS-Est M Tier 3 EM
+# mse2 SS-OM, SS-Est M Tier 3 EM
+# mse3 SS-OM, SS-Fixed M Tier 3 EM
+# mse4 MS-OM, SS-Fixed M Tier 3 EM
+# mse5 MS-OM, SS-Fixed M No Catch EM
+# mse6 SS-OM, SS-Fixed M No Catch EM
 
 # Run MSE
 # - MS-OM: SS-EM
-mse1 <- mse_run(operating_model = ms_run, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+mse1 <- mse_run(operating_model = ms_run, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+save(mse1, file = "R/Runs/mse1.RData")
 
 # Run MSE
 # - SS-OM: SS-EM
-mse2 <- mse_run(operating_model = ss_run_M, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+mse2 <- mse_run(operating_model = ss_run_M, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+save(mse2, file = "R/Runs/mse2.RData")
 
 # Run MSE
 # - MS-OM: SS-EM
-mse3 <- mse_run(operating_model = ss_run_M, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+mse3 <- mse_run(operating_model = ms_run, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+save(mse3, file = "R/Runs/mse3.RData")
 
 # Run MSE
 # - SS-OM: SS-EM
-mse4 <- mse_run(operating_model = ms_run, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+mse4 <- mse_run(operating_model = ss_run_M, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+save(mse4, file = "R/Runs/mse4.RData")
 
 # Run MSE
 # - SS-OM: SS-EM
-mse5 <- mse_run(operating_model = ss_run, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1500000))
+mse5 <- mse_run(operating_model = ms_run, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1))
+save(mse5, file = "R/Runs/mse5.RData")
 
+# Run MSE
+# - SS-OM: SS-EM
+mse6 <- mse_run(operating_model = ss_run_M, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = c(1))
+save(mse6, file = "R/Runs/mse6.RData")
+
+# Run MSE
+# - SS-OM: SS-EM
+mse1b <- mse_run(operating_model = ms_run, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = NULL)
+save(mse1b, file = "R/Runs/mse1b.RData")
+
+# Run MSE
+# - SS-OM: SS-EM
+mse2b <- mse_run(operating_model = ss_run_M, estimation_model = ss_run_M, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = NULL)
+save(mse2b, file = "R/Runs/mse2b.RData")
+
+# Run MSE
+# - MS-OM: SS-EM
+mse3b <- mse_run(operating_model = ms_run, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = NULL)
+save(mse3b, file = "R/Runs/mse3b.RData")
+
+# Run MSE
+# - SS-OM: SS-EM
+mse4b <- mse_run(operating_model = ss_run_M, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = NULL)
+save(mse4, file = "R/Runs/mse4b.RData")
