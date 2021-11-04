@@ -129,12 +129,12 @@ for(i in 1:length(mse_list)){
 MSE_names <- c("mse1 MS-OM, SS-Est M Tier 3 EM"
                , "mse3 MS-OM, SS-Fixed M Tier 3 EM"
                , "mse1b MS-OM, SS-Est M Tier 3 EM - no cap"
-               , "mse3b SS-OM, SS-Fixed M Tier 3 EM - no cap"
+               , "mse3b MS-OM, SS-Fixed M Tier 3 EM - no cap"
                , "mse5 MS-OM, SS-Fixed M No Catch EM"
                , "mse2 SS-OM, SS-Est M Tier 3 EM"
                , "mse4 SS-OM, SS-Fixed M Tier 3 EM"
                , "mse2b SS-OM, SS-Est M Tier 3 EM - no cap"
-               , "mse4b MS-OM, SS-Fixed M Tier 3 EM - no cap"
+               , "mse4b SS-OM, SS-Fixed M Tier 3 EM - no cap"
                , "mse6 SS-OM, SS-Fixed M No Catch EM")
 
 
