@@ -150,10 +150,16 @@ for(i in 1:length(summary_list)){
   terminal_status[,i] <- summary_list[[i]]$biomass_summary_stats$`EM: Terminal SSB/SSB40`
   prob_overfished[,i] <- summary_list[[i]]$biomass_summary_stats$`EM: P(SSB < SSB20)`
   ssb_mse[,i] <- summary_list[[i]]$biomass_summary_stats$`Avg SSB MSE`
+  
+  plot_ssb(c(mse_list[[i]]$OM_list, list(model_average(mse_list[[i]]$OM_list))), line_col = c(rep("grey70",50),1), file = paste0("R/Results/Figures/SSB/", MSE_names[i]), minyr = 2015)
+  plot_recruitment(c(mse_list[[i]]$OM_list, list(model_average(mse_list[[i]]$OM_list))), line_col = c(rep("grey70",50),1), file = paste0("R/Results/Figures/R/", MSE_names[i]), minyr = 2015)
+  plot_biomass(c(mse_list[[i]]$OM_list, list(model_average(mse_list[[i]]$OM_list))), line_col = c(rep("grey70",50),1), file = paste0("R/Results/Figures/B/", MSE_names[i]), minyr = 2015)
 }
 
 library(writexl)
 write_xlsx(list(avg_catch = avg_catch, catch_iav = catch_iav, terminal_status = terminal_status, prob_overfished = prob_overfished, ssb_mse = ssb_mse), path = "R/Results/BSAI_mse_results.xlsx")
+
+
 
 
 
