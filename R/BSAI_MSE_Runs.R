@@ -108,4 +108,4 @@ save(mse3b, file = "R/Runs/mse3b.RData")
 # Run MSE
 # - SS-OM: SS-EM
 mse4b <- mse_run(operating_model = ss_run_M, estimation_model = ss_run, nsim = 50, assessment_period = 2, sampling_period = 2, simulate = TRUE, cap = NULL)
-save(mse4, file = "R/Runs/mse4b.RData")
+save(mse4b, file = "R/Runs/mse4b.RData")
