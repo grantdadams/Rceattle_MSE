@@ -21,8 +21,7 @@ ss_run <- Rceattle::fit_mod(data_list = mydata,
                             debug = FALSE, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
-                            phase = "default",
-                            silent = TRUE)
+                            phase = "default")
 
 
 # Estimate M
@@ -34,8 +33,7 @@ ss_run_M <- Rceattle::fit_mod(data_list = mydata_M,
                               debug = FALSE, # Estimate
                               random_rec = FALSE, # No random recruitment
                               msmMode = 0, # Single species mode
-                              phase = "default",
-                              silent = TRUE)
+                              phase = "default")
 
 
 
@@ -50,8 +48,8 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
                             niter = 3, # 10 iterations around population and predation dynamics
                             random_rec = FALSE, # No random recruitment
                             msmMode = 1, # MSVPA based
-                            suitMode = 0, # empirical suitability
-                            silent = TRUE)
+                            suitMode = 0,
+                            suityr = 2010) # empirical suitability
 
 # mse1 MS-OM, SS-Est M Tier 3 EM
 # mse2 SS-OM, SS-Est M Tier 3 EM
@@ -62,7 +60,7 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
 
 # Run MSE
 # - MS-OM: SS-EM
-mse1 <- mse_run(operating_model = ms_run, estimation_model = ss_run_M, nsim = 1, assessment_period = 2, sampling_period = 2, simulate = FALSE, cap = c(1500000))
+mse1 <- mse_run(operating_model = ms_run; estimation_model = ss_run_M; nsim = 1; assessment_period = 2; sampling_period = 2; simulate = FALSE; cap = c(1500000))
 #save(mse1, file = "R/Runs/mse1.RData")
 
 # Run MSE

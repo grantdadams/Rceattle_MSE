@@ -22,7 +22,7 @@ ss_run <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                        msmMode = ss_run$data_list$msmMode, # MSVPA based
                                        suitMode = 0, # empirical suitability
                                        phase = "default",
-                                       silent = TRUE)
+                                       verbose = 1)
 
 # EST-M
 data_list <- ss_run$data_list
@@ -36,7 +36,7 @@ ss_run_M <- Rceattle::fit_mod(data_list = data_list,
                             msmMode = ss_run$data_list$msmMode, # MSVPA based
                             suitMode = 0, # empirical suitability
                             phase = "default",
-                            silent = TRUE)
+                            verbose = 1)
 
 # Update projections
 ms_run$estimated_params$rec_dev <- cbind(ms_run$estimated_params$rec_dev, matrix(0, 4, 41))
@@ -44,12 +44,12 @@ ms_run <- Rceattle::fit_mod(data_list = ms_run$data_list,
                             inits = ms_run$estimated_params, # Initial parameters from single species ests
                             file = NULL, # Don't save
                             debug = FALSE, # Estimate
-                            niter = 3, # 10 iterations around population and predation dynamics
+                            niter = 5, # 10 iterations around population and predation dynamics
                             random_rec = FALSE, # No random recruitment
                             msmMode = ms_run$data_list$msmMode, # MSVPA based
                             suitMode = 0, # empirical suitability
                             phase = "default",
-                            silent = TRUE)
+                            verbose = 1)
 
 # mse1 MS-OM, SS-Est M Tier 3 EM
 # mse2 SS-OM, SS-Est M Tier 3 EM
