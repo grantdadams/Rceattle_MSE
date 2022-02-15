@@ -358,7 +358,7 @@ for(om in 1:length(om_list)){ # OM model
 
 # -- NPFMC Tier 3 HCRs
 # - MS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SS-OM: SS-EM Tier 3 HCR
-mse2 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 10, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse2 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
