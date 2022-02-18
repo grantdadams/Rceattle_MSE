@@ -1,12 +1,11 @@
 library(Rceattle)
 library(readxl)
-setwd("Model runs/GOA_18.5.1/")
 
 
 ######################### 
 # Read in data
 #########################
-mydata_short <- Rceattle::read_data( file = "Models/GOA_18_5_1_data_1996-2018_no_halibut.xlsx")
+mydata_short <- Rceattle::read_data( file = "Models/GOA_18_5_1_data_1977-2018_no_halibut.xlsx")
 mydata_short$styr <- 1996
 mydata_short$projyr <- 2060
 
@@ -60,6 +59,30 @@ for(i in 1:length(mydata_list)){
   }
 }
 
+mod_list_unweighted <- mod_list_all[which(inits_M1_df$MsmMode == 0)]
+
+# Reweight the single species Cod model
+for(i in 1:length(mydata_list)){
+  if(inits_M1_df$MsmMode[i] == 0){
+    
+    data <- mydata_list[[i]]
+    subs <- which(data$fleet_control$Species == 3) # Species 3 is cod
+    data$fleet_control$Comp_weights[subs] <- mod_list_all[[i]]$data_list$fleet_control$Est_weights_mcallister[subs]
+    
+    inits = mod_list_all[[i]]$estimated_params
+    inits$comp_weights[subs] <- data$fleet_control$Comp_weights[subs]
+    
+    # Refit
+    mod_list_all[[i]] <- Rceattle::fit_mod(data_list = data,
+                                           inits = inits, # Initial parameters = 0
+                                           file = NULL, # Don't save
+                                           estimateMode = 0, # Estimate
+                                           random_rec = FALSE, # No random recruitment
+                                           msmMode = 0, # Single species mode
+                                           verbose = 1,
+                                           phase = "default")
+  }
+}
 
 
 ################################################
