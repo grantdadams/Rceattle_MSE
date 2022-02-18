@@ -362,3 +362,6 @@ mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 
 
 # - SS-OM: SS-EM Tier 3 HCR
 mse2 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+
+# - SS-OM: SS-EM Tier 3 HCR
+mse3 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate = TRUE, cap = cap_list[[1]], dir = "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
