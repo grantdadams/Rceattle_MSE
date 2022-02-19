@@ -16,9 +16,9 @@ cap_list <- list(
 
 
 ## Adjust rec var
-load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_12_2021-12-12.Rdata")
+load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_1_2021-11-16.Rdata")
 run_list <- list(mod_re)
-load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_13_2021-12-13.Rdata")
+load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_2_2021-11-17.Rdata")
 run_list[[2]] <- mod_re
 
 ss_run$estimated_params$ln_rec_sigma <- run_list[[1]]$estimated_params$ln_rec_sigma[1:3]
@@ -31,22 +31,22 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 
 # -- NPFMC Tier 3 HCRs
 # - MS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/MS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - MS-OM: SSM-EM Tier 3 HCR
-mse2 <- mse_run(om = ms_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/MS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse2 <- mse_run(om = ms_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/MS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SSM-OM: SS-EM Tier 3 HCR
-mse3 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse3 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SSM-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse4 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SS-OM: SS-EM Tier 3 HCR
-mse5 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse5 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/SS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse6 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse6 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 
 
