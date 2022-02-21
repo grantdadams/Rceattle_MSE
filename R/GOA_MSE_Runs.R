@@ -43,10 +43,10 @@ mse3 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period 
 mse4 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SS-OM: SS-EM Tier 3 HCR
-mse5 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse5 <- mse_run(om = ss_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse6 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
+mse6 <- mse_run(om = ss_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 
 
