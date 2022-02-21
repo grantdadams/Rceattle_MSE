@@ -49,7 +49,6 @@ mse5 <- mse_run(om = ss_run, em = ss_run_Tier3, nsim = 200, assessment_period = 
 mse6 <- mse_run(om = ss_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
 
 
-
 ################################################
 # Management strategy evaluation
 ################################################
