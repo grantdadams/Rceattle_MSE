@@ -1,3 +1,5 @@
+library(Rceattle)
+
 ## File names
 # -- NPFMC Tier 3 HCRs with cap
 dir_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/Cap1", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1")
@@ -10,8 +12,27 @@ dir_no_cap_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/M
 
 MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-M-OM, Fix M-No cap", "SS-M-OM, Est M-No cap", "SS-OM, Fix M-No cap", "SS-OM, Est M-No cap")
 
-## Load files
+## Load and run summary
 mse_list <- lapply(dir_names, function(x) load_mse(dir = x, file = NULL))
+mse_metrics <- lapply(mse_list, function(x) mse_summary(x))
+
+mse4 <- load_mse(dir = dir_names[4], file = NULL)
+mse4_summ <- mse_summary(mse4)
+
+
+plot_recruitment(c(lapply(mse4, function(x) x$OM) ), line_col = c(rep("grey", 200)))
+plot_biomass(c(lapply(mse4, function(x) x$EM[[length(x$EM)]]), lapply(mse4, function(x) x$OM) ), line_col = c(rep(1, 200), rep("grey", 200)))
+
+
+
+
+
+
+
+
+
+
+
 
 
 avg_catch <- data.frame(matrix(NA, 3, ncol = length(mse_list)))
