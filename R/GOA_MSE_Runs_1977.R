@@ -16,9 +16,9 @@ cap_list <- list(
 
 
 ## Adjust rec var
-load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_1_2021-11-16.Rdata")
+load("Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_1_2021-11-16.Rdata")
 run_list <- list(mod_re)
-load("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_2_2021-11-17.Rdata")
+load("Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_2_2021-11-17.Rdata")
 run_list[[2]] <- mod_re
 
 ss_run$estimated_params$ln_rec_sigma <- run_list[[1]]$estimated_params$ln_rec_sigma[1:3]
@@ -47,6 +47,27 @@ mse5 <- mse_run(om = ss_run, em = ss_run_Tier3, nsim = 200, assessment_period = 
 
 # - SS-OM: SSM-EM Tier 3 HCR
 mse6 <- mse_run(om = ss_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = cap_list[[1]], dir = "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1", file = NULL)
+
+
+## No cap
+# -- NPFMC Tier 3 HCRs
+# - MS-OM: SS-EM Tier 3 HCR
+mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - MS-OM: SSM-EM Tier 3 HCR
+mse2 <- mse_run(om = ms_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SSM-OM: SS-EM Tier 3 HCR
+mse3 <- mse_run(om = ss_run_M, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_M_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SSM-OM: SSM-EM Tier 3 HCR
+mse4 <- mse_run(om = ss_run_M, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_M_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SS-EM Tier 3 HCR
+mse5 <- mse_run(om = ss_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SSM-EM Tier 3 HCR
+mse6 <- mse_run(om = ss_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
 
 
 

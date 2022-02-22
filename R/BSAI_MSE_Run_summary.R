@@ -1,22 +1,17 @@
+## File names
+# -- NPFMC Tier 3 HCRs with cap
+dir_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/Cap1", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1")
+
+MSE_names <- c("MS-OM, Fix M-Cap", "MS-OM, Est M-Cap", "SS-M-OM, Fix M-Cap", "SS-M-OM, Est M-Cap", "SS-OM, Fix M-Cap", "SS-OM, Est M-Cap")
 
 
-summary_list <- list()
-for(i in 1:length(mse_list)){
-  summary_list[[i]] <- mse_summary(mse_list[[i]])
-}
+# -- NPFMC Tier 3 HCRs No cap
+dir_no_cap_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-MSE_names <- c("MS-OM, Est M-Cap"
-               , "MS-OM, Fix M-Cap"
-               , "MS-OM, Est M"
-               , "MS-OM, Fix M"
-               , "MS-OM, Fix M-No catch "
-               , "MS-OM, Est M-No catch"
-               , "SS-OM, Est M-Cap"
-               , "SS-OM, Fix M-Cap"
-               , "SS-OM, Est M"
-               , "SS-OM, Fix M"
-               , "SS-OM, Fix M-No catch")
-# , "SS-OM, Est M-No catch")
+MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-M-OM, Fix M-No cap", "SS-M-OM, Est M-No cap", "SS-OM, Fix M-No cap", "SS-OM, Est M-No cap")
+
+## Load files
+mse_list <- lapply(dir_names, function(x) load_mse(dir = x, file = NULL))
 
 
 avg_catch <- data.frame(matrix(NA, 3, ncol = length(mse_list)))
