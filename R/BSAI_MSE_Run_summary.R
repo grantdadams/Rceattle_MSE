@@ -1,37 +1,33 @@
 library(Rceattle)
 
-## File names
-# -- NPFMC Tier 3 HCRs with cap
-dir_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/Cap1", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/Cap1", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/Cap1",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/Cap1")
+## File names# -- NPFMC Tier 3 HCRs No cap
+dir_no_cap_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-MSE_names <- c("MS-OM, Fix M-Cap", "MS-OM, Est M-Cap", "SS-M-OM, Fix M-Cap", "SS-M-OM, Est M-Cap", "SS-OM, Fix M-Cap", "SS-OM, Est M-Cap")
+dir_no_cap_names_GOA <- c("Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/GOA1977/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/GOA1977/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-
-# -- NPFMC Tier 3 HCRs No cap
-dir_no_cap_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_M_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_M_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap")
-
-MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-M-OM, Fix M-No cap", "SS-M-OM, Est M-No cap", "SS-OM, Fix M-No cap", "SS-OM, Est M-No cap")
+MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-OM, Fix M-No cap", "SS-OM, Est M-No cap")
 
 ## Load and run summary
-mse_list <- lapply(dir_names, function(x) load_mse(dir = x, file = NULL))
-mse_metrics <- lapply(mse_list, function(x) mse_summary(x))
+# mse_list <- lapply(dir_names, function(x) load_mse(dir = x, file = NULL))
+# mse_metrics <- lapply(mse_list, function(x) mse_summary(x))
 
-mse4 <- load_mse(dir = dir_names[4], file = NULL)
-mse4_summ <- mse_summary(mse4)
+mse3 <- load_mse(dir = dir_no_cap_names[3], file = NULL)
+mse3_goa <- load_mse(dir = dir_no_cap_names_GOA[3], file = NULL)
+mse3 <- mse_summary(mse3)
 
-
-plot_recruitment(c(lapply(mse4, function(x) x$OM) ), line_col = c(rep("grey", 200)))
-plot_biomass(c(lapply(mse4, function(x) x$EM[[length(x$EM)]]), lapply(mse4, function(x) x$OM) ), line_col = c(rep(1, 200), rep("grey", 200)))
-
-
+plot_depletionSSB(mse3, mse = TRUE, OM = TRUE)
+plot_depletionSSB(mse3_goa, mse = TRUE, OM = TRUE)
 
 
 
 
+plot_depletionSSB(list(mse3_goa$Sim_1$EM$`OM_Sim_1. EM_yr_2060`, mse3_goa$Sim_1$OM), mse = FALSE, model_names = c("EM", "OM"))
+plot_biomass(list(mse3_goa$Sim_1$EM$`OM_Sim_1. EM_yr_2060`, mse3_goa$Sim_1$OM), mse = FALSE, model_names = c("EM", "OM"))
 
 
-
-
+plot_depletionSSB(c(mse3_goa$Sim_1$EM, list(mse3_goa$Sim_1$OM)), mse = FALSE, model_names = c("EM", "OM"))
+plot_biomass(c(mse3_goa$Sim_1$EM, list(mse3_goa$Sim_1$OM)), mse = FALSE, model_names = c("EM", "OM"))
+plot_recruitment(c(mse3_goa$Sim_1$EM, list(mse3_goa$Sim_1$OM)), model_names = c("EM", "OM"))
 
 
 

@@ -1,7 +1,7 @@
 library(Rceattle)
 
-load("Models/GOA_1977_Models_from_previous.RData")
-mod_list_all <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
+load("Models/GOA_18_5_1_mod_1-2_2022-03-24.RData")
+mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 # Ratio of F across Pcod fleets
 for(i in 1:3){
