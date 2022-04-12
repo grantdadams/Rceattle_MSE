@@ -11,13 +11,18 @@ MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-OM, Fix M-No ca
 # mse_list <- lapply(dir_names, function(x) load_mse(dir = x, file = NULL))
 # mse_metrics <- lapply(mse_list, function(x) mse_summary(x))
 
-mse3 <- load_mse(dir = dir_no_cap_names[3], file = NULL)
-mse3_goa <- load_mse(dir = dir_no_cap_names_GOA[3], file = NULL)
-mse3 <- mse_summary(mse3)
-
-plot_depletionSSB(mse3, mse = TRUE, OM = TRUE)
-plot_depletionSSB(mse3_goa, mse = TRUE, OM = TRUE)
-
+for(i in 1:length(dir_no_cap_names)){
+  mse3 <- load_mse(dir = dir_no_cap_names_GOA[i], file = NULL)
+  mse_metrics <- mse_summary(mse3)
+  write.csv(mse_metrics, file = paste0("Results/GOA_table", MSE_names[i]))
+  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true", MSE_names[i]), line_col  = "#04395E")
+  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived", MSE_names[i]), line_col = "#5F0F40")
+  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true", MSE_names[i]), line_col  = "#04395E")
+  plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived", MSE_names[i]), line_col = "#5F0F40")
+  plot_catch(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true", MSE_names[i]), line_col  = "#04395E")
+  plot_catch(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived", MSE_names[i]), line_col = "#5F0F40")
+  rm(mse3)
+}
 
 
 

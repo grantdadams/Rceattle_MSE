@@ -15,16 +15,6 @@ cap_list <- list(
 )
 
 
-## Adjust rec var
-# load("Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_1_2021-11-16.Rdata")
-# run_list <- list(mod_re)
-# load("Models/GOA_18.5.1_random_effects_models_3iter_w_hessian/18_5_1_re_3iter_Mod_2_2021-11-17.Rdata")
-# run_list[[2]] <- mod_re
-
-# ss_run$estimated_params$ln_rec_sigma <- run_list[[1]]$estimated_params$ln_rec_sigma[1:3]
-# ss_run_M$estimated_params$ln_rec_sigma <- run_list[[1]]$estimated_params$ln_rec_sigma[1:3]
-# ms_run$estimated_params$ln_rec_sigma <- run_list[[2]]$estimated_params$ln_rec_sigma[1:3]
-
 ## Sampling period
 sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 
