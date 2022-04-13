@@ -24,10 +24,16 @@ for(i in 1:length(dir_no_cap_names)){
   plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E")
   plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
-  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E")
-  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
-  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
+  
+  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  
+  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E")
   
   # - Unload for memory
   rm(mse3)
