@@ -39,10 +39,10 @@ ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
 
 # For the a multispecies model starting from the single species parameters, the following can be specified to load the data:
 data("BS2017MS") # Note: the only difference is the residual mortality (M1_base) is lower
-BS2017MS$est_M1 <- c(1,1,1) # Estimate residual M
+BS2017MS$est_M1 <- c(0,0,0) # Estimate residual M
 BS2017MS$projyr <- 2060
 ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
-                            inits = ss_run_M$estimated_params, # Initial parameters from single species ests
+                            inits = ss_run$estimated_params, # Initial parameters from single species ests
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
                             niter = 3, # 10 iterations around population and predation dynamics

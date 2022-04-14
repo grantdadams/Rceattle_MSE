@@ -58,8 +58,6 @@ mse4 <- mse_run(om = ss_run, em = ss_run_M_Tier3, nsim = 200, assessment_period 
 
 
 
-
-
 ### OMS
 # 1. Single-species estimate M
 # 2. Multi-species type II
