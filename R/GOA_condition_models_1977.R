@@ -1,6 +1,6 @@
 library(Rceattle)
 
-load("Models/GOA_18_5_1_mod_1-2_2022-03-24.RData")
+load("Models/GOA_18_5_1_mod_1-2_2022-04-14.RData")
 mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 # Ratio of F across Pcod fleets
@@ -20,7 +20,10 @@ ss_run <- mod_list_all[[1]]
 ss_run_M <- mod_list_all[[2]]
 ms_run <- mod_list_all[[3]]
 
-
+# Update future recruitment deviates to match mean rec
+ss_run <- proj_mean_rec(ss_run, update = TRUE)
+ss_run_M <- proj_mean_rec(ss_run_M, update = TRUE)
+ms_run <- proj_mean_rec(ms_run, update = TRUE)
 
 
 # ################################################

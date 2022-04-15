@@ -1,42 +1,68 @@
 library(Rceattle)
 library(tidyr)
+source("R/BSAI_condition_models.R")
+
 
 ## File names# -- NPFMC Tier 3 HCRs No cap
-dir_no_cap_names <- c("Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap")
+dir_no_cap_names <- c("Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-MSE_names <- c("MS-OM, Fix M-No cap", "MS-OM, Est M-No cap", "SS-OM, Fix M-No cap", "SS-OM, Est M-No cap")
+MSE_names <- c("SS-OM, Fix M-No cap", "SS-OM, Est M-No cap", "MS-OM, Fix M-No cap", "MS-OM, Est M-No cap")
+
+ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
+projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run)
+projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run, ms_run)
 
 ## Load and run summary
 for(i in 1:length(dir_no_cap_names)){
   # - Load
   mse3 <- load_mse(dir = dir_no_cap_names[i], file = NULL)
   
+  # - Calculate depletion for multi-species models
+  # -- Update Ftarget and Fspp
+  for(j in 1:length(mse3)){
+    mse3[[j]]$OM$quantities$Ftarget <- projected_models_F[[i]]$quantities$Ftarget #FIXME - remove upon reupdate of Rceattle
+    mse3[[j]]$OM$quantities$F_spp <- mse3[[j]]$OM$quantities$F_spp / mse3[[j]]$OM$data_list$nages  #FIXME - remove upon reupdate of Rceattle
+    mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp <- mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp / mse3[[j]]$OM$data_list$nages #FIXME - remove upon reupdate of Rceattle
+    
+    if(i > 2){
+      mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
+      mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
+      mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
+    }
+  }
+  
   # - Performance metrics
   mse_metrics <- mse_summary(mse3)
   mse_metrics <- mse_metrics[1:3,-c(2:3)]
   mse_metrics <- pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
-  write.csv(mse_metrics, file = paste0("Results/EBS_table", MSE_names[i]))
+  colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names[i])
+  
+  if(i == 1){mse_metrics_complete = mse_metrics}
+  if(i != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "name"))}
+  write.csv(mse_metrics, file = paste0("Results/EBS_table", MSE_names[i],".csv"))
   
   # - Plot
-  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/EBS true ", MSE_names[i]), line_col  = "#04395E")
-  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
+  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1)
+  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1)
   
-  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
   plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
-  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
   plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
   plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/EBS true ", MSE_names[i]), line_col  = "#04395E")
   plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
   plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E")
-  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#04395E")
   
   plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E")
   
   # - Unload for memory
   rm(mse3)
 }
+
+write.csv(mse_metrics_complete, file = paste0("Results/EBS_table.csv"))
 
 

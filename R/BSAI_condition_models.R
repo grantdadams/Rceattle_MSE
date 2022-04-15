@@ -52,6 +52,11 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
                             verbose = 1)
 
 
+# Update future recruitment deviates to match mean rec
+ss_run <- proj_mean_rec(ss_run, update = TRUE)
+ss_run_M <- proj_mean_rec(ss_run_M, update = TRUE)
+ms_run <- proj_mean_rec(ms_run, update = TRUE)
+
 
 # ################################################
 # # Fixed M w/ harvest control rules
@@ -94,8 +99,8 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
 
 # -- NPFMC Tier 3
 ss_run_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS,
-                                  inits = ss_run$estimated_params, # Initial parameters from ss_run
-                                  estimateMode = 2, # Run projection only
+                                  inits = NULL,
+                                  estimateMode = 0, # Run projection only
                                   HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                   FsprTarget = 0.4, # F40%
                                                   FsprLimit = 0.35, # F35%
