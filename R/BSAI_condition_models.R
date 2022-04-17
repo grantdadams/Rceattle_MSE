@@ -51,6 +51,23 @@ ms_run <- Rceattle::fit_mod(data_list = BS2017MS,
                             suitMode = 0, # empirical suitability
                             verbose = 1)
 
+BS2017MS$fleet_control$proj_F_prop <- rep(1, 7)
+ms_run_f25 <- Rceattle::fit_mod(data_list = BS2017MS,
+                            inits = ms_run$estimated_params, # Initial parameters from single species ests
+                            file = NULL, # Don't save
+                            estimateMode = 2, # Estimate projection only
+                            niter = 3, # 10 iterations around population and predation dynamics
+                            HCR = build_hcr(HCR = 3, # Constant F HCR
+                                            DynamicHCR = FALSE, # Use dynamic reference points
+                                            FsprTarget = 0.25),
+                            random_rec = FALSE, # No random recruitment
+                            msmMode = 1, # MSVPA based
+                            suitMode = 0, # empirical suitability
+                            verbose = 1)
+
+plot_ssb(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
+plot_catch(list(ms_run, ms_run_f25), incl_proj = TRUE)
+
 
 # Update future recruitment deviates to match mean rec
 ss_run <- proj_mean_rec(ss_run, update = TRUE)

@@ -6,11 +6,13 @@ source("R/BSAI_condition_models.R")
 ## File names# -- NPFMC Tier 3 HCRs No cap
 dir_no_cap_names <- c("Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-MSE_names <- c("SS-OM, Fix M-No cap", "SS-OM, Est M-No cap", "MS-OM, Fix M-No cap", "MS-OM, Est M-No cap")
+MSE_names <- c("SS-OM_Fix M-No cap", "SS-OM_Est M-No cap", "MS-OM_Fix M-No cap", "MS-OM_Est M-No cap")
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
 projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run)
-projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run, ms_run)
+projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25)
+
+plot_biomass(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
 
 ## Load and run summary
 for(i in 1:length(dir_no_cap_names)){
@@ -28,6 +30,7 @@ for(i in 1:length(dir_no_cap_names)){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
+      mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
     }
   }
   
@@ -38,7 +41,7 @@ for(i in 1:length(dir_no_cap_names)){
   colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names[i])
   
   if(i == 1){mse_metrics_complete = mse_metrics}
-  if(i != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "name"))}
+  if(i != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "Performance metric"))}
   write.csv(mse_metrics, file = paste0("Results/EBS_table", MSE_names[i],".csv"))
   
   # - Plot
