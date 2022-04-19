@@ -1,4 +1,5 @@
 library(Rceattle)
+library(dplyr)
 
 ################################################
 # Data
@@ -69,12 +70,6 @@ plot_ssb(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = T
 plot_catch(list(ms_run, ms_run_f25), incl_proj = TRUE)
 
 
-# Update future recruitment deviates to match mean rec
-ss_run <- proj_mean_rec(ss_run, update = TRUE)
-ss_run_M <- proj_mean_rec(ss_run_M, update = TRUE)
-ms_run <- proj_mean_rec(ms_run, update = TRUE)
-
-
 # ################################################
 # # Fixed M w/ harvest control rules
 # ################################################
@@ -116,8 +111,8 @@ ms_run <- proj_mean_rec(ms_run, update = TRUE)
 
 # -- NPFMC Tier 3
 ss_run_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS,
-                                  inits = NULL,
-                                  estimateMode = 0, # Run projection only
+                                  inits = ss_run$estimated_params,
+                                  estimateMode = 2, # Run projection only
                                   HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                   FsprTarget = 0.4, # F40%
                                                   FsprLimit = 0.35, # F35%

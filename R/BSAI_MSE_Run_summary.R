@@ -13,6 +13,8 @@ projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run)
 projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25)
 
 plot_biomass(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
+plot_depletionSSB(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
+plot_biomass(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 
 ## Load and run summary
 for(i in 1:length(dir_no_cap_names)){
@@ -30,6 +32,7 @@ for(i in 1:length(dir_no_cap_names)){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
+      mse3[[j]]$OM$data_list$Ptarget <- 0.25 # Update SB0
       mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
     }
   }
