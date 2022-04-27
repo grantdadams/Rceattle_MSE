@@ -36,6 +36,15 @@ ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
                               phase = "default",
                               verbose = 1)
 
+ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
+                              inits = ss_run_M$estimated_params, # Initial parameters = 0
+                              file = NULL, # Don't save
+                              estimateMode = 1, # Estimate hindcast only
+                              random_rec = FALSE, # No random recruitment
+                              msmMode = 0, # Single species mode
+                              phase = "default",
+                              verbose = 1)
+
 
 
 # For the a multispecies model starting from the single species parameters, the following can be specified to load the data:
@@ -238,7 +247,8 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                     Plimit = 0.2, # No fishing when SB<SB20
                                                     Alpha = 0.2),
                                     msmMode = 0, # Single species mode
-                                    verbose = 1)
+                                    verbose = 1,
+                                    updateM1 = FALSE)
 
 # 
 # ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = BS2017SS_M,
