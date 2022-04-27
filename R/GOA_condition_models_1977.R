@@ -75,7 +75,8 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                   Plimit = 0.2, # No fishing when SB<SB20
                                                   Alpha = 0.2),
                                   msmMode = 0, # Single species mode
-                                  verbose = 1)
+                                  verbose = 1,
+                                  updateM1 = FALSE)
 
 # 
 # ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
@@ -261,3 +262,21 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 #                                            ),
 #                                            msmMode = 0, # Single species mode
 #                                            verbose = 1)
+
+# ################################################
+# # Multi-species model w/ harvest control rules
+# ################################################
+
+ms_run_f25 <- Rceattle::fit_mod(data_list = ms_run$data_list,
+                                inits = ms_run$estimated_params, # Initial parameters from single species ests
+                                file = NULL, # Don't save
+                                estimateMode = 2, # Estimate projection only
+                                niter = 3, # 10 iterations around population and predation dynamics
+                                HCR = build_hcr(HCR = 3, # Constant F HCR
+                                                DynamicHCR = FALSE, # Use dynamic reference points
+                                                FsprTarget = 0.25),
+                                random_rec = FALSE, # No random recruitment
+                                msmMode = 1, # MSVPA based
+                                suitMode = 0, # empirical suitability
+                                updateM1 = FALSE,
+                                verbose = 1)
