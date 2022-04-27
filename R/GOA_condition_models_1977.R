@@ -1,6 +1,6 @@
 library(Rceattle)
 
-load("Models/GOA_18_5_1_mod_1-2_2022-04-14.RData")
+load("Models/GOA_18_5_1_mod_1-2_2022-04-27.RData")
 mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 # Ratio of F across Pcod fleets
@@ -19,11 +19,6 @@ for(i in 1:3){
 ss_run <- mod_list_all[[1]]
 ss_run_M <- mod_list_all[[2]]
 ms_run <- mod_list_all[[3]]
-
-# Update future recruitment deviates to match mean rec
-ss_run <- proj_mean_rec(ss_run, update = TRUE)
-ss_run_M <- proj_mean_rec(ss_run_M, update = TRUE)
-ms_run <- proj_mean_rec(ms_run, update = TRUE)
 
 
 # ################################################
@@ -73,7 +68,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                   FsprTarget = 0.4, # F40%
                                                   FsprLimit = 0.35, # F35%
                                                   Plimit = 0.2, # No fishing when SB<SB20
-                                                  Alpha = 0.2),
+                                                  Alpha = 0.05),
                                   msmMode = 0, # Single species mode
                                   verbose = 1,
                                   updateM1 = FALSE)
@@ -87,7 +82,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
 #                                                          FsprTarget = 0.4, # F40%
 #                                                          FsprLimit = 0.35, # F35%
 #                                                          Plimit = 0.2, # No fishing when SB<SB20
-#                                                          Alpha = 0.2),
+#                                                          Alpha = 0.05),
 #                                          msmMode = 0, # Single species mode
 #                                          verbose = 1)
 # 
@@ -193,9 +188,10 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                     FsprTarget = 0.4, # F40%
                                                     FsprLimit = 0.35, # F35%
                                                     Plimit = 0.2, # No fishing when SB<SB20
-                                                    Alpha = 0.2),
+                                                    Alpha = 0.05),
                                     msmMode = 0, # Single species mode
-                                    verbose = 1)
+                                    verbose = 1,
+                                    updateM1 = FALSE)
 
 
 # ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -206,7 +202,7 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 #                                                            FsprTarget = 0.4, # F40%
 #                                                            FsprLimit = 0.35, # F35%
 #                                                            Plimit = 0.2, # No fishing when SB<SB20
-#                                                            Alpha = 0.2),
+#                                                            Alpha = 0.05),
 #                                            msmMode = 0, # Single species mode
 #                                            verbose = 1)
 # 
