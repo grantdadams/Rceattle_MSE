@@ -36,15 +36,6 @@ ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
                               phase = "default",
                               verbose = 1)
 
-ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
-                              inits = ss_run_M$estimated_params, # Initial parameters = 0
-                              file = NULL, # Don't save
-                              estimateMode = 1, # Estimate hindcast only
-                              random_rec = FALSE, # No random recruitment
-                              msmMode = 0, # Single species mode
-                              phase = "default",
-                              verbose = 1)
-
 
 # -- NPFMC Tier 3
 ss_run_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS,
@@ -110,7 +101,7 @@ ss_run_M_Tier3_double$data_list$comp_data <- sim_dat$comp_data
 # Restimate
 ss_run_M_Tier3_double <- fit_mod(
   data_list = ss_run_M_Tier3_double$data_list,
-  inits = ss_run_M_Tier3_double$estimated_params,
+  inits = ss_run_Tier3_fixm2$estimated_params,
   map =  NULL,
   bounds = NULL,
   file = NULL,
@@ -137,8 +128,11 @@ ss_run_M_Tier3_double <- fit_mod(
   getsd = FALSE,
   verbose = 1)
 
+ss_run_M_Tier3_double$quantities$M1[1,1,1]
 
-# Profile
+# --------------------------------------
+# Profile M1
+# --------------------------------------
 M1_seq <- seq(from = 0.15, to = 0.8, by = 0.05)
 mod_list <- list()
 for(i in 1:length(M1_seq)){
@@ -183,22 +177,21 @@ jnll_row[5,] = jnll_row[5,] + jnll_row[8,]
 jnll_row[11,] = jnll_row[11,] + jnll_row[12,]
 rows <- c(1,2,3,5,11)
 
-plot(x = M1_seq, y = (jnll-min(jnll))/(max(jnll)-min(jnll)), ylab = "Relative nll", xlab = "M", type = "l", lwd = 2)
+plot(x = M1_seq, y = (jnll-min(jnll))/(max(jnll)-min(jnll)), ylab = "Relative nll", xlab = "M", type = "l", lwd = 4)
 for(j in 1:length(rows)){
   i = rows[j]
-  lines(x = M1_seq, y = (jnll_row[i,]-min(jnll_row[i,]))/(max(jnll_row[i,])-min(jnll_row[i,])), col = j+1)
+  lines(x = M1_seq, y = (jnll_row[i,]-min(jnll_row[i,]))/(max(jnll_row[i,])-min(jnll_row[i,])), col = j+1, lwd = 3)
 }
-legend("top", c("NLL", rownames(jnll_row)[rows]), bty = "n", col = 1:(length(rows)+1), lty = rep(1,(length(rows)+1)))
-
-
-
-mse8rdouble <- mse_run(om = ss_run_Tier3_fixm2_double, em = ss_run_M_Tier3_double, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+legend("top", c("NLL", rownames(jnll_row)[rows]), bty = "n", col = 1:(length(rows)+1), lty = rep(1,(length(rows)+1)), lwd = rep(3,(length(rows)+1)))
 
 
 
 
-################################################
-# plot
+# --------------------------------------
+# plot mse
+# --------------------------------------
+mse8rdouble <- mse_run(om = ss_run_Tier3_fixm2_double, em = ss_run_M_Tier3_double, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
 mse_list <- list(mse8rdouble)
 
 MSE_names <- c("Tests/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (8 times sampling)/")
@@ -285,5 +278,267 @@ for(i in 1:length(mse_list)){
   }
   dev.off()
 }
+
+# --------------------------------------
+# Turn off rec devs
+# --------------------------------------
+# - Add more sampling
+fut_sample = 4
+ss_run_Tier3_fixm2_double <- ss_run_Tier3_fixm2
+ss_run_Tier3_fixm2_double$data_list$srv_biom$Log_sd <- ss_run_Tier3_fixm2_double$data_list$srv_biom$Log_sd / fut_sample
+ss_run_Tier3_fixm2_double$data_list$comp_data$Sample_size <- ss_run_Tier3_fixm2_double$data_list$comp_data$Sample_size * fut_sample
+
+ss_run_M_Tier3_double <- ss_run_M_Tier3
+ss_run_M_Tier3_double$data_list$srv_biom$Log_sd <- ss_run_M_Tier3_double$data_list$srv_biom$Log_sd / fut_sample
+ss_run_M_Tier3_double$data_list$comp_data$Sample_size <- ss_run_M_Tier3_double$data_list$comp_data$Sample_size * fut_sample
+
+sim_mod_noRdev <- ss_run_Tier3_fixm2_double
+hind_nyrs <- length(sim_mod_noRdev$data_list$styr:sim_mod_noRdev$data_list$endyr)
+
+# Replace rec devs
+for(sp in 1:3){
+  rec_dev <- rep(log(mean(sim_mod_noRdev$quantities$R[sp,1:hind_nyrs])) - sim_mod_noRdev$estimated_params$ln_mean_rec[sp],
+                 times = ncol(sim_mod_noRdev$quantities$R))
+  
+  # - Update OM with devs
+  sim_mod_noRdev$estimated_params$rec_dev[sp,1:hind_nyrs] <- replace(
+    sim_mod_noRdev$estimated_params$rec_dev[sp,1:hind_nyrs],
+    values =  rec_dev)
+}
+
+
+# -- Update model with no rec devs
+sim_mod_noRdev <- Rceattle::fit_mod(data_list = sim_mod_noRdev$data_list,
+                                    inits = sim_mod_noRdev$estimated_params,
+                                    estimateMode = 2, # Run projection only
+                                    HCR = build_hcr(HCR = 5, # Tier3 HCR
+                                                    FsprTarget = 0.4, # F40%
+                                                    FsprLimit = 0.35, # F35%
+                                                    Plimit = 0.2, # No fishing when SB<SB20
+                                                    Alpha = 0.2),
+                                    msmMode = 0, # Single species mode
+                                    verbose = 1)
+plot_recruitment(sim_mod_noRdev, incl_proj = TRUE)
+sim_mod_noRdev$quantities$M1[,1,]
+
+
+# - Simulate index and comp data and updatae EM
+sim_dat_dev <- sim_mod(ss_run_Tier3_fixm2_double, simulate = FALSE)
+sim_dat <- sim_mod(sim_mod_noRdev, simulate = FALSE)
+
+ss_run_M_Tier3_double$data_list$srv_biom <- sim_dat$srv_biom
+ss_run_M_Tier3_double$data_list$comp_data <- sim_dat$comp_data
+
+# Turn off rec dev
+inits <- ss_run_M_Tier3_double$estimated_params
+inits$rec_dev <- replace(inits$rec_dev, values = 0)
+
+map <- build_map(data_list = ss_run_M_Tier3_double$data_list, params = inits, debug = FALSE, random_rec = FALSE)
+map$mapList$rec_dev <- replace(map$mapList$rec_dev, values = NA)
+map$mapFactor$rec_dev <- as.factor(map$mapList$rec_dev)
+
+# Restimate and estimate M
+ss_run_M_Tier3_double <- fit_mod(
+  data_list = ss_run_M_Tier3_double$data_list,
+  inits = inits,
+  map =  map,
+  bounds = NULL,
+  file = NULL,
+  estimateMode = 0, # Run hindcast and projection, otherwise debug
+  HCR = build_hcr(HCR = ss_run_M_Tier3_double$data_list$HCR, # Tier3 HCR
+                  DynamicHCR = ss_run_M_Tier3_double$data_list$DynamicHCR,
+                  FsprTarget = ss_run_M_Tier3_double$data_list$FsprTarget,
+                  FsprLimit = ss_run_M_Tier3_double$data_list$FsprLimit,
+                  Ptarget = ss_run_M_Tier3_double$data_list$Ptarget,
+                  Plimit = ss_run_M_Tier3_double$data_list$Plimit,
+                  Alpha = ss_run_M_Tier3_double$data_list$Alpha,
+                  Pstar = ss_run_M_Tier3_double$data_list$Pstar,
+                  Sigma = ss_run_M_Tier3_double$data_list$Sigma
+  ),
+  random_rec = ss_run_M_Tier3_double$data_list$random_rec,
+  niter = ss_run_M_Tier3_double$data_list$niter,
+  msmMode = ss_run_M_Tier3_double$data_list$msmMode,
+  avgnMode = ss_run_M_Tier3_double$data_list$avgnMode,
+  minNByage = ss_run_M_Tier3_double$data_list$minNByage,
+  suitMode = ss_run_M_Tier3_double$data_list$suitMode,
+  phase = "default",
+  updateM1 = FALSE,
+  loopnum = 3,
+  getsd = FALSE,
+  verbose = 1)
+
+plot_recruitment(ss_run_M_Tier3_double, incl_proj = TRUE)
+ss_run_M_Tier3_double$quantities$M1[,1,]
+ss_run_M_Tier3_double$estimated_params$init_dev[,]
+
+
+
+# --------------------------------------
+# Turn off rec devs and init devs
+# --------------------------------------
+# - Add more sampling
+fut_sample = 4
+ss_run_Tier3_fixm2_double <- ss_run_Tier3_fixm2
+ss_run_Tier3_fixm2_double$data_list$srv_biom$Log_sd <- ss_run_Tier3_fixm2_double$data_list$srv_biom$Log_sd / fut_sample
+ss_run_Tier3_fixm2_double$data_list$comp_data$Sample_size <- ss_run_Tier3_fixm2_double$data_list$comp_data$Sample_size * fut_sample
+
+ss_run_M_Tier3_double <- ss_run_M_Tier3
+ss_run_M_Tier3_double$data_list$srv_biom$Log_sd <- ss_run_M_Tier3_double$data_list$srv_biom$Log_sd / fut_sample
+ss_run_M_Tier3_double$data_list$comp_data$Sample_size <- ss_run_M_Tier3_double$data_list$comp_data$Sample_size * fut_sample
+
+sim_mod_noRdev <- ss_run_Tier3_fixm2_double
+hind_nyrs <- length(sim_mod_noRdev$data_list$styr:sim_mod_noRdev$data_list$endyr)
+
+# Replace rec devs
+sim_mod_noRdev$estimated_params$rec_dev <- replace(sim_mod_noRdev$estimated_params$rec_dev, values = 0)
+sim_mod_noRdev$estimated_params$init_dev <- replace(sim_mod_noRdev$estimated_params$init_dev, values = 0)
+
+# -- Update model with no rec devs
+map <- build_map(data_list = sim_mod_noRdev$data_list, params = sim_mod_noRdev$estimated_params, debug = FALSE, random_rec = FALSE)
+map$mapList$rec_dev <- replace(map$mapList$rec_dev, values = NA)
+map$mapFactor$rec_dev <- as.factor(map$mapList$rec_dev)
+
+map$mapList$init_dev <- replace(map$mapList$init_dev, values = NA)
+map$mapFactor$init_dev <- as.factor(map$mapList$init_dev)
+
+sim_mod_noRdev <- Rceattle::fit_mod(data_list = sim_mod_noRdev$data_list,
+                                    inits = sim_mod_noRdev$estimated_params,
+                                    map = map,
+                                    estimateMode = 0, # Run projection only
+                                    HCR = build_hcr(HCR = 5, # Tier3 HCR
+                                                    FsprTarget = 0.4, # F40%
+                                                    FsprLimit = 0.35, # F35%
+                                                    Plimit = 0.2, # No fishing when SB<SB20
+                                                    Alpha = 0.2),
+                                    msmMode = 0, # Single species mode
+                                    verbose = 1)
+plot_recruitment(sim_mod_noRdev, incl_proj = TRUE)
+sim_mod_noRdev$quantities$M1[,1,]
+sim_mod_noRdev$estimated_params$rec_dev
+sim_mod_noRdev$estimated_params$init_dev
+
+# - Simulate index and comp data and updatae EM
+sim_dat_dev <- sim_mod(ss_run_Tier3_fixm2_double, simulate = FALSE)
+sim_dat <- sim_mod(sim_mod_noRdev, simulate = FALSE)
+
+ss_run_M_Tier3_double$data_list$srv_biom <- sim_dat$srv_biom
+ss_run_M_Tier3_double$data_list$comp_data <- sim_dat$comp_data
+
+
+# Turn off rec dev and init dev in EM
+inits <- ss_run_M_Tier3_double$estimated_params
+inits$rec_dev <- replace(inits$rec_dev, values = 0)
+inits$init_dev <- replace(inits$init_dev, values = 0)
+
+map <- build_map(data_list = ss_run_M_Tier3_double$data_list, params = inits, debug = FALSE, random_rec = FALSE)
+map$mapList$rec_dev <- replace(map$mapList$rec_dev, values = NA)
+map$mapFactor$rec_dev <- as.factor(map$mapList$rec_dev)
+
+map$mapList$init_dev <- replace(map$mapList$init_dev, values = NA)
+map$mapFactor$init_dev <- as.factor(map$mapList$init_dev)
+
+# Restimate and estimate M
+ss_run_M_Tier3_double <- fit_mod(
+  data_list = ss_run_M_Tier3_double$data_list,
+  inits = inits,
+  map =  map,
+  bounds = NULL,
+  file = NULL,
+  estimateMode = 0, # Run hindcast and projection, otherwise debug
+  HCR = build_hcr(HCR = ss_run_M_Tier3_double$data_list$HCR, # Tier3 HCR
+                  DynamicHCR = ss_run_M_Tier3_double$data_list$DynamicHCR,
+                  FsprTarget = ss_run_M_Tier3_double$data_list$FsprTarget,
+                  FsprLimit = ss_run_M_Tier3_double$data_list$FsprLimit,
+                  Ptarget = ss_run_M_Tier3_double$data_list$Ptarget,
+                  Plimit = ss_run_M_Tier3_double$data_list$Plimit,
+                  Alpha = ss_run_M_Tier3_double$data_list$Alpha,
+                  Pstar = ss_run_M_Tier3_double$data_list$Pstar,
+                  Sigma = ss_run_M_Tier3_double$data_list$Sigma
+  ),
+  random_rec = ss_run_M_Tier3_double$data_list$random_rec,
+  niter = ss_run_M_Tier3_double$data_list$niter,
+  msmMode = ss_run_M_Tier3_double$data_list$msmMode,
+  avgnMode = ss_run_M_Tier3_double$data_list$avgnMode,
+  minNByage = ss_run_M_Tier3_double$data_list$minNByage,
+  suitMode = ss_run_M_Tier3_double$data_list$suitMode,
+  phase = "default",
+  updateM1 = FALSE,
+  loopnum = 3,
+  getsd = FALSE,
+  verbose = 1)
+
+plot_recruitment(ss_run_M_Tier3_double, incl_proj = TRUE)
+ss_run_M_Tier3_double$quantities$M1[,1,]
+ss_run_M_Tier3_double$estimated_params$init_dev[,]
+ss_run_M_Tier3_double$estimated_params$rec_dev[,]
+
+
+
+
+# --------------------------------------
+# Profile R0
+# --------------------------------------
+R0_seq <- seq(from = 5, to = 25, by = 1)
+mod_list <- list()
+for(i in 1:length(R0_seq)){
+  mod_tmp <- ss_run_M_Tier3_double
+  mod_tmp$estimated_params$ln_mean_rec[1] <- R0_seq[i]
+  
+  # Fix R0 in map
+  map$mapList$ln_mean_rec[1] <- NA
+  map$mapFactor$ln_mean_rec <- as.factor(map$mapList$ln_mean_rec)
+  
+  # Estimate
+  mod_list[[i]] <- fit_mod(
+    data_list = mod_tmp$data_list,
+    inits = mod_tmp$estimated_params,
+    map =  map,
+    bounds = NULL,
+    file = NULL,
+    estimateMode = 0, # Run hindcast and projection, otherwise debug
+    HCR = build_hcr(HCR = mod_tmp$data_list$HCR, # Tier3 HCR
+                    DynamicHCR = mod_tmp$data_list$DynamicHCR,
+                    FsprTarget = mod_tmp$data_list$FsprTarget,
+                    FsprLimit = mod_tmp$data_list$FsprLimit,
+                    Ptarget = mod_tmp$data_list$Ptarget,
+                    Plimit = mod_tmp$data_list$Plimit,
+                    Alpha = mod_tmp$data_list$Alpha,
+                    Pstar = mod_tmp$data_list$Pstar,
+                    Sigma = mod_tmp$data_list$Sigma
+    ),
+    random_rec = mod_tmp$data_list$random_rec,
+    niter = mod_tmp$data_list$niter,
+    msmMode = mod_tmp$data_list$msmMode,
+    avgnMode = mod_tmp$data_list$avgnMode,
+    minNByage = mod_tmp$data_list$minNByage,
+    suitMode = mod_tmp$data_list$suitMode,
+    phase = "default",
+    updateM1 = FALSE,
+    loopnum = 3,
+    getsd = FALSE,
+    verbose = 1)
+}
+
+
+jnll <- sapply(mod_list, function(x) x$quantities$jnll)
+jnll_row <- sapply(mod_list, function(x) rowSums(x$quantities$jnll_comp))
+M1 <- sapply(mod_list, function(x) x$quantities$M1[1,1,1])
+jnll_row[5,] = jnll_row[5,] + jnll_row[8,]
+jnll_row[11,] = jnll_row[11,] + jnll_row[12,]
+rows <- c(1,2,3,5,11)
+
+plot(x = R0_seq, y = (jnll-min(jnll))/(max(jnll)-min(jnll)), ylab = "Relative nll or M", xlab = "log-R0", type = "l", lwd = 4)
+for(j in 1:length(rows)){
+  i = rows[j]
+  lines(x = R0_seq, y = (jnll_row[i,]-min(jnll_row[i,]))/(max(jnll_row[i,])-min(jnll_row[i,])), col = j+1, lwd = 3)
+}
+lines(x = R0_seq, y = M1, col = 1, lwd = 3, lty = 2)
+lines(x = R0_seq, y = (jnll-min(jnll))/(max(jnll)-min(jnll)), lwd = 3)
+abline(h = 0.3, lty = 1, col = "grey60", lwd = 2)
+abline(v = R0_seq[13], lty = 3)
+text(y = 0.4, x = R0_seq[13], "M/R0 at min jnll", adj = c(-0.1,1))
+
+legend("top", c("NLL", rownames(jnll_row)[rows], "Estimated M", "True M"), bty = "n", col = c(1:(length(rows)+1), 1, "grey60"), lty = c(rep(1,(length(rows)+1)), 2,1), lwd = rep(3,(length(rows)+2)))
+
 
 

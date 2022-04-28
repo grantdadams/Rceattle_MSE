@@ -111,25 +111,25 @@ mse9r <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_
 # plot
 mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r)
 
-MSE_names <- c("Tests/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/Test2 - SS Fix M OM, Est M EM/", 
-               "Tests/Test3 - SS Est M OM, Fix M EM/", 
-               "Tests/Test4 - SS Est M OM, Est M EM/", 
-               "Tests/Test5 - MS OM, Fix M EM/", 
-               "Tests/Test6 - MS OM, Est M EM/", 
-               "Tests/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
-               "Tests/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
-               "Tests/Test9 - MS OM, Fix M (age-invariant) EM/",
-               "Tests/Regen/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/Regen/Test2 - SS Fix M OM, Est M EM/", 
-               "Tests/Regen/Test3 - SS Est M OM, Fix M EM/", 
-               "Tests/Regen/Test4 - SS Est M OM, Est M EM/", 
-               "Tests/Regen/Test5 - MS OM, Fix M EM/", 
-               "Tests/Regen/Test6 - MS OM, Est M EM/", 
-               "Tests/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
-               "Tests/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
-               "Tests/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
-               "Tests/Regen/Test9 - MS OM, Fix M (age-invariant) EM/")
+MSE_names <- c("Tests/Bering/Test1 - SS Fix M OM, Fix M EM/", 
+               "Tests/Bering/Test2 - SS Fix M OM, Est M EM/", 
+               "Tests/Bering/Test3 - SS Est M OM, Fix M EM/", 
+               "Tests/Bering/Test4 - SS Est M OM, Est M EM/", 
+               "Tests/Bering/Test5 - MS OM, Fix M EM/", 
+               "Tests/Bering/Test6 - MS OM, Est M EM/", 
+               "Tests/Bering/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
+               "Tests/Bering/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
+               "Tests/Bering/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/Bering/Regen/Test1 - SS Fix M OM, Fix M EM/", 
+               "Tests/Bering/Regen/Test2 - SS Fix M OM, Est M EM/", 
+               "Tests/Bering/Regen/Test3 - SS Est M OM, Fix M EM/", 
+               "Tests/Bering/Regen/Test4 - SS Est M OM, Est M EM/", 
+               "Tests/Bering/Regen/Test5 - MS OM, Fix M EM/", 
+               "Tests/Bering/Regen/Test6 - MS OM, Est M EM/", 
+               "Tests/Bering/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
+               "Tests/Bering/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
+               "Tests/Bering/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
+               "Tests/Bering/Regen/Test9 - MS OM, Fix M (age-invariant) EM/")
 
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
