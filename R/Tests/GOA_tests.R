@@ -197,7 +197,7 @@ for(i in 1:length(mse_list)){
   
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   
-  Year = 2017:2060
+  Year = 2018:2060
   species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
@@ -213,7 +213,7 @@ for(i in 1:length(mse_list)){
   mean_rec2 <- sapply(mod_list, function(x) rowMeans(x$quantities$R[,1:length(x$data_list$styr:x$data_list$endyr)]))
   
   
-  Year = 2017:2060
+  Year = 2018:2060
   species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
@@ -234,3 +234,4 @@ for(i in 1:length(mse_list)){
 }
 
 
+   
