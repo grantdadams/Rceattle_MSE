@@ -62,6 +62,9 @@ mse8 <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_M_Tier3, nsim = 1, assessme
 # - SS-OM: SSM-EM Tier 3 HCR
 mse9 <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
+# - SS-OM: SSM-EM Tier 3 HCR
+mse10 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
 
 ################################################
 # With data regenerated
@@ -89,6 +92,7 @@ mse7r <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_Tier3_fixm2, nsim = 1, ass
 # - SS-OM: SSM-EM Tier 3 HCR
 mse8r <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
+
 ################################################
 # Double sampling effort
 # - SS-OM: SSM-EM Tier 3 HCR
@@ -106,10 +110,13 @@ mse8rdouble <- mse_run(om = ss_run_Tier3_fixm2_double, em = ss_run_M_Tier3_doubl
 # - SS-OM: SSM-EM Tier 3 HCR
 mse9r <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
+# - SS-OM: SSM-EM Tier 3 HCR
+mse10r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
 
 ################################################
 # plot
-mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r)
+mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse10, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r, mse10r)
 
 MSE_names <- c("Tests/Bering/Test1 - SS Fix M OM, Fix M EM/", 
                "Tests/Bering/Test2 - SS Fix M OM, Est M EM/", 
@@ -120,6 +127,7 @@ MSE_names <- c("Tests/Bering/Test1 - SS Fix M OM, Fix M EM/",
                "Tests/Bering/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
                "Tests/Bering/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
                "Tests/Bering/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/Bering/Test10 - SS Fix M OM, Fix M (age-invariant) EM/",
                "Tests/Bering/Regen/Test1 - SS Fix M OM, Fix M EM/", 
                "Tests/Bering/Regen/Test2 - SS Fix M OM, Est M EM/", 
                "Tests/Bering/Regen/Test3 - SS Est M OM, Fix M EM/", 
@@ -129,7 +137,8 @@ MSE_names <- c("Tests/Bering/Test1 - SS Fix M OM, Fix M EM/",
                "Tests/Bering/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
                "Tests/Bering/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
                "Tests/Bering/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
-               "Tests/Bering/Regen/Test9 - MS OM, Fix M (age-invariant) EM/")
+               "Tests/Bering/Regen/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/Bering/Regen/Test10 - SS Fix M OM, Fix M (age-invariant) EM/")
 
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
@@ -187,7 +196,7 @@ for(i in 1:length(mse_list)){
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   
   Year = 2017:2060
-  species = c("Pollock", "Cod", "ATF")
+  species = c("Pollock", "ATF", "Cod")
   png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){
@@ -223,9 +232,6 @@ for(i in 1:length(mse_list)){
 
 
 
-
-Rec <- sapply(check2[[1]], function(x) x$quantities$mean_rec[1])
-SPR0 <- sapply(check2[[1]], function(x) x$quantities$SPR0[1])
-year = 2017:2060
-plot(y = Rec, x = year, type = "l")
-plot(y = SPR0, x = year, type = "l")
+# -------------------
+# - SS-OM: SS-EM Tier 3 HCR
+mse1 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, rec_trend = 0.5)
