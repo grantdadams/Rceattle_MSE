@@ -22,6 +22,7 @@ MSE_names <- c("SS-OM_Fix M-No cap",
                "SS-Est M-OM_Fix M-No cap")
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
+
 projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run, ss_run_M, ss_run_M)
 projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25, ss_run_M_Tier3, ss_run_M_Tier3)
 
