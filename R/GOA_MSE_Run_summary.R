@@ -3,6 +3,7 @@
 ################################################
 source("R/GOA_condition_models_1977.R")
 library(Rceattle)
+library(tidyr)
 
 ## File names# -- NPFMC Tier 3 HCRs No cap
 dir_no_cap_names_GOA <- c("Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap", 

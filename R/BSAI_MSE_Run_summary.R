@@ -36,7 +36,7 @@ for(i in 1:length(dir_no_cap_names)){
   for(j in 1:length(mse3)){
     mse3[[j]]$OM$quantities$Ftarget <- projected_models_F[[i]]$quantities$Ftarget #FIXME - remove upon reupdate of Rceattle
     
-    if(mse3[[j]]$OM$data_list$msmMode == 1O){
+    if(mse3[[j]]$OM$data_list$msmMode == 1){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
