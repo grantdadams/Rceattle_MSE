@@ -28,7 +28,7 @@ for(i in 1:length(dir_no_cap_names)){
     mse3[[j]]$OM$quantities$F_spp <- mse3[[j]]$OM$quantities$F_spp / mse3[[j]]$OM$data_list$nages  #FIXME - remove upon reupdate of Rceattle
     mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp <- mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp / mse3[[j]]$OM$data_list$nages #FIXME - remove upon reupdate of Rceattle
     
-    if(i > 2){
+    if(mse3[[j]]$OM$data_list$msmMode == 1){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
