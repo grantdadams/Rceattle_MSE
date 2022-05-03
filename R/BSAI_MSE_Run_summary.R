@@ -4,9 +4,19 @@ source("R/BSAI_condition_models.R")
 
 
 ## File names# -- NPFMC Tier 3 HCRs No cap
-dir_no_cap_names <- c("Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap")
+dir_no_cap_names <- c("Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap",  
+                      "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", 
+                      "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", 
+                      "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap",
+                      "Runs/EBS/SSM_OM/SS_Tier3_EM/ConstantR/No cap", 
+                      "Runs/EBS/SSM_OM/SS_M_Tier3_EM/ConstantR/No cap")
 
-MSE_names <- c("SS-OM_Fix M-No cap", "SS-OM_Est M-No cap", "MS-OM_Fix M-No cap", "MS-OM_Est M-No cap")
+MSE_names <- c("SS-OM_Fix M-No cap", 
+               "SS-OM_Est M-No cap", 
+               "MS-OM_Fix M-No cap", 
+               "MS-OM_Est M-No cap",
+               "SS-Est M-OM_Est M-No cap", 
+               "SS-Est M-OM_Fix M-No cap")
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
 projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run)
@@ -25,10 +35,8 @@ for(i in 1:length(dir_no_cap_names)){
   # -- Update Ftarget and Fspp
   for(j in 1:length(mse3)){
     mse3[[j]]$OM$quantities$Ftarget <- projected_models_F[[i]]$quantities$Ftarget #FIXME - remove upon reupdate of Rceattle
-    mse3[[j]]$OM$quantities$F_spp <- mse3[[j]]$OM$quantities$F_spp / mse3[[j]]$OM$data_list$nages  #FIXME - remove upon reupdate of Rceattle
-    mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp <- mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$quantities$F_spp / mse3[[j]]$OM$data_list$nages #FIXME - remove upon reupdate of Rceattle
     
-    if(mse3[[j]]$OM$data_list$msmMode == 1){
+    if(mse3[[j]]$OM$data_list$msmMode == 1O){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
