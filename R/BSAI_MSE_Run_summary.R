@@ -1,6 +1,9 @@
+################################################
+# Set-up
+################################################
+source("R/BSAI_condition_models.R")
 library(Rceattle)
 library(tidyr)
-source("R/BSAI_condition_models.R")
 
 
 ## File names# -- NPFMC Tier 3 HCRs No cap
@@ -19,14 +22,17 @@ MSE_names <- c("SS-OM_Fix M-No cap",
                "SS-Est M-OM_Fix M-No cap")
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
-projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run)
-projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25)
+projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run, ss_run_M, ss_run_M)
+projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25, ss_run_M_Tier3, ss_run_M_Tier3)
 
 plot_biomass(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
 plot_depletionSSB(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 plot_biomass(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 
-## Load and run summary
+
+################################################
+# Load and run summary
+################################################
 for(i in 1:length(dir_no_cap_names)){
   # - Load
   mse3 <- load_mse(dir = dir_no_cap_names[i], file = NULL)
@@ -45,6 +51,7 @@ for(i in 1:length(dir_no_cap_names)){
     }
   }
   
+  
   # - Performance metrics
   mse_metrics <- mse_summary(mse3)
   mse_metrics <- mse_metrics[1:3,-c(2:3)]
@@ -55,6 +62,7 @@ for(i in 1:length(dir_no_cap_names)){
   if(i != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "Performance metric"))}
   write.csv(mse_metrics, file = paste0("Results/EBS_table", MSE_names[i],".csv"))
   
+  
   # - Plot
   plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1)
   plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1)
@@ -63,8 +71,6 @@ for(i in 1:length(dir_no_cap_names)){
   
   plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
   plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
-  
-
   
   plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
   plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
@@ -76,6 +82,7 @@ for(i in 1:length(dir_no_cap_names)){
   plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#04395E")
   
   plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E")
+  
   
   # - Unload for memory
   rm(mse3)
