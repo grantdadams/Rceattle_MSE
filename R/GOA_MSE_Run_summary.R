@@ -16,6 +16,7 @@ dir_no_cap_names_GOA <- c("Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap",
 MSE_names <- c("MS-OM_Fix M-No cap", 
                "MS-OM_Est M-No cap", 
                "SS-OM_Fix M-No cap", 
+               "SS-OM_Est M-No cap", 
                "SS-Est M-OM_Est M-No cap", 
                "SS-Est M-OM_Fix M-No cap")
 
@@ -71,7 +72,7 @@ for(i in 1:length(dir_no_cap_names_GOA)){
   plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1)
   plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1)
   
-  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/SSB/GOA Perceived 1-Sim ", MSE_names[i]))
+  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA Perceived 1-Sim ", MSE_names[i]))
   
   plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
   plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40")

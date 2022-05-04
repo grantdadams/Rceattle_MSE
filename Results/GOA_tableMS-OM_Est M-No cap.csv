@@ -1,28 +1,28 @@
 "","Species","Performance metric","MS-OM_Est M-No cap"
-"1","Pollock","Average Catch",400000.714476125
-"2","Pollock","Catch IAV",57701.7429618884
-"3","Pollock","% Years closed",0.41345879669233
-"4","Pollock","Avg terminal SSB MSE",7751145544.16318
-"5","Pollock","EM: P(Fy > Flimit)",0.00256629597946963
-"6","Pollock","EM: P(SSB < SSBlimit)",0.00142232541719283
+"1","Pollock","Average Catch",399555.813455559
+"2","Pollock","Catch IAV",57361.0375924399
+"3","Pollock","% Years closed",0.454170107349298
+"4","Pollock","Avg terminal SSB MSE",8127387870.45087
+"5","Pollock","EM: P(Fy > Flimit)",0.00302780071566199
+"6","Pollock","EM: P(SSB < SSBlimit)",0.00153028456083782
 "7","Pollock","OM: P(Fy > Flimit)",0
-"8","Pollock","OM: P(SSB < SSBlimit)",0.0101226119190191
-"9","Pollock","OM: Terminal SSB/SSBtarget",0.875214327276405
-"10","Arrowtooth flounder","Average Catch",112421.358526212
-"11","Arrowtooth flounder","Catch IAV",1697.66183906859
+"8","Pollock","OM: P(SSB < SSBlimit)",0.0108725571153317
+"9","Pollock","OM: Terminal SSB/SSBtarget",0.877239998366212
+"10","Arrowtooth flounder","Average Catch",112398.599551287
+"11","Arrowtooth flounder","Catch IAV",1699.53388657372
 "12","Arrowtooth flounder","% Years closed",0
-"13","Arrowtooth flounder","Avg terminal SSB MSE",2184059280.9071
+"13","Arrowtooth flounder","Avg terminal SSB MSE",2183770122.07197
 "14","Arrowtooth flounder","EM: P(Fy > Flimit)",0
 "15","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
 "16","Arrowtooth flounder","OM: P(Fy > Flimit)",0
 "17","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
-"18","Arrowtooth flounder","OM: Terminal SSB/SSBtarget",0.446090166865953
-"19","Cod","Average Catch",17413.4215475677
-"20","Cod","Catch IAV",3172.34789236276
-"21","Cod","% Years closed",8.95352152837183
-"22","Cod","Avg terminal SSB MSE",4192843522.95004
+"18","Arrowtooth flounder","OM: Terminal SSB/SSBtarget",0.446082655725067
+"19","Cod","Average Catch",17409.6097049289
+"20","Cod","Catch IAV",3176.43537583711
+"21","Cod","% Years closed",8.98706303330581
+"22","Cod","Avg terminal SSB MSE",4167248730.8116
 "23","Cod","EM: P(Fy > Flimit)",0
-"24","Cod","EM: P(SSB < SSBlimit)",0.0907131315600092
+"24","Cod","EM: P(SSB < SSBlimit)",0.0907979762232446
 "25","Cod","OM: P(Fy > Flimit)",0
-"26","Cod","OM: P(SSB < SSBlimit)",0.0747077274023382
-"27","Cod","OM: Terminal SSB/SSBtarget",0.617218186601601
+"26","Cod","OM: P(SSB < SSBlimit)",0.0747316267547481
+"27","Cod","OM: Terminal SSB/SSBtarget",0.616855280407387
