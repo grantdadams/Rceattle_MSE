@@ -50,8 +50,8 @@ for(i in 1:length(dir_no_cap_names_GOA)){
       
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       
-      mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update Target
-      mse3[[j]]$OM$data_list$Ptarget <- 0.25 # Update Limit
+      mse3[[j]]$OM$data_list$Plimit <- 0.20 # Update Target
+      mse3[[j]]$OM$data_list$Ptarget <- 0.40 # Update Limit
       
       mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
     }
