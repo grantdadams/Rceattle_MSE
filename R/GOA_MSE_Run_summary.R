@@ -50,10 +50,11 @@ for(i in 1:length(dir_no_cap_names_GOA)){
       
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       
-      mse3[[j]]$OM$data_list$Plimit <- 0.20 # Update Target
-      mse3[[j]]$OM$data_list$Ptarget <- 0.40 # Update Limit
+      mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update Target
+      mse3[[j]]$OM$data_list$Ptarget <- 0.45 # Update Limit
       
       mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
+      mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
     }
   }
   
@@ -84,7 +85,7 @@ for(i in 1:length(dir_no_cap_names_GOA)){
   plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
   plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/GOA true ", MSE_names[i]), line_col  = "#04395E")
-  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names[i]), line_col  = "#04395E")
+  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names[i]), line_col  = "#5F0F40")
   
   plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names[i]), line_col  = "#04395E")
   
