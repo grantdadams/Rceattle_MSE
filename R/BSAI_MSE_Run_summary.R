@@ -22,7 +22,6 @@ MSE_names <- c("SS-OM_Fix M-No cap",
                "SS-Est M-OM_Fix M-No cap")
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
-
 projected_models_no_F = list(ss_run, ss_run, ms_run, ms_run, ss_run_M, ss_run_M)
 projected_models_F = list(ss_run_Tier3, ss_run_Tier3, ms_run_f25 , ms_run_f25, ss_run_M_Tier3, ss_run_M_Tier3)
 
@@ -48,6 +47,8 @@ for(i in 1:length(dir_no_cap_names)){
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
       mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
       mse3[[j]]$OM$data_list$Ptarget <- 0.25 # Update SB0
+      
+      mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
       mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
     }
   }
@@ -80,7 +81,7 @@ for(i in 1:length(dir_no_cap_names)){
   plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40")
   
   plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E")
-  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#04395E")
+  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#5F0F40")
   
   plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E")
   
