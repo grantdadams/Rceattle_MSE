@@ -84,7 +84,7 @@ for(i in 1:length(dir_no_cap_names)){
   plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 5, height = 6)
   plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#5F0F40", width = 5, height = 6)
   
-  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 5, height = 6)
+  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E", ymax = c(1e7, 280000, 1e5), width = 5, height = 6)
   
   
   # - Unload for memory

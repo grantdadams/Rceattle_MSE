@@ -88,7 +88,7 @@ for(i in 1:length(dir_no_cap_names_GOA)){
   plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/GOA true ", MSE_names[i]), line_col  = "#04395E", species = c(1,3,2), width = 5, height = 6)
   plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names[i]), line_col  = "#04395E", species = c(1,3,2), width = 5, height = 6)
   
-  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names[i]), line_col  = "#04395E")
+  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names[i]), line_col  = "#04395E", ymax = c(1500000, 30000, 70000, 30000, 60000), width = 5, height = 6)
   
   # - Unload for memory
   rm(mse3)
