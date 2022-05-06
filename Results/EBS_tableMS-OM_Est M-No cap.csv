@@ -6,7 +6,7 @@
 "5","Pollock","EM: P(Fy > Flimit)",0.000465116279069767
 "6","Pollock","EM: P(SSB < SSBlimit)",0.0315170362358031
 "7","Pollock","OM: P(Fy > Flimit)",0
-"8","Pollock","OM: P(SSB < SSBlimit)",0
+"8","Pollock","OM: P(SSB < SSBlimit)",0.000116279069767442
 "9","Pollock","OM: Terminal SSB/SSBtarget",0.978839975057145
 "10","Cod","Average Catch",158152.346643527
 "11","Cod","Catch IAV",3486.65568324741

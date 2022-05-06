@@ -45,8 +45,8 @@ for(i in 1:length(dir_no_cap_names)){
     if(mse3[[j]]$OM$data_list$msmMode == 1){
       mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
       mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
-      mse3[[j]]$OM$data_list$Plimit <- 0.20 # Update SB0
-      mse3[[j]]$OM$data_list$Ptarget <- 0.40 # Update SB0
+      mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update SB0
+      mse3[[j]]$OM$data_list$Ptarget <- 0.25 # Update SB0
       
       mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
       mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
