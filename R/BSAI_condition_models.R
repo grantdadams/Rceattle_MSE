@@ -75,8 +75,8 @@ ms_run_f25 <- Rceattle::fit_mod(data_list = BS2017MS,
                             suitMode = 0, # empirical suitability
                             verbose = 1)
 
-plot_ssb(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
-plot_catch(list(ms_run, ms_run_f25), incl_proj = TRUE)
+# plot_ssb(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj = TRUE)
+# plot_catch(list(ms_run, ms_run_f25), incl_proj = TRUE)
 
 
 # ################################################
