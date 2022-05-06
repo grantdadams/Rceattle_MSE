@@ -29,7 +29,7 @@ plot_biomass(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj
 plot_depletionSSB(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 plot_biomass(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 
-plot_ssb(list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25), model_names = c("Single-species Fix M", "Single-species Est M", "Multi-species"), incl_proj = TRUE, file = "Results/EBS_OM")
+plot_depletionSSB(list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25), model_names = c("Single-species Fix M", "Single-species Est M", "Multi-species"), incl_proj = TRUE, file = "Results/EBS_OM", width = 4.3, height = 4)
 
 ################################################
 # Load and run summary
@@ -67,24 +67,24 @@ for(i in 1:length(dir_no_cap_names)){
   
   
   # - Plot
-  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1, width = 3.3, height = 4)
-  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1, width = 3.3, height = 4)
+  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1, width = 4.3, height = 4)
+  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1, width = 4.3, height = 4)
   
-  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/SSB/EBS Perceived 1-Sim ", MSE_names[i]), width = 3.3, height = 4)
+  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/SSB/EBS Perceived 1-Sim ", MSE_names[i]), width = 4.3, height = 4)
   
-  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], width = 3.3, height = 4)
-  plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 3.3, height = 4)
+  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], width = 4.3, height = 4)
+  plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 4.3, height = 4)
   
-  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], width = 3.3, height = 4)
-  plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 3.3, height = 4)
+  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/EBS true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], width = 4.3, height = 4)
+  plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 4.3, height = 4)
   
-  plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 3.3, height = 4)
-  plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 3.3, height = 4)
+  plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 4.3, height = 4)
+  plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/EBS Perceived ", MSE_names[i]), line_col = "#5F0F40", width = 4.3, height = 4)
   
-  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 3.3, height = 4)
-  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#5F0F40", width = 3.3, height = 4)
+  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/EBS true ", MSE_names[i]), line_col  = "#04395E", width = 4.3, height = 4)
+  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/EBS Perceived ", MSE_names[i]), line_col  = "#5F0F40", width = 4.3, height = 4)
   
-  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E", ymax = c(1e7, 280000, 1e5), width = 3.3, height = 2.5)
+  plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/EBS true ", MSE_names[i]), line_col  = "#04395E", ymax = c(1e7, 280000, 1e5), width = 4.3, height = 2.5)
   
   
   # - Unload for memory
