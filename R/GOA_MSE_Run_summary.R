@@ -30,6 +30,7 @@ plot_biomass(list(ms_run, ms_run_f25), model_names = c("No F", "F25"), incl_proj
 plot_depletionSSB(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 plot_biomass(list(ss_run, ss_run_Tier3, ms_run, ms_run_f25), model_names = c("No F", "F25", "M No F", "M F25"), incl_proj = TRUE)
 
+plot_ssb(list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25), model_names = c("Single-species Fix M", "Single-species Est M", "Multi-species"), incl_proj = TRUE, file = "Results/GOA_OM")
 
 ################################################
 # Load and run summary
@@ -70,22 +71,22 @@ for(i in 1:length(dir_no_cap_names_GOA)){
   
   
   # - Plot
-  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1)
-  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1)
+  plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], top_adj = 1, species = c(1,3,2), width = 5, height = 6)
+  plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", top_adj = 1, species = c(1,3,2), width = 5, height = 6)
   
-  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA Perceived 1-Sim ", MSE_names[i]))
+  plot_depletionSSB(mse3$Sim_18$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA Perceived 1-Sim ", MSE_names[i]), species = c(1,3,2), width = 5, height = 6)
   
-  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
-  plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40")
+  plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], species = c(1,3,2), width = 5, height = 6)
+  plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", species = c(1,3,2))
   
-  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]])
-  plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40")
+  plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/GOA true ", MSE_names[i]), line_col  = "#04395E", reference = projected_models_no_F[[i]], species = c(1,3,2), width = 5, height = 6)
+  plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", species = c(1,3,2), width = 5, height = 6)
   
-  plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/GOA true ", MSE_names[i]), line_col  = "#04395E")
-  plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40")
+  plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/GOA true ", MSE_names[i]), line_col  = "#04395E", species = c(1,3,2), width = 5, height = 6)
+  plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/GOA Perceived ", MSE_names[i]), line_col = "#5F0F40", species = c(1,3,2), width = 5, height = 6)
   
-  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/GOA true ", MSE_names[i]), line_col  = "#04395E")
-  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names[i]), line_col  = "#5F0F40")
+  plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/GOA true ", MSE_names[i]), line_col  = "#04395E", species = c(1,3,2), width = 5, height = 6)
+  plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names[i]), line_col  = "#04395E", species = c(1,3,2), width = 5, height = 6)
   
   plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names[i]), line_col  = "#04395E")
   
