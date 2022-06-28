@@ -70,7 +70,7 @@ mse9 <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_p
 # With data regenerated
 ################################################
 # - SS-OM: SS-EM Tier 3 HCR
-mse1r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+mse1r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - SS-OM: SSM-EM Tier 3 HCR
 mse2r <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)

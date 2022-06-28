@@ -43,6 +43,9 @@ mse5 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 200, assessment_p
 mse6 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SSM_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
 
 
+check <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = NULL, file = NULL)
+
+
 ################################################
 # Management strategy evaluation
 ################################################
@@ -56,7 +59,7 @@ om_names = c("SS_OM", "SSM_OM", "MS_OM")
 # 1. Constant
 # 2. Linear increase 1.5
 # 3. Linear decrease
-rec_scen <- list(1)
+rec_scen <- list(0)
 
 ### Management strategies
 ## EM
@@ -72,43 +75,15 @@ rec_scen <- list(1)
 # 3b. SESSF Tier 1 dynamic HCR
 # 4. Average F
 # 5. Equilibrium F_(40%)
-em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_AvgF, ss_run_Fspr, # Fixed M
-                    ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_AvgF, ss_run_M_Fspr # Estimate M
+em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_Fspr, ss_run_AvgF, # Fixed M
+                    ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
 )
 
 em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_AvgF_EM", "SS_fixM_Fspr_EM", # Fixed M
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_AvgF_EM", "SS_estM_Fspr_EM")
 
 
-
-### Set up parallel processing
-library(foreach)
-library(doParallel)
-
-cores = detectCores() - 2
-registerDoParallel(cores)
-
-
-### Run MSEs
-## Loop across OMs,
-stime <- system.time({
-  mse <- foreach(om = 1:length(om_list)) %:%  # OM model
-    foreach(em = 1:length(em_hcr_list)) %dopar% { # EM and HCR
-      
-      library(Rceattle)
-      library(dplyr)
-      
-      mse <- mse_run(om = om_list[[om]], em = em_hcr_list[[em]], 
-                     nsim = 1, 
-                     assessment_period = 1, sampling_period = sampling_period, 
-                     simulate_data = TRUE, sample_rec = TRUE, 
-                     cap = NULL, 
-                     dir = paste0("Runs/GOA1977/", om_names[om],"/", em_hcr_names[em],"/ConstantR/No cap"), 
-                     file = NULL)
-    }
-})
-
-
-# When you're done, clean up the cluster
-stopImplicitCluster()
+### Run the MSE
+source("R/Run_MSE_loop_function.R")
+run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period)
 

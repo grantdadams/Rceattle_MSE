@@ -1,6 +1,6 @@
 library(Rceattle)
 
-load("Models/GOA_18_5_1_mod_1-2_2022-04-27.RData")
+load("Models/GOA_18_5_1_mod_1-2_2022-05-26.RData")
 mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 # Ratio of F across Pcod fleets
@@ -21,28 +21,35 @@ ss_run_M <- mod_list_all[[2]]
 ms_run <- mod_list_all[[3]]
 
 
-################################################
+################################################i
 # Fixed M w/ harvest control rules
 ################################################
 # -- Avg F
+library(dplyr)
 avg_F <- (exp(ss_run$estimated_params$ln_mean_F+ss_run$estimated_params$F_dev)) # Average F from last 5 years
-avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
+avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
+avg_F <- data.frame(avg_F = avg_F, spp = ss_run$data_list$fleet_control$Species)
+avg_F <- avg_F %>% 
+  group_by(spp) %>%
+  summarise(avg_F = sum(avg_F))
 
 ss_run_AvgF <- fit_mod(data_list = ss_run$data_list,
                        inits = ss_run$estimated_params, # Initial parameters from ss_run_M
-                       estimateMode = 2, # Run projection only
+                       estimateMode = 0, # Run projection only
                        HCR = build_hcr(HCR = 2, # Input F
-                                       FsprTarget = avg_F # F40%
+                                       FsprTarget = avg_F$avg_F, # F40%
+                                       Plimit = 0.2
                        ),
                        msmMode = 0, # Single species mode
-                       verbose = 2)
+                       verbose = 1)
 
 # -- Constant Fspr
 ss_run_Fspr <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                  inits = ss_run$estimated_params, # Initial parameters from ss_run
                                  estimateMode = 2, # Run projection only
                                  HCR = build_hcr(HCR = 4, # Tier3 HCR
-                                                 FsprTarget = 0.4 # F40%
+                                                 FsprTarget = 0.4, # F40%
+                                                 Plimit = 0.2
                                  ),
                                  msmMode = 0, # Single species mode
                                  verbose = 1, updateM1 = FALSE)
@@ -135,12 +142,17 @@ ss_run_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
 # -- Avg F
 avg_F <- (exp(ss_run_M$estimated_params$ln_mean_F+ss_run_M$estimated_params$F_dev)) # Average F from last 5 years
 avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
+avg_F <- data.frame(avg_F = avg_F, spp = ss_run_M$data_list$fleet_control$Species)
+avg_F <- avg_F %>% 
+  group_by(spp) %>%
+  summarise(avg_F = sum(avg_F))
 
 ss_run_M_AvgF <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
-                                   estimateMode = 2, # Run projection only
+                                   estimateMode = 0, # Run projection only
                                    HCR = build_hcr(HCR = 2, # Input F
-                                                   FsprTarget = avg_F # F40%
+                                                   FsprTarget = avg_F$avg_F, # Mean of last 5 years
+                                                   Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
                                    verbose = 1, updateM1 = FALSE)
@@ -150,7 +162,8 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                    estimateMode = 2, # Run projection only
                                    HCR = build_hcr(HCR = 4, # Tier3 HCR
-                                                   FsprTarget = 0.4 # F40%
+                                                   FsprTarget = 0.4, # F40%
+                                                   Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
                                    verbose = 1, updateM1 = FALSE)
