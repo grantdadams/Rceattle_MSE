@@ -223,7 +223,7 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                    estimateMode = 2, # Run projection only
                                    HCR = build_hcr(HCR = 4, # Tier3 HCR
                                                    FsprTarget = 0.4, # F40%
-                                                   Plimite = 0.2
+                                                   Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
                                    verbose = 1)
