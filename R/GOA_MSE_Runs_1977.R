@@ -20,33 +20,6 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 
 
 ################################################
-# Base MSEs (Tier 3 HCR no cap)
-################################################
-## No cap
-# -- NPFMC Tier 3 HCRs
-# - MS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - MS-OM: SSM-EM Tier 3 HCR
-mse2 <- mse_run(om = ms_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SS-EM Tier 3 HCR
-mse3 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SS-EM Tier 3 HCR
-mse5 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SSM_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SSM-EM Tier 3 HCR
-mse6 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SSM_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
-
-
-check <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = NULL, file = NULL)
-
-
-################################################
 # Management strategy evaluation
 ################################################
 ### OMS
@@ -79,11 +52,46 @@ em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynam
                     ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
 )
 
-em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_AvgF_EM", "SS_fixM_Fspr_EM", # Fixed M
-                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_AvgF_EM", "SS_estM_Fspr_EM")
+em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
 ### Run the MSE
 source("R/Run_MSE_loop_function.R")
+
+# No rec trend
 run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period)
+
+# ATF up and down
+run_mse(system = "GOA1977", recname = c("ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(0,1,0), c(0,-0.5,0)))
+
+
+
+
+
+################################################
+# Base MSEs (Tier 3 HCR no cap)
+################################################
+## No cap
+# -- NPFMC Tier 3 HCRs
+# - MS-OM: SS-EM Tier 3 HCR
+mse1 <- mse_run(om = ms_run, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - MS-OM: SSM-EM Tier 3 HCR
+mse2 <- mse_run(om = ms_run, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SS-EM Tier 3 HCR
+mse3 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SSM-EM Tier 3 HCR
+mse4 <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SS-EM Tier 3 HCR
+mse5 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SSM_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
+
+# - SS-OM: SSM-EM Tier 3 HCR
+mse6 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = "Runs/GOA1977/SSM_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+
+
+check <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, cap = NULL, dir = NULL, file = NULL)
 
