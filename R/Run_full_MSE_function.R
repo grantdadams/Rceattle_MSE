@@ -27,6 +27,8 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
         # Load libraries
         library(Rceattle)
         library(dplyr)
+        library(foreach)
+        library(doParallel)
         
         # Update OM if single-species to have save HCR as EM to calculate performance metrics
         if(om_list[[om]]$data_list$msmMode == 0){
