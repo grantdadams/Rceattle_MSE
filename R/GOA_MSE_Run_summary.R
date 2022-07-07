@@ -117,7 +117,7 @@ for(om in 1:length(om_list)){  # OM model
     
     if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
     if(om != 1 | em != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "Performance metric"))}
-    write.csv(mse_metrics, file = paste0("Results/GOA_table", MSE_names,".csv"))
+    write.csv(mse_metrics, file = paste0("Results/Tables/GOA/GOA_table_", MSE_names,".csv"))
     
     
     # STEP 4 - Plot
@@ -145,4 +145,4 @@ for(om in 1:length(om_list)){  # OM model
   }
 }
 
-write.csv(mse_metrics_complete, file = paste0("Results/GOA_table_full.csv"))
+write.csv(mse_metrics_complete, file = paste0("Results/Tables/GOA_table_full.csv"))
