@@ -145,4 +145,4 @@ for(om in 1:length(om_list)){  # OM model
   }
 }
 
-write.csv(mse_metrics_complete, file = paste0("Results/GOA_table_full.csv"))
+write.csv(mse_metrics_complete, file = paste0("Results/Tables/GOA_table_full.csv"))
