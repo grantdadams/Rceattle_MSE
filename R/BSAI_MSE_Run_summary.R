@@ -115,7 +115,7 @@ for(om in 1:length(om_list)){  # OM model
     colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
     
     if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
-    if(om != 1 | em != 1){mse_metrics_complete = merge(mse_metrics_complete, mse_metrics, by = c("Species", "Performance metric"))}
+    if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
     write.csv(mse_metrics, file = paste0("Results/Tables/EBS/EBS_table_", MSE_names,".csv"))
     
     

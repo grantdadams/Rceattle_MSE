@@ -50,7 +50,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
         }
         
         # Run MSE
-        mse <- mse_run_parallel(om = om_list[[om]], em = em_hcr_list[[em]], 
+        mse <- mse_run(om = om_list[[om]], em = em_hcr_list[[em]], 
                        nsim = 200, 
                        seed = 666, regenerate_seed = 666,
                        assessment_period = 1, sampling_period = sampling_period, 
