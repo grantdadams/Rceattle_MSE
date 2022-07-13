@@ -102,7 +102,7 @@ for(om in 1:length(om_list)){  # OM model
         mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
         
         mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update Target
-        mse3[[j]]$OM$data_list$Ptarget <- 0.45 # Update Limit
+        mse3[[j]]$OM$data_list$Ptarget <- 0.40 # Update Limit
         
         mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
         mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
@@ -124,7 +124,7 @@ for(om in 1:length(om_list)){  # OM model
     plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
     plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
     
-    plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
+    plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA 1 Sim/GOA Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
     
     plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
     plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2))

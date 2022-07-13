@@ -83,6 +83,15 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     }
   }
   
+  # Make % to prob - 
+  #FIXME - remove later
+  reverse_percentage <- c("% Years closed")
+  
+  row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
+  
+  EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]/100
+  GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]/100
+  
   if(reverse){
     # Make larger number better
     reverse_percentage <- c("% Years closed",

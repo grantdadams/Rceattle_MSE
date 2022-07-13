@@ -1,0 +1,161 @@
+---
+title: "Depletion and F plots"
+author: "Grant Adams"
+date: "7/12/2022"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+\newpage
+```{r, echo=FALSE, warning=FALSE}
+# Install pacman
+if (!require("pacman")) install.packages("pacman")
+# p_load function loads packages if installed, or install then loads otherwise
+pacman::p_load(dplyr, ggplot2, knitr, kableExtra, readr, pander)
+```
+
+
+
+```{r, include=TRUE, echo=FALSE, results = "asis"}
+panderOptions("table.split.table", "Inf") # Dont splits the table up
+panderOptions('keep.line.breaks', TRUE)
+panderOptions('knitr.auto.asis', FALSE)
+
+om_names_print = c("SS fix M OM", "SS est M OM", "MS OM")
+om_names = c("SS_OM", "SSM_OM", "MS_OM")
+
+
+em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
+                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM",
+                  
+                  "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM",
+                  "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", 
+                  
+                  "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", 
+                  "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM",
+                  
+                  "SS_fixM_Fspr_EM", "SS_estM_Fspr_EM",  
+                  
+                  "SS_fixM_AvgF_EM", "SS_estM_AvgF_EM")
+EM_names_print <-  c("Fix M: HCR 1a (NPFMC)", "Fix M: HCR 1b (NPFMC)", 
+                     "Est M: HCR 1a (NPFMC)", "Est M: HCR 1b (NPFMC)",
+                     "Fix M: HCR 2a (PFMC)", "Fix M: HCR 2b (PFMC)", 
+                     "Est M: HCR 2a (PFMC)", "Est M: HCR 2b (PFMC)", 
+                     "Fix M: HCR 3a (SESSF)", "Fix M: HCR 3b (SESSF)", 
+                     "Est M: HCR 3a (SESSF)", "Est M: HCR 3b (SESSF)", 
+                     "Fix M: HCR 4 (NEFMC)", "Est M: HCR 4 (NEFMC)",
+                     "Fix M: HCR 5 (Avg F)", "Est M: HCR 5 (Avg F)")
+
+
+
+
+# Depletion
+#-------------------
+# EBS
+print(paste0("Supplementary Figure 3a. Time-series of spawning stock depletion as determined from the operating model (OM; left) and terminal estimation model in the EBS under experiment 1. Depletion under equilibrium given no fishing is indicated by the black line and target and limit depletion is indicated by the blue and red lines, respectively."))
+for(em in 1:length(em_hcr_names)){ # EM and HCR
+  MSE_names <- paste0(om_names,"__", em_hcr_names[em])
+  print(paste0("newpar3a.",em,". EBS - ", EM_names_print[em]))
+  #-------------------
+  # EBS
+  
+  file_true = paste0("../Results/Figures/Depletion/EBS true ", MSE_names,"_depletionssb_trajectory.png")
+  file_perceived = paste0("../Results/Figures/Depletion/EBS Perceived ", MSE_names,"_depletionssb_trajectory.png")
+  
+  dataframe_print = data.frame(Scenario = paste0(om_names_print," newline ",EM_names_print[em]), "Operating model" = file_true, "Estimation model" = file_perceived)
+  
+  dataframe_print %>%
+    mutate(Operating.model = Operating.model %>% pander::pandoc.image.return(),
+           Estimation.model = Estimation.model %>% pander::pandoc.image.return()) %>%
+    mutate(Operating.model = paste0(Operating.model,"{width='2.15in'}"),
+           Estimation.model = paste0(Estimation.model,"{width='2.15in'}")) %>%
+    pander()
+  
+  cat("\n\n\\pagebreak\n")
+}
+
+
+#-------------------
+# GOA
+print(paste0("Supplementary Figure 3b. Time-series of spawning stock depletion as determined from the operating model (OM; left) and terminal estimation model in the GOA under experiment 1. Depletion under equilibrium given no fishing is indicated by the black line and target and limit depletion is indicated by the blue and red lines, respectively."))
+for(em in 1:length(em_hcr_names)){ # EM and HCR
+  MSE_names <- paste0(om_names,"__", em_hcr_names[em])
+  print(paste0("newpar3b.",em,". GOA - ", EM_names_print[em]))
+  
+  file_true = paste0("../Results/Figures/Depletion/GOA true ", MSE_names,"_depletionssb_trajectory.png")
+  file_perceived = paste0("../Results/Figures/Depletion/GOA Perceived ", MSE_names,"_depletionssb_trajectory.png")
+  
+  dataframe_print = data.frame(Scenario = paste0(om_names_print," newline ",EM_names_print[em]), "Operating model" = file_true, "Estimation model" = file_perceived)
+  
+  dataframe_print %>%
+    mutate(Operating.model = Operating.model %>% pander::pandoc.image.return(),
+           Estimation.model = Estimation.model %>% pander::pandoc.image.return()) %>%
+    mutate(Operating.model = paste0(Operating.model,"{width='2.15in'}"),
+           Estimation.model = paste0(Estimation.model,"{width='2.15in'}")) %>%
+    pander()
+  
+  cat("\n\n\\pagebreak\n")
+}
+
+```
+
+
+# F trajectory
+\newpage
+```{r, include=TRUE, echo=FALSE, results = "asis"}
+panderOptions("table.split.table", "Inf") # Dont splits the table up
+panderOptions('keep.line.breaks', TRUE)
+panderOptions('knitr.auto.asis', FALSE)
+
+# F trajectory
+#-----------------
+# EBS
+print(paste0("newparSupplementary Figure 4a. Time-series of fishing mortality as determined from the operating model (OM; left) and terminal estimation model in the EBS under experiment 1. Target and limit reference points are indicated by the blue and red lines, respectively."))
+
+for(em in 1:length(em_hcr_names)){ # EM and HCR
+  MSE_names <- paste0(om_names,"__", em_hcr_names[em])
+  
+  print(paste0("newpar4a.",em,". EBS - ", EM_names_print[em]))
+  
+  file_true = paste0("../Results/Figures/F/EBS true ", MSE_names,"_f_trajectory.png")
+  file_perceived = paste0("../Results/Figures/F/EBS Perceived ", MSE_names,"_f_trajectory.png")
+  
+  dataframe_print = data.frame(Scenario = paste0(om_names_print," newline ",EM_names_print[em]), "Operating model" = file_true, "Estimation model" = file_perceived)
+  
+  dataframe_print %>%
+    mutate(Operating.model = Operating.model %>% pander::pandoc.image.return(),
+           Estimation.model = Estimation.model %>% pander::pandoc.image.return()) %>%
+    mutate(Operating.model = paste0(Operating.model,"{width='2.15in'}"),
+           Estimation.model = paste0(Estimation.model,"{width='2.15in'}")) %>%
+    pander()
+  cat("\n\n\\pagebreak\n")
+}
+
+
+#----------------
+# GOA
+print(paste0("newparSupplementary Figure 4b. Time-series of fishing mortality as determined from the operating model (OM; left) and terminal estimation model in the GOA under experiment 1. Target and limit reference points are indicated by the blue and red lines, respectively."))
+
+for(em in 1:length(em_hcr_names)){ # EM and HCR
+  MSE_names <- paste0(om_names,"__", em_hcr_names[em])
+  
+  print(paste0("newpar4b.",em,". GOA - ", EM_names_print[em]))
+  
+  file_true = paste0("../Results/Figures/F/GOA true ", MSE_names,"_f_trajectory.png")
+  file_perceived = paste0("../Results/Figures/F/GOA Perceived ", MSE_names,"_f_trajectory.png")
+  
+  dataframe_print = data.frame(Scenario = paste0(om_names_print," newline ",EM_names_print[em]), "Operating model" = file_true, "Estimation model" = file_perceived)
+  
+  dataframe_print %>%
+    mutate(Operating.model = Operating.model %>% pander::pandoc.image.return(),
+           Estimation.model = Estimation.model %>% pander::pandoc.image.return()) %>%
+    mutate(Operating.model = paste0(Operating.model,"{width='2.15in'}"),
+           Estimation.model = paste0(Estimation.model,"{width='2.15in'}")) %>%
+    pander()
+  cat("\n\n\\pagebreak\n")
+}
+
+
+```
