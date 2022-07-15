@@ -39,14 +39,14 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
                   "SS_fixM_Fspr_EM", "SS_estM_Fspr_EM",  
                   
                   "SS_fixM_AvgF_EM", "SS_estM_AvgF_EM")
-EM_names_print <-  c("Fix M: HCR 1a (NPFMC)", "Fix M: HCR 1b (NPFMC)", 
-                     "Est M: HCR 1a (NPFMC)", "Est M: HCR 1b (NPFMC)",
-                     "Fix M: HCR 2a (PFMC)", "Fix M: HCR 2b (PFMC)", 
-                     "Est M: HCR 2a (PFMC)", "Est M: HCR 2b (PFMC)", 
-                     "Fix M: HCR 3a (SESSF)", "Fix M: HCR 3b (SESSF)", 
-                     "Est M: HCR 3a (SESSF)", "Est M: HCR 3b (SESSF)", 
-                     "Fix M: HCR 4 (NEFMC)", "Est M: HCR 4 (NEFMC)",
-                     "Fix M: HCR 5 (Avg F)", "Est M: HCR 5 (Avg F)")
+EM_names_print <-  c("Fix M EM: HCR 1a (NPFMC)", "Fix M EM: HCR 1b (NPFMC)", 
+                     "Est M EM: HCR 1a (NPFMC)", "Est M EM: HCR 1b (NPFMC)",
+                     "Fix M EM: HCR 2a (PFMC)", "Fix M EM: HCR 2b (PFMC)", 
+                     "Est M EM: HCR 2a (PFMC)", "Est M EM: HCR 2b (PFMC)", 
+                     "Fix M EM: HCR 3a (SESSF)", "Fix M EM: HCR 3b (SESSF)", 
+                     "Est M EM: HCR 3a (SESSF)", "Est M EM: HCR 3b (SESSF)", 
+                     "Fix M EM: HCR 4 (NEFMC)", "Est M EM: HCR 4 (NEFMC)",
+                     "Fix M EM: HCR 5 (Avg F)", "Est M EM: HCR 5 (Avg F)")
 
 
 
