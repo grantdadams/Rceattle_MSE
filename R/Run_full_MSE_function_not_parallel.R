@@ -49,8 +49,10 @@ run_mse_np <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL
                                                              Sigma = em_hcr_list[[em]]$data_list$Sigma
                                              ),
                                              msmMode = 0, # Single species mode
-                                             verbose = 1, updateM1 = FALSE)
+                                             verbose = 0, updateM1 = FALSE)
         }
+        
+        print(paste0("Running OM ",om, " and EM ", em))
         
         # Run MSE
         mse <- mse_run_parallel(om = om_list[[om]], em = em_hcr_list[[em]], 
