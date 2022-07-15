@@ -109,40 +109,40 @@ for(om in 1:length(om_list)){  # OM model
       }
     }
     
-    # STEP 3 - Performance metrics
-    mse_metrics <- mse_summary(mse3)
-    mse_metrics <- mse_metrics[1:3,-c(2:3)]
-    mse_metrics <- pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
-    colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
-    
-    if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
-    if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
-    write.csv(mse_metrics, file = paste0("Results/GOA_table", MSE_names,".csv"))
-    
-    
-    # STEP 4 - Plot
-    plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
-    plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
-    
-    plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA 1 Sim/GOA Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
-    
-    plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
-    plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2))
-    
-    plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
-    plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
-    
-    plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/GOA true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
-    plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
-    
+    # # STEP 3 - Performance metrics
+    # mse_metrics <- mse_summary(mse3)
+    # mse_metrics <- mse_metrics[1:3,-c(2:3)]
+    # mse_metrics <- pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
+    # colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
+    # 
+    # if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
+    # if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
+    # write.csv(mse_metrics, file = paste0("Results/GOA_table", MSE_names,".csv"))
+    # 
+    # 
+    # # STEP 4 - Plot
+    # plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
+    # plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/GOA Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
+    # 
+    # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/GOA 1 Sim/GOA Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
+    # 
+    # plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
+    # plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2))
+    # 
+    # plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/GOA true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
+    # plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
+    # 
+    # plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/GOA true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
+    # plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/GOA Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
+    # 
     plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/GOA true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
-    plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
+    plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/GOA Perceived ", MSE_names), line_col  = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
     
-    plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
-    
+    # plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/GOA true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
+    # 
     # - Unload for memory
     rm(mse3)
   }
 }
 
-write.csv(mse_metrics_complete, file = paste0("Results/Tables/GOA_table_full.csv"))
+# write.csv(mse_metrics_complete, file = paste0("Results/Tables/GOA_table_full.csv"))
