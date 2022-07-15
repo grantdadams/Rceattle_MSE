@@ -53,6 +53,9 @@ em_hcr_list_estM = c(em_hcr_list_estM, em_hcr_list_estM)
 em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
+plot_biomass(om_list, file = "Results/Figures/EBS_OM_", model_names = om_names)
+plot_ssb(om_list, file = "Results/Figures/EBS_OM_", model_names = om_names)
+plot_recruitment(om_list, file = "Results/Figures/EBS_OM_", model_names = om_names)
 
 
 ################################################
