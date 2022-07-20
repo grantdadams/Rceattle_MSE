@@ -26,13 +26,13 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
   EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM")
   
-  EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1", "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+  EM_names_print <-  c("Fix M: NPFMC", "Est M: NPFMC", "Fix M: PFMC", "Est M: PFMC", "Fix M: SESSF", "Est M: SESSF", "Fix M: NEFMC", "Est M: Avg F")
   
   # OM Names
   om_names = c("SS_OM", "SSM_OM", "MS_OM")
   
   # Get output
-  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   OM.res = output_table[[system]]
   OM.res = OM.res[which(OM.res$Species == species),-1]
   rownames(OM.res) <- OM.res$Performance.metric
@@ -67,19 +67,7 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
   
   
   # Plot
-  par(oma=c(0,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0), bg=NA)
-  layout(mat = matrix(1:14, 7, 2, byrow = TRUE),
-          heights = c(rep(1,6), 0.2), # Heights of the two rows
-          widths = c(rep(1,2))) # Widths of the two columns
-  
-  
-  # Header
-  # plot.new()
-  # for(i in 1:3){
-  #   plot(c(-1, 1), c(-1, 1), type="n", frame.plot=FALSE, axes=FALSE, 
-  #        xlab="", ylab="")
-  #   text(0,0,c("Single-spp fix M", "Single-spp est M", "Multi-spp")[i], cex = 1.5, font = 2)
-  # }
+  par(oma=c(2.5,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0), bg=NA)
   
   
   # Plot it
@@ -89,6 +77,7 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
     } else{
       ylim = range(OM.res[,pm])
     }
+    
     plot(NA, NA, ylim = ylim, xlim = c(0.65,3.35), main = c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)")[pm], xaxt = "na", xlab="", ylab="")
     
     for(i in 1:length(data_list)){
@@ -97,14 +86,11 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
     
     abline(v = 1.5, col = "grey")
     abline(v = 2.5, col = "grey")
-    
-    if(pm %in% c(11,12)){
-      axis(side = 1, at = 1:3, labels = c("SS fix M", "SS est M", "MS"), cex = 1.2)
-    }
-    
-    if(pm == 12){
-      #legend("bottomright", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 8), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
-    }
+    axis(side = 1, at = 1:3, labels = c("SS fix M", "SS est M", "MS"), cex = 1.2)
+
   }
+  
+  plot.new()
+  legend("center", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 8), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
 }
 
