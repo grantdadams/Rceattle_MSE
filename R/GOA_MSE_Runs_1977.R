@@ -63,7 +63,7 @@ source("R/Run_full_MSE_function_not_parallel.R")
 run_mse_np(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, start_sim = 201)
 
 # ATF up and down
-run_mse(system = "GOA1977", recname = c("ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(0,1,0), c(0,-0.5,0)))
+run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[1:2], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[1:2], nsim = 300)
 
 
 
