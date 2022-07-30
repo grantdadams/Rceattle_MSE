@@ -32,7 +32,7 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
   om_names = c("SS_OM", "SSM_OM", "MS_OM")
   
   # Get output
-  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
   OM.res = output_table[[system]]
   OM.res = OM.res[which(OM.res$Species == species),-1]
   rownames(OM.res) <- OM.res$Performance.metric

@@ -10,17 +10,17 @@ normalize <- function(x) {
 }
 
 
-histogram_by_om(system = "EBS", species = "Pollock")
-histogram_by_om(system = "EBS", species = "Cod")
-histogram_by_om(system = "EBS", species = "Arrowtooth flounder")
+histogram_by_om(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms/EBS_Pollock_ContantR")
+histogram_by_om(system = "EBS", species = "Cod", file = "Results/Figures/Histograms/EBS_cod_ContantR")
+histogram_by_om(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms/EBS_atf_ContantR")
 
-histogram_by_om(system = "GOA", species = "Pollock")
-histogram_by_om(system = "GOA", species = "Cod")
-histogram_by_om(system = "GOA", species = "Arrowtooth flounder")
+histogram_by_om(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms/GOA_Pollock_ContantR")
+histogram_by_om(system = "GOA", species = "Cod", file = "Results/Figures/Histograms/GOA_cod_ContantR")
+histogram_by_om(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms/GOA_atf_ContantR")
 
 
 
-histogram_by_om <- function(system = "GOA", species = "Pollock"){
+histogram_by_om <- function(system = "GOA", species = "Pollock", file = NULL, height = 6, width = 6){
   
   # EMs
   EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
@@ -67,9 +67,13 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
   
   
   # Plot
-  par(oma=c(0,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0), bg=NA)
-  layout(mat = matrix(1:14, 7, 2, byrow = TRUE),
-          heights = c(rep(1,6), 0.2), # Heights of the two rows
+  if(!is.null(file)){
+    png(filename = paste0(file, ".png"), width = width, height = height, units = "in", res = 300)
+  }
+  
+  par(oma=c(0,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0))
+  layout(mat = matrix(1:10, 5, 2, byrow = TRUE),
+          heights = c(rep(1,4), 0.2), # Heights of the two rows
           widths = c(rep(1,2))) # Widths of the two columns
   
   
@@ -83,8 +87,8 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
   
   
   # Plot it
-  for(pm in 1:12){
-    if(pm%in%c(3,5:12)){
+  for(pm in 1:8){
+    if(pm%in%c(3,5:8)){
       ylim = c(0,1)
     } else{
       ylim = range(OM.res[,pm])
@@ -98,13 +102,18 @@ histogram_by_om <- function(system = "GOA", species = "Pollock"){
     abline(v = 1.5, col = "grey")
     abline(v = 2.5, col = "grey")
     
-    if(pm %in% c(11,12)){
+    if(pm %in% c(7,8)){
       axis(side = 1, at = 1:3, labels = c("SS fix M", "SS est M", "MS"), cex = 1.2)
     }
     
     if(pm == 12){
       #legend("bottomright", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 8), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
     }
+  }
+  
+  
+  if(!is.null(file)){
+   dev.off() 
   }
 }
 
