@@ -54,10 +54,10 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
-plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names)
-plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names)
-plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names)
-
+plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2))
+plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2))
+plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2))
+plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2))
 
 ################################################
 # Load and run summary
