@@ -62,7 +62,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                   HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                   FsprTarget = 0.4, # F40%
                                                   FsprLimit = 0.35, # F35%
-                                                  Plimit = 0.2, # No fishing when SB<SB20
+                                                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                   Alpha = 0.05),
                                   msmMode = 0, # Single species mode
                                   verbose = 1,
@@ -76,7 +76,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                          DynamicHCR = TRUE, # Use dynamic reference points
                                                          FsprTarget = 0.4, # F40%
                                                          FsprLimit = 0.35, # F35%
-                                                         Plimit = 0.2, # No fishing when SB<SB20
+                                                         Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                          Alpha = 0.05),
                                          msmMode = 0, # Single species mode
                                          verbose = 1, updateM1 = FALSE)
@@ -176,7 +176,7 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                     HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                     FsprTarget = 0.4, # F40%
                                                     FsprLimit = 0.35, # F35%
-                                                    Plimit = 0.2, # No fishing when SB<SB20
+                                                    Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                     Alpha = 0.05),
                                     msmMode = 0, # Single species mode
                                     verbose = 1,
@@ -190,7 +190,7 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                            DynamicHCR = TRUE, # Use dynamic reference points
                                                            FsprTarget = 0.4, # F40%
                                                            FsprLimit = 0.35, # F35%
-                                                           Plimit = 0.2, # No fishing when SB<SB20
+                                                           Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                            Alpha = 0.05),
                                            msmMode = 0, # Single species mode
                                            verbose = 1, updateM1 = FALSE)
