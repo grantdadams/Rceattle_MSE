@@ -39,12 +39,6 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
   ################################################
   # Load and run summary
   ################################################
-  ## Loop across OMs,
-  ### Set up parallel processing
-  library(foreach)
-  library(doParallel)
-  
-  
   ### Run MSEs
   ## Loop across OMs
   for(om in 1:length(om_list)){  # OM model
