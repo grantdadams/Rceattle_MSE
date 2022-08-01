@@ -47,7 +47,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
   
   ### Run MSEs
   ## Loop across OMs
-  for(om = 1:length(om_list)){  # OM model
+  for(om in 1:length(om_list)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
       for(rec in 1:length(recname)){   # Rec trends
         
