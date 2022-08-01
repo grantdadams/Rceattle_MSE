@@ -1,38 +1,3 @@
-#' Function to load .RDs files from MSE runs
-#'
-#' @param dir Directory used to save files from \code{\link{mse_run}}
-#' @param file file name used to save files from \code{\link{mse_run}}
-#'
-#' @return list of MSE simulations/run
-#' @export
-#'
-load_mse <- function(dir = NULL, file = NULL){
-  mse_files <- list.files(path = dir, pattern = paste0(file, "EMs_from_OM_Sim_"))
-  mse_order <- as.numeric(gsub(".rds", "", sapply(strsplit(mse_files, "EMs_from_OM_Sim_"), "[[", 2)))
-  mse_files <- mse_files[order(mse_order)]
-  mse = list()
-  for(i in 1:length(mse_files)){
-    mse[[i]] <- readRDS(file = paste0(dir,"/", mse_files[i]))
-    mse[[i]]$OM$bounds <- NULL
-    for(em in 2:length(mse[[i]]$EM)){
-      mse[[i]]$EM[[em]]$data_list$wt <- NULL
-      mse[[i]]$EM[[em]]$data_list$emp_sel <- NULL
-      mse[[i]]$EM[[em]]$data_list$age_trans_matrix <- NULL
-      mse[[i]]$EM[[em]]$data_list$age_error <- NULL
-      mse[[i]]$EM[[em]]$data_list$NByageFixed <- NULL
-      mse[[i]]$EM[[em]]$data_list$aLW <- NULL
-      mse[[i]]$EM[[em]]$data_list$UobsWtAge <- NULL
-      mse[[i]]$EM[[em]]$data_list$Pyrs <- NULL
-      mse[[i]]$EM[[em]]$data_list$aLW <- NULL
-      mse[[i]]$EM[[em]]$estimated_params <- NULL
-    }
-  }
-  # mse <- lapply(mse_files, function(x) readRDS(file = paste0(dir,"/", x)))
-  names(mse) <- paste0("Sim_", 1:length(mse))
-  return(mse)
-}
-
-
 
 
 summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, projected_OM_no_F = NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL){
@@ -117,12 +82,12 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
         plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
         plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
         
-        plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
-        plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " Perceived ", MSE_names), line_col  = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
-        
-        plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
+        # plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = c(1,3,2), width = 4.3, height = 4)
+        # plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " Perceived ", MSE_names), line_col  = "#5F0F40", species = c(1,3,2), width = 4.3, height = 4)
         # 
-        # - Unload for memory
+        # plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
+        # # 
+        # # - Unload for memory
         rm(mse3)
       }
     }
