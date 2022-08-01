@@ -68,8 +68,8 @@ summary_fun(system = "GOA1977", recname = "ConstantR", om_list = om_list, projec
 
 
 # - ATF Up and Down
-summary_fun(system = "GOA1977", recname = c("ATFRup", "ATFRdown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_names[c(1:2,1:2)], em_hcr_list_estM = em_hcr_names[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+summary_fun(system = "GOA1977", recname = c("ATFRup", "ATFRdown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
 
 
 # - All Up and Down
-summary_fun(system = "GOA1977", recname = c("AllUp", "AllDown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_names[c(1:2,1:2)], em_hcr_list_estM = em_hcr_names[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+summary_fun(system = "GOA1977", recname = c("AllUp", "AllDown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
