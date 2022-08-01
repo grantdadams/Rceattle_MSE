@@ -71,7 +71,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
         plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
         plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
         
-        plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
+        # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = c(1,3,2), width = 4.3, height = 4)
         
         plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = c(1,3,2), width = 4.3, height = 4)
         plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = c(1,3,2))
