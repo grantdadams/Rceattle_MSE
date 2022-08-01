@@ -136,5 +136,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
       rm(mse3)
     }
   
+  
+  # When you're done, clean up the cluster
+  stopImplicitCluster()
   #write.csv(mse_metrics_complete, file = paste0("Results/Tables/", system, "_", recname[rec],".csv"))
 }
