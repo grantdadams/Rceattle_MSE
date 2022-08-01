@@ -69,8 +69,15 @@ summary_fun(system = "GOA1977", recname = "ConstantR", om_list = om_list, projec
 
 
 # - ATF Up and Down
-summary_fun(system = "GOA1977", recname = c("ATFRup", "ATFRdown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+om_list_atfup <- lapply(om_list, function(x) project_trend(x, c(0, 1, 0)))
+summary_fun(system = "GOA1977", recname = c("ATFRup"), om_list = om_list_atfup, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
 
+om_list_atfdown <- lapply(om_list, function(x) project_trend(x, c(0, -0.5, 0)))
+summary_fun(system = "GOA1977", recname = c("ATFRdown"), om_list = om_list_atfdown, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
 
 # - All Up and Down
-summary_fun(system = "GOA1977", recname = c("AllUp", "AllDown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+om_list_down <- lapply(om_list, function(x) project_trend(x, c(-0.5, -0.5, -0.5)))
+summary_fun(system = "GOA1977", recname = c("AllDown"), om_list = om_list_down, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+
+om_list_up <- lapply(om_list, function(x) project_trend(x, c(1,1,1)))
+summary_fun(system = "GOA1977", recname = c("AllUp"), om_list = om_list_up, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])

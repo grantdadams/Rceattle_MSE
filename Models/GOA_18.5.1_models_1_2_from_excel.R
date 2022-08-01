@@ -185,4 +185,4 @@ mod_list_all_save <- mod_list_all
 
 
 # Save
-save(mod_list_all, file = paste0("Models/GOA_18_5_1_mod_1-2_", Sys.Date(),".RData"))
+save(mod_list_all, file = "Models/GOA_18_5_1_mod_1-2_2022-05-26.RData")
