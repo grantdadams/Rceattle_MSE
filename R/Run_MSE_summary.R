@@ -18,6 +18,43 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NUL
     foreach(em = 1:length(em_hcr_names)) %:% # EM and HCR
     foreach(rec = 1:length(recname)) %dopar% {   # Rec trends
       
+      #' Function to load .RDs files from MSE runs
+      #'
+      #' @param dir Directory used to save files from \code{\link{mse_run}}
+      #' @param file file name used to save files from \code{\link{mse_run}}
+      #'
+      #' @return list of MSE simulations/run
+      #' @export
+      #'
+      load_mse <- function(dir = NULL, file = NULL){
+        mse_files <- list.files(path = dir, pattern = paste0(file, "EMs_from_OM_Sim_"))
+        mse_order <- as.numeric(gsub(".rds", "", sapply(strsplit(mse_files, "EMs_from_OM_Sim_"), "[[", 2)))
+        mse_files <- mse_files[order(mse_order)]
+        mse = list()
+        for(i in 1:length(mse_files)){
+          mse[[i]] <- readRDS(file = paste0(dir,"/", mse_files[i]))
+          mse[[i]]$OM$bounds <- NULL
+          for(em in 2:length(mse[[i]]$EM)){
+            mse[[i]]$EM[[em]]$data_list$wt <- NULL
+            mse[[i]]$EM[[em]]$data_list$emp_sel <- NULL
+            mse[[i]]$EM[[em]]$data_list$age_trans_matrix <- NULL
+            mse[[i]]$EM[[em]]$data_list$age_error <- NULL
+            mse[[i]]$EM[[em]]$data_list$NByageFixed <- NULL
+            mse[[i]]$EM[[em]]$data_list$aLW <- NULL
+            mse[[i]]$EM[[em]]$data_list$UobsWtAge <- NULL
+            mse[[i]]$EM[[em]]$data_list$Pyrs <- NULL
+            mse[[i]]$EM[[em]]$data_list$aLW <- NULL
+            mse[[i]]$EM[[em]]$estimated_params <- NULL
+          }
+        }
+        # mse <- lapply(mse_files, function(x) readRDS(file = paste0(dir,"/", x)))
+        names(mse) <- paste0("Sim_", 1:length(mse))
+        return(mse)
+      }
+      
+      
+      library(Rceattle)
+      
       # STEP 1 -- Load MSE
       mse3 <- load_mse(dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), file = NULL)
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em], "_", recname[rec])
