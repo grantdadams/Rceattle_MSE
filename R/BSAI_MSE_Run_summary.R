@@ -71,9 +71,9 @@ summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_n
 
 
 # - ATF Up and Down
-summary_fun(system = "EBS", recname = c("ATFRup"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, 1, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3), trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(0, 1, 0))))
+summary_fun(system = "EBS", recname = c("ATFRup"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, 0, 1))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3), trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(0, 0, 1))))
 
-summary_fun(system = "EBS", recname = c("ATFRdown"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, -0.5, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3), trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(0, -0.5, 0))))
+summary_fun(system = "EBS", recname = c("ATFRdown"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, 0, -0.5))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3), trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(0, 0, -0.5))))
 
 
 # - All Up and Down
