@@ -6,7 +6,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
   ################################################
   ### Run MSEs
   ## Loop across OMs
-  for(om in 1:length(om_list_no_F)){  # OM model
+  for(om in 3:length(om_list_no_F)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
       for(rec in 1:length(recname)){   # Rec trends
         
@@ -70,6 +70,9 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             if(trend){
               mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
               mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
+              
+              om_list_no_F[[om]]$quantities$depletionSSB <- om_list_no_F[[om]]$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
+              om_list_no_F[[om]]$quantities$depletion <- om_list_no_F[[om]]$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
             }
           }
         }
