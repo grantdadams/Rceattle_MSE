@@ -6,7 +6,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
   ################################################
   ### Run MSEs
   ## Loop across OMs
-  for(om in 3:length(om_list_no_F)){  # OM model
+  for(om in 1:length(om_list_no_F)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
       for(rec in 1:length(recname)){   # Rec trends
         
@@ -83,8 +83,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         mse_metrics <- pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
         colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
         
-        if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
-        if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
+        #if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
+        #if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
         write.csv(mse_metrics, file = paste0("Results/",system, "_", recname[rec], "_table", MSE_names,".csv"))
         
         
@@ -114,5 +114,5 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
     }
   }
   
-  write.csv(mse_metrics_complete, file = paste0("Results/Tables/", system, "_", recname[rec],".csv"))
+  #write.csv(mse_metrics_complete, file = paste0("Results/Tables/", system, "_", recname[rec],".csv"))
 }
