@@ -1,6 +1,6 @@
 
 
-summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F =  NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2)){
+summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F =  NULL, om_list_no_rdev_or_F = NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2), trend = FALSE){
   ################################################
   # Load and run summary
   ################################################
@@ -39,6 +39,18 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
               mse3[[j]]$OM$quantities$Flimit <- em_hcr_list_estM[[em]]$quantities$Flimit # Update Flimit from Ftarget that was optimized
               mse3[[j]]$OM$quantities$Ftarget <- em_hcr_list_estM[[em]]$quantities$Ftarget # Update Flimit from Ftarget that was optimized
             }
+            
+            # -- Update OM depletion if using static HCR and there is a trend in R
+            if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 0 & trend){
+              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$DynamicSB0
+              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$DynamicB0
+            }
+            
+            # -- Update OM depletion if using dynamic HCR
+            if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
+              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$DynamicSB0
+              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
+            }
           }
           
           
@@ -53,6 +65,12 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
             mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
+            
+            # -- Update OM depletion if using static HCR and there is a trend in R
+            if(trend){
+              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
+              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
+            }
           }
         }
         
@@ -68,15 +86,15 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         
         # STEP 4 - Plot
-        plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
+        plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = om_list_no_F[[om]], top_adj = 1, species = c(1,3,2), width = 4.3, height = 4)
         plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4)
         
         # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = species, width = 4.3, height = 4)
         
-        plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = species, width = 4.3, height = 4)
+        plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4)
         plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = species)
         
-        plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = projected_OM_no_F[[om]], species = species, width = 4.3, height = 4)
+        plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4)
         plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = species, width = 4.3, height = 4)
         
         plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = species, width = 4.3, height = 4)
