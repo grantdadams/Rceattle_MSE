@@ -65,7 +65,7 @@ plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_na
 source("R/Functions/Run_MSE_summary.R")
 
 # - No rec trend
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
 
 # SAFS 313-10
 # - ATF Up and Down
