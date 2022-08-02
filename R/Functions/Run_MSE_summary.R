@@ -1,12 +1,12 @@
 
 
-summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, projected_OM_no_F = NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL){
+summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F =  NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL){
   ################################################
   # Load and run summary
   ################################################
   ### Run MSEs
   ## Loop across OMs
-  for(om in 1:length(om_list)){  # OM model
+  for(om in 1:length(om_list_no_F)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
       for(rec in 1:length(recname)){   # Rec trends
         
