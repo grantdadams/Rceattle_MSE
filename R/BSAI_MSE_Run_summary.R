@@ -67,13 +67,17 @@ plot_b_eaten_prop(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_nam
 source("R/Functions/Run_MSE_summary.R")
 
 # - No rec trend
-summary_fun(system = "EBS", recname = "ConstantR", om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names)
 
 
 # - ATF Up and Down
-summary_fun(system = "EBS", recname = c("ATFRup", "ATFRdown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+summary_fun(system = "EBS", recname = c("ATFRup"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, 1, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3))
+
+summary_fun(system = "EBS", recname = c("ATFRdown"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(0, -0.5, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3))
 
 
 # - All Up and Down
-summary_fun(system = "EBS", recname = c("AllUp", "AllDown"), om_list = om_list, projected_OM_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)])
+summary_fun(system = "EBS", recname = c("AllUp"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(1,1,1))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3))
+
+summary_fun(system = "EBS", recname = c("AllDown"), om_list_no_F = lapply(om_list, function(x) project_trend(x, c(-0.5,-0.5,-0.5))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], species = c(1,2,3))
 

@@ -86,7 +86,7 @@ ms_run_f25 <- Rceattle::fit_mod(data_list = BS2017MS,
 avg_F <- (exp(ss_run$estimated_params$ln_mean_F+ss_run$estimated_params$F_dev)) # Average F from last 5 years
 avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
 
-ss_run_AvgF <- fit_mod(data_list = BS2017SS,
+ss_run_AvgF <- Rceattle::fit_mod(data_list = BS2017SS,
                        inits = ss_run$estimated_params, # Initial parameters from ss_run_M
                        estimateMode = 2, # Run projection only
                        HCR = build_hcr(HCR = 2, # Input F
@@ -121,7 +121,7 @@ ss_run_dynamicfb0 <- Rceattle::fit_mod(data_list = BS2017SS,
 
 
 # -- NPFMC Tier 3
-ss_run_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS,
+ss_run_Tier3 <- fit_mod(data_list = BS2017SS,
                                   inits = ss_run$estimated_params,
                                   estimateMode = 2, # Run projection only
                                   HCR = build_hcr(HCR = 5, # Tier3 HCR
@@ -319,3 +319,4 @@ ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                            ),
                                            msmMode = 0, # Single species mode
                                            verbose = 1)
+
