@@ -103,8 +103,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = species, width = 4.3, height = 4)
         plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = species, width = 4.3, height = 4)
         
-        # plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = species, width = 4.3, height = 4)
-        # plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " Perceived ", MSE_names), line_col  = "#5F0F40", species = species, width = 4.3, height = 4)
+        plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", species = species, width = 4.3, height = 4)
+        plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/",system, "_", recname[rec], " Perceived ", MSE_names), line_col  = "#5F0F40", species = species, width = 4.3, height = 4)
         # 
         # plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
         # # 
