@@ -60,7 +60,7 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 source("R/Run_full_MSE_function_not_parallel.R")
 
 # No rec trend
-run_mse_np(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, start_sim = 201)
+run_mse_np(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:4,9:12)], em_hcr_names = em_hcr_names[c(1:4,9:12)], sampling_period = sampling_period, nsim = 300)
 
 # ATF up and down
 run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[3:4], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[3:4], nsim = 300)
