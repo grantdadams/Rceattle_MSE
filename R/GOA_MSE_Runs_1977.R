@@ -69,6 +69,7 @@ run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdo
 # ATF up and down 313-10
 run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[3:4], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[3:4], nsim = 300)
 
+# Trends (non-NPFMC HCRs)
 run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(3:8,13:16)], em_hcr_names = em_hcr_names[c(3:8,13:16)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0)), nsim = 300)
 
 
