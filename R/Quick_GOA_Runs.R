@@ -15,11 +15,12 @@ install.packages(c("dplyr",
                    "doParallel"))
 
 devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
+install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type="source")
 
 ################################################
 # Set-up
 ################################################
-source("Models/GOA_18.5.1_models_1_2_from_excel.R")
+# source("Models/GOA_18.5.1_models_1_2_from_excel.R")
 source("R/GOA_condition_models_1977.R")
 
 ## Cap
@@ -82,16 +83,36 @@ source("R/Functions/Run_full_MSE_function_not_parallel.R")
 i = 1
 j = 1
 
-# 313-2 i = 1, j = 1
-# 313-2 i = 1, j = 2
-# 313-2 i = 1, j = 3
-# 313-2 i = 1, j = 4
+# 313-1 i = 1, j = 1
+# 313-3 i = 1, j = 2
+# 313-4 i = 1, j = 3
+# 313-5 i = 1, j = 4
 
-# 313-2 i = 2, j = 1
-# 313-2 i = 2, j = 2
-# 313-2 i = 2, j = 3
-# 313-2 i = 2, j = 4
+# 313-6 i = 2, j = 1
+# 313-7 i = 2, j = 2
+# 313-8 i = 2, j = 3
+# 313-9 i = 2, j = 4
 
 
 run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[i], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)[j]], em_hcr_names = em_hcr_names[c(1:2,9:10)[j]], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[i], nsim = 300)
+
+
+
+# Trends (non-NPFMC HCRs)
+j = 1
+
+# 313-1 j = 1
+# 313-3 j = 2
+# 313-4 j = 3
+# 313-5 j = 4
+
+# 313-6 j = 5
+# 313-7 j = 6
+# 313-8 j = 7
+# 313-9 j = 8
+# 313-10 j = 9
+# 313-12 j = 10
+run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(3:8,13:16)[j]], em_hcr_names = em_hcr_names[c(3:8,13:16)[j]], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0)), nsim = 300)
+
+
 
