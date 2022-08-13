@@ -60,15 +60,17 @@ write.csv(output_table$GOA, file = paste0("Results/Tables/TableS6b_GOA_Tier3_sum
 
 
 # Summary table function
-pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FALSE){
+pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, reverse = FALSE){
   # Get data we want
   for(om in 1:length(om_names)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
       
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
-      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA/GOA_table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
-      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS_table", MSE_names,".csv"))[,-1]
+      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA/GOA1977", "_", recname, "_", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
+      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_", MSE_names,".csv"))[,-1]
+      
+      paste0("Results/",system, "_", recname[rec], "_table", MSE_names,".csv")
       
       if(om * em == 1){
         GOA_mse_sum = GOA_mse_sum_tmp
