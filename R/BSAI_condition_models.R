@@ -43,7 +43,8 @@ ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS_M,
                               random_rec = FALSE, # No random recruitment
                               msmMode = 0, # Single species mode
                               phase = "default",
-                              verbose = 1)
+                              verbose = 1,
+                              updateM1 = FALSE)
 
 
 
@@ -215,7 +216,8 @@ ss_run_M_AvgF <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1)
+                                   verbose = 1,
+                                   updateM1 = FALSE)
 
 # -- Constant Fspr
 ss_run_M_Fspr <- Rceattle::fit_mod(data_list = BS2017SS_M,
@@ -226,19 +228,21 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1)
+                                   verbose = 1,
+                                   updateM1 = FALSE)
 
 
 
-# -- Dynamic F as a percentage of SB0
-ss_run_M_dynamicfb0 <- Rceattle::fit_mod(data_list = BS2017SS_M,
-                                         inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
-                                         estimateMode = 2, # Run projection only
-                                         HCR = build_hcr(HCR = 3, # Constant F HCR
-                                                         DynamicHCR = TRUE, # Use dynamic reference points
-                                                         FsprTarget = 0.4), # F that achieves 40% SB0
-                                         msmMode = 0, # Single species mode
-                                         verbose = 1)
+# # -- Dynamic F as a percentage of SB0
+# ss_run_M_dynamicfb0 <- Rceattle::fit_mod(data_list = BS2017SS_M,
+#                                          inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
+#                                          estimateMode = 2, # Run projection only
+#                                          HCR = build_hcr(HCR = 3, # Constant F HCR
+#                                                          DynamicHCR = TRUE, # Use dynamic reference points
+#                                                          FsprTarget = 0.4), # F that achieves 40% SB0
+#                                          msmMode = 0, # Single species mode
+#                                          verbose = 1,
+#                                          updateM1 = FALSE)
 
 
 # -- NPFMC Tier 3
@@ -265,7 +269,8 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                            Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
                                                            Alpha = 0.05),
                                            msmMode = 0, # Single species mode
-                                           verbose = 1)
+                                           verbose = 1,
+                                           updateM1 = FALSE)
 
 # -- PFMC Category 1
 ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
@@ -278,7 +283,8 @@ ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                    Pstar = 0.45,
                                                    Sigma = 0.5),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1)
+                                   verbose = 1,
+                                   updateM1 = FALSE)
 
 ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                           inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
@@ -291,7 +297,8 @@ ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                           Pstar = 0.45,
                                                           Sigma = 0.5),
                                           msmMode = 0, # Single species mode
-                                          verbose = 1)
+                                          verbose = 1,
+                                          updateM1 = FALSE)
 
 # -- SESSF Tier 1
 ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
@@ -304,7 +311,8 @@ ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                     Plimit = 0.20, # No fishing when B<B20
                                     ),
                                     msmMode = 0, # Single species mode
-                                    verbose = 1)
+                                    verbose = 1,
+                                    updateM1 = FALSE)
 
 
 ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
@@ -318,4 +326,5 @@ ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                                            Plimit = 0.20, # No fishing when B<B20
                                            ),
                                            msmMode = 0, # Single species mode
-                                           verbose = 1)
+                                           verbose = 1,
+                                           updateM1 = FALSE)

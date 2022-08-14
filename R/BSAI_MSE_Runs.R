@@ -66,7 +66,7 @@ source("R/Functions/Run_full_MSE_function_not_parallel.R")
 # No rec trend
 run_mse_np(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 
-# ATF up and down
+# Rec trend
 # - NPFMC and PFMC
 run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5)), nsim = 300)
 
