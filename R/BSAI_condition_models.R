@@ -109,18 +109,6 @@ ss_run_Fspr <- Rceattle::fit_mod(data_list = BS2017SS,
                                  verbose = 1)
 
 
-
-# -- Dynamic F as a percentage of SB0
-ss_run_dynamicfb0 <- Rceattle::fit_mod(data_list = BS2017SS,
-                                       inits = ss_run$estimated_params, # Initial parameters from ss_run
-                                       estimateMode = 2, # Run projection only
-                                       HCR = build_hcr(HCR = 3, # Constant F HCR
-                                                       DynamicHCR = TRUE, # Use dynamic reference points
-                                                       FsprTarget = 0.4), # F that achieves 40% SB0
-                                       msmMode = 0, # Single species mode
-                                       verbose = 1)
-
-
 # -- NPFMC Tier 3
 ss_run_Tier3 <- Rceattle::fit_mod(data_list = BS2017SS,
                                   inits = ss_run$estimated_params,
