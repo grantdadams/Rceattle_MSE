@@ -194,7 +194,7 @@ ss_run_dynamicTier1 <- Rceattle::fit_mod(data_list = BS2017SS,
 ###############################################
 # -- Avg F
 avg_F <- (exp(ss_run_M$estimated_params$ln_mean_F+ss_run_M$estimated_params$F_dev)) # Average F from last 5 years
-avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
+avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
 
 ss_run_M_AvgF <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
