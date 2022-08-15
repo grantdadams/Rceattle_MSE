@@ -66,12 +66,12 @@ source("R/Functions/Run_MSE_summary.R")
 
 # SAFS 313-12
 # - No rec trend
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
 
 # - All Up and Down
-summary_fun(system = "GOA1977", recname = c("AllDown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(-0.5, -0.5, -0.5)))[3], om_names = om_names[3], em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(-0.5, -0.5, -0.5))) )
+summary_fun(system = "GOA1977", recname = c("AllDown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(-0.5, -0.5, -0.5))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(-0.5, -0.5, -0.5))) )
 
-summary_fun(system = "GOA1977", recname = c("AllUp"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(1,1,1)))[3], om_names = om_names[3], em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(1,1,1))))
+summary_fun(system = "GOA1977", recname = c("AllUp"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(1,1,1))), om_names = om_names, em_hcr_list_fixM = em_hcr_list[c(1:2,1:2)], em_hcr_list_estM = em_hcr_list[c(9:10,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) remove_rec_dev_and_F(x, c(1,1,1))))
 
 
 # SAFS 313-10
