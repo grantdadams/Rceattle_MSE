@@ -60,8 +60,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             mse3[[j]]$OM$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
             
-            mse3[[j]]$OM$data_list$Plimit <- 0.25 # Update Target
-            mse3[[j]]$OM$data_list$Ptarget <- 0.40 # Update Limit
+            mse3[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
+            mse3[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit
             
             mse3[[j]]$OM$quantities$Flimit <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
             mse3[[j]]$OM$quantities$Ftarget <- ms_run_f25$quantities$Ftarget # Update Flimit from Ftarget that was optimized
