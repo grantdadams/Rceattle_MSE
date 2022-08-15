@@ -20,7 +20,7 @@ histogram_by_om(system = "GOA", species = "Arrowtooth flounder")
 
 
 
-histogram_by_om <- function(system = "GOA", species = "Pollock"){
+histogram_by_om_single <- function(system = "GOA", species = "Pollock"){
   
   # EMs
   EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
