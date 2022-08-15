@@ -85,7 +85,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         #if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
         #if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
-        write.csv(mse_metrics, file = paste0("Results/",system, "_", recname[rec], "_table", MSE_names,".csv"))
+        write.csv(mse_metrics, file = paste0("Results/Tables/",system,"/",system, "_", recname[rec], "_table", MSE_names,".csv"))
         
         
         # STEP 4 - Plot
