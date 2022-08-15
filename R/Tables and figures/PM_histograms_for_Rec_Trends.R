@@ -1,3 +1,5 @@
+# Histogram and table of performance metrics (only NPFMC is used) rest is coommented out
+
 # Library
 library(fmsb)
 library(gmRi)
@@ -155,7 +157,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
       
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
-      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA/GOA1977", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1] # May need to add "_" after table for later iterations
+      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1] # May need to add "_" after table for later iterations
       EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1]
       
       if(om * em == 1){

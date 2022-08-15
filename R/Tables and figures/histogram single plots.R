@@ -1,3 +1,5 @@
+
+
 # Library
 library(fmsb)
 library(gmRi)
@@ -10,13 +12,13 @@ normalize <- function(x) {
 }
 
 
-histogram_by_om(system = "EBS", species = "Pollock")
-histogram_by_om(system = "EBS", species = "Cod")
-histogram_by_om(system = "EBS", species = "Arrowtooth flounder")
+histogram_by_om_single(system = "EBS", species = "Pollock")
+histogram_by_om_single(system = "EBS", species = "Cod")
+histogram_by_om_single(system = "EBS", species = "Arrowtooth flounder")
 
-histogram_by_om(system = "GOA", species = "Pollock")
-histogram_by_om(system = "GOA", species = "Cod")
-histogram_by_om(system = "GOA", species = "Arrowtooth flounder")
+histogram_by_om_single(system = "GOA", species = "Pollock")
+histogram_by_om_single(system = "GOA", species = "Cod")
+histogram_by_om_single(system = "GOA", species = "Arrowtooth flounder")
 
 
 
