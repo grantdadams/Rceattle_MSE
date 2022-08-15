@@ -54,6 +54,8 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
+# FIXME - check Ftarget of estM and fixM for tier 3
+
 
 plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
 plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
