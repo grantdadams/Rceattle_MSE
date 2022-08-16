@@ -17,18 +17,32 @@ normalize <- function(x) {
 om_names = c("SS_OM", "SSM_OM", "MS_OM")
 
 
+# - Plot single
+rec = 1
+  recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
+  histogram_by_om(system = "EBS", recname = recname, species = "Pollock", allHCR = ifelse(rec == 1, TRUE, FALSE), single = TRUE)
+  
+  recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
+  histogram_by_om(system = "GOA1977", recname = recname, species = "Cod", allHCR = ifelse(rec == 1, TRUE, FALSE), single = TRUE)
+
+
+
+# - Plot and save
 ind=5
 for(rec in 1:5){
-  recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
   # - EBS
-  histogram_by_om(system = "EBS", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/")
-  histogram_by_om(system = "EBS", recname = recname, species = "Cod", file = "Results/Figures/Histograms/")
-  histogram_by_om(system = "EBS", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/")
+  histogram_by_om(system = "EBS", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "EBS", recname = recname, species = "Cod", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "EBS", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  
+  histogram_by_om(system = "EBS", recname = recname, species = "Pollock", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "EBS", recname = recname, species = "Cod", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "EBS", recname = recname, species = "Arrowtooth flounder", allHCR = ifelse(rec == 1, TRUE, FALSE))
   
   # - GOA
-  histogram_by_om(system = "GOA", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/")
-  histogram_by_om(system = "GOA", recname = recname, species = "Cod", file = "Results/Figures/Histograms/")
-  histogram_by_om(system = "GOA", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/")
+  histogram_by_om(system = "GOA", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "GOA", recname = recname, species = "Cod", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
+  histogram_by_om(system = "GOA", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = ifelse(rec == 1, TRUE, FALSE))
   
   
   # Save supp table 6 - AvgF
@@ -49,13 +63,20 @@ for(rec in 1:5){
 
 
 
-histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Pollock", file = NULL, height = 6, width = 6){
+histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Pollock", file = NULL, height = 6, width = 6, allHCR = FALSE, single = FALSE){
   
-  # EMs
+  # EMs - Tier 3 NPFMC only
   EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", # "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM") #, "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM")
   
-  EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1") # , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+  EM_names_print <-  c("Fix M: NPFMC", "Est M: NPFMC") # , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+  
+  if(allHCR){
+    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
+                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM")
+    
+    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+  }
   
   # OM Names
   om_names = c("SS_OM", "SSM_OM", "MS_OM")
@@ -82,6 +103,20 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
     ms_om =  OM.res[c(9:12),] 
   )
   
+  if(allHCR){
+    # Subset based on OM
+    data_list <- list(
+      # SS OM
+      ss_om = OM.res[c(1:2, 8:9,3:4,10:11,5:6,12:13,7,14),],
+      
+      # SS-M OM
+      ssm_om = OM.res[c(15:16,22:23,17:18,24:25,19:20,26:27,21,28),],
+      
+      # MS OM
+      ms_om =  OM.res[c(29:30,36:37,31:32,38:39,33:34,40:41,35,42),] 
+    )
+  }
+  
   # Colors
   MPcols <- gmri_pal("main")(8)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
@@ -96,6 +131,7 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   
   
   # Plot
+  if(!single){
   if(!is.null(file)){
     png(filename = paste0(file, system, "_", recname, "_", species, ".png"), width = width, height = height, units = "in", res = 300)
   }
@@ -143,6 +179,35 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   
   if(!is.null(file)){
     dev.off() 
+  }
+  }
+  if(single){
+    # Plot
+    par(oma=c(2.5,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0), bg=NA)
+    
+    
+    # Plot it
+    for(pm in 1:12){
+      if(pm%in%c(3,5:12)){
+        ylim = c(0,1)
+      } else{
+        ylim = range(OM.res[,pm])
+      }
+      
+      plot(NA, NA, ylim = ylim, xlim = c(0.65,3.35), main = c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)")[pm], xaxt = "na", xlab="", ylab="")
+      
+      for(i in 1:length(data_list)){
+        points(x = seq(i-0.35, i+ 0.35, length.out = nrow(data_list[[i]])), y = data_list[[i]][,pm], bg = alpha(colors, alpha = 0.5), pch = point_type, cex = 3)
+      }
+      
+      abline(v = 1.5, col = "grey")
+      abline(v = 2.5, col = "grey")
+      axis(side = 1, at = 1:3, labels = c("SS fix M", "SS est M", "MS"), cex = 1.2)
+      
+    }
+    
+    plot.new()
+    legend("center", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 8), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
   }
 }
 
