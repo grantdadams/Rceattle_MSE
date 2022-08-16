@@ -94,6 +94,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = species, width = 4.3, height = 4)
         
+        # plot_recruitment(list( ss_run_M_dynamicCat1, ss_run_dynamicCat1, mse3$Sim_1$EM$`OM_Sim_1. EM_yr_2060`), mse = FALSE, incl_proj = TRUE, width = 4.3, height = 4, model_names = c(1:3))
+        
         plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4)
         plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", species = species)
         
