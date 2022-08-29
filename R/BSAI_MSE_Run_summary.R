@@ -71,7 +71,7 @@ source("R/Functions/Run_MSE_summary.R")
 
 # SAFS 313-11
 # - No rec trend
-summary_fun(system = "EBS"; recname = "ConstantR"; om_list_no_F = projected_OM_no_F; om_names = om_names; em_hcr_list_fixM = em_hcr_list_fixM; em_hcr_list_estM = em_hcr_list_estM; em_hcr_names = em_hcr_names; trend = FALSE; species = c(1,2,3))
+summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE, species = c(1,2,3))
 
 
 # - ATF Up and Down
