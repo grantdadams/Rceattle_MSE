@@ -1,40 +1,40 @@
 "","Species","Performance metric","SS_OM__SS_estM_dynamicTier3_EM_AllUp"
-"1","Pollock","Average Catch",233620.374127814
-"2","Pollock","Catch IAV",31683.7055979916
+"1","Pollock","Average Catch",234167.607320334
+"2","Pollock","Catch IAV",31771.0501023448
 "3","Pollock","P(Closed)",0
-"4","Pollock","Avg terminal SSB Relative MSE",0.0227295894440931
-"5","Pollock","EM: P(Fy > Flimit)",0.0229365079365079
-"6","Pollock","EM: P(SSB < SSBlimit)",7.93650793650794e-05
-"7","Pollock","OM: P(Fy > Flimit)",0.666349206349206
-"8","Pollock","OM: P(SSB < SSBlimit)",0.00523809523809524
-"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.000158730158730159
-"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.643571428571429
-"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.00515873015873016
-"13","Pollock","OM: Terminal SSB/SSBtarget",0.461647983443892
-"14","Arrowtooth flounder","Average Catch",110376.655398152
-"15","Arrowtooth flounder","Catch IAV",1405.78193389419
+"4","Pollock","Avg terminal SSB Relative MSE",0.0237137852266581
+"5","Pollock","EM: P(Fy > Flimit)",0.0225396825396825
+"6","Pollock","EM: P(SSB < SSBlimit)",5.29100529100529e-05
+"7","Pollock","OM: P(Fy > Flimit)",0.678809523809524
+"8","Pollock","OM: P(SSB < SSBlimit)",0.00626984126984127
+"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.656269841269841
+"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.000158730158730159
+"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.0188095238095238
+"13","Pollock","OM: Terminal SSB/SSBtarget",0.459341544229486
+"14","Arrowtooth flounder","Average Catch",110165.041866392
+"15","Arrowtooth flounder","Catch IAV",1401.22382736514
 "16","Arrowtooth flounder","P(Closed)",0
-"17","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.00331967621994112
+"17","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.00348623495888504
 "18","Arrowtooth flounder","EM: P(Fy > Flimit)",0
 "19","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
-"20","Arrowtooth flounder","OM: P(Fy > Flimit)",0.0766666666666667
+"20","Arrowtooth flounder","OM: P(Fy > Flimit)",0.0742063492063492
 "21","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
 "22","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"23","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.0766666666666667
+"23","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.0742063492063492
 "24","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "25","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"26","Arrowtooth flounder","OM: Terminal SSB/SSBtarget",0.555782619197407
-"27","Cod","Average Catch",37797.3488119278
-"28","Cod","Catch IAV",10118.3241710029
+"26","Arrowtooth flounder","OM: Terminal SSB/SSBtarget",0.557173447324315
+"27","Cod","Average Catch",37819.1861688595
+"28","Cod","Catch IAV",10142.2344387912
 "29","Cod","P(Closed)",0
-"30","Cod","Avg terminal SSB Relative MSE",0.0160735996831309
-"31","Cod","EM: P(Fy > Flimit)",0.00198412698412698
-"32","Cod","EM: P(SSB < SSBlimit)",7.93650793650794e-05
+"30","Cod","Avg terminal SSB Relative MSE",0.0164363194000249
+"31","Cod","EM: P(Fy > Flimit)",0.00111111111111111
+"32","Cod","EM: P(SSB < SSBlimit)",5.29100529100529e-05
 "33","Cod","OM: P(Fy > Flimit)",0
 "34","Cod","OM: P(SSB < SSBlimit)",0
-"35","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.00198412698412698
+"35","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.00111111111111111
 "36","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
-"37","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",7.93650793650794e-05
+"37","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.000158730158730159
 "38","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"39","Cod","OM: Terminal SSB/SSBtarget",0.659582523765264
+"39","Cod","OM: Terminal SSB/SSBtarget",0.659502758862299
