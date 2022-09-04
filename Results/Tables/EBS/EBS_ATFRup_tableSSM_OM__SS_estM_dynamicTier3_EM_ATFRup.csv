@@ -5,10 +5,10 @@
 "4","Pollock","Avg terminal SSB Relative MSE",0.000595053844607615
 "5","Pollock","EM: P(Fy > Flimit)",0
 "6","Pollock","EM: P(SSB < SSBlimit)",0
-"7","Pollock","OM: P(Fy > Flimit)",0.000310077519379845
+"7","Pollock","OM: P(Fy > Flimit)",0.00589147286821705
 "8","Pollock","OM: P(SSB < SSBlimit)",0
 "9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.000310077519379845
+"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.00589147286821705
 "11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
 "13","Pollock","OM: Terminal SSB/SSBtarget",0.405104509291012

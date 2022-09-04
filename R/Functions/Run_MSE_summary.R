@@ -96,7 +96,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         # STEP 3 - Performance metrics
         mse_metrics <- mse_summary(mse3)
         mse_metrics <- mse_metrics[1:3,-c(2:3)]
-        mse_metrics <- pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
+        mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
         colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
         
         #if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
