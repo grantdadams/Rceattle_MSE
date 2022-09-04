@@ -63,15 +63,8 @@ source("R/Functions/Run_full_MSE_function_not_parallel.R")
 run_mse_np(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:4,9:12)], em_hcr_names = em_hcr_names[c(1:4,9:12)], sampling_period = sampling_period, nsim = 300)
 
 
-# All up/down 313-12
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[1:2], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[1:2], nsim = 300)
-
-# ATF up and down 313-10
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[3:4], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)], em_hcr_names = em_hcr_names[c(1:2,9:10)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[3:4], nsim = 300)
-
-# Trends (non-NPFMC HCRs)
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(3:8,13:16)], em_hcr_names = em_hcr_names[c(3:8,13:16)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0)), nsim = 300)
-
+# Rec trend
+run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[1], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1)], em_hcr_names = em_hcr_names[c(1)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[1], nsim = 300)
 
 
 ################################################

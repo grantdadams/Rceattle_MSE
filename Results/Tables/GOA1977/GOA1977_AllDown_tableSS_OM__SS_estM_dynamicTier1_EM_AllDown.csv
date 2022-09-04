@@ -10,7 +10,7 @@
 "9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
 "10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.000158730158730159
 "11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.00666666666666667
+"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.00222222222222222
 "13","Pollock","OM: Terminal SSB/SSBtarget",0.300922622473184
 "14","Arrowtooth flounder","Average Catch",63709.7453089596
 "15","Arrowtooth flounder","Catch IAV",842.320918740761

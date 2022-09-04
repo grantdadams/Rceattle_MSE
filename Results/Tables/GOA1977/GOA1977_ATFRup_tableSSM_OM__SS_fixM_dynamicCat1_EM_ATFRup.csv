@@ -30,11 +30,11 @@
 "29","Cod","P(Closed)",0
 "30","Cod","Avg terminal SSB Relative MSE",0.138099110420804
 "31","Cod","EM: P(Fy > Flimit)",0.342460317460317
-"32","Cod","EM: P(SSB < SSBlimit)",0
+"32","Cod","EM: P(SSB < SSBlimit)",0.0507142857142857
 "33","Cod","OM: P(Fy > Flimit)",0.999920634920635
-"34","Cod","OM: P(SSB < SSBlimit)",0.0484920634920635
+"34","Cod","OM: P(SSB < SSBlimit)",0.50968253968254
 "35","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
 "36","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.657460317460317
 "37","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"38","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.14547619047619
+"38","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.458968253968254
 "39","Cod","OM: Terminal SSB/SSBtarget",0.22884149550826
