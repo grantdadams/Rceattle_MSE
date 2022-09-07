@@ -16,8 +16,21 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
       }
       
       if(om_list_no_F[[om]]$data_list$msmMode == 1){
-        om_list_no_F[[om]]$quantities$depletionSSB <- om_list_no_F[[om]]$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
-        om_list_no_F[[om]]$quantities$depletion <- om_list_no_F[[om]]$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
+        # - Years for projection
+        styr <- om_list_no_F[[om]]$data_list$styr
+        hind_yrs <- (om_list_no_F[[om]]$data_list$styr) : om_list_no_F[[om]]$data_list$endyr
+        hind_nyrs <- length(hind_yrs)
+        proj_yr <- om_list_no_F[[om]]$data_list$projyr
+        proj_yrs <- (om_list_no_F[[om]]$data_list$endyr + 1) : om_list_no_F[[om]]$data_list$projyr
+        proj_nyrs <- length(proj_yrs)
+        
+        # Not projection
+        om_list_no_F[[om]]$quantities$depletionSSB <- om_list_no_F[[om]]$quantities$biomassSSB[,1:length(hind_yrs)]/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB[,proj_yr-styr]
+        om_list_no_F[[om]]$quantities$depletion <- om_list_no_F[[om]]$quantities$biomass[,1:length(hind_yrs)]/om_list_no_rdev_or_F[[om]]$quantities$biomass[,proj_yr-styr]
+        
+        # Projection
+        om_list_no_F[[om]]$quantities$depletionSSB <- om_list_no_F[[om]]$quantities$biomassSSB[,proj_yrs-styr+1]/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB[,(1:proj_nyrs)+proj_yrs-styr+1]
+        om_list_no_F[[om]]$quantities$depletion <- om_list_no_F[[om]]$quantities$biomass[,proj_yrs-styr+1]/om_list_no_rdev_or_F[[om]]$quantities$biomass[,(1:proj_nyrs)+proj_yrs-styr+1]
       }
     }
     
@@ -79,7 +92,24 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             if(trend){
               mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
+              mse3[[j]]$OM$quantities$depletionSSB[1,] = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_F[[om]]$quantities$biomassSSB[1,] # Hack for pollock because 
               mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
+              
+              # - Years for projection
+              styr <- om_list_no_F[[om]]$data_list$styr
+              hind_yrs <- (om_list_no_F[[om]]$data_list$styr) : om_list_no_F[[om]]$data_list$endyr
+              hind_nyrs <- length(hind_yrs)
+              proj_yr <- om_list_no_F[[om]]$data_list$projyr
+              proj_yrs <- (om_list_no_F[[om]]$data_list$endyr + 1) : om_list_no_F[[om]]$data_list$projyr
+              proj_nyrs <- length(proj_yrs)
+              
+              # Not projection
+              om_list_no_F[[om]]$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB[,1:length(hind_yrs)]/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB[,proj_yr-styr]
+              om_list_no_F[[om]]$quantities$depletion <- mse3[[j]]$OM$quantities$biomass[,1:length(hind_yrs)]/om_list_no_rdev_or_F[[om]]$quantities$biomass[,proj_yr-styr]
+              
+              # Projection
+              om_list_no_F[[om]]$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB[,proj_yrs-styr+1]/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB[,(1:proj_nyrs)+proj_yrs-styr+1]
+              om_list_no_F[[om]]$quantities$depletion <- mse3[[j]]$OM$quantities$biomass[,proj_yrs-styr+1]/om_list_no_rdev_or_F[[om]]$quantities$biomass[,(1:proj_nyrs)+proj_yrs-styr+1]
             }
             
             mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Update SB0

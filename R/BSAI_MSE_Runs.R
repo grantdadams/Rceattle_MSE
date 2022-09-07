@@ -68,7 +68,7 @@ run_mse_np(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = 
 
 # Rec trend
 # - NPFMC and PFMC
-run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[4], om_list = om_list[3], om_names = om_names[3], em_hcr_list = em_hcr_list[9], em_hcr_names = em_hcr_names[9], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5))[1], nsim = 300)
+run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[2], om_list = om_list[3], om_names = om_names[3], em_hcr_list = em_hcr_list[12:16], em_hcr_names = em_hcr_names[12:16], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5))[2], nsim = 300)
 
 
 ################################################
