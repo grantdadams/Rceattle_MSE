@@ -64,7 +64,7 @@ run_mse_np(system = "GOA1977", recname = "ConstantR", om_list = om_list, om_name
 
 
 # Rec trend
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[1], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1)], em_hcr_names = em_hcr_names[c(1)], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[1], nsim = 300)
+run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0)), nsim = 300)
 
 
 ################################################

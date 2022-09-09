@@ -66,25 +66,25 @@ source("R/Functions/Run_MSE_summary.R")
 
 # SAFS 313-12
 # - No rec trend
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
 gc()
 
 # - All Up and Down
-summary_fun(system = "GOA1977", recname = c("AllUp"), om_list_no_F = lapply(projected_OM_no_F[3], function(x) project_trend(x, c(1,1,1))), om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) equilibrate_and_project(x, c(1,1,1))))
+summary_fun(system = "GOA1977", recname = c("AllUp"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(1,1,1))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(1,1,1))))
 gc()
 # om1, em1
 
 
-summary_fun(system = "GOA1977", recname = c("AllDown"), om_list_no_F = lapply(projected_OM_no_F[3], function(x) project_trend(x, c(-0.5, -0.5, -0.5))), om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) equilibrate_and_project(x, c(-0.5, -0.5, -0.5))) )
+summary_fun(system = "GOA1977", recname = c("AllDown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(-0.5, -0.5, -0.5))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(-0.5, -0.5, -0.5))) )
 gc()
 
 
 # SAFS 313-10
 # - ATF Up and Down
-summary_fun(system = "GOA1977", recname = c("ATFRup"), om_list_no_F = lapply(projected_OM_no_F[3], function(x) project_trend(x, c(0, 1, 0))), om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) equilibrate_and_project(x, c(0, 1, 0))) )
+summary_fun(system = "GOA1977", recname = c("ATFRup"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(0, 1, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(0, 1, 0))) )
 gc()
 
-summary_fun(system = "GOA1977", recname = c("ATFRdown"), om_list_no_F = lapply(projected_OM_no_F[3], function(x) project_trend(x, c(0, -0.5, 0))), om_names = om_names[3], em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(om_list, function(x) equilibrate_and_project(x, c(0, -0.5, 0))) )
+summary_fun(system = "GOA1977", recname = c("ATFRdown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(0, -0.5, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(0, -0.5, 0))) )
 gc()
 
 
