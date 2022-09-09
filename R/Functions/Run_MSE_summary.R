@@ -74,8 +74,16 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             # -- Update OM depletion if using static HCR and there is a trend in R
             if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 0 & trend){
-              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB
-              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass
+              # Not using dynamic B0, using static B0 with trend
+              
+              
+              # - Years for projection
+              styr <- om_list_no_F[[om]]$data_list$styr
+              hind_proj_yrs <- (om_list_no_F[[om]]$data_list$styr) : om_list_no_F[[om]]$data_list$projyr
+              hind_proj_nyrs <- length(hind_proj_yrs)
+              
+              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/om_list_no_rdev_or_F[[om]]$quantities$biomassSSB[,1:hind_proj_nyrs]
+              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/om_list_no_rdev_or_F[[om]]$quantities$biomass[,1:hind_proj_nyrs]
             }
             
             # -- Update OM depletion if using dynamic HCR
