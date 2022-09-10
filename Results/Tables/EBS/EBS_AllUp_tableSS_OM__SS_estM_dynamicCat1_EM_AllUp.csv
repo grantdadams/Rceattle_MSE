@@ -11,7 +11,7 @@
 "10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.993953488372093
 "11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.00178294573643411
-"13","Pollock","OM: Terminal SSB/SSBtarget",0.562612312337379
+"13","Pollock","OM: Terminal SSB Depletion",0.416898580515263
 "14","Cod","Average Catch",176258.04156731
 "15","Cod","Catch IAV",1828.0657907217
 "16","Cod","P(Closed)",0
@@ -24,7 +24,7 @@
 "23","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
 "24","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "25","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"26","Cod","OM: Terminal SSB/SSBtarget",0.659531118967035
+"26","Cod","OM: Terminal SSB Depletion",0.488455724208824
 "27","Arrowtooth flounder","Average Catch",47614.8200847252
 "28","Arrowtooth flounder","Catch IAV",386.658965250427
 "29","Arrowtooth flounder","P(Closed)",0
@@ -37,4 +37,4 @@
 "36","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
 "37","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "38","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"39","Arrowtooth flounder","OM: Terminal SSB/SSBtarget",0.486441754616903
+"39","Arrowtooth flounder","OM: Terminal SSB Depletion",0.390336561634636
