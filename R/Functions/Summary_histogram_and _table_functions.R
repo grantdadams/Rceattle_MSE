@@ -68,7 +68,7 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   # Plot
   if(!single){
     if(!is.null(file)){
-      png(filename = paste0(file, system, "_", recname, "_", species, ".png"), width = width, height = height, units = "in", res = 300)
+      png(filename = paste0(file, system, "_", species, "_", recname, ".png"), width = width, height = height, units = "in", res = 300)
     }
     
     par(oma=c(0,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0))
@@ -162,17 +162,17 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
       GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1] # May need to add "_" after table for later iterations
-      # EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1]
+      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1]
       
       if(om * em == 1){
         GOA_mse_sum = GOA_mse_sum_tmp
-        #EBS_mse_sum = EBS_mse_sum_tmp
+        EBS_mse_sum = EBS_mse_sum_tmp
       } else {
         GOA_mse_sum = cbind(GOA_mse_sum, GOA_mse_sum_tmp[,3])
         colnames(GOA_mse_sum)[ncol(GOA_mse_sum)] <- colnames(GOA_mse_sum_tmp)[3]
         
-        #EBS_mse_sum = cbind(EBS_mse_sum, EBS_mse_sum_tmp[,3])
-        #colnames(EBS_mse_sum)[ncol(EBS_mse_sum)] <- colnames(EBS_mse_sum_tmp)[3]
+        EBS_mse_sum = cbind(EBS_mse_sum, EBS_mse_sum_tmp[,3])
+        colnames(EBS_mse_sum)[ncol(EBS_mse_sum)] <- colnames(EBS_mse_sum_tmp)[3]
       }
     }
   }
@@ -192,14 +192,14 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
     
     row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
     
-    #EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1-EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
+    EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1-EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1-GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
     
     # Inverse
     inverse_pm <- c("Avg terminal SSB MSE", "Catch IAV")
     row_id <- which(GOA_mse_sum$Performance.metric %in% inverse_pm)
     
-    #EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)] <- 1/#EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)]
+    EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1/EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1/GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
   }
   
@@ -223,7 +223,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
     
     row_id <- which(GOA_mse_sum$Performance.metric %in% percent_form)
     
-    #EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)] <- round(#EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)], 2)
+    EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- round(EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)], 2)
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- round(GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)], 2)
     
     # - Large numbers
@@ -231,7 +231,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
                   "Catch IAV")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
-    #EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)] <- format(round(#EBS_mse_sum[row_id, 3:ncol(#EBS_mse_sum)], 0), nsmall=0, big.mark=",")
+    EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- format(round(EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)], 0), nsmall=0, big.mark=",")
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- format(round(GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)], 0), nsmall=0, big.mark=",")
   }
   
@@ -241,6 +241,6 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
   GOA_mse_sum <- GOA_mse_sum[-row_id,]
   GOA_mse_sum <- rbind(GOA_mse_sum, atf_sub)
   
-  return(list(GOA = GOA_mse_sum))
+  return(list(EBS = EBS_mse_sum, GOA = GOA_mse_sum))
 }
 

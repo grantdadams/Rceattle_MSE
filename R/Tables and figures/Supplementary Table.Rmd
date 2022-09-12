@@ -17,7 +17,7 @@ pacman::p_load(dplyr, ggplot2, knitr, kableExtra, readr, pander)
 ```
 
 
-
+# Depletion trajectory
 ```{r, include=TRUE, echo=FALSE, results = "asis"}
 panderOptions("table.split.table", "Inf") # Dont splits the table up
 panderOptions('keep.line.breaks', TRUE)
