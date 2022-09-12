@@ -49,6 +49,7 @@ ss_run_Fspr <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                  estimateMode = 2, # Run projection only
                                  HCR = build_hcr(HCR = 4, # Tier3 HCR
                                                  FsprTarget = 0.4, # F40%
+                                                 FsprLimit = 0.2,
                                                  Plimit = 0.2
                                  ),
                                  msmMode = 0, # Single species mode
@@ -163,6 +164,7 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    estimateMode = 2, # Run projection only
                                    HCR = build_hcr(HCR = 4, # Tier3 HCR
                                                    FsprTarget = 0.4, # F40%
+                                                   FsprLimit = 0.2,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
