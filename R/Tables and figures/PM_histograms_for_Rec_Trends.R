@@ -1,5 +1,6 @@
 # Histogram and table of performance metrics (only NPFMC is used) rest is coommented out
 source("R/Functions/Summary_histogram_and _table_functions.R")
+source("R/Functions/Summary_histogram_and _table_functions.R")
 
 # Library
 library(fmsb)

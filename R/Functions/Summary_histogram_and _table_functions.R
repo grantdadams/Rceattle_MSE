@@ -161,8 +161,22 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
       
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
+      
       GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1] # May need to add "_" after table for later iterations
       EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1]
+      
+      # PM 5 and 7 temportary fix
+      if(em_hcr_names[em] %in% c("SS_fixM_Fspr_EM", "SS_estM_Fspr_EM")){
+        
+        # Make larger number better
+        reverse_percentage <- c("EM: P(Fy > Flimit)",
+                                "OM: P(Fy > Flimit)")
+        
+        row_id <- which(GOA_mse_sum_tmp$Performance.metric %in% reverse_percentage)
+        
+        GOA_mse_sum_tmp[row_id,3] <- 0
+        EBS_mse_sum_tmp[row_id,3] <- 0
+      }
       
       if(om * em == 1){
         GOA_mse_sum = GOA_mse_sum_tmp
@@ -180,8 +194,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
   
   if(reverse){
     # Make larger number better
-    reverse_percentage <- c("P(Closed)",
-                            "EM: P(Fy > Flimit)",
+    reverse_percentage <- c("EM: P(Fy > Flimit)",
                             "EM: P(SSB < SSBlimit)",
                             "OM: P(Fy > Flimit)",
                             "OM: P(SSB < SSBlimit)",
@@ -203,6 +216,13 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1/GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
   }
   
+  
+  # Make p-closed into p-open
+  reverse_percentage <- c("P(Closed)")
+  row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
+  
+  EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1-EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
+  GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1-GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
   
   
   # Format tables
