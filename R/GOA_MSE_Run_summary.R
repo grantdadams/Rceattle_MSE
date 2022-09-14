@@ -18,6 +18,7 @@ ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities
 om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25)
 projected_OM_no_F = list(ss_run, ss_run_M, ms_run)
 om_names = c("SS_OM", "SSM_OM", "MS_OM")
+om_names_print = c("SS fix M", "SS est M", "MS")
 
 ## Rec scenarios
 # 1. Constant
@@ -55,10 +56,10 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 
 # - Plots
-plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2), width = 6, height = 5)
-plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2), width = 6, height = 5)
-plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2), width = 6, height = 5)
-plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names, species = c(1,3,2), width = 6, height = 5)
+plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
+plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
+plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
+plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 
 
 # Do summary

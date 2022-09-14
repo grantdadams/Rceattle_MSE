@@ -56,10 +56,11 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 # FIXME - check Ftarget of estM and fixM for tier 3
 
 
-plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
-plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
-plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
-plot_b_eaten_prop(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names, width = 6, height = 5)
+om_names_print = c("SS fix M", "SS est M", "MS")
+plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
+plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
+plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
+plot_b_eaten_prop(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 
 ################################################
 # Load and run summary
