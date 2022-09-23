@@ -1,6 +1,6 @@
 # Histogram and table of performance metrics (only NPFMC is used) rest is coommented out
 source("R/Functions/Summary_histogram_and _table_functions.R")
-source("R/Functions/Summary_histogram_and _table_functions.R")
+source("R/Functions/Summary_histogram_by_PM.R")
 
 # Library
 library(fmsb)
@@ -14,7 +14,7 @@ normalize <- function(x) {
 }
 
 
-source("R/Functions/Summary_histogram_by_PM.R")
+
 # - EBS
 histogram_by_pm(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6.5, width = 5)
 histogram_by_pm(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6.5, width = 5)
@@ -24,6 +24,13 @@ histogram_by_pm(system = "EBS", species = "Arrowtooth flounder", file = "Results
 histogram_by_pm(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6.5, width = 5)
 histogram_by_pm(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6.5, width = 5)
 histogram_by_pm(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6.5, width = 5)
+
+
+histogram_by_om(system = "EBS", species = "Pollock", allHCR = TRUE, height = 6.5, width = 5, single = TRUE)
+
+
+goa_m <- m_summary_table()$GOA
+write.csv(goa_m, file = "Results/Tables/Avg M/GOA M summary.csv")
 
 
 

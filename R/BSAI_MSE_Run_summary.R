@@ -18,6 +18,7 @@ ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities
 om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25)
 projected_OM_no_F = list(ss_run, ss_run_M, ms_run)
 om_names = c("SS_OM", "SSM_OM", "MS_OM")
+om_names_print = c("SS fix M", "SS est M", "MS")
 
 ## Rec scenarios
 # 1. Constant
@@ -54,9 +55,6 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 
 # FIXME - check Ftarget of estM and fixM for tier 3
-
-
-om_names_print = c("SS fix M", "SS est M", "MS")
 plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)

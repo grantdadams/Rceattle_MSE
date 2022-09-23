@@ -12,10 +12,10 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
   recname_print <- c("Experiment 1","Experiment 2","Experiment 3","Experiment 4","Experiment 5")
   
   if(allHCR){
-    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
-                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM")
+    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
     
-    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4", "Fix M: HCR 5", "Est M: HCR 5")
   }
   
   # OM Names
@@ -50,21 +50,24 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
     
     if(allHCR){
       # Subset based on OM
+      
+      em_order <- c(1:2, 9:10,3:4,11:12,5:6,13:14,7,15,8, 16)
       data_list[[rec]] <- list(
+        
         # SS OM
-        ss_om = OM.res[[rec]][c(1:2, 8:9,3:4,10:11,5:6,12:13,7,14),],
+        ss_om = OM.res[[rec]][em_order,],
         
         # SS-M OM
-        ssm_om = OM.res[[rec]][c(15:16,22:23,17:18,24:25,19:20,26:27,21,28),],
+        ssm_om = OM.res[[rec]][em_order+16,],
         
         # MS OM
-        ms_om =  OM.res[[rec]][c(29:30,36:37,31:32,38:39,33:34,40:41,35,42),] 
+        ms_om =  OM.res[[rec]][em_order+32,] 
       )
     }
   }
   
   # Colors
-  MPcols <- gmri_pal("main")(8)
+  MPcols <- gmri_pal("main")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
   colors <- c()
@@ -72,8 +75,8 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
     colors <- c(colors, MPcols[i], MPcols[i])
     point_type <- c(point_type, 21, 24)
   }
-  colors <- c(colors, MPcols[7:8])
-  point_type <- c(point_type, 21, 21)
+  colors <- c(colors, MPcols[7:10])
+  point_type <- c(point_type, 21, 21, 21, 21)
   
   
   # Plot
@@ -103,9 +106,16 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
     for(rec in 1:length(recname)){
       plot(NA, NA, ylim = ylim, xlim = c(0.65,3.35), main = recname_print[rec], xaxt = "na", xlab="", ylab="")
       
+      if(pm == 13){
+        abline(h = 0.4, col = "blue", lty = 2)
+        #abline(h = 0.2, col = "red", lty = 2)
+      }
+      
       for(i in 1:length(data_list[[rec]])){
         points(x = seq(i-0.35, i+ 0.35, length.out = nrow(data_list[[rec]][[i]])), y = data_list[[rec]][[i]][,pm], bg = alpha(colors, alpha = 0.5), pch = point_type, cex = 3)
       }
+      
+
       
       abline(v = 1.5, col = "grey")
       abline(v = 2.5, col = "grey")

@@ -8,10 +8,10 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   EM_names_print <-  c("Fix M: NPFMC", "Est M: NPFMC") # , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
   
   if(allHCR){
-    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", # Fixed M
-                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM")
+    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
     
-    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4")
+    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4", "Fix M: HCR 5", "Est M: HCR 5")
   }
   
   # OM Names
@@ -39,21 +39,23 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   )
   
   if(allHCR){
-    # Subset based on OM
+    em_order <- c(1:2, 9:10,3:4,11:12,5:6,13:14,7,15,8, 16)
     data_list <- list(
+      
       # SS OM
-      ss_om = OM.res[c(1:2, 8:9,3:4,10:11,5:6,12:13,7,14),],
+      ss_om = OM.res[em_order,],
       
       # SS-M OM
-      ssm_om = OM.res[c(15:16,22:23,17:18,24:25,19:20,26:27,21,28),],
+      ssm_om = OM.res[em_order+16,],
       
       # MS OM
-      ms_om =  OM.res[c(29:30,36:37,31:32,38:39,33:34,40:41,35,42),] 
+      ms_om =  OM.res[em_order+32,] 
     )
   }
   
+  
   # Colors
-  MPcols <- gmri_pal("main")(8)
+  MPcols <- gmri_pal("main")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
   colors <- c()
@@ -61,8 +63,8 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
     colors <- c(colors, MPcols[i], MPcols[i])
     point_type <- c(point_type, 21, 24)
   }
-  colors <- c(colors, MPcols[7:8])
-  point_type <- c(point_type, 21, 21)
+  colors <- c(colors, MPcols[7:10])
+  point_type <- c(point_type, 21, 21, 21, 21)
   
   
   # Plot
@@ -262,5 +264,45 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
   GOA_mse_sum <- rbind(GOA_mse_sum, atf_sub)
   
   return(list(EBS = EBS_mse_sum, GOA = GOA_mse_sum))
+}
+
+
+
+
+# Summary table function
+m_summary_table <- function(om_names = c("SSM_OM"), em_hcr_names = c("SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM"), recnames = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")){
+  # Get data we want
+  for(om in 1:length(om_names)){  # OM model
+    for(em in 1:length(em_hcr_names)){ # EM and HCR
+      for(rec in 1:length(recnames)){
+        
+        # STEP 1 -- File names
+        MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
+        
+        GOA_mse_sum_tmp <- na.omit(read.csv(file = paste0("Results/Tables/Avg M/GOA1977/Avg MGOA1977", "_", recnames[rec], "_Table", MSE_names, "_", recnames[rec],".csv")))[,-1] # May need to add "_" after table for later iterations
+        GOA_mse_sum_tmp$OM <- om_names[om]
+        GOA_mse_sum_tmp$EM <- em_hcr_names[em]
+        GOA_mse_sum_tmp$Rec <- recnames[rec]
+        GOA_mse_sum_tmp$Spp <- c("Pollock", "ATF F", "ATF M", "Cod")
+        
+        # EBS_mse_sum_tmp <- na.omit(read.csv(file = paste0("Results/Tables/Avg M/EBS/Avg MEBS", "_", recnames[rec], "_Table", MSE_names, "_", recnames[rec],".csv")))[,-1]
+        # EBS_mse_sum_tmp$OM <- om_names[om]
+        # EBS_mse_sum_tmp$EM <- em_hcr_names[em]
+        # EBS_mse_sum_tmp$Rec <- recnames[rec]
+        # EBS_mse_sum_tmp$Spp <- c("Pollock", "ATF", "Cod")
+        
+        if(om * em * rec == 1){
+          GOA_mse_sum = GOA_mse_sum_tmp
+          # EBS_mse_sum = EBS_mse_sum_tmp
+        } else {
+          GOA_mse_sum = rbind(GOA_mse_sum, GOA_mse_sum_tmp)
+          
+          # EBS_mse_sum = cbind(EBS_mse_sum, EBS_mse_sum_tmp)
+        }
+      }
+    }
+  }
+  
+  return(list(GOA = GOA_mse_sum)) # EBS = EBS_mse_sum, 
 }
 
