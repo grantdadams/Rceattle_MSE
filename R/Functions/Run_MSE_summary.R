@@ -130,6 +130,9 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         # STEP 3 - Performance metrics
         mse_metrics <- mse_summary(mse3)
+        avg_M <- mse_metrics %>% 
+          select("Average M", "M var", "Min M", "Max M")
+        
         mse_metrics <- mse_metrics[1:3,-c(2:3)]
         mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
         colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
@@ -137,6 +140,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         #if(om == 1 & em == 1){mse_metrics_complete = mse_metrics}
         #if(om != 1 | em != 1){mse_metrics_complete = cbind(mse_metrics_complete, mse_metrics[,-c(1,2)])}
         write.csv(mse_metrics, file = paste0("Results/Tables/",system,"/",system, "_", recname[rec], "_table", MSE_names,".csv"))
+        write.csv(avg_M, file = paste0("Results/Tables/Avg M/",system,"/Avg M",system, "_", recname[rec], "_table", MSE_names,".csv"))
         
         
         # STEP 4 - Plot

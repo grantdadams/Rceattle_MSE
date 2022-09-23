@@ -67,7 +67,7 @@ source("R/Functions/Run_MSE_summary.R")
 
 # SAFS 313-12
 # - No rec trend
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[2], om_names = om_names[2], em_hcr_list_fixM = em_hcr_list_fixM[9:16], em_hcr_list_estM = em_hcr_list_estM[9:16], em_hcr_names = em_hcr_names[9:16], trend = FALSE)
 gc()
 
 # - All Up and Down
