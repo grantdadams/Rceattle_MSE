@@ -68,28 +68,5 @@ run_mse_np(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = 
 
 # Rec trend
 # - NPFMC and PFMC
-run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[2], om_list = om_list[3], om_names = om_names[3], em_hcr_list = em_hcr_list[12:16], em_hcr_names = em_hcr_names[12:16], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5))[2], nsim = 300)
-
-
-################################################
-# Base MSEs (Tier 3 HCR no cap)
-################################################
-# -- NPFMC Tier 3 HCRsyea
-# - MS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/MS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - MS-OM: SSM-EM Tier 3 HCR
-mse2 <- mse_run(om = ms_run_f25, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/MS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SS-EM Tier 3 HCR
-mse3 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/SS_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/SS_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SSM-OM: SS-EM Tier 3 HCR
-mse5 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/SSM_OM/SS_Tier3_EM/ConstantR/No cap", file = NULL)
-
-# - SSM-OM: SSM-EM Tier 3 HCR
-mse6 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 200, assessment_period = 1, sampling_period = c(1,1,1,1,1,1,2), simulate_data = TRUE, sample_rec = TRUE, dir = "Runs/EBS/SSM_OM/SS_M_Tier3_EM/ConstantR/No cap", file = NULL)
+run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5)), nsim = 300)
 

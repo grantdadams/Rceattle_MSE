@@ -92,6 +92,7 @@ ss_run_AvgF <- fit_mod(data_list = BS2017SS,
                        estimateMode = 2, # Run projection only
                        HCR = build_hcr(HCR = 2, # Input F
                                        FsprTarget = avg_F, # F40%
+                                       FsprLimit = 0.2,
                                        Plimit = 0.2
                        ),
                        msmMode = 0, # Single species mode
@@ -202,6 +203,7 @@ ss_run_M_AvgF <- Rceattle::fit_mod(data_list = BS2017SS_M,
                                    estimateMode = 2, # Run projection only
                                    HCR = build_hcr(HCR = 2, # Input F
                                                    FsprTarget = avg_F, # F40%
+                                                   FsprLimit = 0.2,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
