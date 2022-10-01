@@ -1,4 +1,4 @@
-
+source("R/Functions/plot_m_through_time.R")
 
 summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F =  NULL, om_list_no_rdev_or_F = NULL, om_names = NULL, em_hcr_list_fixM = NULL, em_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2), trend = FALSE){
   ################################################
@@ -150,10 +150,14 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         dir.create(paste0("Results/Figures/R/", system, "/", recname[rec], "/True/"), recursive = TRUE, showWarnings = FALSE)
         dir.create(paste0("Results/Figures/F/", system, "/", recname[rec], "/Perceived/"), recursive = TRUE, showWarnings = FALSE)
         dir.create(paste0("Results/Figures/F/", system, "/", recname[rec], "/True/"), recursive = TRUE, showWarnings = FALSE)
+        
+        dir.create(paste0("Results/Figures/M/", system, "/", recname[rec], "/"), recursive = TRUE, showWarnings = FALSE)
 
 
         plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", reference = om_list_no_F[[om]], top_adj = 1, species = species, width = 4.3, height = 4)
         plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/", system, "/", recname[rec], "/Perceived/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4)
+        
+        plot_m_at_age_mse(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/M/", system, "/", recname[rec], "/", system, "_", recname[rec], " Perceived ", MSE_names), line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, age = 1)
 
         # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = species, width = 4.3, height = 4)
 
