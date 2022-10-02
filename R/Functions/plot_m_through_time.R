@@ -39,9 +39,6 @@ plot_m_at_age_mse <-
            incl_proj = FALSE,
            mod_cex = 1,
            alpha = 0.4,
-           mod_avg = rep(FALSE, length(Rceattle)),
-           mse = FALSE,
-           OM = TRUE,
            reference = NULL) {
     
     
@@ -102,6 +99,7 @@ plot_m_at_age_mse <-
     quantity_lower95 <- apply( quantity[,,,1:nmse], c(1,2,3), function(x) quantile(x, probs = 0.025, na.rm = TRUE) )
     quantity_upper50 <- apply( quantity[,,,1:nmse], c(1,2,3), function(x) quantile(x, probs = 0.75, na.rm = TRUE) )
     quantity_lower50 <- apply( quantity[,,,1:nmse], c(1,2,3), function(x) quantile(x, probs = 0.25, na.rm = TRUE) )
+    quantity_median <- apply( quantity[,,,1:nmse], c(1,2,3), function(x) quantile(x, probs = 0.5, na.rm = TRUE) )
     
     # -- Put back in array for indexing below
     quantity <- array(apply( quantity[,,,1:nmse], c(1,2,3), mean ), dim = c(nspp, 2, nyrs,  1))
@@ -109,17 +107,18 @@ plot_m_at_age_mse <-
     quantity_lower95 <- array(quantity_lower95, dim = c(nspp, 2, nyrs,  1))
     quantity_upper50 <- array(quantity_upper50, dim = c(nspp, 2, nyrs,  1))
     quantity_lower50<- array(quantity_lower50, dim = c(nspp, 2, nyrs,  1))
-    
+    quantity_median<- array(quantity_median, dim = c(nspp, 2, nyrs,  1))
     
     
     ## Plot limits
     ymax <- c()
     ymin <- c()
     ind <- 1
-    for (sp in 1:nspp) {
-      for(sex in 1:nsex[sp]){
-        ymax[ind] <- max(c(quantity_upper95[sp,sex, , ], 0), na.rm = T)
-        ymin[ind] <- min(c(quantity_lower95[sp,sex, , ], 100), na.rm = T)
+    for (j in 1:length(spp)) {
+      for(sex in 1:nsex[spp[j]]){
+        
+        ymax[ind] <- max(c(quantity_upper95[spp[j],sex, , ], Rceattle$Sim_1$OM$quantities$M[spp[j],sex, age, ], 0), na.rm = T)
+        ymin[ind] <- min(c(quantity_lower95[spp[j],sex, , ], Rceattle$Sim_1$OM$quantities$M[spp[j],sex, age, ], 100), na.rm = T)
         
         ind <- ind+1
       }
@@ -151,22 +150,29 @@ plot_m_at_age_mse <-
         mgp = c(1.75, 0.5, 0)
       )
       plot.new()
+      ind <- 1
       
       for (j in 1:length(spp)) {
         for(sex in 1:nsex[spp[j]]){
           plot(
             y = NA,
             x = NA,
-            ylim = c(ymin[spp[j]], ymax[spp[j]]),
+            ylim = c(ymin[ind], ymax[ind]),
             xlim = c(endyr, projyr + (endyr - styr) * right_adj),
             xlab = "Year",
             ylab = "M",
-            xaxt = c(rep("n", length(spp) - 1), "s")[j]
+            xaxt = c(rep("n", plot_length - 1), "s")[ind]
           )
+          
+          # Get sex for legend
+          legend_sex = ifelse(sex == 1, "female", "male")
+          if(nsex[spp[j]] == 1){
+            legend_sex = ""
+          }
           
           # Legends
           legend("topleft",
-                 legend = spnames[spp[j]],
+                 legend = paste(spnames[spp[j]], legend_sex),
                  bty = "n",
                  cex = 1)
           
@@ -209,6 +215,8 @@ plot_m_at_age_mse <-
             lwd = lwd,
             col = 1
           ) # Median
+          
+          ind <- ind + 1
         }
       }
       
