@@ -21,15 +21,15 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
   # OM Names
   om_names = c("SS_OM", "SSM_OM", "MS_OM")
   
-  pm_names <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion")
+  pm_names <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion")
   
-  performance_metrics <- c("Catch", "Catch IAV", "P(Open)", "SSB RMSE", "EM- P(Not overfishing)", "EM- P(Not overfished)", "OM- P(Not overfishing)", "OM- P(Not overfished)", "P(EM Overfishing & OM Underfishing)", "P(EM Underfishing & OM Overfishing)", "P(EM Overfished & OM Underfished)", "P(EM Underfished & OM Overfished)","Terminal Depletion")
+  performance_metrics <- c("Catch", "Catch IAV", "P(Closed)", "SSB RMSE", "EM- P(Overfishing)", "EM- P(overfished)", "OM- P(Overfishing)", "OM- P(Overfished)", "P(EM Overfishing & OM Underfishing)", "P(EM Underfishing & OM Overfishing)", "P(EM Overfished & OM Underfished)", "P(EM Underfished & OM Overfished)","Terminal Depletion")
   
   # Get output
   OM.res <- list()
   data_list <- list()
   for(rec in 1:length(recname)){
-    output_table = pm_summary_table(om_names, EM_names, recname = recname[rec], format = FALSE, reverse = TRUE)
+    output_table = pm_summary_table(om_names, EM_names, recname = recname[rec], format = FALSE, reverse = FALSE)
     OM.res[[rec]] = output_table[[system]][which(output_table[[system]]$Species == species),-1]
     rownames(OM.res[[rec]]) <- OM.res[[rec]]$Performance.metric
     OM.res[[rec]] <- OM.res[[rec]][,-1]
@@ -112,7 +112,7 @@ histogram_by_pm <- function(system = "GOA", species = "Pollock", file = NULL, he
       }
       
       for(i in 1:length(data_list[[rec]])){
-        points(x = seq(i-0.35, i+ 0.35, length.out = nrow(data_list[[rec]][[i]])), y = data_list[[rec]][[i]][,pm], bg = alpha(colors, alpha = 0.5), pch = point_type, cex = 3)
+        points(x = seq(i-0.4, i+ 0.4, length.out = nrow(data_list[[rec]][[i]])), y = data_list[[rec]][[i]][,pm], bg = alpha(colors, alpha = 0.5), pch = point_type, cex = 3)
       }
       
 

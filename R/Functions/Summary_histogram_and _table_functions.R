@@ -148,7 +148,7 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
     }
     
     plot.new()
-    legend("center", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 8), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
+    legend("center", legend = c(EM_names_print, "Dynamic BRP"), pch = c(rep(16, 10), 17), bty = "n", col = c(MPcols, 1), pt.cex = 1.5)
   }
 }
 
@@ -168,7 +168,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
       EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_", recname, "_Table", MSE_names, "_", recname,".csv"))[,-1]
       
       # PM 5 and 7 temportary fix
-      if(em_hcr_names[em] %in% c("SS_fixM_Fspr_EM", "SS_estM_Fspr_EM")){
+      if(em_hcr_names[em] %in% c("SS_fixM_Fspr_EM", "SS_estM_Fspr_EM", "SS_fixM_AvgF_EM", "SS_estM_AvgF_EM")){
         
         # Make larger number better
         reverse_percentage <- c("EM: P(Fy > Flimit)",
@@ -196,7 +196,8 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
   
   if(reverse){
     # Make larger number better
-    reverse_percentage <- c("EM: P(Fy > Flimit)",
+    reverse_percentage <- c("P(Closed)",
+                            "EM: P(Fy > Flimit)",
                             "EM: P(SSB < SSBlimit)",
                             "OM: P(Fy > Flimit)",
                             "OM: P(SSB < SSBlimit)",
@@ -217,14 +218,6 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
     EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1/EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
     GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1/GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
   }
-  
-  
-  # Make p-closed into p-open
-  reverse_percentage <- c("P(Closed)")
-  row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
-  
-  EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)] <- 1-EBS_mse_sum[row_id, 3:ncol(EBS_mse_sum)]
-  GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)] <- 1-GOA_mse_sum[row_id, 3:ncol(GOA_mse_sum)]
   
   
   # Format tables
