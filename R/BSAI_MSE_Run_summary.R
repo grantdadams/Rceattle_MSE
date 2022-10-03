@@ -54,6 +54,21 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", # Fixed M
                   "SS_estM_Tier3_EM")
 
 
+em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_Fspr, ss_run_AvgF, # Fixed M
+                    ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
+)
+
+# Lists to update reference points in OM (can remove later)
+em_hcr_list_fixM <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_Fspr, ss_run_AvgF) # Fixed M
+em_hcr_list_fixM = c(em_hcr_list_fixM, em_hcr_list_fixM)
+
+em_hcr_list_estM <- list(ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF) # Estimate M
+em_hcr_list_estM = c(em_hcr_list_estM, em_hcr_list_estM)
+
+em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
+
+
 # FIXME - check Ftarget of estM and fixM for tier 3
 plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
