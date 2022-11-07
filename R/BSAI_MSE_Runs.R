@@ -59,6 +59,13 @@ em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynam
 em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
+em_hcr_list <- list(ss_run_Fspr, ss_run_AvgF, # Fixed M
+                    ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
+)
+
+em_hcr_names <- c("SS_fixM_Fspr_EM","SS_fixM_AvgF_EM", # Fixed M
+                  "SS_estM_Fspr_EM","SS_estM_AvgF_EM")
+
 
 ### Run the MSE
 source("R/Functions/Run_full_MSE_function_not_parallel.R")
