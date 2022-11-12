@@ -49,7 +49,7 @@ mse2 <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_per
 mse3 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
+mse4 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = TRUE, dir = NULL, file = NULL)
 
 mse5 <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
@@ -79,7 +79,7 @@ mse2r <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_pe
 mse3r <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse4r <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+mse4r <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = TRUE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - MS-OM: SS-EM Tier 3 HCR
 mse5r <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
@@ -196,16 +196,23 @@ for(i in 1:length(mse_list)){
   
   
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
+  MortMales <- sapply(mod_list, function(x) x$quantities$M[,2,1,1])
   
   Year = 2018:2060
   species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
-  par(mfrow = c(3,1))
+  par(mfrow = c(4,1))
   for(k in 1:3){
     plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
     abline(h = Mort[k,ncol(Mort)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
+  
+  # ATF Males
+  plot(y = MortMales[2,-ncol(Mort)], x = Year, type = "l", main = "ATF Males", ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
+  abline(h = MortMales[2,ncol(Mort)], lty = 2)
+  legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
+  
   dev.off()
   
   
