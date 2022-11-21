@@ -49,28 +49,30 @@ mse2 <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_per
 mse3 <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = TRUE, dir = NULL, file = NULL)
+mse4 <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
 mse5 <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
 # - MS-OM: SSM-EM Tier 3 HCR
 mse6 <- mse_run(om = ms_run_f25, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
-# - SS-OM: SSM-M Tier 3 HCR
+# - SS-OM: SSM-EM Tier 3 HCR
 mse7 <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
-# - SS-OM: SSM-M Tier 3 HCR
+# - SS-OM: SSM-EM Tier 3 HCR
 mse8 <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
-# - SS-OM: SSM-M Tier 3 HCR
+# - SS-OM: SSM-EM Tier 3 HCR
 mse9 <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
+
+# - SS-OM: SSM-EM Tier 3 HCR
+mse10 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
 
 
 ################################################
 # With data regenerated
-################################################
 # - SS-OM: SS-EM Tier 3 HCR
-mse1r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+mse1r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - SS-OM: SSM-EM Tier 3 HCR
 mse2r <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
@@ -79,7 +81,7 @@ mse2r <- mse_run(om = ss_run_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_pe
 mse3r <- mse_run(om = ss_run_M_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - SS-OM: SSM-EM Tier 3 HCR
-mse4r <- mse_run(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = TRUE, dir = NULL, file = NULL, regenerate_past = TRUE)
+mse4r <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - MS-OM: SS-EM Tier 3 HCR
 mse5r <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
@@ -87,19 +89,15 @@ mse5r <- mse_run(om = ms_run_f25, em = ss_run_Tier3, nsim = 1, assessment_period
 # - MS-OM: SSM-EM Tier 3 HCR
 mse6r <- mse_run(om = ms_run_f25, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
-# - SS-OM: SSM-M Tier 3 HCR
+# - SS-OM: SSM-EM Tier 3 HCR
 mse7r <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
-# - SS-OM: SSM-M Tier 3 HCR
-mse8r <- mse_run(om = ss_run_Tier3_fixm2, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
-
-# - SS-OM: SSM-M Tier 3 HCR
-mse9r <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+# - SS-OM: SSM-EM Tier 3 HCR
+mse8r <- mse_run_parallel(om = ss_run_Tier3_fixm2, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 
 ################################################
 # Double sampling effort
-################################################
 # - SS-OM: SSM-EM Tier 3 HCR
 fut_sample = 4
 ss_run_Tier3_fixm2_double <- ss_run_Tier3_fixm2
@@ -110,13 +108,20 @@ ss_run_M_Tier3_double <- ss_run_M_Tier3
 ss_run_M_Tier3_double$data_list$srv_biom$Log_sd <- ss_run_M_Tier3_double$data_list$srv_biom$Log_sd / fut_sample
 ss_run_M_Tier3_double$data_list$comp_data$Sample_size <- ss_run_M_Tier3_double$data_list$comp_data$Sample_size * fut_sample
 
+mse4rdouble <- mse_run(om = ss_run_M_Tier3_double, em = ss_run_M_Tier3_double, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
 mse8rdouble <- mse_run(om = ss_run_Tier3_fixm2_double, em = ss_run_M_Tier3_double, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
+# - SS-OM: SSM-EM Tier 3 HCR
+mse9r <- mse_run(om = ms_run_f25, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
+# - SS-OM: SSM-EM Tier 3 HCR
+mse10r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3_fixm2, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
 
 ################################################
-# Set up directories
-################################################
-mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r)
+# plot
+mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse10, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r, mse10r)
 
 MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/", 
                "Tests/GOA/Test2 - SS Fix M OM, Est M EM/", 
@@ -127,6 +132,7 @@ MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/",
                "Tests/GOA/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
                "Tests/GOA/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
                "Tests/GOA/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/GOA/Test10 - SS Fix M OM, Fix M (age-invariant) EM/",
                "Tests/GOA/Regen/Test1 - SS Fix M OM, Fix M EM/", 
                "Tests/GOA/Regen/Test2 - SS Fix M OM, Est M EM/", 
                "Tests/GOA/Regen/Test3 - SS Est M OM, Fix M EM/", 
@@ -136,8 +142,8 @@ MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/",
                "Tests/GOA/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
                "Tests/GOA/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
                "Tests/GOA/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
-               "Tests/GOA/Regen/Test9 - MS OM, Fix M (age-invariant) EM/")
-
+               "Tests/GOA/Regen/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/GOA/Regen/Test10 - SS Fix M OM, Fix M (age-invariant) EM/")
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
 
@@ -221,7 +227,7 @@ for(i in 1:length(mse_list)){
   
   
   Year = 2018:2060
-  species = c("Pollock", "Cod", "ATF")
+  species = c("Pollock", "ATF", "Cod")
   png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){

@@ -1,15 +1,15 @@
-source("R/BSAI_condition_models.R")
+source("R/GOA_condition_models_1977.R")
 
-BS2017SS_FixM <- BS2017SS
-BS2017SS_FixM$M1_base[1,3:4] <- 0.3
-ss_run_Tier3_fixm2 <- Rceattle::fit_mod(data_list = BS2017SS_FixM,
+FixM_data <- ss_run_Tier3$data_list
+FixM_data$M1_base[1,3:ncol(FixM_data$M1_base)] <- 0.4
+ss_run_Tier3_fixm2 <- Rceattle::fit_mod(data_list = FixM_data,
                                         inits = ss_run_Tier3$estimated_params,
                                         estimateMode = 0, # Run projection only
                                         HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                         FsprTarget = 0.4, # F40%
                                                         FsprLimit = 0.35, # F35%
                                                         Plimit = 0.2, # No fishing when SB<SB20
-                                                        Alpha = 0.2),
+                                                        Alpha = 0.05),
                                         msmMode = 0, # Single species mode
                                         updateM1 = TRUE,
                                         verbose = 1)
@@ -19,25 +19,26 @@ ss_run_Tier3_fixm2 <- Rceattle::fit_mod(data_list = BS2017SS_FixM,
 # Management strategy evaluation
 ################################################
 
-
 ## Cap
-# 1. 1,500,000 mt cap for pollock and Max historical catch for Arrowtooth flounder
-# 2. Max historical catch for Arrowtooth flounder
-# 3. No cap
+# 1. Max historical catch for Arrowtooth flounder
+# 2. No cap
 max_atf <- ss_run$data_list$fsh_biom
-max_atf <- max_atf[which(max_atf$Species == 3),]
+max_atf <- max_atf[which(max_atf$Species == 2),]
 
 # Pollock, cod, atf
 cap_list <- list(
-  one = c(1500000, 1e10, max(max_atf$Catch, na.rm = TRUE)),
-  two = c(1e10, 1e10, max(max_atf$Catch, na.rm = TRUE)),
-  three = c(1e10, 1e10, 1e10)
+  one = c(1e10, max(max_atf$Catch, na.rm = TRUE), 1e10), # Historical ATF
+  two = c(1e10, 1e10, 1e10) # No cap
 )
 
-sampling_period <- c(1,1,1,1,1,1,2)
+
+## Sampling period
+sampling_period <- 1
+
 
 ################################################
 # Check runs - no rec
+################################################
 # - SS-OM: SS-EM Tier 3 HCR
 mse1 <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
 
@@ -120,32 +121,36 @@ mse10r <- mse_run(om = ss_run_Tier3, em = ss_run_Tier3_fixm2, nsim = 1, assessme
 
 ################################################
 # plot
-mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse10, mse1r, mse2r, mse3r, mse4r, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r, mse10r)
+mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6, mse7, mse8, mse9, mse10, mse1r, mse2r, mse3r, mse4r, mse4rdouble, mse5r, mse7r, mse7r, mse8r, mse8rdouble, mse9r, mse10r)
 
-MSE_names <- c("Tests/EBS/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/EBS/Test2 - SS Fix M OM, Est M EM/", 
-               "Tests/EBS/Test3 - SS Est M OM, Fix M EM/", 
-               "Tests/EBS/Test4 - SS Est M OM, Est M EM/", 
-               "Tests/EBS/Test5 - MS OM, Fix M EM/", 
-               "Tests/EBS/Test6 - MS OM, Est M EM/", 
-               "Tests/EBS/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
-               "Tests/EBS/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
-               "Tests/EBS/Test9 - MS OM, Fix M (age-invariant) EM/",
-               "Tests/EBS/Test10 - SS Fix M OM, Fix M (age-invariant) EM/",
-               "Tests/EBS/Regen/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/EBS/Regen/Test2 - SS Fix M OM, Est M EM/", 
-               "Tests/EBS/Regen/Test3 - SS Est M OM, Fix M EM/", 
-               "Tests/EBS/Regen/Test4 - SS Est M OM, Est M EM/", 
-               "Tests/EBS/Regen/Test5 - MS OM, Fix M EM/", 
-               "Tests/EBS/Regen/Test6 - MS OM, Est M EM/", 
-               "Tests/EBS/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
-               "Tests/EBS/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
-               "Tests/EBS/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
-               "Tests/EBS/Regen/Test9 - MS OM, Fix M (age-invariant) EM/",
-               "Tests/EBS/Regen/Test10 - SS Fix M OM, Fix M (age-invariant) EM/")
-
+MSE_names <- c("Tests/GOA_S1/Test1 - SS Fix M OM, Fix M EM/", 
+               "Tests/GOA_S1/Test2 - SS Fix M OM, Est M EM/", 
+               "Tests/GOA_S1/Test3 - SS Est M OM, Fix M EM/", 
+               "Tests/GOA_S1/Test4 - SS Est M OM, Est M EM/", 
+               "Tests/GOA_S1/Test5 - MS OM, Fix M EM/", 
+               "Tests/GOA_S1/Test6 - MS OM, Est M EM/", 
+               "Tests/GOA_S1/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
+               "Tests/GOA_S1/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
+               "Tests/GOA_S1/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/GOA_S1/Test10 - SS Fix M OM, Fix M (age-invariant) EM/",
+               "Tests/GOA_S1/Regen/Test1 - SS Fix M OM, Fix M EM/", 
+               "Tests/GOA_S1/Regen/Test2 - SS Fix M OM, Est M EM/", 
+               "Tests/GOA_S1/Regen/Test3 - SS Est M OM, Fix M EM/", 
+               "Tests/GOA_S1/Regen/Test4 - SS Est M OM, Est M EM/",
+               "Tests/GOA_S1/Regen/Test4 - SS Est M OM, Est M EM (double sampling)/",
+               "Tests/GOA_S1/Regen/Test5 - MS OM, Fix M EM/", 
+               "Tests/GOA_S1/Regen/Test6 - MS OM, Est M EM/", 
+               "Tests/GOA_S1/Regen/Test7 - SS Fix (age-invariant) M OM, Fix (age-invariant) M EM/", 
+               "Tests/GOA_S1/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM/", 
+               "Tests/GOA_S1/Regen/Test8 - SS Fix (age-invariant) M OM, Est M EM (double sampling)/", 
+               "Tests/GOA_S1/Regen/Test9 - MS OM, Fix M (age-invariant) EM/",
+               "Tests/GOA_S1/Regen/Test10 - SS Fix M OM, Fix M (age-invariant) EM/")
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
+
+################################################
+# Plot
+################################################
 ymin <- rep(NA, 3)
 ymax <- rep(0, 3)
 
@@ -192,22 +197,29 @@ for(i in 1:length(mse_list)){
   # plot_m_at_age(mod_list, incl_proj = TRUE, age = 1, model_names = model_names, file = MSE_names[i], line_col = line_col)
   plot_ssb(mod_list2, incl_proj = TRUE, model_names = model_names, file = paste0(MSE_names[i],"no_OM_"), line_col = line_col)
   plot_ssb(mod_list, incl_proj = TRUE, model_names = model_names, file = MSE_names[i], line_col = line_col)
-  plot_f(mod_list, incl_proj = TRUE, model_names = model_names, file = MSE_names[i], line_col = line_col)
+  plot_f(mod_list, incl_proj = FALSE, model_names = model_names, file = MSE_names[i], line_col = line_col)
   plot_index(mod_list, file = MSE_names[i], line_col = line_col)
   plot_catch(mod_list, incl_proj = TRUE, file = MSE_names[i], line_col = line_col)
   
   
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
+  MortMales <- sapply(mod_list, function(x) x$quantities$M[,2,1,1])
   
-  Year = 2017:2060
-  species = c("Pollock", "ATF", "Cod")
+  Year = 2018:2060
+  species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
-  par(mfrow = c(3,1))
+  par(mfrow = c(4,1))
   for(k in 1:3){
     plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
     abline(h = Mort[k,ncol(Mort)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
+  
+  # ATF Males
+  plot(y = MortMales[2,-ncol(Mort)], x = Year, type = "l", main = "ATF Males", ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
+  abline(h = MortMales[2,ncol(Mort)], lty = 2)
+  legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
+  
   dev.off()
   
   
@@ -215,8 +227,8 @@ for(i in 1:length(mse_list)){
   mean_rec2 <- sapply(mod_list, function(x) rowMeans(x$quantities$R[,1:length(x$data_list$styr:x$data_list$endyr)]))
   
   
-  Year = 2017:2060
-  species = c("Pollock", "Cod", "ATF")
+  Year = 2018:2060
+  species = c("Pollock", "ATF", "Cod")
   png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){
@@ -228,8 +240,12 @@ for(i in 1:length(mse_list)){
 }
 
 
+
 meanyrs <- list()
 for(i in 1:length(mse_list)){
   mod_list <- c(mse_list[[i]][[1]],list(mse_list[[i]][[2]]))
   meanyrs[[i]] <- sapply(mod_list, function(x) x$data_list$meanyr)
 }
+
+
+   
