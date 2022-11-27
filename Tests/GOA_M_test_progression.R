@@ -123,7 +123,7 @@ for(i in 1:length(mse_list)){
   plot_ssb(mod_list2, incl_proj = TRUE, model_names = model_names, file = paste0(MSE_names[i],"no_OM_"), line_col = line_col)
   plot_ssb(mod_list, incl_proj = TRUE, model_names = model_names, file = MSE_names[i], line_col = line_col)
   plot_f(mod_list, incl_proj = FALSE, model_names = model_names, file = MSE_names[i], line_col = line_col)
-  plot_index(mod_list, file = MSE_names[i], line_col = line_col)
+  # plot_index(mod_list, file = MSE_names[i], line_col = line_col)
   # plot_catch(mod_list, incl_proj = TRUE, file = MSE_names[i], line_col = line_col)
   
   
