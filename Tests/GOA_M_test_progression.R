@@ -102,12 +102,14 @@ for(i in 1:length(mse_list)){
 }
 
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]],list(mse_list[[i]][[2]]))
-  mod_list2 <- mse_list[[i]][[1]]
-  model_names = c(paste0("EM-", 2017:2060), "OM")
-  line_col <- c(rev(oce::oce.colorsViridis(length(mse_list[[i]][[1]]))), 1)
+  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
+  mod_list2 <- mse_list[[i]][[1]][[1]]
+  model_names = c(paste0("EM-", 2018:2060), "OM")
+  names(mod_list) <- model_names
   
-  if(mse_list[[i]][[2]]$data_list$msmMode == 1){
+  line_col <- c(rev(oce::oce.colorsViridis(length(mod_list))), 1)
+  
+  if(mse_list[[i]][[1]]$OM$data_list$msmMode == 1){
     mod_list[[length(mod_list)]]$quantities$depletionSSB <- mod_list[[length(mod_list)]]$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
     mod_list[[length(mod_list)]]$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
     mod_list[[length(mod_list)]]$data_list$Plimit <- 0.25 # Update SB0
