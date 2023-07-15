@@ -26,7 +26,7 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 # Check runs - no rec
 ################################################
 # - SS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run_parallel(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
+mse1 <- mse_run_parallel(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
 
 # - SS-OM: SSM-EM Tier 3 HCR
 mse4 <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL)
@@ -34,11 +34,10 @@ mse4 <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, ass
 ################################################
 # Set up directories
 ################################################
-mse_list <- list(mse1)#, mse4)
+mse_list <- list(mse1, mse4)
 
-MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/")#, 
-              
-               #"Tests/GOA/Test4 - SS Est M OM, Est M EM/")
+MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/", 
+               "Tests/GOA/Test4 - SS Est M OM, Est M EM/")
 
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 

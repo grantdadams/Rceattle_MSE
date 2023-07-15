@@ -32,15 +32,6 @@ inits_M1_df <- data.frame(
 ) 
 
 
-# Set up M1 estimation switches
-for(i in 1:length(mydata_list)){
-  mydata_list[[i]]$est_M1 = c(0,0,0)
-  if(inits_M1_df$EstM1[i] == 1){
-    mydata_list[[i]]$est_M1 = c(1,2,1)
-  }
-}
-
-
 
 ################################################
 # Single species
@@ -52,6 +43,9 @@ for(i in 1:length(mydata_list)){
                                            inits = NULL, # Initial parameters = 0
                                            file = NULL, # Don't save
                                            estimateMode = 0, # Estimate
+                                           M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
@@ -77,6 +71,9 @@ for(i in 1:length(mydata_list)){
                                            inits = inits, # Initial parameters = 0
                                            file = NULL, # Don't save
                                            estimateMode = 0, # Estimate
+                                           M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
@@ -104,6 +101,9 @@ for(i in 1:length(mydata_list)){
         inits = inits, # Initial parameters = 0
         file = NULL, # Don't save
         estimateMode = 0, # Estimate
+        M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                         M1_use_prior = FALSE,
+                         M2_use_prior = FALSE),
         random_rec = FALSE, # No random recruitment
         msmMode = 1, # Multi species mode
         verbose = 1,
@@ -130,6 +130,9 @@ for(i in 1:length(mydata_list)){
             inits = inits, # Initial parameters = 0
             file = NULL, # Don't save
             estimateMode = 0, # Estimate
+            M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                             M1_use_prior = FALSE,
+                             M2_use_prior = FALSE),
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
             verbose = 1,
@@ -145,6 +148,9 @@ for(i in 1:length(mydata_list)){
           inits = inits, # Initial parameters = 0
           file = NULL, # Don't save
           estimateMode = 0, # Estimate
+          M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                           M1_use_prior = FALSE,
+                           M2_use_prior = FALSE),
           random_rec = FALSE, # No random recruitment
           msmMode = 1, # Multi species mode
           verbose = 1,
@@ -160,6 +166,9 @@ for(i in 1:length(mydata_list)){
             inits = mod_list_all[[i]]$estimated_params, # Initial parameters = 0
             file = NULL, # Don't save
             estimateMode = 0, # Estimate
+            M1Fun = build_M1(M1_model = ifelse(inits_M1_df$EstM1[i] == 1, c(1,2,1), c(0,0,0)),
+                             M1_use_prior = FALSE,
+                             M2_use_prior = FALSE),
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
             verbose = 1,

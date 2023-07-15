@@ -152,6 +152,9 @@ avg_F <- avg_F %>%
 ss_run_M_AvgF <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                    estimateMode = 0, # Run projection only
+                                   M1Fun = build_M1(M1_model = c(1,2,1),
+                                                    M1_use_prior = FALSE,
+                                                    M2_use_prior = FALSE),
                                    HCR = build_hcr(HCR = 2, # Input F
                                                    FsprTarget = avg_F$avg_F, # Mean of last 5 years
                                                    FsprLimit = 0.35,
@@ -164,6 +167,9 @@ ss_run_M_AvgF <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                    estimateMode = 2, # Run projection only
+                                   M1Fun = build_M1(M1_model = c(1,2,1),
+                                                    M1_use_prior = FALSE,
+                                                    M2_use_prior = FALSE),
                                    HCR = build_hcr(HCR = 4, # Tier3 HCR
                                                    FsprTarget = 0.4, # 0.75 * F40%
                                                    FsprLimit = 0.4, # F40%
@@ -177,7 +183,10 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 # -- NPFMC Tier 3
 ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                     inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
-                                    estimateMode = 2, # Run projection only
+                                    estimateMode = 0, # Run projection only
+                                    M1Fun = build_M1(M1_model = c(1,2,1),
+                                                     M1_use_prior = FALSE,
+                                                     M2_use_prior = FALSE),
                                     HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                     FsprTarget = 0.4, # F40%
                                                     FsprLimit = 0.35, # F35%
@@ -190,6 +199,9 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                            inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                            estimateMode = 2, # Run projection only
+                                           M1Fun = build_M1(M1_model = c(1,2,1),
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                            DynamicHCR = TRUE, # Use dynamic reference points
                                                            FsprTarget = 0.4, # F40%
@@ -203,6 +215,9 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                    inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                    estimateMode = 2, # Run projection only
+                                   M1Fun = build_M1(M1_model = c(1,2,1),
+                                                    M1_use_prior = FALSE,
+                                                    M2_use_prior = FALSE),
                                    HCR = build_hcr(HCR = 6, # Cat 1 HCR
                                                    FsprLimit = c(0.45, 0.3, 0.45), # F45%
                                                    Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
@@ -215,6 +230,9 @@ ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                           inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                           estimateMode = 2, # Run projection only
+                                          M1Fun = build_M1(M1_model = c(1,2,1),
+                                                           M1_use_prior = FALSE,
+                                                           M2_use_prior = FALSE),
                                           HCR = build_hcr(HCR = 6, # Cat 1 HCR
                                                           DynamicHCR = TRUE, # Use dynamic reference points
                                                           FsprLimit = c(0.45, 0.3, 0.45), # F45%
@@ -229,6 +247,9 @@ ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                     inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                     estimateMode = 2, # Run projection only
+                                    M1Fun = build_M1(M1_model = c(1,2,1),
+                                                     M1_use_prior = FALSE,
+                                                     M2_use_prior = FALSE),
                                     HCR = build_hcr(HCR = 7, # Tier 1 HCR
                                                     FsprTarget = 0.48, # F40%
                                                     FsprLimit = 0.20, # F20%
@@ -242,6 +263,9 @@ ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
 ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                            inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
                                            estimateMode = 2, # Run projection only
+                                           M1Fun = build_M1(M1_model = c(1,2,1),
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            HCR = build_hcr(HCR = 7, # Tier 1 HCR
                                                            DynamicHCR = TRUE,
                                                            FsprTarget = 0.48, # F40%
@@ -260,6 +284,9 @@ ms_run_f25 <- Rceattle::fit_mod(data_list = ms_run$data_list,
                                 inits = ms_run$estimated_params, # Initial parameters from single species ests
                                 file = NULL, # Don't save
                                 estimateMode = 2, # Estimate projection only
+                                M1Fun = build_M1(M1_model = c(1,2,1),
+                                                 M1_use_prior = FALSE,
+                                                 M2_use_prior = FALSE),
                                 niter = 3, # 10 iterations around population and predation dynamics
                                 HCR = build_hcr(HCR = 3, # Constant F HCR
                                                 DynamicHCR = FALSE, # Use dynamic reference points
