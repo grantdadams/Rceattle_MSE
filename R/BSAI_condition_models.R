@@ -28,19 +28,19 @@ ss_run <- Rceattle::fit_mod(data_list = BS2017SS,
                             phase = "default",
                             verbose = 1)
 
-ss_run_ricker <- Rceattle::fit_mod(data_list = BS2017SS,
-                            inits = NULL, # Initial parameters = 0
-                            file = NULL, # Don't save
-                            estimateMode = 1, # Estimate hindcast only
-                            recFun = build_srr(srr_fun = 3,
-                                               proj_mean_rec = FALSE,
-                                               srr_use_prior = FALSE,
-                                               srr_prior_mean = 0.2,
-                                               srr_prior_sd = 0.2),
-                            random_rec = FALSE, # No random recruitment
-                            msmMode = 0, # Single species mode
-                            phase = "default",
-                            verbose = 1)
+# ss_run_ricker <- Rceattle::fit_mod(data_list = BS2017SS,
+#                             inits = NULL, # Initial parameters = 0
+#                             file = NULL, # Don't save
+#                             estimateMode = 1, # Estimate hindcast only
+#                             recFun = build_srr(srr_fun = 3,
+#                                                proj_mean_rec = FALSE,
+#                                                srr_est_mode = 1,
+#                                                srr_prior_mean = 0.2,
+#                                                srr_prior_sd = 0.2),
+#                             random_rec = FALSE, # No random recruitment
+#                             msmMode = 0, # Single species mode
+#                             phase = "default",
+#                             verbose = 1)
 
 # Estimate single-species and estimate M
 ss_run_M <- Rceattle::fit_mod(data_list = BS2017SS,

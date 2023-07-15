@@ -1,6 +1,6 @@
 library(Rceattle)
 
-load("Models/GOA_18_5_1_mod_1-2_2022-05-26.RData")
+load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
 mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 # Ratio of F across Pcod fleets
@@ -55,7 +55,7 @@ ss_run_Fspr <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                  Plimit = 0.2
                                  ),
                                  msmMode = 0, # Single species mode
-                                 verbose = 1, updateM1 = FALSE)
+                                 verbose = 1)
 
 
 # -- NPFMC Tier 3
@@ -68,8 +68,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                   Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                   Alpha = 0.05),
                                   msmMode = 0, # Single species mode
-                                  verbose = 1,
-                                  updateM1 = FALSE)
+                                  verbose = 1)
 
 
 ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
@@ -82,7 +81,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                          Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                          Alpha = 0.05),
                                          msmMode = 0, # Single species mode
-                                         verbose = 1, updateM1 = FALSE)
+                                         verbose = 1)
 
 # -- PFMC Category 1
 ss_run_Cat1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
@@ -95,7 +94,7 @@ ss_run_Cat1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                  Pstar = 0.45,
                                                  Sigma = 0.5),
                                  msmMode = 0, # Single species mode
-                                 verbose = 1, updateM1 = FALSE)
+                                 verbose = 1)
 
 ss_run_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                         inits = ss_run$estimated_params, # Initial parameters from ss_run
@@ -108,7 +107,7 @@ ss_run_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                         Pstar = 0.45,
                                                         Sigma = 0.5),
                                         msmMode = 0, # Single species mode
-                                        verbose = 1, updateM1 = FALSE)
+                                        verbose = 1)
 
 # -- SESSF Tier 1
 ss_run_Tier1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
@@ -121,7 +120,7 @@ ss_run_Tier1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                   Plimit = 0.20, # No fishing when B<B20
                                   ),
                                   msmMode = 0, # Single species mode
-                                  verbose = 1, updateM1 = FALSE)
+                                  verbose = 1)
 
 
 ss_run_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
@@ -135,7 +134,7 @@ ss_run_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run$data_list,
                                                          Plimit = 0.20, # No fishing when B<B20
                                          ),
                                          msmMode = 0, # Single species mode
-                                         verbose = 1, updateM1 = FALSE)
+                                         verbose = 1)
 
 
 
@@ -159,7 +158,7 @@ ss_run_M_AvgF <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1, updateM1 = FALSE)
+                                   verbose = 1)
 
 # -- Constant Fspr
 ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -172,7 +171,7 @@ ss_run_M_Fspr <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                    Plimit = 0.2
                                    ),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1, updateM1 = FALSE)
+                                   verbose = 1)
 
 
 # -- NPFMC Tier 3
@@ -185,8 +184,7 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                     Alpha = 0.05),
                                     msmMode = 0, # Single species mode
-                                    verbose = 1,
-                                    updateM1 = FALSE)
+                                    verbose = 1)
 
 
 ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -199,7 +197,7 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                            Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                            Alpha = 0.05),
                                            msmMode = 0, # Single species mode
-                                           verbose = 1, updateM1 = FALSE)
+                                           verbose = 1)
 
 # -- PFMC Category 1
 ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -212,7 +210,7 @@ ss_run_M_Cat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                    Pstar = 0.45,
                                                    Sigma = 0.5),
                                    msmMode = 0, # Single species mode
-                                   verbose = 1, updateM1 = FALSE)
+                                   verbose = 1)
 
 ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                           inits = ss_run_M$estimated_params, # Initial parameters from ss_run_M
@@ -225,7 +223,7 @@ ss_run_M_dynamicCat1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                           Pstar = 0.45,
                                                           Sigma = 0.5),
                                           msmMode = 0, # Single species mode
-                                          verbose = 1, updateM1 = FALSE)
+                                          verbose = 1)
 
 # -- SESSF Tier 1
 ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -238,7 +236,7 @@ ss_run_M_Tier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                     Plimit = 0.20, # No fishing when B<B20
                                     ),
                                     msmMode = 0, # Single species mode
-                                    verbose = 1, updateM1 = FALSE)
+                                    verbose = 1)
 
 
 ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
@@ -252,7 +250,7 @@ ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = ss_run_M$data_list,
                                                            Plimit = 0.20, # No fishing when B<B20
                                            ),
                                            msmMode = 0, # Single species mode
-                                           verbose = 1, updateM1 = FALSE)
+                                           verbose = 1)
 
 ################################################
 # Multi-species model w/ harvest control rules
@@ -269,5 +267,4 @@ ms_run_f25 <- Rceattle::fit_mod(data_list = ms_run$data_list,
                                 random_rec = FALSE, # No random recruitment
                                 msmMode = 1, # MSVPA based
                                 suitMode = 0, # empirical suitability
-                                updateM1 = FALSE,
                                 verbose = 1)
