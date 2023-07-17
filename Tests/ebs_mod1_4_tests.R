@@ -5,19 +5,6 @@ source("R/BSAI_condition_models.R")
 # Management strategy evaluation
 ################################################
 
-## Cap
-# 1. Max historical catch for Arrowtooth flounder
-# 2. No cap
-max_atf <- ss_run$data_list$fsh_biom
-max_atf <- max_atf[which(max_atf$Species == 2),]
-
-# Pollock, cod, atf
-cap_list <- list(
-  one = c(1e10, max(max_atf$Catch, na.rm = TRUE), 1e10), # Historical ATF
-  two = c(1e10, 1e10, 1e10) # No cap
-)
-
-
 ## Sampling period
 sampling_period <- c(1)
 
@@ -51,7 +38,7 @@ ymax <- rep(0, 3)
 ymin_rec <- rep(NA, 3)
 ymax_rec <- rep(0, 3)
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]][[1]],list(mse_list[[i]][[1]][[2]]))
+  mod_list <- c(mse_list[[i]]$EM,list(mse_list[[i]]$OM))
   mort_list <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   mn_rec_list <- sapply(mod_list, function(x) x$quantities$mean_rec)
   
@@ -71,14 +58,14 @@ for(i in 1:length(mse_list)){
 }
 
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
-  mod_list2 <- mse_list[[i]][[1]][[1]]
-  model_names = c(paste0("EM-", 2018:2060), "OM")
+  mod_list <- c(mse_list[[i]]$EM,list(mse_list[[i]]$OM))
+  mod_list2 <- mse_list[[i]][[1]]
+  model_names = c(paste0("EM-", 2017:2060), "OM")
   names(mod_list) <- model_names
   
   line_col <- c(rev(oce::oce.colorsViridis(length(mod_list))), 1)
   
-  if(mse_list[[i]][[1]]$OM$data_list$msmMode == 1){
+  if(mse_list[[i]]$OM$data_list$msmMode == 1){
     mod_list[[length(mod_list)]]$quantities$depletionSSB <- mod_list[[length(mod_list)]]$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
     mod_list[[length(mod_list)]]$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
     mod_list[[length(mod_list)]]$data_list$Plimit <- 0.25 # Update SB0
@@ -100,7 +87,7 @@ for(i in 1:length(mse_list)){
   
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   
-  Year = 2018:2060
+  Year = 2017:2060
   species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
@@ -116,7 +103,7 @@ for(i in 1:length(mse_list)){
   mean_rec2 <- sapply(mod_list, function(x) rowMeans(x$quantities$R[,1:length(x$data_list$styr:x$data_list$endyr)]))
   
   
-  Year = 2018:2060
+  Year = 2017:2060
   species = c("Pollock", "Cod", "ATF")
   png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
