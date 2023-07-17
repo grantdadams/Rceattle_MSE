@@ -82,7 +82,7 @@ ymax <- rep(0, 3)
 ymin_rec <- rep(NA, 3)
 ymax_rec <- rep(0, 3)
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]],list(mse_list[[i]][[2]]))
+  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
   mort_list <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   mn_rec_list <- sapply(mod_list, function(x) x$quantities$mean_rec)
   
