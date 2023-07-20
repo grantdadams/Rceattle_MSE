@@ -38,7 +38,7 @@ ymax <- rep(0, 3)
 ymin_rec <- rep(NA, 3)
 ymax_rec <- rep(0, 3)
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]]$EM,list(mse_list[[i]]$OM))
+  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
   mort_list <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   mn_rec_list <- sapply(mod_list, function(x) x$quantities$mean_rec)
   
@@ -58,14 +58,14 @@ for(i in 1:length(mse_list)){
 }
 
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]]$EM,list(mse_list[[i]]$OM))
-  mod_list2 <- mse_list[[i]][[1]]
+  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
+  mod_list2 <- mse_list[[i]][[1]]$EM
   model_names = c(paste0("EM-", 2017:2060), "OM")
   names(mod_list) <- model_names
   
   line_col <- c(rev(oce::oce.colorsViridis(length(mod_list))), 1)
   
-  if(mse_list[[i]]$OM$data_list$msmMode == 1){
+  if(mse_list[[i]][[1]]$OM$data_list$msmMode == 1){
     mod_list[[length(mod_list)]]$quantities$depletionSSB <- mod_list[[length(mod_list)]]$quantities$biomassSSB / ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
     mod_list[[length(mod_list)]]$quantities$SB0 <- ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)] # Update SB0
     mod_list[[length(mod_list)]]$data_list$Plimit <- 0.25 # Update SB0
@@ -89,14 +89,14 @@ for(i in 1:length(mse_list)){
   
   Year = 2017:2060
   species = c("Pollock", "Cod", "ATF")
-  png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
+  #png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){
-    plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
+    plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality")
     abline(h = Mort[k,ncol(Mort)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
-  dev.off()
+  #dev.off()
   
   
   mean_rec <- sapply(mod_list, function(x) x$quantities$mean_rec)
@@ -105,14 +105,14 @@ for(i in 1:length(mse_list)){
   
   Year = 2017:2060
   species = c("Pollock", "Cod", "ATF")
-  png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
+  #png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){
-    plot(y = mean_rec[k,-ncol(mean_rec)], x = Year, type = "l", main = species[k], ylab = "Mean recruitment by yr", ylim = c(0, max(mean_rec[k,])))
+    plot(y = mean_rec[k,-ncol(mean_rec)], x = Year, type = "l", main = species[k], ylab = "Mean recruitment by yr")
     abline(h = mean_rec[k,ncol(mean_rec)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
-  dev.off()
+  # dev.off()
 }
 
 
