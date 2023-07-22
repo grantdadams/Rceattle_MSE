@@ -12,19 +12,36 @@ sampling_period <- c(1)
 ################################################
 # Check runs - no rec
 ################################################
-# - SS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run_parallel(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse1 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
 
-# - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse2 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
+# - SS-OM Ricker: SS-EM Ricker Tier 3 HCR
+mse3 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_ricker_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
+# M Version ----
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse4 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse5 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
+# - SS-OM Ricker: SS-EM Ricker Tier 3 HCR
+mse6 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_ricker_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
 
 ################################################
 # Set up directories
 ################################################
-mse_list <- list(mse1, mse4)
+mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6)
 
-MSE_names <- c("Tests/EBS/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/EBS/Test4 - SS Est M OM, Est M EM/")
+MSE_names <- c("Tests/EBS/Rtests/Test1", 
+               "Tests/EBS/Rtests/Test2", 
+               "Tests/EBS/Rtests/Test3",
+               "Tests/EBS/Rtests/Test4", 
+               "Tests/EBS/Rtests/Test5", 
+               "Tests/EBS/Rtests/Test6")
 
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
@@ -114,13 +131,4 @@ for(i in 1:length(mse_list)){
   }
   # dev.off()
 }
-
-
-
-meanyrs <- list()
-for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]],list(mse_list[[i]][[2]]))
-  meanyrs[[i]] <- sapply(mod_list, function(x) x$data_list$meanyr)
-}
-
 

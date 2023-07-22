@@ -5,19 +5,6 @@ source("R/GOA_condition_models_1977.R")
 # Management strategy evaluation
 ################################################
 
-## Cap
-# 1. Max historical catch for Arrowtooth flounder
-# 2. No cap
-max_atf <- ss_run$data_list$fsh_biom
-max_atf <- max_atf[which(max_atf$Species == 2),]
-
-# Pollock, cod, atf
-cap_list <- list(
-  one = c(1e10, max(max_atf$Catch, na.rm = TRUE), 1e10), # Historical ATF
-  two = c(1e10, 1e10, 1e10) # No cap
-)
-
-
 ## Sampling period
 sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 
@@ -25,22 +12,44 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 ################################################
 # Check runs - no rec
 ################################################
-# - SS-OM: SS-EM Tier 3 HCR
-mse1 <- mse_run_parallel(om = ss_run_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
 
-# - SS-OM: SSM-EM Tier 3 HCR
-mse4 <- mse_run_parallel(om = ss_run_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse1 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse2 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
+# - SS-OM Ricker: SS-EM Ricker Tier 3 HCR
+mse3 <- mse_run_parallel(om = ss_run_ricker_Tier3, em = ss_run_ricker_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
+# M Version ----
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse4 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
+
+# - SS-OM Ricker: SS-EM Tier 3 HCR
+mse5 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = TRUE)
+
+# - SS-OM Ricker: SS-EM Ricker Tier 3 HCR
+mse6 <- mse_run_parallel(om = ss_run_ricker_M_Tier3, em = ss_run_ricker_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = FALSE, sample_rec = FALSE, dir = NULL, file = NULL, regenerate_past = FALSE)
 
 ################################################
 # Set up directories
 ################################################
-mse_list <- list(mse1, mse4)
+mse_list <- list(mse1, mse2, mse3, mse4, mse5, mse6)
 
-MSE_names <- c("Tests/GOA/Test1 - SS Fix M OM, Fix M EM/", 
-               "Tests/GOA/Test4 - SS Est M OM, Est M EM/")
+MSE_names <- c("Tests/GOA/Rtests/Test1", 
+               "Tests/GOA/Rtests/Test2",
+               "Tests/GOA/Rtests/Test3",
+               "Tests/GOA/Rtests/Test4", 
+               "Tests/GOA/Rtests/Test5",
+               "Tests/GOA/Rtests/Test6")
 
 for(i in 1:length(MSE_names)){dir.create(MSE_names[i], recursive = TRUE)}
 
+
+################################################
+# Plot
+################################################
 
 ################################################
 # Plot
@@ -51,7 +60,7 @@ ymax <- rep(0, 3)
 ymin_rec <- rep(NA, 3)
 ymax_rec <- rep(0, 3)
 for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]][[1]],list(mse_list[[i]][[1]][[2]]))
+  mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
   mort_list <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   mn_rec_list <- sapply(mod_list, function(x) x$quantities$mean_rec)
   
@@ -72,7 +81,7 @@ for(i in 1:length(mse_list)){
 
 for(i in 1:length(mse_list)){
   mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
-  mod_list2 <- mse_list[[i]][[1]][[1]]
+  mod_list2 <- mse_list[[i]][[1]]$EM
   model_names = c(paste0("EM-", 2018:2060), "OM")
   names(mod_list) <- model_names
   
@@ -98,42 +107,32 @@ for(i in 1:length(mse_list)){
   plot_catch(mod_list, incl_proj = TRUE, file = MSE_names[i], line_col = line_col)
   
   
+  # Plot M
   Mort <- sapply(mod_list, function(x) x$quantities$M[,1,1,1])
   
   Year = 2018:2060
-  species = c("Pollock", "Cod", "ATF")
-  png(filename = paste0(MSE_names[i], "_mortality.png"), width = 7, height = 9, units = "in", res = 300)
+  
+  species = c("Pollock", "ATF", "Cod")
   par(mfrow = c(3,1))
   for(k in 1:3){
-    plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality", ylim = c(ymin[k], ymax[k]))
+    plot(y = Mort[k,-ncol(Mort)], x = Year, type = "l", main = species[k], ylab = "Mortality")
     abline(h = Mort[k,ncol(Mort)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
-  dev.off()
   
-  
+  # PLot rec
   mean_rec <- sapply(mod_list, function(x) x$quantities$mean_rec)
   mean_rec2 <- sapply(mod_list, function(x) rowMeans(x$quantities$R[,1:length(x$data_list$styr:x$data_list$endyr)]))
   
   
-  Year = 2018:2060
-  species = c("Pollock", "Cod", "ATF")
-  png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
+  #png(filename = paste0(MSE_names[i], "_mean_rec_by_assess_year.png"), width = 7, height = 9, units = "in", res = 300)
   par(mfrow = c(3,1))
   for(k in 1:3){
-    plot(y = mean_rec[k,-ncol(mean_rec)], x = Year, type = "l", main = species[k], ylab = "Mean recruitment by yr", ylim = c(0, max(mean_rec[k,])))
+    plot(y = mean_rec[k,-ncol(mean_rec)], x = Year, type = "l", main = species[k], ylab = "Mean recruitment by yr")
     abline(h = mean_rec[k,ncol(mean_rec)], lty = 2)
     legend("topright", c("EM", "OM"), lty = c(1,2), bty = "n")
   }
-  dev.off()
-}
-
-
-
-meanyrs <- list()
-for(i in 1:length(mse_list)){
-  mod_list <- c(mse_list[[i]][[1]],list(mse_list[[i]][[2]]))
-  meanyrs[[i]] <- sapply(mod_list, function(x) x$data_list$meanyr)
+  # dev.off()
 }
 
 

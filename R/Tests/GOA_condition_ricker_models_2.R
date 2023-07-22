@@ -1,17 +1,56 @@
+################################################
+# Data
+################################################
 library(Rceattle)
 library(dplyr)
+data("GOA2018SS") # Note: the only difference is the residual mortality (M1_base) is lower
+GOA2018SS$projyr <- 2060
 
-load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
-mod_list_all <- mod_list_all 
-
-
-ss_run <- mod_list_all[[1]]
-ss_run_M <- mod_list_all[[2]]
-ss_run_M$data_list$M1_model <- c(1,2,1)
-ms_run <- mod_list_all[[3]]
-ms_run$data_list$M1_model <- c(1,2,1)
-
+# For GOA MS:
 alpha = exp(c(3.143, 1.975, 1.44))
+
+# Only difference is that there is no reweighting of comp data
+
+
+################################################
+# Estimate OMs w no srr ----
+################################################
+ss_run <- Rceattle::fit_mod(
+  data_list = GOA2018SS,
+  inits = NULL, # Initial parameters = 0
+  file = NULL, # Don't save
+  estimateMode = 0, # Estimate
+  random_rec = FALSE, # No random recruitment
+  msmMode = 0, # Single species mode
+  phase = "default",
+  initMode = 2,
+  verbose = 1)
+
+ss_run_M <- Rceattle::fit_mod(
+  data_list = GOA2018SS,
+  inits = NULL,#ss_run$estimated_params, # Initial parameters = 0
+  file = NULL, # Don't save
+  estimateMode = 0, # Estimate
+  M1Fun = build_M1(M1_model = c(1,2,1)), # Estimate M
+  random_rec = FALSE, # No random recruitment
+  msmMode = 0, # Single species mode
+  phase = "default",
+  initMode = 2,
+  verbose = 1)
+
+ms_run <- Rceattle::fit_mod(
+  data_list = GOA2018SS,
+  inits = ss_run_M$estimated_params, # Initial parameters from single species ests
+  file = NULL, # Don't save
+  estimateMode = 0, # Estimate
+  M1Fun = build_M1(M1_model = c(1,2,1)),
+  niter = 3, # 3 iterations around population and predation dynamics
+  random_rec = FALSE, # No random recruitment
+  msmMode = 1, # MSVPA based
+  suitMode = 0, # empirical suitability
+  initMode = 2,
+  phase = "default",
+  verbose = 1)
 
 ################################################
 # Estimate OMs w ricker ----
@@ -54,7 +93,7 @@ ss_run_ricker_M <- Rceattle::fit_mod(
 
 ms_run_ricker <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
-  inits = ms_run$estimated_params, # Initial parameters from single species ests
+  inits = ss_run_ricker$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   M1Fun = build_M1(M1_model = c(1,2,1),
