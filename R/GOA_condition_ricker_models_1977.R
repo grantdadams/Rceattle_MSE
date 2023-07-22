@@ -511,3 +511,4 @@ plot_catch(M_mod_list, incl_proj = TRUE)
 
 
 plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
+plot_biomass(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
