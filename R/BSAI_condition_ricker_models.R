@@ -16,43 +16,60 @@ BS2017SS$fleet_control$proj_F_prop <-rep(1,7)
 BS2017MS$fleet_control$proj_F_prop <- rep(1, 7)
 
 
+alpha = exp(c(4.121, 2.119, 1.553))
+
 ################################################
 # Estimate OMs
 ################################################
+# - Single-species fixed M
 ss_run_ricker <- Rceattle::fit_mod(data_list = BS2017SS,
                             inits = NULL, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
+                            M1Fun = build_M1(M1_model = 0,
+                                             M1_use_prior = FALSE,
+                                             M2_use_prior = FALSE),
                             recFun = build_srr(srr_fun = 3,
                                                proj_mean_rec = FALSE,
                                                srr_est_mode = 1,
-                                               srr_prior_mean = 0.2,
+                                               srr_prior_mean = alpha,
                                                srr_prior_sd = 0.2),
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
                             phase = "default",
                             verbose = 1, 
                             initMode = 2)
+plot_biomass(ss_run_ricker, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker)
 
-# Estimate single-species and estimate M
+
+# Single-species and estimate M
+BS2017SS$M1_base[2,3:23] <- 0.4
 ss_run_ricker_M <- Rceattle::fit_mod(data_list = BS2017SS,
                               inits = NULL, # Initial parameters = 0
                               file = NULL, # Don't save
                               estimateMode = 1, # Estimate hindcast only
-                              M1Fun = build_M1(M1_model = 1,
+                              M1Fun = build_M1(M1_model = c(1,0,1),
                                                M1_use_prior = FALSE,
                                                M2_use_prior = FALSE),
                               recFun = build_srr(srr_fun = 3,
                                                  proj_mean_rec = FALSE,
                                                  srr_est_mode = 1,
-                                                 srr_prior_mean = 0.2,
+                                                 srr_prior_mean = alpha*2,
                                                  srr_prior_sd = 0.2),
                               random_rec = FALSE, # No random recruitment
                               msmMode = 0, # Single species mode
                               phase = "default",
                               verbose = 1, 
                               initMode = 2)
+plot_biomass(ss_run_ricker_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker_M)
 
+alpha = exp(ss_run_ricker_M$estimated_params$rec_pars[,2])
+beta = exp(ss_run_ricker_M$estimated_params$rec_pars[,3])/1000000
+SSB_MSY = log(alpha)/beta *(0.5-0.07*alpha)/1000000
+
+# - Multi-species
 ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
                             inits = ss_run_ricker$estimated_params, # Initial parameters from single species ests
                             phase = "default", 
@@ -64,7 +81,7 @@ ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
                             recFun = build_srr(srr_fun = 3,
                                                proj_mean_rec = FALSE,
                                                srr_est_mode = 1,
-                                               srr_prior_mean = 0.2,
+                                               srr_prior_mean = alpha,
                                                srr_prior_sd = 0.2),
                             niter = 3, # 10 iterations around population and predation dynamics
                             random_rec = FALSE, # No random recruitment
@@ -72,6 +89,9 @@ ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
                             suitMode = 0, # empirical suitability
                             verbose = 1, 
                             initMode = 2)
+plot_biomass(ms_run_ricker, incl_proj = TRUE)
+plot_stock_recruit(ms_run_ricker)
+
 
 ms_run_ricker_f25 <- Rceattle::fit_mod(data_list = BS2017MS,
                                 inits = ms_run_ricker$estimated_params, # Initial parameters from single species ests

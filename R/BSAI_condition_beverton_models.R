@@ -19,11 +19,12 @@ BS2017MS$fleet_control$proj_F_prop <- rep(1, 7)
 ################################################
 # Estimate OMs
 ################################################
+# - Single-species fix M
 ss_run_beverton <- Rceattle::fit_mod(data_list = BS2017SS,
                             inits = NULL, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
-                            recFun = build_srr(srr_fun = 1,
+                            recFun = build_srr(srr_fun = 0,
                                                proj_mean_rec = FALSE,
                                                srr_est_mode = 1,
                                                srr_prior_mean = 0.2,
@@ -33,8 +34,11 @@ ss_run_beverton <- Rceattle::fit_mod(data_list = BS2017SS,
                             phase = "default",
                             verbose = 1, 
                             initMode = 2)
+plot_biomass(ss_run_beverton, incl_proj = TRUE)
+plot_stock_recruit(ss_run_beverton)
 
-# Estimate single-species and estimate M
+
+# - Single-species and estimate M
 ss_run_beverton_M <- Rceattle::fit_mod(data_list = BS2017SS,
                               inits = NULL, # Initial parameters = 0
                               file = NULL, # Don't save
@@ -52,7 +56,10 @@ ss_run_beverton_M <- Rceattle::fit_mod(data_list = BS2017SS,
                               phase = "default",
                               verbose = 1, 
                               initMode = 2)
+plot_biomass(ss_run_beverton_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_beverton_M)
 
+# - Multi-species
 ms_run_beverton <- Rceattle::fit_mod(data_list = BS2017MS,
                             inits = ss_run_beverton$estimated_params, # Initial parameters from single species ests
                             phase = "default", 
@@ -72,7 +79,10 @@ ms_run_beverton <- Rceattle::fit_mod(data_list = BS2017MS,
                             suitMode = 0, # empirical suitability
                             verbose = 1, 
                             initMode = 2)
+plot_biomass(ms_run_beverton, incl_proj = TRUE)
+plot_stock_recruit(ms_run_beverton)
 
+# - Multi-species F25
 ms_run_beverton_f25 <- Rceattle::fit_mod(data_list = BS2017MS,
                                 inits = ms_run_beverton$estimated_params, # Initial parameters from single species ests
                                 phase = "default", 

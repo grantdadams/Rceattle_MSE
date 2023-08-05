@@ -16,6 +16,7 @@ alpha = exp(c(3.143, 1.975, 1.44))
 ################################################
 # Estimate OMs w ricker ----
 ################################################
+# - Single-species fixed M
 ss_run_ricker <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, # Initial parameters = 0
@@ -33,12 +34,15 @@ ss_run_ricker <- Rceattle::fit_mod(
   initMode = 2)
 
 # Estimate single-species and estimate M
+ss_run_M$data_list$M1_base[4,3:23] <- 0.35
+ss_run_M$data_list$M1_model <- c(1,2,0)
 ss_run_ricker_M <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, # Initial parameters = 0
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
+                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 3,
@@ -51,26 +55,42 @@ ss_run_ricker_M <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
+plot_biomass(ss_run_ricker_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker_M)
 
+# - Multi-species
+ms_run$data_list$M1_base[4,3:23] <- 0.35
+ms_run$estimated_params$rec_pars[,2] <- exp(5)
+ms_run$data_list$M1_model <- c(1,2,1)
 ms_run_ricker <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
   inits = ms_run$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
+                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha),
+                     srr_prior_mean = alpha * 2),
   niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
   suitMode = 0, # empirical suitability
-  phase = "default",
+  phase = NULL,
   verbose = 1, 
   initMode = 2)
+
+ms_run_ricker$quantities$M1[1,1,]
+exp(ms_run_ricker$estimated_params$rec_pars)
+ms_run_ricker$quantities$SPR0
+plot_biomass(ms_run_ricker, incl_proj = TRUE)
+plot_stock_recruit(ms_run_ricker)
+
+ms_run_ricker$estimated_params$rec_pars[1,3] <- 0
+ms_run_ricker$estimated_params$rec_pars[1,2] <- 4
 
 
 ################################################
@@ -103,7 +123,7 @@ ms_run_ricker_f25 <- Rceattle::fit_mod(
   inits = ms_run_ricker$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
   estimateMode = 0, # Estimate projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   niter = 3, # 10 iterations around population and predation dynamics
@@ -302,7 +322,7 @@ ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 2, # Input F
@@ -325,7 +345,7 @@ ss_run_ricker_M_Fspr <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 4, # Fspr HCR
@@ -350,7 +370,7 @@ ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 5, # Tier3 HCR
@@ -373,7 +393,7 @@ ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 5, # Tier3 HCR
@@ -397,7 +417,7 @@ ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
@@ -420,7 +440,7 @@ ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
@@ -445,7 +465,7 @@ ss_run_ricker_M_Tier1 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 7, # Tier 1 HCR
@@ -469,7 +489,7 @@ ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
   inits = ss_run_ricker_M$estimated_params, 
   phase = "default",
   estimateMode = 0, # Run projection only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 7, # Tier 1 HCR

@@ -28,6 +28,7 @@ alpha = exp(c(3.143, 1.975, 1.44))
 ################################################
 # Estimate OMs w beverton ----
 ################################################
+# - Single species fixed M
 ss_run_beverton <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, # Initial parameters = 0
@@ -43,14 +44,19 @@ ss_run_beverton <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
+plot_biomass(ss_run_beverton, incl_proj = TRUE)
+plot_stock_recruit(ss_run_beverton)
 
-# Estimate single-species and estimate M
+# - Estimate single-species and estimate M
+ss_run_M$data_list$M1_base[4,3:23] <- 0.35
+ss_run_M$data_list$M1_model <- c(1,2,0)
 ss_run_beverton_M <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, # Initial parameters = 0
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
-  M1Fun = build_M1(M1_model = c(1,2,1),
+  M1Fun = build_M1(M1_model = c(1,2,0),
+                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 1,
@@ -63,7 +69,11 @@ ss_run_beverton_M <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
+plot_biomass(ss_run_beverton_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_beverton_M)
+ss_run_beverton_M$quantities$M1[3,1,]
 
+# - Multi-species
 ms_run_beverton <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
   inits = ms_run$estimated_params, # Initial parameters from single species ests
@@ -83,6 +93,8 @@ ms_run_beverton <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
+plot_biomass(ms_run_beverton, incl_proj = TRUE)
+plot_stock_recruit(ms_run_beverton)
 
 
 ################################################
