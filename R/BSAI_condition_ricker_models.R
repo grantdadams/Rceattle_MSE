@@ -71,8 +71,8 @@ SSB_MSY = log(alpha)/beta *(0.5-0.07*alpha)/1000000
 
 # - Multi-species
 ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
-                            inits = ss_run_ricker$estimated_params, # Initial parameters from single species ests
-                            phase = "default", 
+                            inits = ss_run_ricker_M$estimated_params, # Initial parameters from single species ests
+                            phase = NULL, 
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
                             M1Fun = build_M1(M1_model = 1,
@@ -81,7 +81,7 @@ ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
                             recFun = build_srr(srr_fun = 3,
                                                proj_mean_rec = FALSE,
                                                srr_est_mode = 1,
-                                               srr_prior_mean = alpha,
+                                               srr_prior_mean = alpha * 2,
                                                srr_prior_sd = 0.2),
                             niter = 3, # 10 iterations around population and predation dynamics
                             random_rec = FALSE, # No random recruitment

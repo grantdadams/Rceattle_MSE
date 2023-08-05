@@ -64,7 +64,7 @@ ms_run$estimated_params$rec_pars[,2] <- exp(5)
 ms_run$data_list$M1_model <- c(1,2,1)
 ms_run_ricker <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
-  inits = ms_run$estimated_params, # Initial parameters from single species ests
+  inits = ss_run_ricker_M$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   M1Fun = build_M1(M1_model = c(1,2,0),
