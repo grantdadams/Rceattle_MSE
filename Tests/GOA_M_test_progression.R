@@ -103,7 +103,7 @@ for(i in 1:length(mse_list)){
 
 for(i in 1:length(mse_list)){
   mod_list <- c(mse_list[[i]][[1]]$EM,list(mse_list[[i]][[1]]$OM))
-  mod_list2 <- mse_list[[i]][[1]][[1]]
+  mod_list2 <- mse_list[[i]][[1]]$EM
   model_names = c(paste0("EM-", 2018:2060), "OM")
   names(mod_list) <- model_names
   

@@ -3,6 +3,7 @@ library(dplyr)
 
 load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
 mod_list_all <- mod_list_all 
+data("GOA2018SS")
 
 
 ss_run <- mod_list_all[[1]]
@@ -25,17 +26,26 @@ ss_run_ricker <- Rceattle::fit_mod(
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = 0.2,
+                     srr_prior_mean = alpha,
                      srr_prior_sd = 0.2),
   random_rec = FALSE, # No random recruitment
   msmMode = 0, # Single species mode
   phase = "default",
   verbose = 1, 
   initMode = 2)
+plot_ssb(ss_run_ricker, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker)
+
+# - Check Bmsy
+alpha <- exp(ss_run_ricker$estimated_params$rec_pars[,2])
+beta <- exp(ss_run_ricker$estimated_params$rec_pars[,3])
+apply(ss_run$quantities$biomassSSB, 1, max)
+1/(beta/1000000)
+plot_ssb(list(ss_run_ricker, ss_run), incl_proj = TRUE)
+
 
 # Estimate single-species and estimate M
 ss_run_M$data_list$M1_base[4,3:23] <- 0.35
-ss_run_M$data_list$M1_model <- c(1,2,0)
 ss_run_ricker_M <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, # Initial parameters = 0
@@ -48,49 +58,67 @@ ss_run_ricker_M <- Rceattle::fit_mod(
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = 0.2,
+                     srr_prior_mean = alpha,
                      srr_prior_sd = 0.2),
   random_rec = FALSE, # No random recruitment
   msmMode = 0, # Single species mode
   phase = "default",
   verbose = 1, 
   initMode = 2)
-plot_biomass(ss_run_ricker_M, incl_proj = TRUE)
+plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
 plot_stock_recruit(ss_run_ricker_M)
 
+# - Check Bmsy
+alpha <- exp(ss_run_ricker_M$estimated_params$rec_pars[,2])
+beta <- exp(ss_run_ricker_M$estimated_params$rec_pars[,3])
+
+1/(beta/1000000)/1000000
+apply(ss_run_M$quantities$biomassSSB, 1, max)/1000000
+plot_ssb(list(ss_run_ricker_M, ss_run_M), incl_proj = TRUE)
+
+
 # - Multi-species
+ms_run$data_list$M1_base[1,3:23] <- 0.2
 ms_run$data_list$M1_base[4,3:23] <- 0.35
-ms_run$estimated_params$rec_pars[,2] <- exp(5)
-ms_run$data_list$M1_model <- c(1,2,1)
+
 ms_run_ricker <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
-  inits = ss_run_ricker_M$estimated_params, # Initial parameters from single species ests
+  inits = ms_run$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
-  M1Fun = build_M1(M1_model = c(1,2,0),
-                   updateM1 = TRUE,
+  map = NULL,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   updateM1 = FALSE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha * 2),
+                     srr_prior_mean = alpha * 3,
+                     Bmsy_lim = c(800000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
   niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
   suitMode = 0, # empirical suitability
   phase = NULL,
   verbose = 1, 
-  initMode = 2)
-
-ms_run_ricker$quantities$M1[1,1,]
-exp(ms_run_ricker$estimated_params$rec_pars)
-ms_run_ricker$quantities$SPR0
-plot_biomass(ms_run_ricker, incl_proj = TRUE)
+  initMode = 0)
+plot_ssb(ms_run_ricker, incl_proj = TRUE)
 plot_stock_recruit(ms_run_ricker)
 
-ms_run_ricker$estimated_params$rec_pars[1,3] <- 0
-ms_run_ricker$estimated_params$rec_pars[1,2] <- 4
+# ms_run_ricker$quantities$M1[1,1,]
+# 
+# alpha <- exp(ms_run_ricker$estimated_params$rec_pars[,2])
+# beta <- exp(ms_run_ricker$estimated_params$rec_pars[,3])
+# 
+# 1/(beta/1000000)/1000000
+# apply(ms_run$quantities$biomassSSB, 1, max)/1000000
+# apply(ms_run_ricker$quantities$biomassSSB, 1, max)/1000000
+# plot_ssb(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# plot_biomass(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# plot_recruitment(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# ms_run_ricker$quantities$M[1,1,,1]
+# ms_run$quantities$NByage[1,1,,1]
 
 
 ################################################
@@ -118,28 +146,32 @@ ms_run_ricker <- mod_list_all[[3]]
 ################################################
 # EMs: Multi-species w/ harvest control rules
 ################################################
-ms_run_ricker_f25 <- Rceattle::fit_mod(
+ms_run_ricker_f25 <- Rceattle::fit_mod( 
   data_list = ms_run_ricker$data_list,
   inits = ms_run_ricker$estimated_params, # Initial parameters from single species ests
   file = NULL, # Don't save
-  estimateMode = 0, # Estimate projection only
-  M1Fun = build_M1(M1_model = c(1,2,0),
+  estimateMode = 0, # Estimate hindcast only
+  map = NULL,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   updateM1 = FALSE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
-  niter = 3, # 10 iterations around population and predation dynamics
-  HCR = build_hcr(HCR = 3, # Constant F HCR
-                  DynamicHCR = FALSE, # Use dynamic reference points
-                  FsprTarget = 0.25),
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha),
+                     srr_prior_mean = alpha * 3,
+                     Bmsy_lim = c(800000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
+  niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
   suitMode = 0, # empirical suitability
+  phase = NULL,
   verbose = 1, 
-  phase = "default",
-  initMode = 2)
+  initMode = 0,
+  HCR = build_hcr(HCR = 3, # Constant F HCR
+                  DynamicHCR = FALSE, # Use dynamic reference points
+                  FsprTarget = 0.25)
+)
 
 
 ################################################

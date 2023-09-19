@@ -44,7 +44,7 @@ plot_stock_recruit(ss_run_ricker)
 
 
 # Single-species and estimate M
-BS2017SS$M1_base[2,3:23] <- 0.4
+BS2017SS$M1_base[2,3:23] <- 0.5
 ss_run_ricker_M <- Rceattle::fit_mod(data_list = BS2017SS,
                               inits = NULL, # Initial parameters = 0
                               file = NULL, # Don't save
@@ -70,12 +70,15 @@ beta = exp(ss_run_ricker_M$estimated_params$rec_pars[,3])/1000000
 SSB_MSY = log(alpha)/beta *(0.5-0.07*alpha)/1000000
 
 # - Multi-species
+BS2017MS$M1_base[1,3:23] <- 0.5
+BS2017MS$M1_base[2,3:23] <- 0.5
 ms_run_ricker <- Rceattle::fit_mod(data_list = BS2017MS,
                             inits = ss_run_ricker_M$estimated_params, # Initial parameters from single species ests
                             phase = NULL, 
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
-                            M1Fun = build_M1(M1_model = 1,
+                            M1Fun = build_M1(M1_model = c(0,0,1),
+                                             updateM1 = TRUE,
                                              M1_use_prior = FALSE,
                                              M2_use_prior = FALSE),
                             recFun = build_srr(srr_fun = 3,
