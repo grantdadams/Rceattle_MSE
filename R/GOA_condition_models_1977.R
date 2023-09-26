@@ -323,14 +323,14 @@ mod_list <- list(ss_run_AvgF, ss_run_Fspr, ss_run_Tier3, ss_run_dynamicTier3, ss
 
 # - SS
 plot_biomass(mod_list, incl_proj = T)
-plot_ssb(mod_list, incl_proj = T)
-plot_depletionSSB(mod_list, incl_proj = T)
-plot_recruitment(mod_list, incl_proj = T)
-plot_catch(mod_list, incl_proj = TRUE)
+# plot_ssb(mod_list, incl_proj = T)
+# plot_depletionSSB(mod_list, incl_proj = T)
+# plot_recruitment(mod_list, incl_proj = T)
+# plot_catch(mod_list, incl_proj = TRUE)
 
 # - SS M
 plot_biomass(M_mod_list, incl_proj = T)
-plot_ssb(M_mod_list, incl_proj = T)
-plot_depletionSSB(M_mod_list, incl_proj = T)
-plot_recruitment(M_mod_list, incl_proj = T)
-plot_catch(M_mod_list, incl_proj = TRUE)
+# plot_ssb(M_mod_list, incl_proj = T)
+# plot_depletionSSB(M_mod_list, incl_proj = T)
+# plot_recruitment(M_mod_list, incl_proj = T)
+# plot_catch(M_mod_list, incl_proj = TRUE)
