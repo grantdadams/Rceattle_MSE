@@ -550,14 +550,14 @@ M_mod_list <- list(ss_run_ricker_M, ss_run_ricker_M_AvgF, ss_run_ricker_M_Fspr, 
 mod_list <- list(ss_run_ricker, ss_run_ricker_AvgF, ss_run_ricker_Fspr, ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3, ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1 )
 
 # - SS
-#plot_biomass(mod_list, incl_proj = T)
+plot_biomass(mod_list, incl_proj = T)
 #plot_ssb(mod_list, incl_proj = T)
 #plot_depletionSSB(mod_list, incl_proj = T)
 #plot_recruitment(mod_list, incl_proj = T)
 #plot_catch(mod_list, incl_proj = TRUE)
 
 # - SS M
-#plot_biomass(M_mod_list, incl_proj = T)
+plot_biomass(M_mod_list, incl_proj = T)
 #plot_ssb(M_mod_list, incl_proj = T)
 #plot_depletionSSB(M_mod_list, incl_proj = T)
 #plot_recruitment(M_mod_list, incl_proj = T)
