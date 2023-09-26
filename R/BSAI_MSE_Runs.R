@@ -1,10 +1,11 @@
-source("R/BSAI_condition_models.R")
+
 
 
 ################################################
 # Management strategy evaluation
 ################################################
-
+source("R/BSAI_condition_models.R")
+source("R/BSAI_condition_ricker_models.R")
 
 ## Cap
 # 1. 1,500,000 mt cap for pollock and Max historical catch for Arrowtooth flounder
@@ -29,14 +30,9 @@ sampling_period = c(1,1,1,1,1,1,2)
 ### OMS
 # 1. Single-species estimate M
 # 2. Multi-species type II
-om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25)
-om_names = c("SS_OM", "SSM_OM", "MS_OM")
+om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25, ss_run_ricker_Tier3, ss_run_ricker_M_Tier3, ms_run_ricker_f25)
+om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
 
-## Rec scenarios
-# 1. Constant
-# 2. Linear increase 1.5
-# 3. Linear decrease
-rec_scen <- list(1)
 
 ### Management strategies
 ## EM
@@ -59,21 +55,10 @@ em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynam
 em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
-em_hcr_list <- list(ss_run_Fspr, ss_run_AvgF, # Fixed M
-                    ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
-)
-
-em_hcr_names <- c("SS_fixM_Fspr_EM","SS_fixM_AvgF_EM", # Fixed M
-                  "SS_estM_Fspr_EM","SS_estM_AvgF_EM")
-
 
 ### Run the MSE
-source("R/Functions/Run_full_MSE_function_not_parallel.R")
+source("R/Functions/Run_full_MSE_function.R")
 
 # No rec trend
-run_mse_np(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
-
-# Rec trend
-# - NPFMC and PFMC
-run_mse_np(system = "EBS", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,0,1), c(0,0,-0.5)), nsim = 300)
+run_mse(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 

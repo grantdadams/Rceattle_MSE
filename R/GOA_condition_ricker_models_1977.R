@@ -33,15 +33,15 @@ ss_run_ricker <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
-plot_ssb(ss_run_ricker, incl_proj = TRUE)
-plot_stock_recruit(ss_run_ricker)
+#plot_ssb(ss_run_ricker, incl_proj = TRUE)
+#plot_stock_recruit(ss_run_ricker)
 
 # - Check Bmsy
 alpha <- exp(ss_run_ricker$estimated_params$rec_pars[,2])
 beta <- exp(ss_run_ricker$estimated_params$rec_pars[,3])
 apply(ss_run$quantities$biomassSSB, 1, max)
 1/(beta/1000000)
-plot_ssb(list(ss_run_ricker, ss_run), incl_proj = TRUE)
+#plot_ssb(list(ss_run_ricker, ss_run), incl_proj = TRUE)
 
 
 # Estimate single-species and estimate M
@@ -65,8 +65,8 @@ ss_run_ricker_M <- Rceattle::fit_mod(
   phase = "default",
   verbose = 1, 
   initMode = 2)
-plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
-plot_stock_recruit(ss_run_ricker_M)
+#plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
+#plot_stock_recruit(ss_run_ricker_M)
 
 # - Check Bmsy
 alpha <- exp(ss_run_ricker_M$estimated_params$rec_pars[,2])
@@ -74,7 +74,7 @@ beta <- exp(ss_run_ricker_M$estimated_params$rec_pars[,3])
 
 1/(beta/1000000)/1000000
 apply(ss_run_M$quantities$biomassSSB, 1, max)/1000000
-plot_ssb(list(ss_run_ricker_M, ss_run_M), incl_proj = TRUE)
+#plot_ssb(list(ss_run_ricker_M, ss_run_M), incl_proj = TRUE)
 
 
 # - Multi-species
@@ -103,8 +103,10 @@ ms_run_ricker <- Rceattle::fit_mod(
   phase = NULL,
   verbose = 1, 
   initMode = 0)
-plot_ssb(ms_run_ricker, incl_proj = TRUE)
-plot_stock_recruit(ms_run_ricker)
+
+
+#plot_ssb(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"), incl_proj = TRUE)
+#plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"))
 
 # ms_run_ricker$quantities$M1[1,1,]
 # 
@@ -114,15 +116,15 @@ plot_stock_recruit(ms_run_ricker)
 # 1/(beta/1000000)/1000000
 # apply(ms_run$quantities$biomassSSB, 1, max)/1000000
 # apply(ms_run_ricker$quantities$biomassSSB, 1, max)/1000000
-# plot_ssb(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
-# plot_biomass(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
-# plot_recruitment(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# #plot_ssb(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# #plot_biomass(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
+# #plot_recruitment(list(ms_run_ricker, ms_run, ss_run_M, ss_run_ricker_M), incl_proj = TRUE, model_names = 1:4)
 # ms_run_ricker$quantities$M[1,1,,1]
 # ms_run$quantities$NByage[1,1,,1]
 
 
 ################################################
-# OMs: Ratio of F across Pcod fleets
+# OMs: Ratio of F across Pcod fleets ----
 ################################################
 mod_list_all <- list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
 
@@ -144,7 +146,7 @@ ms_run_ricker <- mod_list_all[[3]]
 
 
 ################################################
-# EMs: Multi-species w/ harvest control rules
+# EMs: Multi-species w/ harvest control rules ----
 ################################################
 ms_run_ricker_f25 <- Rceattle::fit_mod( 
   data_list = ms_run_ricker$data_list,
@@ -175,7 +177,7 @@ ms_run_ricker_f25 <- Rceattle::fit_mod(
 
 
 ################################################
-# EMs: Fixed M w/ harvest control rules
+# EMs: Fixed M w/ harvest control rules ----
 ################################################
 # -- Avg F
 avg_F <- (exp(ss_run_ricker$estimated_params$ln_mean_F+ss_run_ricker$estimated_params$F_dev)) # Average F from last 5 years
@@ -343,7 +345,7 @@ ss_run_ricker_dynamicTier1 <- Rceattle::fit_mod(
 
 
 ################################################
-# EMs: Estimate M w/ harvest control rules
+# EMs: Estimate M w/ harvest control rules ----
 ###############################################
 # -- Avg F
 avg_F <- (exp(ss_run_ricker_M$estimated_params$ln_mean_F+ss_run_ricker_M$estimated_params$F_dev)) # Average F from last 5 years
@@ -542,25 +544,25 @@ ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
 
 
 ###############################################
-# Plot
+# #plot ----
 ###############################################
 M_mod_list <- list(ss_run_ricker_M, ss_run_ricker_M_AvgF, ss_run_ricker_M_Fspr, ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3, ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1 )
 mod_list <- list(ss_run_ricker, ss_run_ricker_AvgF, ss_run_ricker_Fspr, ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3, ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1 )
 
 # - SS
-plot_biomass(mod_list, incl_proj = T)
-plot_ssb(mod_list, incl_proj = T)
-plot_depletionSSB(mod_list, incl_proj = T)
-plot_recruitment(mod_list, incl_proj = T)
-plot_catch(mod_list, incl_proj = TRUE)
+#plot_biomass(mod_list, incl_proj = T)
+#plot_ssb(mod_list, incl_proj = T)
+#plot_depletionSSB(mod_list, incl_proj = T)
+#plot_recruitment(mod_list, incl_proj = T)
+#plot_catch(mod_list, incl_proj = TRUE)
 
 # - SS M
-plot_biomass(M_mod_list, incl_proj = T)
-plot_ssb(M_mod_list, incl_proj = T)
-plot_depletionSSB(M_mod_list, incl_proj = T)
-plot_recruitment(M_mod_list, incl_proj = T)
-plot_catch(M_mod_list, incl_proj = TRUE)
+#plot_biomass(M_mod_list, incl_proj = T)
+#plot_ssb(M_mod_list, incl_proj = T)
+#plot_depletionSSB(M_mod_list, incl_proj = T)
+#plot_recruitment(M_mod_list, incl_proj = T)
+#plot_catch(M_mod_list, incl_proj = TRUE)
 
 
-plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
-plot_biomass(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
+#plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
+#plot_biomass(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
