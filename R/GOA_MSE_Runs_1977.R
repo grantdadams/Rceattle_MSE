@@ -1,6 +1,7 @@
 ################################################
 # Set-up
 ################################################
+library(dplyr)
 source("R/GOA_condition_models_1977.R")
 source("R/GOA_condition_ricker_models_1977.R")
 

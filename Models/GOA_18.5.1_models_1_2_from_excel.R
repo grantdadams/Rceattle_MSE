@@ -49,6 +49,9 @@ for(i in 1:length(mydata_list)){
                                            inits = NULL, # Initial parameters = 0
                                            file = NULL, # Don't save
                                            estimateMode = 0, # Estimate
+                                           M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
@@ -75,6 +78,9 @@ for(i in 1:length(mydata_list)){
                                            inits = inits, # Initial parameters = 0
                                            file = NULL, # Don't save
                                            estimateMode = 0, # Estimate
+                                           M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                                                            M1_use_prior = FALSE,
+                                                            M2_use_prior = FALSE),
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
@@ -103,6 +109,9 @@ for(i in 1:length(mydata_list)){
         inits = inits, # Initial parameters = 0
         file = NULL, # Don't save
         estimateMode = 0, # Estimate
+        M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                         M1_use_prior = FALSE,
+                         M2_use_prior = FALSE),
         random_rec = FALSE, # No random recruitment
         msmMode = 1, # Multi species mode
         verbose = 1,
@@ -130,6 +139,9 @@ for(i in 1:length(mydata_list)){
             inits = inits, # Initial parameters = 0
             file = NULL, # Don't save
             estimateMode = 0, # Estimate
+            M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                             M1_use_prior = FALSE,
+                             M2_use_prior = FALSE),
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
             verbose = 1,
@@ -146,6 +158,9 @@ for(i in 1:length(mydata_list)){
           inits = inits, # Initial parameters = 0
           file = NULL, # Don't save
           estimateMode = 0, # Estimate
+          M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                           M1_use_prior = FALSE,
+                           M2_use_prior = FALSE),
           random_rec = FALSE, # No random recruitment
           msmMode = 1, # Multi species mode
           verbose = 1,

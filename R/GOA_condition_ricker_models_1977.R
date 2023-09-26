@@ -354,7 +354,7 @@ avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
 ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -377,7 +377,7 @@ ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
 ss_run_ricker_M_Fspr <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -402,7 +402,7 @@ ss_run_ricker_M_Fspr <- Rceattle::fit_mod(
 ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -425,7 +425,7 @@ ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
 ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -449,7 +449,7 @@ ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
 ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -472,7 +472,7 @@ ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
 ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -497,7 +497,7 @@ ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
 ss_run_ricker_M_Tier1 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
@@ -521,7 +521,7 @@ ss_run_ricker_M_Tier1 <- Rceattle::fit_mod(
 ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
   data_list = ss_run_ricker_M$data_list,
   inits = ss_run_ricker_M$estimated_params, 
-  phase = "default",
+  phase = NULL,
   estimateMode = 0, # Run projection only
   M1Fun = build_M1(M1_model = c(1,2,0),
                    M1_use_prior = FALSE,
