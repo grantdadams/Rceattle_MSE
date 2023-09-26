@@ -1,9 +1,7 @@
-
-
-
 ################################################
 # Management strategy evaluation
 ################################################
+library(dplyr)
 source("R/BSAI_condition_models.R")
 source("R/BSAI_condition_ricker_models.R")
 
