@@ -87,7 +87,7 @@ ms_run_ricker <- Rceattle::fit_mod(
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   map = NULL,
-  M1Fun = build_M1(M1_model = c(0,2,0),
+  M1Fun = build_M1(M1_model = c(1,2,0),
                    updateM1 = FALSE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
