@@ -24,7 +24,7 @@ ss_run_beverton <- Rceattle::fit_mod(data_list = BS2017SS,
                             inits = NULL, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 1, # Estimate hindcast only
-                            recFun = build_srr(srr_fun = 0,
+                            recFun = build_srr(srr_fun = 1,
                                                proj_mean_rec = FALSE,
                                                srr_est_mode = 1,
                                                srr_prior_mean = 0.2,
