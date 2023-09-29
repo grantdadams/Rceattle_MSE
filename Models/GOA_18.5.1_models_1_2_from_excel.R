@@ -175,6 +175,9 @@ for(i in 1:length(mydata_list)){
             data_list = data,
             inits = mod_list_all[[i]]$estimated_params, # Initial parameters = 0
             file = NULL, # Don't save
+            M1Fun = build_M1(M1_model = mydata_list[[i]]$M1_model,
+                             M1_use_prior = FALSE,
+                             M2_use_prior = FALSE),
             estimateMode = 0, # Estimate
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
