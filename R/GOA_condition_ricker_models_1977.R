@@ -68,18 +68,16 @@ ss_run_ricker_M <- Rceattle::fit_mod(
 #plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
 #plot_stock_recruit(ss_run_ricker_M)
 
-# - Check Bmsy
+
+# - Multi-species
+ms_run$data_list$M1_base[1,3:23] <- 0.25
+ms_run$data_list$M1_base[4,3:23] <- 0.35
+
 alpha <- exp(ss_run_ricker_M$estimated_params$rec_pars[,2])
 beta <- exp(ss_run_ricker_M$estimated_params$rec_pars[,3])
 
-1/(beta/1000000)/1000000
-apply(ss_run_M$quantities$biomassSSB, 1, max)/1000000
-#plot_ssb(list(ss_run_ricker_M, ss_run_M), incl_proj = TRUE)
-
-
-# - Multi-species
-ms_run$data_list$M1_base[1,3:23] <- 0.2
-ms_run$data_list$M1_base[4,3:23] <- 0.35
+ms_run$estimated_params$rec_pars[,2] <- log(alpha)
+ms_run$estimated_params$rec_pars[,3] <- log(beta)
 
 ms_run_ricker <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
@@ -87,26 +85,28 @@ ms_run_ricker <- Rceattle::fit_mod(
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   map = NULL,
-  M1Fun = build_M1(M1_model = c(1,2,0),
-                   updateM1 = FALSE,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
                      srr_prior_mean = alpha * 3,
-                     Bmsy_lim = c(800000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
+                     Bmsy_lim = c(400000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
   niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
   suitMode = 0, # empirical suitability
-  phase = NULL,
+  phase = "default",
   verbose = 1, 
   initMode = 0)
 
+plot_ssb(ms_run_ricker, incl_proj = TRUE)
+plot_stock_recruit(ms_run_ricker)
 
-#plot_ssb(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"), incl_proj = TRUE)
-#plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"))
+plot_ssb(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"), incl_proj = TRUE)
+plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_names = c("SS: fix M", "SS: est M", "MS"))
 
 # ms_run_ricker$quantities$M1[1,1,]
 # 
