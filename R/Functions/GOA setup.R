@@ -1,0 +1,19 @@
+install.packages("pacman")
+pacman::p_load(dplyr,
+               ggplot2,
+               MASS,
+               oce,
+               readxl,
+               TMB,
+               devtools,
+               writexl,
+               reshape2,
+               gplots,
+               tidyr,
+               testthat,
+               foreach,
+               knitr,
+               doParallel)
+devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
+install.packages("~/GitHub/Rceattle/Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")
+source("~/GitHub/Rceattle_MSE/Models/GOA_18.5.1_models_1_2_from_excel.R")

@@ -1,27 +1,12 @@
-# Install packages
-install.packages(c("dplyr",
-                   "ggplot2",
-                   "MASS",
-                   "oce",
-                   "readxl",
-                   "TMB",
-                   "devtools",
-                   "writexl",
-                   "reshape2",
-                   "gplots",
-                   "tidyr",
-                   "testthat",
-                   "foreach",
-                   "doParallel"))
+comp <- 1
 
-devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
-install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type="source")
+run_setup <- data.frame(om = rep(1:6, each = 2), ems = rep(1:2, 6))
 
 ################################################
 # Set-up
 ################################################
-# source("Models/GOA_18.5.1_models_1_2_from_excel.R")
 source("R/GOA_condition_models_1977.R")
+source("R/GOA_condition_ricker_models_1977.R")
 
 ## Cap
 # 1. Max historical catch for Arrowtooth flounder
@@ -45,14 +30,8 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1)
 ### OMS
 # 1. Single-species estimate M
 # 2. Multi-species type II
-om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25)
-om_names = c("SS_OM", "SSM_OM", "MS_OM")
-
-## Rec scenarios
-# 1. Constant
-# 2. Linear increase 1.5
-# 3. Linear decrease
-rec_scen <- list(0)
+om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25, ss_run_ricker_Tier3, ss_run_ricker_M_Tier3, ms_run_ricker_f25)
+om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
 
 ### Management strategies
 ## EM
@@ -76,43 +55,13 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
+em_sets <- list(1:8, # Fixed M
+                9:16) # Est M
+
 ### Run the MSE
-source("R/Functions/Run_full_MSE_function_not_parallel.R")
+source("R/Functions/Run_full_MSE_function.R")
 
-# All up/down 313-12
-i = 1
-j = 1
-
-# 313-1 i = 1, j = 1
-# 313-3 i = 1, j = 2
-# 313-4 i = 1, j = 3
-# 313-5 i = 1, j = 4
-
-# 313-6 i = 2, j = 1
-# 313-7 i = 2, j = 2
-# 313-8 i = 2, j = 3
-# 313-9 i = 2, j = 4
-
-
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown")[i], om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(1:2,9:10)[j]], em_hcr_names = em_hcr_names[c(1:2,9:10)[j]], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0))[i], nsim = 300)
-
-
-
-# Trends (non-NPFMC HCRs)
-j = 1
-
-# 313-1 j = 1
-# 313-3 j = 2
-# 313-4 j = 3
-# 313-5 j = 4
-
-# 313-6 j = 5
-# 313-7 j = 6
-# 313-8 j = 7
-# 313-9 j = 8
-# 313-10 j = 9
-# 313-12 j = 10
-run_mse_np(system = "GOA1977", recname = c("AllUp", "AllDown", "ATFRup", "ATFRdown"), om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list[c(3:8,13:16)[j]], em_hcr_names = em_hcr_names[c(3:8,13:16)[j]], sampling_period = sampling_period, rec_scen = list(c(1,1,1), c(-0.5,-0.5,-0.5), c(0,1,0), c(0,-0.5,0)), nsim = 300)
-
+# No rec trend
+run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[run_setup$om[comp]], om_names = om_names[run_setup$om[comp]], em_hcr_list = em_hcr_list[em_sets[[run_setup$ems[comp]]]], em_hcr_names = em_hcr_names[em_sets[[run_setup$ems[comp]]]], sampling_period = sampling_period, nsim = 300)
 
 
