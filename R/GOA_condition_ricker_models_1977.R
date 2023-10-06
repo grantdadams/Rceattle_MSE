@@ -154,15 +154,15 @@ ms_run_ricker_f25 <- Rceattle::fit_mod(
   file = NULL, # Don't save
   estimateMode = 0, # Estimate hindcast only
   map = NULL,
-  M1Fun = build_M1(M1_model = c(0,2,0),
-                   updateM1 = FALSE,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
                      srr_prior_mean = alpha * 3,
-                     Bmsy_lim = c(800000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
+                     Bmsy_lim = c(400000, apply(ms_run$quantities$biomassSSB, 1, max)[2:3])),
   niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
