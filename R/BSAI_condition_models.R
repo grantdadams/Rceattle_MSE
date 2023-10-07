@@ -342,8 +342,8 @@ ss_run_M_dynamicTier1 <- Rceattle::fit_mod(data_list = BS2017SS,
 ###############################################
 # Plot
 ###############################################
-M_mod_list <- list(ss_run_M_AvgF, ss_run_M_Fspr, ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1 )
-mod_list <- list(ss_run_AvgF, ss_run_Fspr, ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1 )
+M_mod_list <- list(ss_run_M, ss_run_M_AvgF, ss_run_M_Fspr, ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1 )
+mod_list <- list(ss_run, ss_run_AvgF, ss_run_Fspr, ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1 )
 
 # - SS
 plot_biomass(mod_list, incl_proj = T)

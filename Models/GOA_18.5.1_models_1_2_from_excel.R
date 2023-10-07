@@ -55,7 +55,7 @@ for(i in 1:length(mydata_list)){
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
-                                           initMode = 2,
+                                           initMode = 1,
                                            phase = "default")
   }
 }
@@ -84,7 +84,7 @@ for(i in 1:length(mydata_list)){
                                            random_rec = FALSE, # No random recruitment
                                            msmMode = 0, # Single species mode
                                            verbose = 1,
-                                           initMode = 2,
+                                           initMode = 1,
                                            phase = "default")
   }
 }
@@ -115,7 +115,7 @@ for(i in 1:length(mydata_list)){
         random_rec = FALSE, # No random recruitment
         msmMode = 1, # Multi species mode
         verbose = 1,
-        initMode = 2,
+        initMode = 1,
         phase = NULL),
         silent = TRUE)
       
@@ -145,7 +145,7 @@ for(i in 1:length(mydata_list)){
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
             verbose = 1,
-            initMode = 2,
+            initMode = 1,
             phase = NULL)
         }
       }
@@ -182,7 +182,7 @@ for(i in 1:length(mydata_list)){
             random_rec = FALSE, # No random recruitment
             msmMode = 1, # Multi species mode
             verbose = 1,
-            initMode = 2,
+            initMode = 1,
             phase = "default"),
             silent = TRUE)
         }
@@ -202,6 +202,7 @@ for(i in 1:length(mod_list_all)){
 }
 
 mod_list_all_save <- mod_list_all
+plot_biomass(mod_list_all_save, incl_proj = T)
 
 
 # Save
