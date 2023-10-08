@@ -6,9 +6,9 @@ mod_list_all <- mod_list_all
 data("GOA2018SS")
 
 
-ss_run_ricker <- mod_list_all[[1]]
-ss_run_ricker_M <- mod_list_all[[2]]
-ss_run_ricker_M$data_list$M1_model <- c(1,2,1)
+ss_run <- mod_list_all[[1]]
+ss_run_M <- mod_list_all[[2]]
+ss_run_M$data_list$M1_model <- c(1,2,1)
 ms_run <- mod_list_all[[3]]
 ms_run$data_list$M1_model <- c(1,2,1)
 
@@ -19,8 +19,8 @@ alpha = exp(c(3.143, 1.975, 1.44))
 ################################################
 # - Single-species fixed M
 ss_run_ricker <- Rceattle::fit_mod(
-  data_list = ss_run_ricker$data_list,
-  inits = ss_run_ricker$estimated_params, # Initial parameters = 0
+  data_list = ss_run$data_list,
+  inits = ss_run$estimated_params, # Initial parameters = 0
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   recFun = build_srr(srr_fun = 3,
@@ -45,10 +45,10 @@ apply(ss_run_ricker$quantities$biomassSSB, 1, max)
 
 
 # Estimate single-species and estimate M
-ss_run_ricker_M$data_list$M1_base[4,3:23] <- 0.35
+ss_run_M$data_list$M1_base[4,3:23] <- 0.35
 ss_run_ricker_M <- Rceattle::fit_mod(
-  data_list = ss_run_ricker_M$data_list,
-  inits = ss_run_ricker_M$estimated_params, # Initial parameters = 0
+  data_list = ss_run_M$data_list,
+  inits = ss_run_M$estimated_params, # Initial parameters = 0
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   M1Fun = build_M1(M1_model = c(1,2,0),
@@ -126,23 +126,23 @@ plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_na
 ################################################
 # OMs: Ratio of F across Pcod fleets ----
 ################################################
-mod_list_all <- list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
+mod_list_all_ricker <- list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
 
 for(i in 1:3){
-  avg_F <- (exp(mod_list_all[[i]]$estimated_params$ln_mean_F+mod_list_all[[i]]$estimated_params$F_dev)) # Average F from last 2 years
+  avg_F <- (exp(mod_list_all_ricker[[i]]$estimated_params$ln_mean_F+mod_list_all_ricker[[i]]$estimated_params$F_dev)) # Average F from last 2 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-2) : ncol(avg_F)])
   f_ratio <- avg_F[14:16]
   f_ratio <- f_ratio/sum(f_ratio)
   
   # Adjust future F proportion to each fleet
-  mod_list_all[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
-  mod_list_all[[i]]$estimated_params$proj_F_prop <- mod_list_all[[i]]$data_list$fleet_control$proj_F_prop
+  mod_list_all_ricker[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
+  mod_list_all_ricker[[i]]$estimated_params$proj_F_prop <- mod_list_all_ricker[[i]]$data_list$fleet_control$proj_F_prop
 }
 
 
-ss_run_ricker <- mod_list_all[[1]]
-ss_run_ricker_M <- mod_list_all[[2]]
-ms_run_ricker <- mod_list_all[[3]]
+ss_run_ricker <- mod_list_all_ricker[[1]]
+ss_run_ricker_M <- mod_list_all_ricker[[2]]
+ms_run_ricker <- mod_list_all_ricker[[3]]
 
 
 ################################################
@@ -626,5 +626,5 @@ plot_biomass(M_mod_list, incl_proj = T)
 #plot_catch(M_mod_list, incl_proj = TRUE)
 
 
-#plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
+plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
 #plot_biomass(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
