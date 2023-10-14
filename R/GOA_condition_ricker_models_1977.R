@@ -45,10 +45,10 @@ apply(ss_run_ricker$quantities$biomassSSB, 1, max)
 
 
 # Estimate single-species and estimate M
-ss_run_M$data_list$M1_base[4,3:23] <- 0.35
+ss_run_ricker$data_list$M1_base[4,3:23] <- 0.35
 ss_run_ricker_M <- Rceattle::fit_mod(
-  data_list = ss_run_M$data_list,
-  inits = ss_run_M$estimated_params, # Initial parameters = 0
+  data_list = ss_run_ricker$data_list,
+  inits = ss_run_ricker$estimated_params, # Initial parameters = 0
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   M1Fun = build_M1(M1_model = c(1,2,0),
@@ -59,14 +59,41 @@ ss_run_ricker_M <- Rceattle::fit_mod(
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
                      srr_prior_mean = alpha,
-                     srr_prior_sd = 0.2),
+                     srr_prior_sd = 0.2,
+                     Bmsy_lim = c(apply(ss_run_ricker$quantities$biomassSSB, 1, max))),
   random_rec = FALSE, # No random recruitment
   msmMode = 0, # Single species mode
   phase = "default",
   verbose = 1, 
   initMode = 2)
-#plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
-#plot_stock_recruit(ss_run_ricker_M)
+plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker_M)
+
+
+# Re-run
+ss_run_ricker_M$data_list$M1_base[4,3:23] <- 0.35
+ss_run_ricker_M <- Rceattle::fit_mod(
+  data_list = ss_run_ricker_M$data_list,
+  inits = ss_run_ricker_M$estimated_params, # Initial parameters = 0
+  file = NULL, # Don't save
+  estimateMode = 1, # Estimate hindcast only
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   updateM1 = TRUE,
+                   M1_use_prior = FALSE,
+                   M2_use_prior = FALSE),
+  recFun = build_srr(srr_fun = 3,
+                     proj_mean_rec = FALSE,
+                     srr_est_mode = 1,
+                     srr_prior_mean = alpha,
+                     srr_prior_sd = 0.2,
+                     Bmsy_lim = c(apply(ms_run$quantities$biomassSSB, 1, max))),
+  random_rec = FALSE, # No random recruitment
+  msmMode = 0, # Single species mode
+  phase = NULL,
+  verbose = 1, 
+  initMode = 2)
+plot_ssb(ss_run_ricker_M, incl_proj = TRUE)
+plot_stock_recruit(ss_run_ricker_M)
 
 
 # - Multi-species

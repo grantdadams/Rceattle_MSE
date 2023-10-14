@@ -202,7 +202,7 @@ for(i in 1:length(mod_list_all)){
 }
 
 mod_list_all_save <- mod_list_all
-plot_biomass(mod_list_all_save, incl_proj = T)
+plot_biomass(mod_list_all_save, incl_proj = T, model_names = 1:3)
 
 
 # Save
