@@ -2,10 +2,12 @@
 # Set-up
 ################################################
 source("R/GOA_condition_models_1977.R")
+source("R/GOA_condition_ricker_models_1977.R")
 library(Rceattle)
 library(tidyr)
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
+ms_run_ricker$quantities$depletionSSB <- ms_run_ricker$quantities$biomassSSB/ms_run_ricker$quantities$biomassSSB[,ncol(ms_run_ricker$quantities$biomassSSB)]
 
 
 ################################################
@@ -15,16 +17,26 @@ ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities
 # 1. Single-species fix M
 # 2. Single-species estimate M
 # 3. Multi-species type II
-om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25)
-projected_OM_no_F = list(ss_run, ss_run_M, ms_run)
-om_names = c("SS_OM", "SSM_OM", "MS_OM")
-om_names_print = c("SS fix M", "SS est M", "MS")
+om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25, ss_run_ricker_Tier3, ss_run_ricker_M_Tier3, ms_run_ricker_f25)
+projected_OM_no_F <- list(ss_run, ss_run_M, ms_run, ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
+om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
+om_names_print = c("SS fix M", "SS est M", "MS", "SS fix M Ricker", "SS est M Ricker", "MS Ricker")
 
-## Rec scenarios
-# 1. Constant
-# 2. Linear increase 1.5
-# 3. Linear decrease
-rec_scen <- list(0)
+# Lists to update reference points in OM (can remove later)
+# - No ricker
+om_hcr_list_fixM <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_Fspr, ss_run_AvgF) # Fixed M
+om_hcr_list_fixM = c(om_hcr_list_fixM, om_hcr_list_fixM)
+
+om_hcr_list_estM <- list(ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF) # Estimate M
+om_hcr_list_estM = c(om_hcr_list_estM, om_hcr_list_estM)
+
+# - Ricker
+om_hcr_list_ricker_fixM <- list(ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3, ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1, ss_run_ricker_Fspr, ss_run_ricker_AvgF) # Fixed M
+om_hcr_list_ricker_fixM = c(om_hcr_list_ricker_fixM, om_hcr_list_ricker_fixM)
+
+om_hcr_list_ricker_estM <- list(ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3, ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1, ss_run_ricker_M_Fspr, ss_run_ricker_M_AvgF) # Estimate M
+om_hcr_list_ricker_estM = c(om_hcr_list_ricker_estM, om_hcr_list_ricker_estM)
+
 
 ### Management strategies
 ## EM
@@ -44,48 +56,25 @@ em_hcr_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynam
                     ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF # Estimate M
 )
 
-# Lists to update reference points in OM (can remove later)
-em_hcr_list_fixM <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1, ss_run_Fspr, ss_run_AvgF) # Fixed M
-em_hcr_list_fixM = c(em_hcr_list_fixM, em_hcr_list_fixM)
-
-em_hcr_list_estM <- list(ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1, ss_run_M_Fspr, ss_run_M_AvgF) # Estimate M
-em_hcr_list_estM = c(em_hcr_list_estM, em_hcr_list_estM)
 
 em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
-# - Plots
+# Plots ----
 plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 
 
-# Do summary
-source("R/Functions/Run_MSE_summary.R")
+# Do summary ----
+source("R/Functions/Run_MSE_summary_no_trend.R")
 
 # SAFS 313-12
-# - No rec trend
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F, om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = FALSE)
+# - No SRR
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
+
+# - Ricker SRR
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
 gc()
-
-# - All Up and Down
-summary_fun(system = "GOA1977", recname = c("AllUp"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(1,1,1))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(1,1,1))))
-gc()
-# om1, em1
-
-
-summary_fun(system = "GOA1977", recname = c("AllDown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(-0.5, -0.5, -0.5))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(-0.5, -0.5, -0.5))) )
-gc()
-
-
-# SAFS 313-10
-# - ATF Up and Down
-summary_fun(system = "GOA1977", recname = c("ATFRup"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(0, 1, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(0, 1, 0))) )
-gc()
-
-summary_fun(system = "GOA1977", recname = c("ATFRdown"), om_list_no_F = lapply(projected_OM_no_F, function(x) project_trend(x, c(0, -0.5, 0))), om_names = om_names, em_hcr_list_fixM = em_hcr_list_fixM, em_hcr_list_estM = em_hcr_list_estM, em_hcr_names = em_hcr_names, trend = TRUE, om_list_no_rdev_or_F = lapply(projected_OM_no_F, function(x) equilibrate_and_project(x, c(0, -0.5, 0))) )
-gc()
-
-
