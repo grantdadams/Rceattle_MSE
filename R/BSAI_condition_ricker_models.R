@@ -7,10 +7,10 @@ library(dplyr)
 # Example
 # To run the 2017 single species assessment for the Bering Sea, a data file must first be loaded:
 data(BS2017SS) # ?BS2017SS for more information on the data
-BS2017SS$projyr <- 2100
+BS2017SS$projyr <- 2060
 
 data("BS2017MS") # Note: the only difference is the residual mortality (M1_base) is lower
-BS2017MS$projyr <- 2100
+BS2017MS$projyr <- 2060
 
 BS2017SS$fleet_control$proj_F_prop <-rep(1,7)
 BS2017MS$fleet_control$proj_F_prop <- rep(1, 7)
