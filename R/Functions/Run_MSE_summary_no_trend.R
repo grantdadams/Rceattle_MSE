@@ -26,6 +26,10 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
           # - SINGLE-SPECIES
           if(mse3[[j]]$OM$data_list$msmMode == 0){
             
+            # - Update depletion
+            mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
+            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0
+            
             # -- Fix M
             if(sum(ss_run_Tier3$data_list$M1_model) == 0){
               mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_fixM[[em]]$data_list$Plimit # Update Target
@@ -93,11 +97,16 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         dir.create(paste0("Results/Figures/M/", system, "/", recname[rec], "/"), recursive = TRUE, showWarnings = FALSE)
 
+        
+        # - Max year for plots
+        maxyr <- mse3$Sim_1$EM$EM$data_list$projyr
 
+        
         plot_depletionSSB(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Depletion/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
-                          line_col  = "#04395E", reference = om_list_no_F[[om]], top_adj = 1, species = species, width = 4.3, height = 4)
+                          line_col  = "#04395E", reference = om_list_no_F[[om]], top_adj = 1, species = species, width = 4.3, height = 4, maxyr = maxyr)
+        
         plot_depletionSSB(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Depletion/", system, "/", recname[rec], "/Perceived/", system, "_", recname[rec], " Perceived ", MSE_names), 
-                          line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4)
+                          line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, maxyr = maxyr)
         
         plot_m_at_age_mse(mse3, file = paste0("Results/Figures/M/", system, "/", recname[rec], "/", system, "_", recname[rec], " Perceived ", MSE_names), 
                           line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, age = 1)
@@ -106,25 +115,25 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
 
         # plot_recruitment(list( ss_run_M_dynamicCat1, ss_run_dynamicCat1, mse3$Sim_1$EM$`OM_Sim_1. EM_yr_2060`), mse = FALSE, incl_proj = TRUE, width = 4.3, height = 4, model_names = c(1:3))
 
-        plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
+        plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names, maxyr = maxyr), 
                  line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4)
         plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/Perceived/",  system, "_", recname[rec], " Perceived ", MSE_names), 
-                 line_col = "#5F0F40", species = species)
+                 line_col = "#5F0F40", species = species, maxyr = maxyr)
 
-        plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
+        plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/B/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names, maxyr = maxyr), 
                      line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4)
         plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/B/", system, "/", recname[rec], "/Perceived/", system, "_", recname[rec], " Perceived ", MSE_names), 
-                     line_col = "#5F0F40", species = species, width = 4.3, height = 4)
+                     line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
 
         plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/R/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
-                         line_col  = "#04395E", species = species, width = 4.3, height = 4)
+                         line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
         plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/R/", system, "/", recname[rec], "/Perceived/",  system, "_", recname[rec], " Perceived ", MSE_names), 
-                         line_col = "#5F0F40", species = species, width = 4.3, height = 4)
+                         line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
 
         plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/F/",system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
-               line_col  = "#04395E", species = species, width = 4.3, height = 4)
+               line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
         plot_f(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/F/",system, "/", recname[rec], "/Perceived/", system, "_", recname[rec], " Perceived ", MSE_names), 
-               line_col  = "#5F0F40", species = species, width = 4.3, height = 4)
+               line_col  = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
         #
         # plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", ymax = c(1500000, 180000, 70000, 32000, 120000), width = 4.3, height = 4)
         # #

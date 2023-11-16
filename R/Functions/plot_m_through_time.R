@@ -55,7 +55,7 @@ plot_m_at_age_mse <-
     endyr <- Rceattle$Sim_1$EM$EM$data_list$endyr
     nyrs_vec <- 1:length(Years)
     nyrs <- length(Years)
-    projyr <- Rceattle$Sim_1$OM$data_list$projyr
+    projyr <- Rceattle$Sim_1$EM$EM$data_list$projyr
     projyrs_vec <- (endyr:projyr)-styr+1
     if(is.null(minyr)){minyr <- Rceattle$Sim_1$OM$data_list$styr}
     

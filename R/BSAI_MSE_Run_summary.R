@@ -81,6 +81,9 @@ source("R/Functions/Run_MSE_summary_no_trend.R")
 summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
 
 # - Ricker SRR
+source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8')
 summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
 gc()
+
+# 4(om5),8(om4),12 (om6) Ricker running MSEs 
 
