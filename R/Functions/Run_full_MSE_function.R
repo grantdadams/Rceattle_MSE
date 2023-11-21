@@ -81,11 +81,16 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
         print(paste0("Running OM ",om, " and EM ", em))
         
         # Run MSE
-        mse <- mse_run_parallel(om = om_list[[om]], em = em_hcr_list[[em]], 
-                                nsim = nsim, start_sim = start_sim, 
-                                seed = 666, regenerate_seed = 666,
-                                assessment_period = 1, sampling_period = sampling_period, 
-                                simulate_data = TRUE, sample_rec = TRUE, 
+        mse <- mse_run_parallel(om = om_list[[om]], 
+                                em = em_hcr_list[[em]], 
+                                nsim = nsim, 
+                                start_sim = start_sim, 
+                                seed = 666, 
+                                regenerate_seed = 666,
+                                assessment_period = 1, 
+                                sampling_period = sampling_period, 
+                                simulate_data = TRUE, 
+                                sample_rec = TRUE, 
                                 rec_trend = rec_scen[[rec]],
                                 cap = NULL, 
                                 dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), 
