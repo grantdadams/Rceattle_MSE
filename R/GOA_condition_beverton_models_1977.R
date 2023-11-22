@@ -200,7 +200,7 @@ ss_run_beverton_Tier3 <- Rceattle::fit_mod(
   HCR = build_hcr(HCR = 5, # Tier3 HCR
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05),
   recFun = build_srr(srr_fun = 1,
                      proj_mean_rec = FALSE,
@@ -220,7 +220,7 @@ ss_run_beverton_dynamicTier3 <- Rceattle::fit_mod(
                   DynamicHCR = TRUE, # Use dynamic reference points
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05),
   recFun = build_srr(srr_fun = 1,
                      proj_mean_rec = FALSE,
@@ -237,9 +237,9 @@ ss_run_beverton_Cat1 <- Rceattle::fit_mod(
   inits = ss_run_beverton$estimated_params, # Initial parameters from ss_run_beverton
   estimateMode = 0, # Run projection only
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5),
   recFun = build_srr(srr_fun = 1,
@@ -257,9 +257,9 @@ ss_run_beverton_dynamicCat1 <- Rceattle::fit_mod(
   estimateMode = 0, # Run projection only
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
                   DynamicHCR = TRUE, # Use dynamic reference points
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5),
   recFun = build_srr(srr_fun = 1,
@@ -380,7 +380,7 @@ ss_run_beverton_M_Tier3 <- Rceattle::fit_mod(
   HCR = build_hcr(HCR = 5, # Tier3 HCR
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05),
   recFun = build_srr(srr_fun = 1,
                      proj_mean_rec = FALSE,
@@ -404,7 +404,7 @@ ss_run_beverton_M_dynamicTier3 <- Rceattle::fit_mod(
                   DynamicHCR = TRUE, # Use dynamic reference points
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05),
   recFun = build_srr(srr_fun = 1,
                      proj_mean_rec = FALSE,
@@ -425,9 +425,9 @@ ss_run_beverton_M_Cat1 <- Rceattle::fit_mod(
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5),
   recFun = build_srr(srr_fun = 1,
@@ -449,9 +449,9 @@ ss_run_beverton_M_dynamicCat1 <- Rceattle::fit_mod(
                    M2_use_prior = FALSE),
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
                   DynamicHCR = TRUE, # Use dynamic reference points
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5),
   recFun = build_srr(srr_fun = 1,

@@ -266,7 +266,7 @@ ss_run_ricker_Tier3 <- Rceattle::fit_mod(
   HCR = build_hcr(HCR = 5, # Tier3 HCR
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05)
 )
 
@@ -292,7 +292,7 @@ ss_run_ricker_dynamicTier3 <- Rceattle::fit_mod(
                   DynamicHCR = TRUE, # Use dynamic reference points
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05)
 )
 
@@ -315,9 +315,9 @@ ss_run_ricker_Cat1 <- Rceattle::fit_mod(
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5)
 )
@@ -341,9 +341,9 @@ ss_run_ricker_dynamicCat1 <- Rceattle::fit_mod(
   initMode = ss_run_ricker$data_list$initMode,
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
                   DynamicHCR = TRUE, # Use dynamic reference points
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5)
 )
@@ -482,7 +482,7 @@ ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
   HCR = build_hcr(HCR = 5, # Tier3 HCR
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05))
 
 
@@ -507,7 +507,7 @@ ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
                   DynamicHCR = TRUE, # Use dynamic reference points
                   FsprTarget = 0.4, # F40%
                   FsprLimit = 0.35, # F35%
-                  Plimit = c(0.2, 0.2, 0), # No fishing when SB<SB20
+                  Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                   Alpha = 0.05)
 )
 
@@ -530,9 +530,9 @@ ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5)
 )
@@ -556,9 +556,9 @@ ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
   initMode = ss_run_ricker_M$data_list$initMode,
   HCR = build_hcr(HCR = 6, # Cat 1 HCR
                   DynamicHCR = TRUE, # Use dynamic reference points
-                  FsprLimit = c(0.45, 0.45,  0.3), # F45%
-                  Ptarget = c(0.4, 0.4, 0.25), # Target is 40% B0
-                  Plimit = c(0.1, 0.1, 0.05), # No fishing when SB<SB10
+                  FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                  Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
+                  Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                   Pstar = 0.45,
                   Sigma = 0.5)
 )
