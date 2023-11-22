@@ -15,7 +15,7 @@ histogram_by_om <- function(system = "GOA", recname = "ConstantR", species = "Po
   }
   
   # OM Names
-  om_names = c("SS_OM", "SSM_OM", "MS_OM")
+  om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
   
   # Get output
   output_table = pm_summary_table(om_names, EM_names, recname = recname, format = FALSE, reverse = TRUE)
@@ -251,7 +251,7 @@ pm_summary_table <- function(om_names, em_hcr_names, recname, format = TRUE, rev
 
 
 # Summary table function
-m_summary_table <- function(om_names = c("SSM_OM"), em_hcr_names = c("SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM"), recnames = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")){
+m_summary_table <- function(om_names = c("SSM_OM"), em_hcr_names = c("SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM"), recnames = c("ConstantR")){
   # Get data we want
   for(om in 1:length(om_names)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
@@ -285,5 +285,13 @@ m_summary_table <- function(om_names = c("SSM_OM"), em_hcr_names = c("SS_estM_Ti
   }
   
   return(list(GOA = GOA_mse_sum)) # EBS = EBS_mse_sum, 
+}
+
+
+
+
+# make all PMs relative to maximum and minimum values
+normalize <- function(x) {
+  return((x- min(x, na.rm=T)) /(max(x, na.rm=T)-min(x, na.rm=T)))
 }
 
