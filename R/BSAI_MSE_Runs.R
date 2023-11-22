@@ -58,5 +58,5 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 source("R/Functions/Run_full_MSE_function.R")
 
 # No rec trend
-run_mse(system = "EBS", recname = "ConstantR", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
+run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[1:3], om_names = om_names[1:3], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 
