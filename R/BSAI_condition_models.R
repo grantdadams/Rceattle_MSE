@@ -136,12 +136,6 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = BS2017SS,
                                          verbose = 1, 
                                          initMode = 2)
 
-mod_list <- list(ss_run, ss_run_Tier3, ss_run_dynamicTier3)
-plot_recruitment(mod_list, incl_proj = TRUE)
-plot_ssb(mod_list, incl_proj = TRUE)
-sapply(mod_list, function(x) tail(x$quantities$R[1,]))
-sapply(mod_list, function(x) tail(x$quantities$NByage0[1,1,1,]))
-sapply(mod_list, function(x) tail(x$quantities$DynamicNByage0[1,1,1,]))
 
 # -- PFMC Category 1
 ss_run_Cat1 <- Rceattle::fit_mod(data_list = BS2017SS,
