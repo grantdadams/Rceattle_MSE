@@ -1,4 +1,5 @@
 library(Rceattle)
+library(dplyr)
 
 load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
 mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
@@ -22,9 +23,9 @@ ss_run_M$data_list$M1_model <- c(1,2,1)
 ms_run <- mod_list_all[[3]]
 ms_run$data_list$M1_model <- c(1,2,1)
 
-################################################
+
+
 # EMs: Multi-species w/ harvest control rules ----
-################################################
 ms_run_f25 <- Rceattle::fit_mod(
   data_list = ms_run$data_list,
   inits = ms_run$estimated_params, 
@@ -49,10 +50,9 @@ ms_run_f25 <- Rceattle::fit_mod(
                   FsprTarget = 0.25))
 
 
-################################################
+
 # EMs: Fixed M w/ harvest control rules ----
-################################################
-# -- Avg F
+# * Avg F ----
 avg_F <- (exp(ss_run$estimated_params$ln_mean_F+ss_run$estimated_params$F_dev)) # Average F from last 5 years
 avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
 
@@ -80,7 +80,7 @@ ss_run_AvgF <- fit_mod(
   )
 )
 
-# -- Constant Fspr
+# * Constant Fspr ----
 ss_run_Fspr <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, 
@@ -107,7 +107,7 @@ ss_run_Fspr <- Rceattle::fit_mod(
 )
 
 
-# -- NPFMC Tier 3
+# * NPFMC Tier 3 ----
 ss_run_Tier3 <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, 
@@ -158,7 +158,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(
                   Alpha = 0.05)
 )
 
-# -- PFMC Category 1
+# * PFMC Category 1 ----
 ss_run_Cat1 <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, 
@@ -210,7 +210,7 @@ ss_run_dynamicCat1 <- Rceattle::fit_mod(
                   Sigma = 0.5)
 )
 
-# -- SESSF Tier 1
+# * SESSF Tier 1 ----
 ss_run_Tier1 <- Rceattle::fit_mod(
   data_list = ss_run$data_list,
   inits = ss_run$estimated_params, 
@@ -265,10 +265,9 @@ ss_run_dynamicTier1 <- Rceattle::fit_mod(
 
 
 
-################################################
+
 # EMs: Estimate M w/ harvest control rules ----
-###############################################
-# -- Avg F
+# * Avg F ----
 avg_F <- (exp(ss_run_M$estimated_params$ln_mean_F+ss_run_M$estimated_params$F_dev)) # Average F from last 5 years
 avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
 
@@ -296,7 +295,7 @@ ss_run_M_AvgF <- Rceattle::fit_mod(
   )
 )
 
-# -- Constant Fspr
+# * Constant Fspr ----
 ss_run_M_Fspr <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, 
@@ -323,7 +322,7 @@ ss_run_M_Fspr <- Rceattle::fit_mod(
 )
 
 
-# -- NPFMC Tier 3
+# * NPFMC Tier 3 ----
 ss_run_M_Tier3 <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, 
@@ -373,7 +372,7 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(
                   Alpha = 0.05)
 )
 
-# -- PFMC Category 1
+# * PFMC Category 1 ----
 ss_run_M_Cat1 <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, 
@@ -425,7 +424,7 @@ ss_run_M_dynamicCat1 <- Rceattle::fit_mod(
                   Sigma = 0.5)
 )
 
-# -- SESSF Tier 1
+# * SESSF Tier 1 ----
 ss_run_M_Tier1 <- Rceattle::fit_mod(
   data_list = ss_run_M$data_list,
   inits = ss_run_M$estimated_params, 
@@ -479,9 +478,8 @@ ss_run_M_dynamicTier1 <- Rceattle::fit_mod(
 )
 
 
-###############################################
+
 # Plot ----
-###############################################
 M_mod_list <- list(ss_run_M, ss_run_M_AvgF, ss_run_M_Fspr, ss_run_M_Tier3, ss_run_M_dynamicTier3, ss_run_M_Cat1, ss_run_M_dynamicCat1, ss_run_M_Tier1, ss_run_M_dynamicTier1 )
 mod_list <- list(ss_run, ss_run_AvgF, ss_run_Fspr, ss_run_Tier3, ss_run_dynamicTier3, ss_run_Cat1, ss_run_dynamicCat1, ss_run_Tier1, ss_run_dynamicTier1 )
 
