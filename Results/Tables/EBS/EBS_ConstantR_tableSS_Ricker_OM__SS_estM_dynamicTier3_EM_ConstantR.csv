@@ -1,40 +1,40 @@
 "","Species","Performance metric","SS_Ricker_OM__SS_estM_dynamicTier3_EM_ConstantR"
-"1","Pollock","Average Catch",2690374.56351221
-"2","Pollock","Catch IAV",583094.56339692
-"3","Pollock","P(Closed)",0.0566666666666667
-"4","Pollock","Avg terminal SSB Relative MSE",0.0166106371648614
-"5","Pollock","EM: P(Fy > Flimit)",0.196434108527132
-"6","Pollock","EM: P(SSB < SSBlimit)",0.0551937984496124
-"7","Pollock","OM: P(Fy > Flimit)",NA
-"8","Pollock","OM: P(SSB < SSBlimit)",0
-"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",NA
-"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",NA
-"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.0551937984496124
-"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"13","Pollock","OM: Terminal SSB Depletion",0.672253382706764
-"14","Cod","Average Catch",156818.851226458
-"15","Cod","Catch IAV",2856.86772476286
+"1","Pollock","Average Catch",3105031.7184108
+"2","Pollock","Catch IAV",242076.212033543
+"3","Pollock","P(Closed)",0.0131007751937984
+"4","Pollock","Avg terminal SSB Relative MSE",0.00892844400982199
+"5","Pollock","EM: P(Fy > Flimit)",0.00333333333333333
+"6","Pollock","EM: P(SSB < SSBlimit)",0.00589147286821705
+"7","Pollock","OM: P(Fy > Flimit)",0.705503875968992
+"8","Pollock","OM: P(SSB < SSBlimit)",1
+"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.702170542635659
+"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
+"12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.994108527131783
+"13","Pollock","OM: Terminal SSB Depletion",0.62064173376353
+"14","Cod","Average Catch",176776.728679083
+"15","Cod","Catch IAV",2200.32397550735
 "16","Cod","P(Closed)",0
-"17","Cod","Avg terminal SSB Relative MSE",0.000488395607163976
-"18","Cod","EM: P(Fy > Flimit)",0.00418604651162791
+"17","Cod","Avg terminal SSB Relative MSE",0.000568144672242992
+"18","Cod","EM: P(Fy > Flimit)",0
 "19","Cod","EM: P(SSB < SSBlimit)",0
-"20","Cod","OM: P(Fy > Flimit)",NA
-"21","Cod","OM: P(SSB < SSBlimit)",0
-"22","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",NA
-"23","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",NA
+"20","Cod","OM: P(Fy > Flimit)",0
+"21","Cod","OM: P(SSB < SSBlimit)",1
+"22","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"23","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
 "24","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"25","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"26","Cod","OM: Terminal SSB Depletion",0.653465437584112
-"27","Arrowtooth flounder","Average Catch",43708.9181999289
-"28","Arrowtooth flounder","Catch IAV",265.421775676427
+"25","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",1
+"26","Cod","OM: Terminal SSB Depletion",0.594412993597519
+"27","Arrowtooth flounder","Average Catch",47687.7953042117
+"28","Arrowtooth flounder","Catch IAV",213.530559020811
 "29","Arrowtooth flounder","P(Closed)",0
-"30","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.000209246228095223
+"30","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.000239441025211062
 "31","Arrowtooth flounder","EM: P(Fy > Flimit)",0
 "32","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
-"33","Arrowtooth flounder","OM: P(Fy > Flimit)",NA
-"34","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
+"33","Arrowtooth flounder","OM: P(Fy > Flimit)",0
+"34","Arrowtooth flounder","OM: P(SSB < SSBlimit)",1
 "35","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"36","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",NA
+"36","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
 "37","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"38","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"39","Arrowtooth flounder","OM: Terminal SSB Depletion",0.54802544383025
+"38","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",1
+"39","Arrowtooth flounder","OM: Terminal SSB Depletion",0.48140663316596
