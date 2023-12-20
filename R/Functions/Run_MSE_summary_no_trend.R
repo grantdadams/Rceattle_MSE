@@ -28,7 +28,13 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             # - Update depletion
             mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
-            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0
+            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0 #FIXME: no longer necessary
+            
+            # -- Dynamic BRPs
+            if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
+              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$DynamicSB0
+              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
+            }
             
             # -- Fix M
             if(sum(ss_run_Tier3$data_list$M1_model) == 0){
@@ -46,12 +52,6 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
               
               mse3[[j]]$OM$quantities$Flimit <- om_hcr_list_estM[[em]]$quantities$Flimit # Update Flimit from Ftarget that was optimized
               mse3[[j]]$OM$quantities$Ftarget <- om_hcr_list_estM[[em]]$quantities$Ftarget # Update Flimit from Ftarget that was optimized
-            }
-            
-            # -- Update OM depletion if using dynamic HCR
-            if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
-              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$DynamicSB0
-              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
             }
           }
           
