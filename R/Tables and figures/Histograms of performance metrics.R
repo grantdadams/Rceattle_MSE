@@ -36,6 +36,7 @@ histogram_by_om(system = "GOA", recname = recname, species = "Arrowtooth flounde
 
 ## Table of PMs for specific EMs ----
 # - Tier 3
+ind <- 1
 om_names = c("SS_OM", "SSM_OM", "MS_OM")
 EM_names <- c("SS_fixM_Tier3_EM", "SS_estM_Tier3_EM")
 output_table = pm_summary_table(om_names, EM_names, recname = recname)
