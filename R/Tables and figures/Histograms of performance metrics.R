@@ -4,34 +4,34 @@
 library(fmsb)
 library(gmRi) # devtools::install_github("https://github.com/gulfofmaine/gmRi")
 library(scales)
-source("R/Functions/Summary_histogram_and _table_functions.R")
-source("R/Functions/Summary_histogram_by_PM.R")
+source("R/Functions/Summary_table_functions.R")
+source("R/Functions/Summary_histogram_function.R")
 
 
 ## Figures for each PM and Species ----
 # - EBS
-histogram_by_pm(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
-histogram_by_pm(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
-histogram_by_pm(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
 
 # - GOA
-histogram_by_pm(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
-histogram_by_pm(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
-histogram_by_pm(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
 
 
 ## Figures for all PMs for each Species ----
 recname = "ConstantR"
 
 # - EBS
-histogram_by_om(system = "EBS", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/", allHCR = TRUE)
-histogram_by_om(system = "EBS", recname = recname, species = "Cod", file = "Results/Figures/Histograms/", allHCR = TRUE)
-histogram_by_om(system = "EBS", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = TRUE)
+mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
+mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
+mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
 
 # - GOA
-histogram_by_om(system = "GOA", recname = recname, species = "Pollock", file = "Results/Figures/Histograms/", allHCR = TRUE)
-histogram_by_om(system = "GOA", recname = recname, species = "Cod", file = "Results/Figures/Histograms/", allHCR = TRUE)
-histogram_by_om(system = "GOA", recname = recname, species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = TRUE)
+mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
+mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
+mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms/", allHCR = TRUE, single = FALSE, height = 8, width = 10)
 
 
 ## Table of PMs for specific EMs ----
