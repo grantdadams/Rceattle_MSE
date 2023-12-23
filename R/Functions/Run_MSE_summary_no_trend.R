@@ -37,7 +37,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             }
             
             # -- Fix M
-            if(sum(ss_run_Tier3$data_list$M1_model) == 0){
+            if(sum(mse3[[j]]$OM$data_list$M1_model) == 0){
               mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_fixM[[em]]$data_list$Plimit # Update Target
               mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_fixM[[em]]$data_list$Ptarget # Update Limit
               
@@ -46,7 +46,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             }
             
             # -- Estimate M
-            if(sum(ss_run_Tier3$data_list$M1_model) > 0){
+            if(sum(mse3[[j]]$OM$data_list$M1_model) > 0){
               mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_estM[[em]]$data_list$Plimit # Update Target
               mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_estM[[em]]$data_list$Ptarget # Update Limit
               
@@ -111,9 +111,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         plot_m_at_age_mse(mse3, file = paste0("Results/Figures/M/", system, "/", recname[rec], "/", system, "_", recname[rec], " Perceived ", MSE_names), 
                           line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, age = 1)
 
-        # plot_depletionSSB(mse3$Sim_1$EM, mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/Depletion/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = species, width = 4.3, height = 4)
-
-        # plot_recruitment(list( ss_run_M_dynamicCat1, ss_run_dynamicCat1, mse3$Sim_1$EM$`OM_Sim_1. EM_yr_2060`), mse = FALSE, incl_proj = TRUE, width = 4.3, height = 4, model_names = c(1:3))
+        # plot_ssb(c(list(mse3$Sim_1$OM), mse3$Sim_1$EM), mse = FALSE, incl_proj = TRUE, file = paste0("Results/Figures/SSB/", system, "_", recname[rec], " 1 Sim/", system, " Perceived 1-Sim ", MSE_names), species = species, width = 4.3, height = 4)
 
         plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
                  line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
