@@ -1,9 +1,10 @@
 library(Rceattle)
-source("R/GOA_condition_models_1977.R")
+# source("R/GOA_condition_models_1977.R")
 om <- em <- ss_run_M_Tier3
 
 # - Simulate index and comp data and updatae EM
-sim_dat <- sim_mod(om, simulate = FALSE)
+set.seed(666)
+sim_dat <- Rceattle::sim_mod(om, simulate = TRUE)
 
 em$data_list$srv_biom <- sim_dat$srv_biom
 em$data_list$comp_data <- sim_dat$comp_data
@@ -14,52 +15,63 @@ em$data_list$comp_data <- sim_dat$comp_data
 # em$data_list$comp_data$Sample_size <- em$data_list$comp_data$Sample_size * fut_sample
 
 # Restimate
+em_list <- list()
+for(i in 1:6){
+  
+  em_new <- em
+  em_new$data_list$fleet_control$Fleet_type[i] <- 0 
+  
+  em_list[[i]] <- Rceattle::fit_mod(
+    data_list = em_new$data_list,
+    inits = em$estimated_params,
+    map =  NULL,
+    bounds = NULL,
+    file = NULL,
+    estimateMode = 0, # Run projection only
+    HCR = build_hcr(HCR = em$data_list$HCR, # Tier3 HCR
+                    DynamicHCR = em$data_list$DynamicHCR,
+                    FsprTarget = em$data_list$FsprTarget,
+                    FsprLimit = em$data_list$FsprLimit,
+                    Ptarget = em$data_list$Ptarget,
+                    Plimit = em$data_list$Plimit,
+                    Alpha = em$data_list$Alpha,
+                    Pstar = em$data_list$Pstar,
+                    Sigma = em$data_list$Sigma
+    ),
+    recFun = build_srr(srr_fun = em$data_list$srr_fun,
+                       srr_pred_fun  = em$data_list$srr_pred_fun ,
+                       proj_mean_rec  = em$data_list$proj_mean_rec ,
+                       srr_est_mode  = em$data_list$srr_est_mode ,
+                       srr_prior_mean  = em$data_list$srr_prior_mean,
+                       srr_prior_sd   = em$data_list$srr_prior_sd,
+                       Bmsy_lim = em$data_list$Bmsy_lim),
+    M1Fun =     build_M1(M1_model= em$data_list$M1_model,
+                         updateM1 = FALSE,
+                         M1_use_prior = em$data_list$M1_use_prior,
+                         M2_use_prior = em$data_list$M2_use_prior,
+                         M1_prior_mean = em$data_list$M1_prior_mean,
+                         M1_prior_sd = em$data_list$M1_prior_sd),
+    meanyr = em$data_list$meanyr,
+    random_rec = em$data_list$random_rec,
+    niter = em$data_list$niter,
+    msmMode = em$data_list$msmMode,
+    avgnMode = em$data_list$avgnMode,
+    minNByage = em$data_list$minNByage,
+    suitMode = em$data_list$suitMode,
+    initMode = em$data_list$initMode,
+    phase = NULL,
+    loopnum = 3,
+    getsd = FALSE,
+    verbose = 0)
+}
 
-em <- Rceattle::fit_mod(
-  data_list = em$data_list,
-  inits = em$estimated_params,
-  map =  NULL,
-  bounds = NULL,
-  file = NULL,
-  estimateMode = 0, # Run projection only
-  HCR = build_hcr(HCR = em$data_list$HCR, # Tier3 HCR
-                  DynamicHCR = em$data_list$DynamicHCR,
-                  FsprTarget = em$data_list$FsprTarget,
-                  FsprLimit = em$data_list$FsprLimit,
-                  Ptarget = em$data_list$Ptarget,
-                  Plimit = em$data_list$Plimit,
-                  Alpha = em$data_list$Alpha,
-                  Pstar = em$data_list$Pstar,
-                  Sigma = em$data_list$Sigma
-  ),
-  recFun = build_srr(srr_fun = em$data_list$srr_fun,
-                     srr_pred_fun  = em$data_list$srr_pred_fun ,
-                     proj_mean_rec  = em$data_list$proj_mean_rec ,
-                     srr_est_mode  = em$data_list$srr_est_mode ,
-                     srr_prior_mean  = em$data_list$srr_prior_mean,
-                     srr_prior_sd   = em$data_list$srr_prior_sd,
-                     Bmsy_lim = em$data_list$Bmsy_lim),
-  M1Fun =     build_M1(M1_model= em$data_list$M1_model,
-                       updateM1 = FALSE,
-                       M1_use_prior = em$data_list$M1_use_prior,
-                       M2_use_prior = em$data_list$M2_use_prior,
-                       M1_prior_mean = em$data_list$M1_prior_mean,
-                       M1_prior_sd = em$data_list$M1_prior_sd),
-  meanyr = em$data_list$meanyr,
-  random_rec = em$data_list$random_rec,
-  niter = em$data_list$niter,
-  msmMode = em$data_list$msmMode,
-  avgnMode = em$data_list$avgnMode,
-  minNByage = em$data_list$minNByage,
-  suitMode = em$data_list$suitMode,
-  initMode = em$data_list$initMode,
-  phase = NULL,
-  loopnum = 3,
-  getsd = FALSE,
-  verbose = 0)
+plot_biomass(c(list(om),em_list), model_names = c("om", 1:6))
+plot_ssb(c(list(om),em_list), model_names = c("om", 1:6))
+plot_recruitment(c(list(om),em_list), model_names = c("om", 1:6))
 
-plot_biomass(list(om, em))
-plot_recruitment(list(om, em))
+plot_biomass(list(om, em2, em3, em), model_names = c("om", "comp", "index", "both"))
+plot_biomass(list(om, em, em2), model_names = c("om", "comp", "bias"))
+plot_ssb(list(om, em, em2), model_names = c("om", "comp", "bias"))
 plot_index(list(om, em))
 
 om$quantities$Flimit
