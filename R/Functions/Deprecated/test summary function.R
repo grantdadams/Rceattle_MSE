@@ -98,7 +98,7 @@ for(j in 1:length(mse3)){
   if(mse3[[j]]$OM$data_list$msmMode == 0){
     
     # - Update depletion (proj mean rec is turned off in the MSE function)
-    mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
+    mse3[[j]]$OM$quantities$SB0[,] <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
     mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0 
     
     # -- Dynamic BRPs
@@ -109,7 +109,7 @@ for(j in 1:length(mse3)){
     
     # -- Fix M
     if(sum(mse3[[j]]$OM$data_list$M1_model) == 0){
-      mse3[[j]]$OM$quantities$SBF <- om_hcr_list_fixM[[em]]$quantities$SBF[,ncol(om_hcr_list_fixM[[em]]$quantities$SBF)]
+      mse3[[j]]$OM$quantities$SBF[,] <- om_hcr_list_fixM[[em]]$quantities$SBF[,ncol(om_hcr_list_fixM[[em]]$quantities$SBF)]
       
       # mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_fixM[[em]]$data_list$Plimit # Update Target
       # mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_fixM[[em]]$data_list$Ptarget # Update Limit
@@ -120,7 +120,7 @@ for(j in 1:length(mse3)){
     
     # -- Estimate M
     if(sum(mse3[[j]]$OM$data_list$M1_model) > 0){
-      mse3[[j]]$OM$quantities$SBF <- om_hcr_list_estM[[em]]$quantities$SBF[,ncol(om_hcr_list_estM[[em]]$quantities$SBF)]
+      mse3[[j]]$OM$quantities$SBF[,] <- om_hcr_list_estM[[em]]$quantities$SBF[,ncol(om_hcr_list_estM[[em]]$quantities$SBF)]
       # mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_estM[[em]]$data_list$Plimit # Update Target
       # mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_estM[[em]]$data_list$Ptarget # Update Limit
       # 

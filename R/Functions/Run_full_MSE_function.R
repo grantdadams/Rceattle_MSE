@@ -97,7 +97,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                                 cap = NULL, 
                                 dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), 
                                 file = NULL,
-                                regenerate_past = FALSE)
+                                regenerate_past = TRUE)
       }
     }
   }
