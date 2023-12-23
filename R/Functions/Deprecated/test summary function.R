@@ -1,8 +1,8 @@
 ################################################
 # Set-up
 ################################################
-source("R/GOA_condition_models_1977.R")
-source("R/GOA_condition_ricker_models_1977.R")
+# source("R/GOA_condition_models_1977.R")
+# source("R/GOA_condition_ricker_models_1977.R")
 library(Rceattle)
 library(tidyr)
 
