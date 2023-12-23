@@ -13,8 +13,14 @@ mse_histogram <- function(system = "GOA", species = "Pollock", recname = "Consta
   
   # - All EMs
   if(allHCR){
-    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
-                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
+    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", 
+                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM",
+                   "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", 
+                   "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", 
+                   "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", 
+                   "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", 
+                   "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", 
+                    "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
     
     EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4", "Fix M: HCR 5", "Est M: HCR 5")
   }
