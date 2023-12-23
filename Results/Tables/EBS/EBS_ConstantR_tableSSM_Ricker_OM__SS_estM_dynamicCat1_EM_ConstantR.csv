@@ -1,40 +1,40 @@
 "","Species","Performance metric","SSM_Ricker_OM__SS_estM_dynamicCat1_EM_ConstantR"
-"1","Pollock","Average Catch",3743514.67117691
-"2","Pollock","Catch IAV",322994.352321091
-"3","Pollock","P(Closed)",0.000321285140562249
-"4","Pollock","Avg terminal SSB Relative MSE",0.000684319756911848
-"5","Pollock","EM: P(Fy > Flimit)",0.00798449612403101
-"6","Pollock","EM: P(SSB < SSBlimit)",0.245658914728682
-"7","Pollock","OM: P(Fy > Flimit)",0.906124031007752
-"8","Pollock","OM: P(SSB < SSBlimit)",0.00186046511627907
-"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.898139534883721
-"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.243798449612403
+"1","Pollock","Average Catch",3971605.70110542
+"2","Pollock","Catch IAV",237432.261757228
+"3","Pollock","P(Closed)",0
+"4","Pollock","Avg terminal SSB Relative MSE",0.000613819194313455
+"5","Pollock","EM: P(Fy > Flimit)",0.0227131782945736
+"6","Pollock","EM: P(SSB < SSBlimit)",0.0293023255813953
+"7","Pollock","OM: P(Fy > Flimit)",0.00131782945736434
+"8","Pollock","OM: P(SSB < SSBlimit)",0.00217054263565891
+"9","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.0226356589147287
+"10","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.00124031007751938
+"11","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.0271317829457364
 "12","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"13","Pollock","OM: Terminal SSB Depletion",0.71807478582499
-"14","Cod","Average Catch",177966.785911928
-"15","Cod","Catch IAV",3257.3466619773
+"13","Pollock","OM: Terminal SSB Depletion",0.69810674570618
+"14","Cod","Average Catch",184218.693940891
+"15","Cod","Catch IAV",3151.11180154839
 "16","Cod","P(Closed)",0
-"17","Cod","Avg terminal SSB Relative MSE",0.000613509221141971
-"18","Cod","EM: P(Fy > Flimit)",0.00651162790697674
-"19","Cod","EM: P(SSB < SSBlimit)",0.0765116279069767
-"20","Cod","OM: P(Fy > Flimit)",0.988449612403101
+"17","Cod","Avg terminal SSB Relative MSE",0.000636674325863475
+"18","Cod","EM: P(Fy > Flimit)",0.0231007751937984
+"19","Cod","EM: P(SSB < SSBlimit)",0
+"20","Cod","OM: P(Fy > Flimit)",0.00248062015503876
 "21","Cod","OM: P(SSB < SSBlimit)",0
-"22","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"23","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.981937984496124
-"24","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0.0765116279069767
+"22","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.0230232558139535
+"23","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.0024031007751938
+"24","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "25","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"26","Cod","OM: Terminal SSB Depletion",0.623676539493514
-"27","Arrowtooth flounder","Average Catch",67613.1318701803
-"28","Arrowtooth flounder","Catch IAV",812.800889623095
+"26","Cod","OM: Terminal SSB Depletion",0.605115659139005
+"27","Arrowtooth flounder","Average Catch",67652.7158020759
+"28","Arrowtooth flounder","Catch IAV",761.444965371697
 "29","Arrowtooth flounder","P(Closed)",0
-"30","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.000717493784575971
+"30","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.000680625222675665
 "31","Arrowtooth flounder","EM: P(Fy > Flimit)",0
 "32","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
-"33","Arrowtooth flounder","OM: P(Fy > Flimit)",1
+"33","Arrowtooth flounder","OM: P(Fy > Flimit)",0
 "34","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
 "35","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"36","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",1
+"36","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
 "37","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
 "38","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"39","Arrowtooth flounder","OM: Terminal SSB Depletion",0.378266642380245
+"39","Arrowtooth flounder","OM: Terminal SSB Depletion",0.376239845783209
