@@ -41,7 +41,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
             map =  NULL,
             bounds = NULL,
             file = NULL,
-            estimateMode = 2, # Run projection only
+            estimateMode = 0, # Run projection only
             HCR = build_hcr(HCR = em_hcr_list[[em]]$data_list$HCR, # Tier3 HCR
                             DynamicHCR = em_hcr_list[[em]]$data_list$DynamicHCR,
                             FsprTarget = em_hcr_list[[em]]$data_list$FsprTarget,
