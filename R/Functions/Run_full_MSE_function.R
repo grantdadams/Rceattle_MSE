@@ -50,7 +50,8 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                             Plimit = em_hcr_list[[em]]$data_list$Plimit,
                             Alpha = em_hcr_list[[em]]$data_list$Alpha,
                             Pstar = em_hcr_list[[em]]$data_list$Pstar,
-                            Sigma = em_hcr_list[[em]]$data_list$Sigma
+                            Sigma = em_hcr_list[[em]]$data_list$Sigma,
+                            Fmult = em_hcr_list[[em]]$data_list$Fmult
             ),
             recFun = build_srr(srr_fun = om_list[[om]]$data_list$srr_fun,
                                srr_pred_fun  = om_list[[om]]$data_list$srr_pred_fun ,
@@ -65,6 +66,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                                  M2_use_prior = om_list[[om]]$data_list$M2_use_prior,
                                  M1_prior_mean = om_list[[om]]$data_list$M1_prior_mean,
                                  M1_prior_sd = om_list[[om]]$data_list$M1_prior_sd),
+            meanyr = om_list[[om]]$data_list$meanyr,
             random_rec = om_list[[om]]$data_list$random_rec,
             niter = om_list[[om]]$data_list$niter,
             msmMode = om_list[[om]]$data_list$msmMode,
