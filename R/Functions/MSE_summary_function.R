@@ -38,6 +38,9 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             # -- Fix M
             if(sum(mse3[[j]]$OM$data_list$M1_model) == 0){
+              
+              mse3[[j]]$OM$quantities$SBF <- om_hcr_list_fixM[[em]]$quantities$SBF[,ncol(om_hcr_list_fixM[[em]]$quantities$SBF)] # Adjust SBF because MSE OM uses proj_mean_rec = FALSE
+              
               mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_fixM[[em]]$data_list$Plimit # Update Target
               mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_fixM[[em]]$data_list$Ptarget # Update Limit
               
@@ -47,6 +50,8 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
             
             # -- Estimate M
             if(sum(mse3[[j]]$OM$data_list$M1_model) > 0){
+              mse3[[j]]$OM$quantities$SBF <- om_hcr_list_estM[[em]]$quantities$SBF[,ncol(om_hcr_list_estM[[em]]$quantities$SBF)] # Adjust SBF because MSE OM uses proj_mean_rec = FALSE
+              
               mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_estM[[em]]$data_list$Plimit # Update Target
               mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_estM[[em]]$data_list$Ptarget # Update Limit
               

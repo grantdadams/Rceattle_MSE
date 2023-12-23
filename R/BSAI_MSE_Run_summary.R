@@ -74,7 +74,7 @@ plot_b_eaten_prop(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_nam
 # Load and run summary
 ################################################
 # Do summary ----
-source("R/Functions/Run_MSE_summary_no_trend.R")
+source("R/Functions/MSE_summary_function.R")
 
 # SAFS 313-12
 # - No SRR

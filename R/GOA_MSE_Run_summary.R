@@ -69,7 +69,7 @@ plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_na
 
 
 # Do summary ----
-source("R/Functions/Run_MSE_summary_no_trend.R")
+source("R/Functions/MSE_summary_function.R")
 source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8', echo=TRUE)
 
 # SAFS 313-12
