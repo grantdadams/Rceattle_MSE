@@ -56,11 +56,11 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 ### Run the MSE
 source("R/Functions/Run_full_MSE_function.R")
-source("~/GitHub/Rceattle/R/11a-mse_run_parallel.R")
 
 # No rec trend
-run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[5:6], om_names = om_names[5:6], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
+run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[4:6], om_names = om_names[4:6], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 
-run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[4], om_names = om_names[4], em_hcr_list = em_hcr_list[8:16], em_hcr_names = em_hcr_names[8:16], sampling_period = sampling_period, nsim = 300)
+run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[4:6], om_names = om_names[4:6], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
+
 # Comp 3 - 4:6
 # Comp 9 - 1-3
