@@ -66,7 +66,7 @@ plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print
 plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
 plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
-
+plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/GOA_OM_", species = c(1,3,2), model_names = om_names_print[4:6], width = 5, height = 4.5)
 
 # Do summary ----
 source("R/Functions/MSE_summary_function.R")

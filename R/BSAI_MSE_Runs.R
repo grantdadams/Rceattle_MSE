@@ -60,7 +60,7 @@ source("R/Functions/Run_full_MSE_function.R")
 # No rec trend
 run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[4:6], om_names = om_names[4:6], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 
-run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[4:6], om_names = om_names[4:6], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
+run_mse(system = "EBS", recname = "ConstantR", om_list = om_list[1:3], om_names = om_names[1:3], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
 
 # Comp 3 - 4:6
 # Comp 9 - 1-3

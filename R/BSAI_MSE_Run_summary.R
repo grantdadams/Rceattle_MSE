@@ -68,6 +68,7 @@ plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = 
 plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
 plot_b_eaten_prop(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print, width = 5, height = 4.5)
+plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/EBS_OM_", model_names = om_names_print[4:6], width = 5, height = 4.5)
 
 
 ################################################
