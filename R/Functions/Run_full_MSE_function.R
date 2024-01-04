@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, om_names = NULL, em_hcr_list = NULL, em_hcr_names = NULL, sampling_period = NULL, rec_scen = list(0), nsim = 200, start_sim = 1){
+run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, om_names = NULL, em_hcr_list = NULL, em_hcr_names = NULL, sampling_period = NULL, rec_scen = list(0), nsim = 200, start_sim = 1, regenerate_past = TRUE){
   ### Set up parallel processing
   #library(foreach)
   #library(doParallel)
@@ -95,9 +95,9 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                                 sample_rec = TRUE, 
                                 rec_trend = rec_scen[[rec]],
                                 cap = NULL, 
-                                dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), 
+                                dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",regenerate_past," regen/No cap"), 
                                 file = NULL,
-                                regenerate_past = TRUE)
+                                regenerate_past = regenerate_past)
       }
     }
   }
