@@ -9,133 +9,115 @@ output: word_document
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 cat("\\pagebreak")
 
+# Tables of performance metrics
 setwd("~/GitHub/Rceattle_MSE")
-# Histogram and table of performance metrics (only NPFMC is used) rest is coommented out
-source("R/Functions/Summary_histogram_and _table_functions.R")
+source("R/Functions/Summary_table_functions.R")
+source("R/Functions/Summary_histogram_function.R")
 library(dplyr)
 library(tidyr)
 library(flextable)
 
-# File names
-om_names = c("SS_OM", "SSM_OM", "MS_OM")
-om_names_print = c("SS fix M", "SS est M", "MS")
+# * File names ----
+# - OMs
+om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+om_names_print = c("1. SS fix M", "2. w Ricker", "3. SS est M", "4. w Ricker", "5. MS", "6. w Ricker")
+OM_df <- data.frame(OM = om_names, OM_print = om_names_print)
 
-# - Plot histograms and save summary tables
-# - Plot histograms and save summary tables
+# - EMs
 EM_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
               "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
-EM_names_print <-  c("HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
-                     "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
-                     "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
-                     "HCR 4 (NEFMC)", "HCR 5 (Avg F)",
-                     
-                     "HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
-                     "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
-                     "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
-                     "HCR 4 (NEFMC)", "HCR 5 (Avg F)")
+HCR_names_print <-  c("HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                      "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                      "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                      "HCR 4 (NEFMC)", "HCR 5 (Avg F)",
+                      
+                      "HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                      "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                      "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                      "HCR 4 (NEFMC)", "HCR 5 (Avg F)")
+em_df <- data.frame(EM = EM_names, EM_print = c(rep("Fix M", 8), rep("Est M", 8)), HCR = HCR_names_print, No = 1:length(HCR_names_print))
 
-performance_metrics <- c("Catch", "Catch IAV", "P(Open)", "SSB RMSE", "EM- P(Not overfishing)", "EM- P(Not overfished)", "OM- P(Not overfishing)", "OM- P(Not overfished)", "P(EM Overfishing & OM Underfishing)", "P(EM Underfishing & OM Overfishing)", "P(EM Overfished & OM Underfished)", "P(EM Underfished & OM Overfished)","Terminal Depletion")
-
+# - PMs
+performance_metrics <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion") # Names in table
 
 performance_metrics_print <- c("average annual catch", 
                                "average interannual variation in catch (IAV)", 
-                               "probability of the fishery being open", 
+                               "probability of the fishery being closed", 
                                "average relative mean squared error in estimate of spawning biomass in 2060", 
                                "probability that the population is perceived as undergoing overfishing in the terminal year of the EM", 
-                               "probability that the population is perceived to be overfished in the terminal year of the EM ", 
+                               "probability that the population is perceived to be overfished in the terminal year of the EM", 
                                "probability that the population is undergoing overfishing as determined from the OM", 
                                "probability that the population is overfished as determined from the OM", 
-                               "probability that the population is overfished as determined from the OM, but is perceived as not overfished by the EM", 
-                               "probability that the population is not overfished as determined from the OM, but is perceived as overfished by the EM", 
-                               "probability that the population undergoing overfishing as determined from the OM, but is perceived as not undergoing overfishing by the EM", 
-                               "probability that the population is not undergoing overfishing as determined from the OM, but is perceived as undergoing overfishing by the EM",
                                "terminal spawning stock biomass depletion")
 
 
-
-  for(sp in 1:3){
-    for(pm in 1:13){
-    for(sys in 1:2){
-      for(rec in 1:5){
-        system = c("EBS", "GOA")[sys]
-        species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
-        recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
-        
-        output_table = pm_summary_table(om_names, EM_names, recname = recname)
-        
-        table_tmp_goa <- output_table[[system]] %>% 
-          filter(Species == species) %>%
-          select(-Species, -Performance.metric)
-        table_tmp_goa = table_tmp_goa[pm,]
-        
-        table_tmp_goa <- as.data.frame(cbind(t(table_tmp_goa[1,]), 
-                                             rep(om_names_print, each = length(EM_names)), 
-                                             rep(1:3, each = length(EM_names)), 
-                                             rep(EM_names_print, length(om_names)),
-                                             rep(rep(c("Fix M", "Est M"), each = length(EM_names_print)/2), length(om_names)),
-                                             rep(1:length(EM_names_print), length(om_names))))
-        
-        colnames(table_tmp_goa) <- c("PM", "OM", "OM No", "HCR", "EM", "MS No")
-        table_tmp_goa$Scenario <- recname
-        
-        if(rec == 1){
-          table_save <- table_tmp_goa
-        } else {
-          table_save <- rbind(table_save, table_tmp_goa)
-        }
-      }
-      
-      
-      table_save <- spread(table_save, Scenario, PM)
-      
-      table_save <- table_save %>%
-        arrange(as.numeric(table_save$`OM No`), as.numeric(table_save$`MS No`)) %>%
-        select(-"OM No", -"MS No") %>%
-        relocate(OM, EM, HCR, ConstantR, AllUp, AllDown, ATFRup, ATFRdown)
-      
-      colnames(table_save) <- c("OM", "EM", "HCR", "Exp. 1", "Exp. 2", "Exp. 3", "Exp. 4", "Exp. 5")
-      
-      
-      # - Have only the first entry visible
-      table_save = table_save %>%
-        group_by(OM, EM) %>%
-        dplyr::mutate(count=1:n()) %>%
-        ungroup %>%
-        dplyr::mutate(EM = ifelse(count==1, as.character(EM), NA)) %>%
-        select(-count)
-      
-      table_save = table_save %>%
-        group_by(OM) %>%
-        dplyr::mutate(count=1:n()) %>%
-        ungroup %>%
-        dplyr::mutate(OM = ifelse(count==1, as.character(OM), NA)) %>%
-        select(-count)
-      
-      dir.create(paste0("Results/Tables/PM Tables/",system,"/",species,"/"), recursive = TRUE, showWarnings = FALSE)
-      write.csv(table_save, file = paste0("Results/Tables/PM Tables/",system,"/",species,"/",pm,system,species,performance_metrics[pm],".csv"))
-      
-      
-      print(paste0("**Supplementary Table ", 3+sp,".",system, ".PM-",pm,".** Summary of performance metric ", pm,": ", performance_metrics_print[pm], " across scenarios for ", species," in the **", system, "**."))
-      
-      table_save
-      
-      ft <- flextable(table_save) %>%
-        bg(i = ((length(EM_names_print)+1):(length(EM_names_print)*2)), bg = "#e5e5e5") %>%
-        bold(part = "header") %>%
-        italic(j = 1:2) %>%
-        font(fontname = "Times New Roman", part = "all") %>%
-        fontsize(size = 10, part = "all") %>%
-        padding(padding = 0, part = "all") %>%
-        autofit(add_w = 1, add_h = 1) %>%
-        align(align = "left", j = 1:3, i = -1) %>%
-        align(align = "right", j = 4:8, i = -1) 
-      
-        
-      flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
-    }
+# * Loop through PMs ----
+for(sp in 1:3){
+  for(pm in 1:length(performance_metrics)){
+    species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
+    
+    # - Get summary statistics
+    output_table = pm_summary_table(om_names, EM_names, recname = "ConstantR")
+    ebs_table <- output_table[["EBS"]] %>% 
+      filter(Species == species & Performance.metric == performance_metrics[pm]) %>%
+      pivot_wider(names_from = OM, values_from = Value) %>%
+      mutate(System = "EBS")
+    
+    goa_table <- output_table[["GOA"]] %>% 
+      filter(Species == species & Performance.metric == performance_metrics[pm]) %>%
+      pivot_wider(names_from = OM, values_from = Value) %>%
+      mutate(System = "GOA")
+    
+    # - Reformat
+    table_save <- rbind(ebs_table, goa_table) %>%
+      left_join(em_df, by = "EM")
+    
+    table_save <- table_save %>%
+      select(System, EM_print,  HCR, SS_OM, SS_Ricker_OM, SSM_OM, SSM_Ricker_OM, MS_OM, MS_Ricker_OM)
+    
+    # - Have only the first entry visible
+    table_save = table_save %>%
+      group_by(System, EM_print) %>%
+      dplyr::mutate(count=1:n()) %>%
+      ungroup %>%
+      dplyr::mutate(EM_print = ifelse(count==1, as.character(EM_print), NA)) %>%
+      select(-count)
+    
+    table_save = table_save %>%
+      group_by(System) %>%
+      dplyr::mutate(count=1:n()) %>%
+      ungroup %>%
+      dplyr::mutate(System = ifelse(count==1, as.character(System), NA)) %>%
+      select(-count)
+    
+    colnames(table_save) <- c("System", "EM", "HCR", om_names_print)
+    
+    
+    # - Save table
+    dir.create(paste0("Results/Tables/PM Tables/",species,"/"), recursive = TRUE, showWarnings = FALSE)
+    write.csv(table_save, file = paste0("Results/Tables/PM Tables/",species,"/",pm,species,performance_metrics[pm],".csv"))
+    
+    
+    # - Write table
+    print(paste0("**Supplementary Table ", 3+sp, ".PM-",pm,".** Summary of performance metric ", pm," (", performance_metrics_print[pm], ") across OMs for **", species,"**."))
+    
+    ft <- flextable(table_save) %>%
+      bg(i = ((length(HCR_names_print)+1):(length(HCR_names_print)*2)), bg = "#e5e5e5") %>%
+      bold(part = "header") %>%
+      italic(j = 1:2) %>%
+      font(fontname = "Times New Roman", part = "all") %>%
+      fontsize(size = 10, part = "all") %>%
+      padding(padding = 0, part = "all") %>%
+      autofit(add_w = 1, add_h = 1) %>%
+      align(align = "left", j = 1:3, i = -1) %>%
+      align(align = "right", j = 4:9, i = -1) 
+    
+    
+    flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
   }
 }
+
 ```
 
 
@@ -147,96 +129,75 @@ setwd("~/GitHub/Rceattle_MSE")
 dominated_list <- list()
 
 for(sp in 1:3){
-  dominated_list[[sp]] <-list()
-  for(sys in 1:2){
-    
-    # Loop across everything
-    dominated_list[[sp]][[sys]] <- data.frame(matrix(0, nrow = length(EM_names) * length(om_names), ncol = 5))
-    for(om in 1:3){
-      for(rec in 1:5){
-        for(pm in 1:13){
-          system = c("EBS", "GOA")[sys]
-          species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
-          recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
-          
-          # Non-formatted
-          output_table_rev = pm_summary_table(om_names[om], EM_names, recname = recname, format = FALSE, reverse = TRUE)
-          
-          table_tmp_rev <- output_table_rev[[system]] %>% 
-            filter(Species == species) %>%
-            select(-Species, -Performance.metric)
-          table_tmp_rev = table_tmp_rev[pm,]
-          
-          # Rows with max
-          max_rows <- which(table_tmp_rev == max(table_tmp_rev))
-          max_rows <- max_rows + length(EM_names) * (om-1)
-          
-          # Add 1 to strategies that had the best performance
-          dominated_list[[sp]][[sys]][max_rows,rec] <- dominated_list[[sp]][[sys]][max_rows,rec] + 1
-          
-        }
-      }
-    }
-    
-    dominated_list[[sp]][[sys]]$X6 <- rowSums(dominated_list[[sp]][[sys]])
-    table_save <- cbind(
-      rep(om_names_print, each = length(EM_names)), 
-      rep(1:3, each = length(EM_names)), 
-      rep(rep(c("Fix M", "Est M"), each = length(EM_names_print)/2), length(om_names)),
-      rep(EM_names_print, length(om_names)),
-      rep(1:length(EM_names_print), length(om_names)),
-      dominated_list[[sp]][[sys]])
-    
-    colnames(table_save) <- c("OM", "OM No", "EM", "HCR", "MS No", "Exp. 1", "Exp. 2", "Exp. 3", "Exp. 4", "Exp. 5", "All Exp.")
-    
-    
-    # Formatted
-    all_exp_om <- table_save %>%
-      group_by(table_save$`MS No`) %>%
-      summarise("All Exp. & OM" = sum(`All Exp.`))
-    table_save$"All Exp. & OM" <- c(all_exp_om$`All Exp. & OM`, rep(NA, length(EM_names)*2))
-    
-    table_save <- table_save %>%
-      select(-c("OM No", "MS No"))
-    
-    # - Have only the first entry visible
-    table_save = table_save %>%
-      group_by(OM, EM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(EM = ifelse(count==1, as.character(EM), NA)) %>%
-      select(-count)
-    
-    table_save = table_save %>%
-      group_by(OM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(OM = ifelse(count==1, as.character(OM), NA)) %>%
-      select(-count)
-    
-    # - Save csv
-    write.csv(table_save, file = paste0("Results/Tables/PM Tables/Dominated_table_",system,species,".csv"))
-    
-    
-    # - Print via rmarkdown
-    print(paste0("**Supplementary Table ", 6+sp,".",system,".** Number of times a management strategy performed the best for performance metrics across scenarios for ", species, " in the **", system,"**. Note, the maximum across experiments for each OM is 65 and across experiments and OMs is 195."))
-    
-    
-    ft <- flextable(table_save) %>%
-      bg(i = ((length(EM_names_print)+1):(length(EM_names_print)*2)), bg = "#e5e5e5") %>%
-      bold(part = "header") %>%
-      italic(j = 1:2) %>%
-      font(fontname = "Times New Roman", part = "all") %>%
-      fontsize(size = 10, part = "all") %>%
-      padding(padding = 0, part = "all") %>%
-      autofit(add_w = 1, add_h = 1) %>%
-      align(align = "left", j = 1:3, i = -1) %>%
-      align(align = "right", j = 4:10, i = -1) %>%
-      bold(j = 10, i = which(all_exp_om == max(all_exp_om))) 
-    
-    
-    flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
-  }
+  species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
+  
+  # Non-formatted
+  output_table_rev = pm_summary_table(om_names, EM_names, recname = "ConstantR", format = FALSE, reverse = TRUE)
+  
+  dominant_strategy_ebs <- output_table_rev[["EBS"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics) %>%
+    mutate(System = "EBS")
+  
+  dominant_strategy_goa <- output_table_rev[["GOA"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics) %>%
+    mutate(System = "GOA")
+  
+  # - Count dominated strategies
+  dominant_strategy <- rbind(dominant_strategy_ebs, dominant_strategy_goa) %>%
+    group_by(System, OM, Performance.metric) %>% # Find best EM
+    mutate(Dominant = as.numeric(Value == max(Value))) %>%
+    ungroup() %>%
+    group_by(System, OM, EM) %>%
+    summarise(Count = sum(Dominant)) %>%
+    pivot_wider(names_from = OM, values_from = Count) 
+  
+  # Format
+  dominant_strategy <- dominant_strategy  %>%
+    left_join(em_df, by = "EM") %>%
+    arrange(System, No)%>%
+    select(System, EM_print,  HCR, SS_OM, SS_Ricker_OM, SSM_OM, SSM_Ricker_OM, MS_OM, MS_Ricker_OM)
+  
+  # - Have only the first entry visible
+  dominant_strategy = dominant_strategy %>%
+    group_by(System, EM_print) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(EM_print = ifelse(count==1, as.character(EM_print), NA)) %>%
+    select(-count)
+  
+  dominant_strategy = dominant_strategy %>%
+    group_by(System) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(System = ifelse(count==1, as.character(System), NA)) %>%
+    select(-count)
+  
+  colnames(dominant_strategy) <- c("System", "EM", "HCR", om_names_print)
+  
+  # - Sum across OMs
+  dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
+  
+  # - Save csv
+  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table6_dominated_table_", species,".csv"))
+  
+  # - Print via rmarkdown
+  print(paste0("**Supplementary Table ", 6+sp,".** Number of times a management strategy performed the best for performance metrics across OMs for **", species, "**. Note, the maximum across experiments for each OM is 9 and across experiments and OMs is 54."))
+  
+  
+  ft <- flextable(dominant_strategy) %>%
+    bg(i = ((length(HCR_names_print)+1):(length(HCR_names_print)*2)), bg = "#e5e5e5") %>%
+    bold(part = "header") %>%
+    italic(j = 1:2) %>%
+    font(fontname = "Times New Roman", part = "all") %>%
+    fontsize(size = 10, part = "all") %>%
+    padding(padding = 0, part = "all") %>%
+    autofit(add_w = 1, add_h = 1) %>%
+    align(align = "left", j = 1:3, i = -1) %>%
+    align(align = "right", j = 4:10, i = -1) %>%
+    bold(j = 10, i = which(dominant_strategy$`All OMs`  == max(dominant_strategy$`All OMs`))) 
+  
+  
+  flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
 }
 ```
 
@@ -248,96 +209,75 @@ setwd("~/GitHub/Rceattle_MSE")
 dominated_list <- list()
 
 for(sp in 1:3){
-  dominated_list[[sp]] <-list()
-  for(sys in 1:2){
-    
-    # Loop across everything
-    dominated_list[[sp]][[sys]] <- data.frame(matrix(0, nrow = length(EM_names) * length(om_names), ncol = 5))
-    for(om in 1:3){
-      for(rec in 1:5){
-        for(pm in 1:3){
-          system = c("EBS", "GOA")[sys]
-          species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
-          recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
-          
-          # Non-formatted
-          output_table_rev = pm_summary_table(om_names[om], EM_names, recname = recname, format = FALSE, reverse = TRUE)
-          
-          table_tmp_rev <- output_table_rev[[system]] %>% 
-            filter(Species == species) %>%
-            select(-Species, -Performance.metric)
-          table_tmp_rev = table_tmp_rev[pm,]
-          
-          # Rows with max
-          max_rows <- which(table_tmp_rev == max(table_tmp_rev))
-          max_rows <- max_rows + length(EM_names) * (om-1)
-          
-          # Add 1 to strategies that had the best performance
-          dominated_list[[sp]][[sys]][max_rows,rec] <- dominated_list[[sp]][[sys]][max_rows,rec] + 1
-          
-        }
-      }
-    }
-    
-    dominated_list[[sp]][[sys]]$X6 <- rowSums(dominated_list[[sp]][[sys]])
-    table_save <- cbind(
-      rep(om_names_print, each = length(EM_names)), 
-      rep(1:3, each = length(EM_names)), 
-      rep(rep(c("Fix M", "Est M"), each = length(EM_names_print)/2), length(om_names)),
-      rep(EM_names_print, length(om_names)),
-      rep(1:length(EM_names_print), length(om_names)),
-      dominated_list[[sp]][[sys]])
-    
-    colnames(table_save) <- c("OM", "OM No", "EM", "HCR", "MS No", "Exp. 1", "Exp. 2", "Exp. 3", "Exp. 4", "Exp. 5", "All Exp.")
-    
-    
-    # Formatted
-    all_exp_om <- table_save %>%
-      group_by(table_save$`MS No`) %>%
-      summarise("All Exp. & OM" = sum(`All Exp.`))
-    table_save$"All Exp. & OM" <- c(all_exp_om$`All Exp. & OM`, rep(NA, length(EM_names)*2))
-    
-    table_save <- table_save %>%
-      select(-c("OM No", "MS No"))
-    
-    # - Have only the first entry visible
-    table_save = table_save %>%
-      group_by(OM, EM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(EM = ifelse(count==1, as.character(EM), NA)) %>%
-      select(-count)
-    
-    table_save = table_save %>%
-      group_by(OM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(OM = ifelse(count==1, as.character(OM), NA)) %>%
-      select(-count)
-    
-    # - Save csv
-    write.csv(table_save, file = paste0("Results/Tables/PM Tables/Dominated_table_economic_",system,species,".csv"))
-    
-    
-    # - Print via rmarkdown
-    print(paste0("**Supplementary Table ", 9+sp,".",system,".** Number of times a management strategy performed the best for economic performance metrics (1-3) across scenarios for ", species, " in the **", system,"**. Note, the maximum across experiments for each OM is 15 and across experiments and OMs is 45."))
-    
-    
-    ft <- flextable(table_save) %>%
-      bg(i = ((length(EM_names_print)+1):(length(EM_names_print)*2)), bg = "#e5e5e5") %>%
-      bold(part = "header") %>%
-      italic(j = 1:2) %>%
-      font(fontname = "Times New Roman", part = "all") %>%
-      fontsize(size = 10, part = "all") %>%
-      padding(padding = 0, part = "all") %>%
-      autofit(add_w = 1, add_h = 1) %>%
-      align(align = "left", j = 1:3, i = -1) %>%
-      align(align = "right", j = 4:10, i = -1) %>%
-      bold(j = 10, i = which(all_exp_om == max(all_exp_om))) 
-    
-    
-    flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
-  }
+  species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
+  
+  # Non-formatted
+  output_table_rev = pm_summary_table(om_names, EM_names, recname = "ConstantR", format = FALSE, reverse = TRUE)
+  
+  dominant_strategy_ebs <- output_table_rev[["EBS"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics[1:3]) %>%
+    mutate(System = "EBS")
+  
+  dominant_strategy_goa <- output_table_rev[["GOA"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics[1:3]) %>%
+    mutate(System = "GOA")
+  
+  # - Count dominated strategies
+  dominant_strategy <- rbind(dominant_strategy_ebs, dominant_strategy_goa) %>%
+    group_by(System, OM, Performance.metric) %>% # Find best EM
+    mutate(Dominant = as.numeric(Value == max(Value))) %>%
+    ungroup() %>%
+    group_by(System, OM, EM) %>%
+    summarise(Count = sum(Dominant)) %>%
+    pivot_wider(names_from = OM, values_from = Count) 
+  
+  # Format
+  dominant_strategy <- dominant_strategy  %>%
+    left_join(em_df, by = "EM") %>%
+    arrange(System, No)%>%
+    select(System, EM_print,  HCR, SS_OM, SS_Ricker_OM, SSM_OM, SSM_Ricker_OM, MS_OM, MS_Ricker_OM)
+  
+  # - Have only the first entry visible
+  dominant_strategy = dominant_strategy %>%
+    group_by(System, EM_print) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(EM_print = ifelse(count==1, as.character(EM_print), NA)) %>%
+    select(-count)
+  
+  dominant_strategy = dominant_strategy %>%
+    group_by(System) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(System = ifelse(count==1, as.character(System), NA)) %>%
+    select(-count)
+  
+  colnames(dominant_strategy) <- c("System", "EM", "HCR", om_names_print)
+  
+  # - Sum across OMs
+  dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
+  
+  # - Save csv
+  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table9_dominated_table_economic_", species,".csv"))
+  
+  # - Print via rmarkdown
+  print(paste0("**Supplementary Table ", 9+sp,".** Number of times a management strategy performed the best for economic performance metrics (1-3) across OMs for **", species, "**. Note, the maximum across experiments for each OM is 3 and across experiments and OMs is 18."))
+  
+  
+  ft <- flextable(dominant_strategy) %>%
+    bg(i = ((length(HCR_names_print)+1):(length(HCR_names_print)*2)), bg = "#e5e5e5") %>%
+    bold(part = "header") %>%
+    italic(j = 1:2) %>%
+    font(fontname = "Times New Roman", part = "all") %>%
+    fontsize(size = 10, part = "all") %>%
+    padding(padding = 0, part = "all") %>%
+    autofit(add_w = 1, add_h = 1) %>%
+    align(align = "left", j = 1:3, i = -1) %>%
+    align(align = "right", j = 4:10, i = -1) %>%
+    bold(j = 10, i = which(dominant_strategy$`All OMs`  == max(dominant_strategy$`All OMs` ))) 
+  
+  
+  flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
 }
 ```
 
@@ -348,95 +288,74 @@ setwd("~/GitHub/Rceattle_MSE")
 dominated_list <- list()
 
 for(sp in 1:3){
-  dominated_list[[sp]] <-list()
-  for(sys in 1:2){
-    
-    # Loop across everything
-    dominated_list[[sp]][[sys]] <- data.frame(matrix(0, nrow = length(EM_names) * length(om_names), ncol = 5))
-    for(om in 1:3){
-      for(rec in 1:5){
-        for(pm in 5:13){
-          system = c("EBS", "GOA")[sys]
-          species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
-          recname = c("ConstantR", "AllUp", "AllDown", "ATFRup", "ATFRdown")[rec]
-          
-          # Non-formatted
-          output_table_rev = pm_summary_table(om_names[om], EM_names, recname = recname, format = FALSE, reverse = TRUE)
-          
-          table_tmp_rev <- output_table_rev[[system]] %>% 
-            filter(Species == species) %>%
-            select(-Species, -Performance.metric)
-          table_tmp_rev = table_tmp_rev[pm,]
-          
-          # Rows with max
-          max_rows <- which(table_tmp_rev == max(table_tmp_rev))
-          max_rows <- max_rows + length(EM_names) * (om-1)
-          
-          # Add 1 to strategies that had the best performance
-          dominated_list[[sp]][[sys]][max_rows,rec] <- dominated_list[[sp]][[sys]][max_rows,rec] + 1
-          
-        }
-      }
-    }
-    
-    dominated_list[[sp]][[sys]]$X6 <- rowSums(dominated_list[[sp]][[sys]])
-    table_save <- cbind(
-      rep(om_names_print, each = length(EM_names)), 
-      rep(1:3, each = length(EM_names)), 
-      rep(rep(c("Fix M", "Est M"), each = length(EM_names_print)/2), length(om_names)),
-      rep(EM_names_print, length(om_names)),
-      rep(1:length(EM_names_print), length(om_names)),
-      dominated_list[[sp]][[sys]])
-    
-    colnames(table_save) <- c("OM", "OM No", "EM", "HCR", "MS No", "Exp. 1", "Exp. 2", "Exp. 3", "Exp. 4", "Exp. 5", "All Exp.")
-    
-    
-    # Formatted
-    all_exp_om <- table_save %>%
-      group_by(table_save$`MS No`) %>%
-      summarise("All Exp. & OM" = sum(`All Exp.`))
-    table_save$"All Exp. & OM" <- c(all_exp_om$`All Exp. & OM`, rep(NA, length(EM_names)*2))
-    
-    table_save <- table_save %>%
-      select(-c("OM No", "MS No"))
-    
-    # - Have only the first entry visible
-    table_save = table_save %>%
-      group_by(OM, EM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(EM = ifelse(count==1, as.character(EM), NA)) %>%
-      select(-count)
-    
-    table_save = table_save %>%
-      group_by(OM) %>%
-      dplyr::mutate(count=1:n()) %>%
-      ungroup %>%
-      dplyr::mutate(OM = ifelse(count==1, as.character(OM), NA)) %>%
-      select(-count)
-    
-    # - Save csv
-    write.csv(table_save, file = paste0("Results/Tables/PM Tables/Dominated_table_conservation_",system,species,".csv"))
-    
-    
-    # - Print via rmarkdown
-    print(paste0("**Supplementary Table ", 12+sp,".",system,".** Number of times a strategy performed the best for conservation performance metrics (5-13) across scenarios for ", species, " in the **", system,"**. Note, the maximum for each OM is 27 and across experiments and OMs is 81."))
-    
-    
-    ft <- flextable(table_save) %>%
-      bg(i = ((length(EM_names_print)+1):(length(EM_names_print)*2)), bg = "#e5e5e5") %>%
-      bold(part = "header") %>%
-      italic(j = 1:2) %>%
-      font(fontname = "Times New Roman", part = "all") %>%
-      fontsize(size = 10, part = "all") %>%
-      padding(padding = 0, part = "all") %>%
-      autofit(add_w = 1, add_h = 1) %>%
-      align(align = "left", j = 1:3, i = -1) %>%
-      align(align = "right", j = 4:10, i = -1) %>%
-      bold(j = 10, i = which(all_exp_om == max(all_exp_om))) 
-    
-    
-    flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
-  }
+  species = c("Pollock", "Cod", "Arrowtooth flounder")[sp]
+  
+  # Non-formatted
+  output_table_rev = pm_summary_table(om_names, EM_names, recname = "ConstantR", format = FALSE, reverse = TRUE)
+  
+  dominant_strategy_ebs <- output_table_rev[["EBS"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics[5:9]) %>%
+    mutate(System = "EBS")
+  
+  dominant_strategy_goa <- output_table_rev[["GOA"]] %>% 
+    filter(Species == species & Performance.metric %in% performance_metrics[5:9]) %>%
+    mutate(System = "GOA")
+  
+  # - Count dominated strategies
+  dominant_strategy <- rbind(dominant_strategy_ebs, dominant_strategy_goa) %>%
+    group_by(System, OM, Performance.metric) %>% # Find best EM
+    mutate(Dominant = as.numeric(Value == max(Value))) %>%
+    ungroup() %>%
+    group_by(System, OM, EM) %>%
+    summarise(Count = sum(Dominant)) %>%
+    pivot_wider(names_from = OM, values_from = Count) 
+  
+  # Format
+  dominant_strategy <- dominant_strategy  %>%
+    left_join(em_df, by = "EM") %>%
+    arrange(System, No)%>%
+    select(System, EM_print,  HCR, SS_OM, SS_Ricker_OM, SSM_OM, SSM_Ricker_OM, MS_OM, MS_Ricker_OM)
+  
+  # - Have only the first entry visible
+  dominant_strategy = dominant_strategy %>%
+    group_by(System, EM_print) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(EM_print = ifelse(count==1, as.character(EM_print), NA)) %>%
+    select(-count)
+  
+  dominant_strategy = dominant_strategy %>%
+    group_by(System) %>%
+    dplyr::mutate(count=1:n()) %>%
+    ungroup %>%
+    dplyr::mutate(System = ifelse(count==1, as.character(System), NA)) %>%
+    select(-count)
+  
+  colnames(dominant_strategy) <- c("System", "EM", "HCR", om_names_print)
+  
+  # - Sum across OMs
+  dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
+  
+  # - Save csv
+  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table12_dominated_table_conservation_", species,".csv"))
+  
+  # - Print via rmarkdown
+  print(paste0("**Supplementary Table ", 12+sp,".** Number of times a management strategy performed the best for conservation performance metrics (5-9) across OMs for **", species, "**. Note, the maximum across experiments for each OM is 5 and across experiments and OMs is 30."))
+  
+  
+  ft <- flextable(dominant_strategy) %>%
+    bg(i = ((length(HCR_names_print)+1):(length(HCR_names_print)*2)), bg = "#e5e5e5") %>%
+    bold(part = "header") %>%
+    italic(j = 1:2) %>%
+    font(fontname = "Times New Roman", part = "all") %>%
+    fontsize(size = 10, part = "all") %>%
+    padding(padding = 0, part = "all") %>%
+    autofit(add_w = 1, add_h = 1) %>%
+    align(align = "left", j = 1:3, i = -1) %>%
+    align(align = "right", j = 4:10, i = -1) %>%
+    bold(j = 10, i = which(dominant_strategy$`All OMs`  == max(dominant_strategy$`All OMs` ))) 
+  
+  
+  flextable_to_rmd(ft, text_after = "\\pagebreak", print = TRUE)
 }
 ```

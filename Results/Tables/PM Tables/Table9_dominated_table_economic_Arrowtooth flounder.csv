@@ -1,0 +1,33 @@
+"","System","EM","HCR","1. SS fix M","2. w Ricker","3. SS est M","4. w Ricker","5. MS","6. w Ricker","All OMs"
+"1","EBS","Fix M","HCR 1a (NPFMC)",1,1,1,1,1,1,6
+"2",NA,NA,"HCR 1b (Dynamic NPFMC)",1,1,1,1,1,1,6
+"3",NA,NA,"HCR 2a (PFMC)",1,1,1,1,1,1,6
+"4",NA,NA,"HCR 2b (Dynamic PFMC)",1,1,1,1,1,1,6
+"5",NA,NA,"HCR 3a (SESSF)",1,1,1,1,1,1,6
+"6",NA,NA,"HCR 3b (Dynamic SESSF)",1,1,1,1,1,1,6
+"7",NA,NA,"HCR 4 (NEFMC)",1,1,1,1,1,1,6
+"8",NA,NA,"HCR 5 (Avg F)",2,2,1,1,1,1,8
+"9",NA,"Est M","HCR 1a (NPFMC)",1,1,1,1,1,1,6
+"10",NA,NA,"HCR 1b (Dynamic NPFMC)",1,1,1,1,1,1,6
+"11",NA,NA,"HCR 2a (PFMC)",1,1,1,2,2,1,8
+"12",NA,NA,"HCR 2b (Dynamic PFMC)",2,2,2,1,1,2,10
+"13",NA,NA,"HCR 3a (SESSF)",1,1,1,1,1,1,6
+"14",NA,NA,"HCR 3b (Dynamic SESSF)",1,1,1,1,1,1,6
+"15",NA,NA,"HCR 4 (NEFMC)",1,1,1,1,1,1,6
+"16",NA,NA,"HCR 5 (Avg F)",1,1,2,2,2,2,10
+"17","GOA","Fix M","HCR 1a (NPFMC)",1,1,1,1,1,1,6
+"18",NA,NA,"HCR 1b (Dynamic NPFMC)",1,1,1,1,1,1,6
+"19",NA,NA,"HCR 2a (PFMC)",2,1,1,1,1,1,7
+"20",NA,NA,"HCR 2b (Dynamic PFMC)",1,2,1,1,1,1,7
+"21",NA,NA,"HCR 3a (SESSF)",1,1,1,1,1,1,6
+"22",NA,NA,"HCR 3b (Dynamic SESSF)",1,1,1,1,1,1,6
+"23",NA,NA,"HCR 4 (NEFMC)",1,1,1,1,1,1,6
+"24",NA,NA,"HCR 5 (Avg F)",2,2,1,1,2,2,10
+"25",NA,"Est M","HCR 1a (NPFMC)",1,1,1,1,1,1,6
+"26",NA,NA,"HCR 1b (Dynamic NPFMC)",1,1,1,1,1,1,6
+"27",NA,NA,"HCR 2a (PFMC)",1,1,1,1,2,1,7
+"28",NA,NA,"HCR 2b (Dynamic PFMC)",1,1,2,2,1,2,9
+"29",NA,NA,"HCR 3a (SESSF)",1,1,1,1,1,1,6
+"30",NA,NA,"HCR 3b (Dynamic SESSF)",1,1,1,1,1,1,6
+"31",NA,NA,"HCR 4 (NEFMC)",1,1,1,1,1,1,6
+"32",NA,NA,"HCR 5 (Avg F)",1,1,2,2,1,1,8

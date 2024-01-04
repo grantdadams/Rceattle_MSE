@@ -37,7 +37,7 @@ mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/F
 ## Table of PMs for specific EMs ----
 # - Tier 3
 ind <- 1
-om_names = c("SS_OM", "SSM_OM", "MS_OM")
+om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
 EM_names <- c("SS_fixM_Tier3_EM", "SS_estM_Tier3_EM")
 output_table = pm_summary_table(om_names, EM_names, recname = recname)
 write.csv(output_table$EBS, file = paste0("Results/Tables/TableS", ind,"a_EBS_", recname,"_Tier3_summary.csv"))
