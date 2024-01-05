@@ -207,7 +207,8 @@ ss_run_ricker_AvgF <- fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -232,7 +233,8 @@ ss_run_ricker_Fspr <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -259,7 +261,8 @@ ss_run_ricker_Tier3 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -284,7 +287,8 @@ ss_run_ricker_dynamicTier3 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -310,7 +314,8 @@ ss_run_ricker_Cat1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -335,7 +340,8 @@ ss_run_ricker_dynamicCat1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -362,7 +368,8 @@ ss_run_ricker_Tier1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -388,7 +395,8 @@ ss_run_ricker_dynamicTier1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
   msmMode = ss_run_ricker$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker$data_list$initMode,
@@ -423,7 +431,8 @@ ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -448,7 +457,8 @@ ss_run_ricker_M_Fspr <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -475,7 +485,8 @@ ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -499,7 +510,8 @@ ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -525,7 +537,8 @@ ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -550,7 +563,8 @@ ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -577,7 +591,8 @@ ss_run_ricker_M_Tier1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -603,7 +618,8 @@ ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
                      proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                      srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
                      srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
-                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd),
+                     srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
+                     Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
   msmMode = ss_run_ricker_M$data_list$msmMode,
   verbose = 1,
   initMode = ss_run_ricker_M$data_list$initMode,
@@ -627,21 +643,23 @@ mod_list <- list(ss_run_ricker, ss_run_ricker_AvgF, ss_run_ricker_Fspr, ss_run_r
 ms_mod_list <- list(ms_run_ricker, ms_run_ricker_f25)
 
 # - SS
-plot_biomass(mod_list, incl_proj = T)
-#plot_ssb(mod_list, incl_proj = T)
-#plot_depletionSSB(mod_list, incl_proj = T)
-#plot_recruitment(mod_list, incl_proj = T)
-#plot_catch(mod_list, incl_proj = TRUE)
+plot_biomass(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_ssb(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_depletionSSB(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_recruitment(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_stock_recruit(mod_list, model_names = 1:length(mod_list))
+
 
 # - SS M
-plot_biomass(M_mod_list, incl_proj = T)
-#plot_ssb(M_mod_list, incl_proj = T)
-#plot_depletionSSB(M_mod_list, incl_proj = T)
-#plot_recruitment(M_mod_list, incl_proj = T)
-#plot_catch(M_mod_list, incl_proj = TRUE)
+plot_biomass(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_ssb(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_depletionSSB(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_recruitment(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_stock_recruit(M_mod_list, model_names = 1:length(M_mod_list))
 
 # - MS
 plot_biomass(ms_mod_list, incl_proj = T)
+plot_stock_recruit(ms_mod_list, model_names = 1:length(ms_mod_list))
 
 
 plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))

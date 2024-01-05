@@ -124,7 +124,8 @@ ms_run_ricker_f25 <- Rceattle::fit_mod(
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
                      srr_prior_mean = 0.2,
-                     srr_prior_sd = 0.2),
+                     srr_prior_sd = 0.2,
+                     Bmsy_lim = ms_run_ricker$data_list$Bmsy_lim),
   niter = 3, # 10 iterations around population and predation dynamics
   HCR = build_hcr(HCR = 3, # Constant F HCR
                   DynamicHCR = FALSE, # Use dynamic reference points
@@ -539,21 +540,28 @@ ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
 ###############################################
 # #plot ----
 ###############################################
-M_mod_list <- list(ss_run_ricker_M, ss_run_ricker_M_AvgF, ss_run_ricker_M_Fspr, ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3, ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1 )
 mod_list <- list(ss_run_ricker, ss_run_ricker_AvgF, ss_run_ricker_Fspr, ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3, ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1 )
+M_mod_list <- list(ss_run_ricker_M, ss_run_ricker_M_AvgF, ss_run_ricker_M_Fspr, ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3, ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1 )
+ms_mod_list <- list(ms_run_ricker, ms_run_ricker_f25)
 
 # - SS
 plot_biomass(mod_list, incl_proj = T, model_names = 1:length(mod_list))
-plot_ssb(mod_list, incl_proj = T)
-#plot_depletionSSB(mod_list, incl_proj = T)
-#plot_recruitment(mod_list, incl_proj = T)
-#plot_catch(mod_list, incl_proj = TRUE)
+plot_ssb(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_depletionSSB(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_recruitment(mod_list, incl_proj = T, model_names = 1:length(mod_list))
+plot_stock_recruit(mod_list, model_names = 1:length(mod_list))
+
 
 # - SS M
-plot_biomass(M_mod_list, incl_proj = T)
-plot_ssb(M_mod_list, incl_proj = T)
-#plot_depletionSSB(M_mod_list, incl_proj = T)
-#plot_recruitment(M_mod_list, incl_proj = T)
-#plot_catch(M_mod_list, incl_proj = TRUE)
+plot_biomass(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_ssb(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_depletionSSB(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_recruitment(M_mod_list, incl_proj = T, model_names = 1:length(M_mod_list))
+plot_stock_recruit(M_mod_list, model_names = 1:length(M_mod_list))
 
-#plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
+# - MS
+plot_biomass(ms_mod_list, incl_proj = T)
+plot_stock_recruit(ms_mod_list, model_names = 1:length(ms_mod_list))
+
+# - All
+plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker))
