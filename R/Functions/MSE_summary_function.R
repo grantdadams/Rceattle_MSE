@@ -149,7 +149,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         
         
         # - Catch
-        plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", width = 4.3, height = 4)
+        plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/",system, "_", recname[rec], " true ", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
         
         # - Unload for memory
         rm(mse3); gc()
