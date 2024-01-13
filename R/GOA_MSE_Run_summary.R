@@ -5,6 +5,7 @@ source("R/GOA_condition_models_1977.R")
 source("R/GOA_condition_ricker_models_1977.R")
 library(Rceattle)
 library(tidyr)
+library(gmRi)
 
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
 ms_run_ricker$quantities$depletionSSB <- ms_run_ricker$quantities$biomassSSB/ms_run_ricker$quantities$biomassSSB[,ncol(ms_run_ricker$quantities$biomassSSB)]
@@ -62,11 +63,14 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 
 # Plots ----
-plot_ssb(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
-plot_recruitment(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
-plot_biomass(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
-plot_b_eaten_prop(om_list, file = "Results/Figures/GOA_OM_", model_names = om_names_print, species = c(1,3,2), width = 5, height = 4.5)
-plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/GOA_OM_", species = c(1,3,2), model_names = om_names_print[4:6], width = 5, height = 4.5)
+MPcols <- gmri_pal("main")(8)
+
+MPcols <- rev(oce::oce.colorsViridis(6))
+# plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,2,4,6)])
+plot_recruitment(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,2,4,6)], species = c(1,3,2))
+plot_ssb(projected_OM_no_F[c(4:6,1:3)], file = "Results/Figures/GOA_OM_", model_names = om_names_print[4:6], width = 6, height = 4.5, line_col = MPcols[c(2,4,6, 1,3,5)], species = c(1,3,2))
+plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/GOA_OM_", model_names = om_names_print[4:6], width = 6, height = 4.5, line_col = MPcols[c(2,4,6)], species = c(1,3,2))
+plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/GOA_OM_", model_names = om_names_print[c(3,6)], width = 6, height = 4.5, line_col = MPcols[c(5,6)], species = c(1,3,2))
 
 # Do summary ----
 source("R/Functions/MSE_summary_function.R")
