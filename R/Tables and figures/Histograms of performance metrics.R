@@ -10,14 +10,32 @@ source("R/Functions/Summary_histogram_function.R")
 
 ## Figures for each PM and Species ----
 # - EBS
-mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
-mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
-mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
+mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
+mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
 
 # - GOA
-mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 5, width = 8)
-mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 5, width = 8)
-mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 5, width = 8)
+mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
+mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
+mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
+
+
+# - Combined
+mse_histogram_two_system(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6, width = 12)
+mse_histogram_two_system(species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6, width = 12)
+mse_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6, width = 12)
+
+mse_histogram_two_system(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomleft")
+mse_histogram_two_system(species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomleft")
+mse_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomleft")
+
+mse_histogram_two_system(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6, width = 12, legend.pos = "topright")
+mse_histogram_two_system(species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6, width = 12, legend.pos = "topright")
+mse_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6, width = 12, legend.pos = "topright")
+
+mse_histogram_two_system(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomright")
+mse_histogram_two_system(species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomright")
+mse_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6, width = 12, legend.pos = "bottomright")
 
 
 ## Figures for all PMs for each Species ----
