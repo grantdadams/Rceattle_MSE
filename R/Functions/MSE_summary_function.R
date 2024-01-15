@@ -122,7 +122,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         plot_ssb(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/True/", system, "_", recname[rec], " true ", MSE_names), 
                  line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
         plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/Perceived/",  system, "_", recname[rec], " Perceived ", MSE_names), 
-                 line_col = "#5F0F40", species = species, maxyr = maxyr)
+                 line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
         
         plot_ssb(c(list(mse3$Sim_1$OM), mse3$Sim_1$EM), # file = paste0("Results/Figures/SSB/", system, "/", recname[rec], "/",  system, "_", recname[rec], " single sim ", MSE_names), 
                  species = species, maxyr = maxyr)
