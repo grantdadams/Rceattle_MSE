@@ -76,7 +76,6 @@ plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/GOA_OM_", m
 
 # Do summary ----
 source("R/Functions/MSE_summary_function.R")
-source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8', echo=TRUE)
 
 # SAFS 313-12
 # - No SRR
