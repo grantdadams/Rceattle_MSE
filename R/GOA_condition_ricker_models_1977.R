@@ -194,7 +194,12 @@ if(fit_all){
   ################################################
   # -- Avg F
   avg_F <- (exp(ss_run_ricker$estimated_params$ln_mean_F+ss_run_ricker$estimated_params$F_dev)) # Average F from last 5 years
-  avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
+  avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
+  avg_F <- data.frame(avg_F = avg_F, spp = ss_run_ricker$data_list$fleet_control$Species)
+  avg_F <- avg_F %>%
+    group_by(spp) %>%
+    summarise(avg_F = sum(avg_F)) %>%
+    arrange(spp)
   
   ss_run_ricker_AvgF <- fit_mod(
     data_list = ss_run_ricker$data_list,
@@ -215,7 +220,7 @@ if(fit_all){
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 2, # Input F
-                    FsprTarget = avg_F, # F40%
+                    FsprTarget = avg_F$avg_F, # F40%
                     FsprLimit = 0.35,
                     Plimit = 0.2
     )
@@ -418,7 +423,13 @@ if(fit_all){
   ###############################################
   # -- Avg F
   avg_F <- (exp(ss_run_ricker_M$estimated_params$ln_mean_F+ss_run_ricker_M$estimated_params$F_dev)) # Average F from last 5 years
-  avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])[1:3]
+  avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
+  avg_F <- data.frame(avg_F = avg_F, spp = ss_run_ricker_M$data_list$fleet_control$Species)
+  avg_F <- avg_F %>%
+    group_by(spp) %>%
+    summarise(avg_F = sum(avg_F)) %>%
+    arrange(spp)
+  
   
   ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
@@ -439,7 +450,7 @@ if(fit_all){
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 2, # Input F
-                    FsprTarget = avg_F, # F40%
+                    FsprTarget = avg_F$avg_F, # F40%
                     FsprLimit = 0.35, 
                     Plimit = 0.2
     )
