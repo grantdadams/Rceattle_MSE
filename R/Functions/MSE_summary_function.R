@@ -17,7 +17,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
           stop(paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap DOES NOT EXIST"))
           }
         mse3 <- load_mse(dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), file = NULL)
-        MSE_names <- paste0(om_names[om],"__", em_hcr_names[em], "_", recname[rec])
+        MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
         
         
         # STEP 2 -- Update Ftarget, Flimit, and depletion for OMs

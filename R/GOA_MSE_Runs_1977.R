@@ -56,7 +56,7 @@ source("R/Functions/Run_full_MSE_function.R")
 
 run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[4], om_names = om_names[4], em_hcr_list = em_hcr_list[1:8], em_hcr_names = em_hcr_names[1:8], sampling_period = sampling_period, nsim = 300)
 
-run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[4], om_names = om_names[4], em_hcr_list = em_hcr_list[c(8,12:16)], em_hcr_names = em_hcr_names[c(8,12:16)], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
+run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[2], om_names = om_names[2], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
 
 
 # 11 = 1, 12 = 2, 1 = 3, 4 = 4, 5 = 5, 8 = 6
