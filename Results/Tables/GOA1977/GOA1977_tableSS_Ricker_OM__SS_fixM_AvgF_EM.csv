@@ -1,4 +1,4 @@
-"","Species","Performance.metric","SS_Ricker_OM__SS_fixM_AvgF_EM_TRUE.regen"
+"","Species","Performance metric","SS_Ricker_OM__SS_fixM_AvgF_EM"
 "1","Pollock","Average Catch",271102.598106479
 "2","Pollock","Catch IAV",28582.4722497506
 "3","Pollock","P(Closed)",0
@@ -32,9 +32,9 @@
 "31","Cod","EM: P(Fy > Flimit)",0.040952380952381
 "32","Cod","EM: P(SSB < SSBlimit)",0.0149206349206349
 "33","Cod","OM: P(Fy > Flimit)",0.122063492063492
-"34","Cod","OM: P(SSB < SSBlimit)",0.141984126984127
+"34","Cod","OM: P(SSB < SSBlimit)",0.0464285714285714
 "35","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.00761904761904762
 "36","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.0887301587301587
 "37","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"38","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.127063492063492
+"38","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.0315079365079365
 "39","Cod","OM: Terminal SSB Depletion",0.925748376572669
