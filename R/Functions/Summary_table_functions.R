@@ -10,22 +10,22 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
       
       GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_Table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
-      # EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
+      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
       colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
-      #colnames(EBS_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
+      colnames(EBS_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
       
       # - Add info
       data_info <- data.frame(OM = rep(om_names[om], nrow(GOA_mse_sum_tmp)), EM = rep(em_hcr_names[em], nrow(GOA_mse_sum_tmp)))
       GOA_mse_sum_tmp <- cbind(data_info, GOA_mse_sum_tmp)
-      #EBS_mse_sum_tmp <- cbind(data_info, EBS_mse_sum_tmp)
+      EBS_mse_sum_tmp <- cbind(data_info, EBS_mse_sum_tmp)
       
       if(om * em == 1){
         GOA_mse_sum = GOA_mse_sum_tmp
-        #EBS_mse_sum = EBS_mse_sum_tmp
+        EBS_mse_sum = EBS_mse_sum_tmp
       } else {
         GOA_mse_sum = rbind(GOA_mse_sum, GOA_mse_sum_tmp)
         
-        #EBS_mse_sum = rbind(EBS_mse_sum, EBS_mse_sum_tmp)
+        EBS_mse_sum = rbind(EBS_mse_sum, EBS_mse_sum_tmp)
       }
     }
   }
@@ -45,14 +45,14 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     
     row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
     
-    #EBS_mse_sum[row_id, "Value"] <- 1-#EBS_mse_sum[row_id, "Value"]
+    EBS_mse_sum[row_id, "Value"] <- 1-EBS_mse_sum[row_id, "Value"]
     GOA_mse_sum[row_id, "Value"] <- 1-GOA_mse_sum[row_id, "Value"]
     
     # Inverse
     inverse_pm <- c("Avg terminal SSB MSE", "Catch IAV")
     row_id <- which(GOA_mse_sum$Performance.metric %in% inverse_pm)
     
-    #EBS_mse_sum[row_id, "Value"] <- 1/#EBS_mse_sum[row_id, "Value"]
+    EBS_mse_sum[row_id, "Value"] <- 1/EBS_mse_sum[row_id, "Value"]
     GOA_mse_sum[row_id, "Value"] <- 1/GOA_mse_sum[row_id, "Value"]
   }
   
@@ -75,7 +75,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     
     row_id <- which(GOA_mse_sum$Performance.metric %in% percent_form)
     
-    #EBS_mse_sum[row_id, "Value"] <- round(#EBS_mse_sum[row_id, "Value"], 2)
+    EBS_mse_sum[row_id, "Value"] <- round(EBS_mse_sum[row_id, "Value"], 2)
     GOA_mse_sum[row_id, "Value"] <- round(GOA_mse_sum[row_id, "Value"], 2)
     
     # - Large numbers
@@ -83,7 +83,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
                   "Catch IAV")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
-    #EBS_mse_sum[row_id, "Value"] <- format(round(#EBS_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
+    EBS_mse_sum[row_id, "Value"] <- format(round(EBS_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
     GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
   }
   
@@ -93,7 +93,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
   GOA_mse_sum <- GOA_mse_sum[-row_id,]
   GOA_mse_sum <- rbind(GOA_mse_sum, atf_sub)
   
-  return(list(GOA = GOA_mse_sum))
+  return(list(EBS = EBS_mse_sum, GOA = GOA_mse_sum))
 }
 
 

@@ -5,29 +5,25 @@
 "4",NA,NA,"HCR 2b (Dynamic PFMC)",5,5,5,5,5,5,30
 "5",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
 "6",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
-"7",NA,NA,"HCR 4 (NEFMC)",5,5,5,5,5,5,30
-"8",NA,NA,"HCR 5 (Avg F)",6,7,7,7,7,7,41
-"9",NA,"Est M","HCR 1a (NPFMC)",5,5,5,5,4,5,29
-"10",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,4,4,5,28
-"11",NA,NA,"HCR 2a (PFMC)",6,6,5,6,5,5,33
-"12",NA,NA,"HCR 2b (Dynamic PFMC)",6,6,6,5,4,5,32
-"13",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
-"14",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
-"15",NA,NA,"HCR 4 (NEFMC)",5,5,5,5,5,5,30
-"16",NA,NA,"HCR 5 (Avg F)",6,5,6,6,6,6,35
-"17","GOA","Fix M","HCR 1a (NPFMC)",5,5,5,5,5,5,30
-"18",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,5,5,5,30
-"19",NA,NA,"HCR 2a (PFMC)",6,5,6,6,5,5,33
-"20",NA,NA,"HCR 2b (Dynamic PFMC)",5,6,5,5,6,6,33
-"21",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
-"22",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
-"23",NA,NA,"HCR 4 (NEFMC)",5,5,5,5,5,5,30
-"24",NA,NA,"HCR 5 (Avg F)",7,7,6,6,7,7,40
-"25",NA,"Est M","HCR 1a (NPFMC)",5,5,5,5,5,5,30
-"26",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,5,5,5,30
-"27",NA,NA,"HCR 2a (PFMC)",5,6,4,5,6,5,31
-"28",NA,NA,"HCR 2b (Dynamic PFMC)",6,5,5,6,5,6,33
-"29",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
-"30",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
-"31",NA,NA,"HCR 4 (NEFMC)",5,5,5,5,5,5,30
-"32",NA,NA,"HCR 5 (Avg F)",5,5,6,6,5,5,32
+"7",NA,NA,"HCR 4 (NEFMC)",7,7,8,8,8,8,46
+"8",NA,"Est M","HCR 1a (NPFMC)",5,5,5,5,4,5,29
+"9",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,4,4,5,28
+"10",NA,NA,"HCR 2a (PFMC)",6,6,5,6,5,5,33
+"11",NA,NA,"HCR 2b (Dynamic PFMC)",6,6,6,5,4,5,32
+"12",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
+"13",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
+"14",NA,NA,"HCR 4 (NEFMC)",5,5,5,5,5,5,30
+"15","GOA","Fix M","HCR 1a (NPFMC)",5,5,5,5,5,5,30
+"16",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,5,5,5,30
+"17",NA,NA,"HCR 2a (PFMC)",6,5,6,6,5,5,33
+"18",NA,NA,"HCR 2b (Dynamic PFMC)",5,6,5,5,6,6,33
+"19",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
+"20",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
+"21",NA,NA,"HCR 4 (NEFMC)",5,5,7,7,7,7,38
+"22",NA,"Est M","HCR 1a (NPFMC)",5,5,5,5,5,5,30
+"23",NA,NA,"HCR 1b (Dynamic NPFMC)",5,5,5,5,5,5,30
+"24",NA,NA,"HCR 2a (PFMC)",5,6,4,5,6,5,31
+"25",NA,NA,"HCR 2b (Dynamic PFMC)",6,5,5,6,5,6,33
+"26",NA,NA,"HCR 3a (SESSF)",5,5,5,5,5,5,30
+"27",NA,NA,"HCR 3b (Dynamic SESSF)",5,5,5,5,5,5,30
+"28",NA,NA,"HCR 4 (NEFMC)",7,7,5,5,5,5,34
