@@ -6,7 +6,7 @@
 "5",NA,NA,"HCR 3a (SESSF)",4,4,4,4,4,4,24
 "6",NA,NA,"HCR 3b (Dynamic SESSF)",4,4,4,4,4,4,24
 "7",NA,NA,"HCR 4 (NEFMC)",4,4,4,4,4,4,24
-"8",NA,NA,"HCR 5 (Avg F)",4,5,5,5,5,5,29
+"8",NA,NA,"HCR 5 (Avg F)",4,4,4,4,4,4,24
 "9",NA,"Est M","HCR 1a (NPFMC)",4,4,4,4,3,4,23
 "10",NA,NA,"HCR 1b (Dynamic NPFMC)",4,4,4,3,3,4,22
 "11",NA,NA,"HCR 2a (PFMC)",4,4,4,4,3,4,23
@@ -14,7 +14,7 @@
 "13",NA,NA,"HCR 3a (SESSF)",4,4,4,4,4,4,24
 "14",NA,NA,"HCR 3b (Dynamic SESSF)",4,4,4,4,4,4,24
 "15",NA,NA,"HCR 4 (NEFMC)",4,4,4,4,4,4,24
-"16",NA,NA,"HCR 5 (Avg F)",5,4,4,4,4,4,25
+"16",NA,NA,"HCR 5 (Avg F)",4,4,4,4,4,4,24
 "17","GOA","Fix M","HCR 1a (NPFMC)",4,4,4,4,4,4,24
 "18",NA,NA,"HCR 1b (Dynamic NPFMC)",4,4,4,4,4,4,24
 "19",NA,NA,"HCR 2a (PFMC)",4,4,4,4,4,4,24
@@ -22,7 +22,7 @@
 "21",NA,NA,"HCR 3a (SESSF)",4,4,4,4,4,4,24
 "22",NA,NA,"HCR 3b (Dynamic SESSF)",4,4,4,4,4,4,24
 "23",NA,NA,"HCR 4 (NEFMC)",4,4,4,4,4,4,24
-"24",NA,NA,"HCR 5 (Avg F)",5,5,5,5,5,5,30
+"24",NA,NA,"HCR 5 (Avg F)",4,4,4,4,4,4,24
 "25",NA,"Est M","HCR 1a (NPFMC)",4,4,4,4,4,4,24
 "26",NA,NA,"HCR 1b (Dynamic NPFMC)",4,4,4,4,4,4,24
 "27",NA,NA,"HCR 2a (PFMC)",4,4,3,4,4,4,23

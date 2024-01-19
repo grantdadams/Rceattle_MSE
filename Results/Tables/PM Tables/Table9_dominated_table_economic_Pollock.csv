@@ -28,6 +28,6 @@
 "27",NA,NA,"HCR 2a (PFMC)",0,1,1,1,1,0,4
 "28",NA,NA,"HCR 2b (Dynamic PFMC)",1,0,1,1,1,1,5
 "29",NA,NA,"HCR 3a (SESSF)",0,0,0,1,0,0,1
-"30",NA,NA,"HCR 3b (Dynamic SESSF)",0,0,1,1,0,0,2
+"30",NA,NA,"HCR 3b (Dynamic SESSF)",0,1,1,1,0,0,3
 "31",NA,NA,"HCR 4 (NEFMC)",1,1,2,2,1,1,8
-"32",NA,NA,"HCR 5 (Avg F)",1,2,1,1,1,1,7
+"32",NA,NA,"HCR 5 (Avg F)",1,1,1,1,1,1,6

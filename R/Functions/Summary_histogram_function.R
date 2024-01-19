@@ -1,5 +1,5 @@
 
-mse_histogram <- function(system = "GOA", species = "Pollock", recname = "ConstantR", file = NULL, height = 7, width = 6, allHCR = FALSE, single = TRUE){
+mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, height = 7, width = 6, allHCR = FALSE, single = TRUE){
   
   library(dplyr)
   
@@ -35,7 +35,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", recname = "Consta
   
   
   # - Get output ----
-  output_table = pm_summary_table(om_names, EM_names, recname = recname, format = FALSE, reverse = TRUE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
   OM.res = output_table[[system]] %>%
     filter(Species == species)
   
@@ -69,8 +69,8 @@ mse_histogram <- function(system = "GOA", species = "Pollock", recname = "Consta
       }
       
       par(oma=c(0,2,0.15,0.1), mar=c(0,2,0,0), mai = c(0,0.3,0.25,0))
-      layout(mat = matrix(1:(length(recname)+1), (length(recname)+1), 1, byrow = TRUE),
-             heights = c(rep(1,length(recname)), 0.25), # Heights of the two rows
+      layout(mat = matrix(1:2, 2, 1, byrow = TRUE),
+             heights = c(1, 0.25), # Heights of the two rows
              widths = 1) # Widths of the two columns
       
       
@@ -120,7 +120,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", recname = "Consta
   ## Plot multi-panel ----
   if(!single){
     if(!is.null(file)){
-      png(filename = paste0(file, system, "_", species, "_", recname, ".png"), width = width, height = height, units = "in", res = 300)
+      png(filename = paste0(file, system, "_", species, ".png"), width = width, height = height, units = "in", res = 300)
     }
     
     par(oma=c(0,0.5,0.15,0.1), mar=rep(0,4), mai = c(0,0.3,0.25,0))
@@ -178,7 +178,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", recname = "Consta
 
 
 
-mse_histogram_two_system <- function(species = "Pollock", recname = "ConstantR", file = NULL, height = 7, width = 6, allHCR = FALSE, legend.pos = "topleft"){
+mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 7, width = 6, allHCR = FALSE, legend.pos = "topleft"){
   
   library(dplyr)
   
@@ -217,7 +217,7 @@ mse_histogram_two_system <- function(species = "Pollock", recname = "ConstantR",
   
   
   # - Get output ----
-  output_table = pm_summary_table(om_names, EM_names, recname = recname, format = FALSE, reverse = TRUE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
   
   # Colors
   MPcols <- gmri_pal("main")(10)
