@@ -93,7 +93,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                                 sampling_period = sampling_period, 
                                 simulate_data = TRUE, 
                                 sample_rec = TRUE, 
-                                rec_trend = rec_scen[[rec]],
+                                rec_trend = 0,
                                 cap = NULL, 
                                 dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",regenerate_past," regen/No cap"), 
                                 file = NULL,

@@ -1,8 +1,8 @@
-pacman::p_load(Rceattle, readxl, dplyr, tidyr, nmfspalette, writexl)
-setwd("Model runs/GOA_23.1.1/")
+pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
 load("Models/GOA_23_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2100
+alpha = exp(c(3.143, 1.975, 1.44))
 
 
 ## Ajust inits ----
@@ -211,63 +211,63 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
 
 # - SSP126
 ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                   inits = ss_mod$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          file = NULL, # Don't save
+                                          estimateMode = 0, # Estimate
+                                          random_rec = FALSE, # No random recruitment
+                                          msmMode = 0, # Single species mode
+                                          verbose = 1,
+                                          phase = NULL,
+                                          recFun = build_srr(srr_fun = 0,
+                                                             srr_pred_fun = 4,
+                                                             srr_env_indices = c(2,3,4),
+                                                             proj_mean_rec = FALSE,
+                                                             srr_est_mode = 1,
+                                                             srr_prior_mean = alpha,
+                                                             srr_prior_sd = 0.2,
+                                                             Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
+                                          ),
+                                          initMode = 2)
 
 # - SSP245
 ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                   inits = ss_mod$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          file = NULL, # Don't save
+                                          estimateMode = 0, # Estimate
+                                          random_rec = FALSE, # No random recruitment
+                                          msmMode = 0, # Single species mode
+                                          verbose = 1,
+                                          phase = NULL,
+                                          recFun = build_srr(srr_fun = 0,
+                                                             srr_pred_fun = 4,
+                                                             srr_env_indices = c(2,3,4),
+                                                             proj_mean_rec = FALSE,
+                                                             srr_est_mode = 1,
+                                                             srr_prior_mean = alpha,
+                                                             srr_prior_sd = 0.2,
+                                                             Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
+                                          ),
+                                          initMode = 2)
 
 # - SSP585
 ss_mod_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                   inits = ss_mod$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          file = NULL, # Don't save
+                                          estimateMode = 0, # Estimate
+                                          random_rec = FALSE, # No random recruitment
+                                          msmMode = 0, # Single species mode
+                                          verbose = 1,
+                                          phase = NULL,
+                                          recFun = build_srr(srr_fun = 0,
+                                                             srr_pred_fun = 4,
+                                                             srr_env_indices = c(2,3,4),
+                                                             proj_mean_rec = FALSE,
+                                                             srr_est_mode = 1,
+                                                             srr_prior_mean = alpha,
+                                                             srr_prior_sd = 0.2,
+                                                             Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
+                                          ),
+                                          initMode = 2)
 
 # OM 2) Single-species estimated M ----
 # * Density-independent recruitment ----
@@ -287,144 +287,144 @@ ss_mod_M <- Rceattle::fit_mod(data_list = combined_data,
 
 # -- SSP126
 ss_mod_M_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                   inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   recFun = build_srr(srr_fun = 1,
-                                                      srr_env_indices = c(2,3,4)),
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   initMode = 2)
+                                     inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                     file = NULL, # Don't save
+                                     estimateMode = 0, # Estimate
+                                     random_rec = FALSE, # No random recruitment
+                                     recFun = build_srr(srr_fun = 1,
+                                                        srr_env_indices = c(2,3,4)),
+                                     msmMode = 0, # Single species mode
+                                     verbose = 1,
+                                     phase = NULL,
+                                     M1Fun = build_M1(M1_model = c(1,2,1),
+                                                      M1_use_prior = FALSE,
+                                                      M2_use_prior = FALSE),
+                                     initMode = 2)
 
 # -- SSP245
 ss_mod_M_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                   inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   recFun = build_srr(srr_fun = 1,
-                                                      srr_env_indices = c(2,3,4)),
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   initMode = 2)
+                                     inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                     file = NULL, # Don't save
+                                     estimateMode = 0, # Estimate
+                                     random_rec = FALSE, # No random recruitment
+                                     recFun = build_srr(srr_fun = 1,
+                                                        srr_env_indices = c(2,3,4)),
+                                     msmMode = 0, # Single species mode
+                                     verbose = 1,
+                                     phase = NULL,
+                                     M1Fun = build_M1(M1_model = c(1,2,1),
+                                                      M1_use_prior = FALSE,
+                                                      M2_use_prior = FALSE),
+                                     initMode = 2)
 
 # -- SSP585
 ss_mod_M_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                   inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   recFun = build_srr(srr_fun = 1,
-                                                      srr_env_indices = c(2,3,4)),
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   initMode = 2)
+                                     inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                     file = NULL, # Don't save
+                                     estimateMode = 0, # Estimate
+                                     random_rec = FALSE, # No random recruitment
+                                     recFun = build_srr(srr_fun = 1,
+                                                        srr_env_indices = c(2,3,4)),
+                                     msmMode = 0, # Single species mode
+                                     verbose = 1,
+                                     phase = NULL,
+                                     M1Fun = build_M1(M1_model = c(1,2,1),
+                                                      M1_use_prior = FALSE,
+                                                      M2_use_prior = FALSE),
+                                     initMode = 2)
 
 
 # * Ricker recruitment ----
 # - Climate naive
 ss_mod_M_ricker <- Rceattle::fit_mod(data_list = combined_data,
-                                   inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 0, # Single species mode
-                                   verbose = 1,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 3,
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                     inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                     file = NULL, # Don't save
+                                     estimateMode = 0, # Estimate
+                                     random_rec = FALSE, # No random recruitment
+                                     msmMode = 0, # Single species mode
+                                     verbose = 1,
+                                     phase = NULL,
+                                     M1Fun = build_M1(M1_model = c(1,2,1),
+                                                      M1_use_prior = FALSE,
+                                                      M2_use_prior = FALSE),
+                                     recFun = build_srr(srr_fun = 0,
+                                                        srr_pred_fun = 3,
+                                                        proj_mean_rec = FALSE,
+                                                        srr_est_mode = 1,
+                                                        srr_prior_mean = alpha,
+                                                        srr_prior_sd = 0.2,
+                                                        Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
+                                     ),
+                                     initMode = 2)
 
 # - SSP126
 ss_mod_M_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                          inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                          file = NULL, # Don't save
-                                          estimateMode = 0, # Estimate
-                                          random_rec = FALSE, # No random recruitment
-                                          msmMode = 0, # Single species mode
-                                          verbose = 1,
-                                          phase = NULL,
-                                          M1Fun = build_M1(M1_model = c(1,2,1),
-                                                           M1_use_prior = FALSE,
-                                                           M2_use_prior = FALSE),
-                                          recFun = build_srr(srr_fun = 0,
-                                                             srr_pred_fun = 4,
-                                                             srr_env_indices = c(2,3,4),
-                                                             proj_mean_rec = FALSE,
-                                                             srr_est_mode = 1,
-                                                             srr_prior_mean = alpha,
-                                                             srr_prior_sd = 0.2,
-                                                             Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
-                                          ),
-                                          initMode = 2)
+                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            file = NULL, # Don't save
+                                            estimateMode = 0, # Estimate
+                                            random_rec = FALSE, # No random recruitment
+                                            msmMode = 0, # Single species mode
+                                            verbose = 1,
+                                            phase = NULL,
+                                            M1Fun = build_M1(M1_model = c(1,2,1),
+                                                             M1_use_prior = FALSE,
+                                                             M2_use_prior = FALSE),
+                                            recFun = build_srr(srr_fun = 0,
+                                                               srr_pred_fun = 4,
+                                                               srr_env_indices = c(2,3,4),
+                                                               proj_mean_rec = FALSE,
+                                                               srr_est_mode = 1,
+                                                               srr_prior_mean = alpha,
+                                                               srr_prior_sd = 0.2,
+                                                               Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
+                                            ),
+                                            initMode = 2)
 
 # - SSP245
 ss_mod_M_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                          inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                          file = NULL, # Don't save
-                                          estimateMode = 0, # Estimate
-                                          random_rec = FALSE, # No random recruitment
-                                          msmMode = 0, # Single species mode
-                                          verbose = 1,
-                                          phase = NULL,
-                                          M1Fun = build_M1(M1_model = c(1,2,1),
-                                                           M1_use_prior = FALSE,
-                                                           M2_use_prior = FALSE),
-                                          recFun = build_srr(srr_fun = 0,
-                                                             srr_pred_fun = 4,
-                                                             srr_env_indices = c(2,3,4),
-                                                             proj_mean_rec = FALSE,
-                                                             srr_est_mode = 1,
-                                                             srr_prior_mean = alpha,
-                                                             srr_prior_sd = 0.2,
-                                                             Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
-                                          ),
-                                          initMode = 2)
+                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            file = NULL, # Don't save
+                                            estimateMode = 0, # Estimate
+                                            random_rec = FALSE, # No random recruitment
+                                            msmMode = 0, # Single species mode
+                                            verbose = 1,
+                                            phase = NULL,
+                                            M1Fun = build_M1(M1_model = c(1,2,1),
+                                                             M1_use_prior = FALSE,
+                                                             M2_use_prior = FALSE),
+                                            recFun = build_srr(srr_fun = 0,
+                                                               srr_pred_fun = 4,
+                                                               srr_env_indices = c(2,3,4),
+                                                               proj_mean_rec = FALSE,
+                                                               srr_est_mode = 1,
+                                                               srr_prior_mean = alpha,
+                                                               srr_prior_sd = 0.2,
+                                                               Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
+                                            ),
+                                            initMode = 2)
 
 # - SSP585
 ss_mod_M_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                          inits = ss_mod_M$estimated_params, # Initial parameters = 0
-                                          file = NULL, # Don't save
-                                          estimateMode = 0, # Estimate
-                                          random_rec = FALSE, # No random recruitment
-                                          msmMode = 0, # Single species mode
-                                          verbose = 1,
-                                          phase = NULL,
-                                          M1Fun = build_M1(M1_model = c(1,2,1),
-                                                           M1_use_prior = FALSE,
-                                                           M2_use_prior = FALSE),
-                                          recFun = build_srr(srr_fun = 0,
-                                                             srr_pred_fun = 4,
-                                                             srr_env_indices = c(2,3,4),
-                                                             proj_mean_rec = FALSE,
-                                                             srr_est_mode = 1,
-                                                             srr_prior_mean = alpha,
-                                                             srr_prior_sd = 0.2,
-                                                             Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
-                                          ),
-                                          initMode = 2)
+                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            file = NULL, # Don't save
+                                            estimateMode = 0, # Estimate
+                                            random_rec = FALSE, # No random recruitment
+                                            msmMode = 0, # Single species mode
+                                            verbose = 1,
+                                            phase = NULL,
+                                            M1Fun = build_M1(M1_model = c(1,2,1),
+                                                             M1_use_prior = FALSE,
+                                                             M2_use_prior = FALSE),
+                                            recFun = build_srr(srr_fun = 0,
+                                                               srr_pred_fun = 4,
+                                                               srr_env_indices = c(2,3,4),
+                                                               proj_mean_rec = FALSE,
+                                                               srr_est_mode = 1,
+                                                               srr_prior_mean = alpha,
+                                                               srr_prior_sd = 0.2,
+                                                               Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
+                                            ),
+                                            initMode = 2)
 
 
 
@@ -503,102 +503,102 @@ ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
 # * Ricker recruitment ----
 # - Climate naive
 ms_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = ms_mod$estimated_params, # Initial parameters = 0
-                            file = NULL, # Don't save
-                            estimateMode = 0, # Estimate
-                            random_rec = FALSE, # No random recruitment
-                            msmMode = 1, # Multi species mode
-                            verbose = 1,
-                            niter = 5,
-                            suit_meanyr = 2023,
-                            phase = NULL,
-                            M1Fun = build_M1(M1_model = c(1,2,1),
-                                             M1_use_prior = FALSE,
-                                             M2_use_prior = FALSE),
-                            recFun = build_srr(srr_fun = 0,
-                                               srr_pred_fun = 3,
-                                               proj_mean_rec = FALSE,
-                                               srr_est_mode = 1,
-                                               srr_prior_mean = alpha,
-                                               srr_prior_sd = 0.2,
-                                               Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
-                            ),
-                            initMode = 2)
+                                   inits = ms_mod$estimated_params, # Initial parameters = 0
+                                   file = NULL, # Don't save
+                                   estimateMode = 0, # Estimate
+                                   random_rec = FALSE, # No random recruitment
+                                   msmMode = 1, # Multi species mode
+                                   verbose = 1,
+                                   niter = 5,
+                                   suit_meanyr = 2023,
+                                   phase = NULL,
+                                   M1Fun = build_M1(M1_model = c(1,2,1),
+                                                    M1_use_prior = FALSE,
+                                                    M2_use_prior = FALSE),
+                                   recFun = build_srr(srr_fun = 0,
+                                                      srr_pred_fun = 3,
+                                                      proj_mean_rec = FALSE,
+                                                      srr_est_mode = 1,
+                                                      srr_prior_mean = alpha,
+                                                      srr_prior_sd = 0.2,
+                                                      Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
+                                   ),
+                                   initMode = 2)
 
 # - SSP126
 ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                   inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 1, # Multi species mode
-                                   verbose = 1,
-                                   niter = 5,
-                                   suit_meanyr = 2023,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                          inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
+                                          file = NULL, # Don't save
+                                          estimateMode = 0, # Estimate
+                                          random_rec = FALSE, # No random recruitment
+                                          msmMode = 1, # Multi species mode
+                                          verbose = 1,
+                                          niter = 5,
+                                          suit_meanyr = 2023,
+                                          phase = NULL,
+                                          M1Fun = build_M1(M1_model = c(1,2,1),
+                                                           M1_use_prior = FALSE,
+                                                           M2_use_prior = FALSE),
+                                          recFun = build_srr(srr_fun = 0,
+                                                             srr_pred_fun = 4,
+                                                             srr_env_indices = c(2,3,4),
+                                                             proj_mean_rec = FALSE,
+                                                             srr_est_mode = 1,
+                                                             srr_prior_mean = alpha,
+                                                             srr_prior_sd = 0.2,
+                                                             Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
+                                          ),
+                                          initMode = 2)
 
 # - SSP245
 ms_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                   inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 1, # Multi species mode
-                                   verbose = 1,
-                                   niter = 5,
-                                   suit_meanyr = 2023,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                          inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
+                                          file = NULL, # Don't save
+                                          estimateMode = 0, # Estimate
+                                          random_rec = FALSE, # No random recruitment
+                                          msmMode = 1, # Multi species mode
+                                          verbose = 1,
+                                          niter = 5,
+                                          suit_meanyr = 2023,
+                                          phase = NULL,
+                                          M1Fun = build_M1(M1_model = c(1,2,1),
+                                                           M1_use_prior = FALSE,
+                                                           M2_use_prior = FALSE),
+                                          recFun = build_srr(srr_fun = 0,
+                                                             srr_pred_fun = 4,
+                                                             srr_env_indices = c(2,3,4),
+                                                             proj_mean_rec = FALSE,
+                                                             srr_est_mode = 1,
+                                                             srr_prior_mean = alpha,
+                                                             srr_prior_sd = 0.2,
+                                                             Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
+                                          ),
+                                          initMode = 2)
 
 # - SSP585
 ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                   inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
-                                   file = NULL, # Don't save
-                                   estimateMode = 0, # Estimate
-                                   random_rec = FALSE, # No random recruitment
-                                   msmMode = 1, # Multi species mode
-                                   verbose = 1,
-                                   niter = 5,
-                                   suit_meanyr = 2023,
-                                   phase = NULL,
-                                   M1Fun = build_M1(M1_model = c(1,2,1),
-                                                    M1_use_prior = FALSE,
-                                                    M2_use_prior = FALSE),
-                                   recFun = build_srr(srr_fun = 0,
-                                                      srr_pred_fun = 4,
-                                                      srr_env_indices = c(2,3,4),
-                                                      proj_mean_rec = FALSE,
-                                                      srr_est_mode = 1,
-                                                      srr_prior_mean = alpha,
-                                                      srr_prior_sd = 0.2,
-                                                      Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
-                                   ),
-                                   initMode = 2)
+                                         inits = ms_mod_ricker$estimated_params, # Initial parameters = 0
+                                         file = NULL, # Don't save
+                                         estimateMode = 0, # Estimate
+                                         random_rec = FALSE, # No random recruitment
+                                         msmMode = 1, # Multi species mode
+                                         verbose = 1,
+                                         niter = 5,
+                                         suit_meanyr = 2023,
+                                         phase = NULL,
+                                         M1Fun = build_M1(M1_model = c(1,2,1),
+                                                          M1_use_prior = FALSE,
+                                                          M2_use_prior = FALSE),
+                                         recFun = build_srr(srr_fun = 0,
+                                                            srr_pred_fun = 4,
+                                                            srr_env_indices = c(2,3,4),
+                                                            proj_mean_rec = FALSE,
+                                                            srr_est_mode = 1,
+                                                            srr_prior_mean = alpha,
+                                                            srr_prior_sd = 0.2,
+                                                            Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
+                                         ),
+                                         initMode = 2)
 
 
 
@@ -609,8 +609,8 @@ om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
                 ss_mod_M, ss_mod_M_ssp126, ss_mod_M_ssp245, ss_mod_M_ssp585,
                 ss_mod_M_ricker, ss_mod_M_ricker_ssp126, ss_mod_M_ricker_ssp245, ss_mod_M_ricker_ssp585,
                 ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585,
-                ms_mod_ricker, ms_mod_ssp126_ricker, ms_mod_ssp245_ricker, ms_mod_ssp585_ricker,
-                )
+                ms_mod_ricker, ms_mod_ricker_ssp126, ms_mod_ricker_ssp245, ms_mod_ricker_ssp585
+)
 
 for(i in 1:length(om_list)){
   avg_F <- (exp(om_list[[i]]$estimated_params$ln_mean_F+om_list[[i]]$estimated_params$F_dev)) # Average F from last 2 years
@@ -619,6 +619,17 @@ for(i in 1:length(om_list)){
   f_ratio <- f_ratio/sum(f_ratio)
   
   # Adjust future F proportion to each fleet
-  om_list[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0, 0, 0)
+  om_list[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0)
   om_list[[i]]$estimated_params$proj_F_prop <- om_list[[i]]$data_list$fleet_control$proj_F_prop
 }
+
+
+
+
+om_names <- paste0(c("ss_mod", "ss_mod_ssp126", "ss_mod_ssp245", "ss_mod_ssp585",
+                     "ss_mod_ricker", "ss_mod_ricker_ssp126", "ss_mod_ricker_ssp245", "ss_mod_ricker_ssp585",
+                     "ss_mod_M", "ss_mod_M_ssp126", "ss_mod_M_ssp245", "ss_mod_M_ssp585",
+                     "ss_mod_M_ricker", "ss_mod_M_ricker_ssp126", "ss_mod_M_ricker_ssp245", "ss_mod_M_ricker_ssp585",
+                     "ms_mod", "ms_mod_ssp126", "ms_mod_ssp245", "ms_mod_ssp585",
+                     "ms_mod_ricker", "ms_mod_ricker_ssp126", "ms_mod_ricker_ssp245", "ms_mod_ricker_ssp585"
+), "_OM")
