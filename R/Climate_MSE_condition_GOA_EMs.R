@@ -82,7 +82,7 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
                                                     FsprLimit = 0.35, # F35%
                                                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                     Alpha = 0.05),
-                                    initMode = 2)
+                                    initMode = 1)
 # - Dynamic Tier-3
 ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
                                            inits = mod_list_all[[2]]$estimated_params, # Initial parameters = 0
@@ -101,7 +101,7 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
                                                            FsprLimit = 0.35, # F35%
                                                            Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                                                            Alpha = 0.05),
-                                           initMode = 2)
+                                           initMode = 1)
 
 
 

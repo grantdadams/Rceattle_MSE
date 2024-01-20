@@ -279,11 +279,12 @@ ss_mod_M <- Rceattle::fit_mod(data_list = combined_data,
                               random_rec = FALSE, # No random recruitment
                               msmMode = 0, # Single species mode
                               verbose = 1,
-                              phase = NULL,
+                              phase = "default",
                               M1Fun = build_M1(M1_model = c(1,2,1),
+                                               updateM1 = FALSE,
                                                M1_use_prior = FALSE,
                                                M2_use_prior = FALSE),
-                              initMode = 2)
+                              initMode = 1)
 
 # -- SSP126
 ss_mod_M_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
@@ -295,11 +296,11 @@ ss_mod_M_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                         srr_env_indices = c(2,3,4)),
                                      msmMode = 0, # Single species mode
                                      verbose = 1,
-                                     phase = NULL,
+                                     phase = "default",
                                      M1Fun = build_M1(M1_model = c(1,2,1),
                                                       M1_use_prior = FALSE,
                                                       M2_use_prior = FALSE),
-                                     initMode = 2)
+                                     initMode = 1)
 
 # -- SSP245
 ss_mod_M_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -315,7 +316,7 @@ ss_mod_M_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                      M1Fun = build_M1(M1_model = c(1,2,1),
                                                       M1_use_prior = FALSE,
                                                       M2_use_prior = FALSE),
-                                     initMode = 2)
+                                     initMode = 1)
 
 # -- SSP585
 ss_mod_M_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -331,7 +332,7 @@ ss_mod_M_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                      M1Fun = build_M1(M1_model = c(1,2,1),
                                                       M1_use_prior = FALSE,
                                                       M2_use_prior = FALSE),
-                                     initMode = 2)
+                                     initMode = 1)
 
 
 # * Ricker recruitment ----
@@ -611,6 +612,13 @@ om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
                 ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585,
                 ms_mod_ricker, ms_mod_ricker_ssp126, ms_mod_ricker_ssp245, ms_mod_ricker_ssp585
 )
+
+plot_biomass(om_list[1:4], incl_proj = TRUE)
+plot_biomass(om_list[5:8], incl_proj = TRUE)
+plot_biomass(om_list[9:12], incl_proj = TRUE)
+plot_biomass(om_list[13:16], incl_proj = TRUE)
+plot_biomass(om_list[17:20], incl_proj = TRUE)
+plot_biomass(om_list[21:24], incl_proj = TRUE)
 
 for(i in 1:length(om_list)){
   avg_F <- (exp(om_list[[i]]$estimated_params$ln_mean_F+om_list[[i]]$estimated_params$F_dev)) # Average F from last 2 years

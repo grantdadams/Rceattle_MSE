@@ -27,7 +27,7 @@ source("R/Functions/Run_climate_MSE_function.R")
 run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list, em_hcr_names = em_names, sampling_period = sampling_period, nsim = 1, regenerate_past = FALSE, cap = NULL)
 
 # Cap
-run_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[1], em_hcr_names = em_names, sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE, cap = cap_list)
+run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list, em_hcr_names = em_names, sampling_period = sampling_period, nsim = 1, regenerate_past = FALSE, cap = cap_list)
 
 
 # 11 = 1, 12 = 2, 1 = 3, 4 = 4, 5 = 5, 8 = 6
