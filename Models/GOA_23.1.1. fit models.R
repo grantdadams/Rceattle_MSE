@@ -13,7 +13,7 @@ ss_mod <- Rceattle::fit_mod(data_list = combined_data,
                             msmMode = 0, # Single species mode
                             verbose = 1,
                             phase = "default",
-                            initMode = 2)
+                            initMode = 1)
 
 
 
@@ -29,7 +29,7 @@ ssm <- Rceattle::fit_mod(data_list = combined_data,
                          M1Fun = build_M1(M1_model = c(1,2,1),
                                           M1_use_prior = FALSE,
                                           M2_use_prior = FALSE),
-                         initMode = 2)
+                         initMode = 1)
 
 
 # - Est multi-species
@@ -41,12 +41,12 @@ ms_mod <- Rceattle::fit_mod(data_list = combined_data,
                             random_rec = FALSE, # No random recruitment
                             msmMode = 1, # Multi species mode
                             verbose = 1,
-                            meanyr = 2018,
+                            suit_meanyr = 2018,
                             phase = "default",
                             M1Fun = build_M1(M1_model = c(1,2,1),
                                              M1_use_prior = FALSE,
                                              M2_use_prior = FALSE),
-                            initMode = 2)
+                            initMode = 1)
 
 
 # Phase in predation if doesnt converge
@@ -73,11 +73,11 @@ if( class(ms_mod) == "try-error" ){
                        M2_use_prior = FALSE),
       random_rec = FALSE, # No random recruitment
       msmMode = 1, # Multi species mode
-      meanyr = ms_mod$data_list$meanyr,
+      suit_meanyr = ms_mod$data_list$suit_meanyr,
       verbose = 1,
       initMode = 1,
       phase = NULL,
-      initMode = 2)
+      initMode = 1)
   }
 }
 
@@ -94,10 +94,10 @@ if( is.null(ms_mod$opt$objective)){
                      M2_use_prior = FALSE),
     random_rec = FALSE, # No random recruitment
     msmMode = 1, # Multi species mode
-    meanyr = ms_mod$data_list$meanyr,
+    suit_meanyr = ms_mod$data_list$suit_meanyr,
     verbose = 1,
     phase = "default",
-    initMode = 2),
+    initMode = 1),
     silent = TRUE)
 }
 
@@ -114,9 +114,9 @@ if(!is.null(ms_mod$opt$objective)){
       estimateMode = 0, # Estimate
       random_rec = FALSE, # No random recruitment
       msmMode = 1, # Multi species mode
-      meanyr = ms_mod$data_list$meanyr,
+      suit_meanyr = ms_mod$data_list$suit_meanyr,
       verbose = 1,
-      initMode = 2,
+      initMode = 1,
       phase = "default"),
       silent = TRUE)
   }
@@ -129,4 +129,4 @@ plot_b_eaten(mod_list_all)
 plot_recruitment(mod_list_all)
 
 # - Save
-save(mod_list_all, file = "Models/GOA_23_1_1_mod_list.RData")
+save(mod_list_all, file = "Models/GOA_23_1_1_mod_list_new.RData")
