@@ -620,6 +620,18 @@ plot_biomass(om_list[13:16], incl_proj = TRUE)
 plot_biomass(om_list[17:20], incl_proj = TRUE)
 plot_biomass(om_list[21:24], incl_proj = TRUE)
 
+plot_recruitment(om_list[1:4], incl_proj = TRUE)
+plot_recruitment(om_list[5:8], incl_proj = TRUE)
+plot_recruitment(om_list[9:12], incl_proj = TRUE)
+plot_recruitment(om_list[13:16], incl_proj = TRUE)
+plot_recruitment(om_list[17:20], incl_proj = TRUE)
+plot_recruitment(om_list[21:24], incl_proj = TRUE)
+
+plot_stock_recruit(om_list[5:8])
+plot_stock_recruit(om_list[13:16])
+plot_stock_recruit(om_list[21:24])
+
+
 for(i in 1:length(om_list)){
   avg_F <- (exp(om_list[[i]]$estimated_params$ln_mean_F+om_list[[i]]$estimated_params$F_dev)) # Average F from last 2 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-2) : ncol(avg_F)])
