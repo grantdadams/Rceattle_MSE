@@ -114,7 +114,7 @@ ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data,
                                  random_rec = FALSE, # No random recruitment
                                  msmMode = 1, # Multi species mode
                                  verbose = 1,
-                                 niter = 5,
+                                 niter = 3,
                                  suit_meanyr = 2018,
                                  phase = NULL,
                                  M1Fun = build_M1(M1_model = c(1,2,1),
@@ -134,7 +134,7 @@ ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data,
                                      random_rec = FALSE, # No random recruitment
                                      msmMode = 1, # Multi species mode
                                      verbose = 1,
-                                     niter = 5,
+                                     niter = 3,
                                      suit_meanyr = 2018,
                                      phase = NULL,
                                      M1Fun = build_M1(M1_model = c(1,2,1),
@@ -155,7 +155,7 @@ ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data,
                                  random_rec = FALSE, # No random recruitment
                                  msmMode = 1, # Multi species mode
                                  verbose = 1,
-                                 niter = 5,
+                                 niter = 3,
                                  suit_meanyr = 2018,
                                  phase = NULL,
                                  M1Fun = build_M1(M1_model = c(1,2,1),
@@ -173,7 +173,7 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data,
                                     random_rec = FALSE, # No random recruitment
                                     msmMode = 1, # Multi species mode
                                     verbose = 1,
-                                    niter = 5,
+                                    niter = 3,
                                     suit_meanyr = 2018,
                                     phase = NULL,
                                     M1Fun = build_M1(M1_model = c(1,2,1),

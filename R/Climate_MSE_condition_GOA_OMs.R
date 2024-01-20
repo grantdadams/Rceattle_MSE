@@ -439,7 +439,7 @@ ms_mod <- Rceattle::fit_mod(data_list = combined_data,
                             random_rec = FALSE, # No random recruitment
                             msmMode = 1, # Multi species mode
                             verbose = 1,
-                            niter = 5,
+                            niter = 3,
                             suit_meanyr = 2023,
                             phase = NULL,
                             M1Fun = build_M1(M1_model = c(1,2,1),
@@ -455,7 +455,7 @@ ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 5,
+                                   niter = 3,
                                    suit_meanyr = 2023,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -473,7 +473,7 @@ ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 5,
+                                   niter = 3,
                                    suit_meanyr = 2023,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -491,7 +491,7 @@ ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 5,
+                                   niter = 3,
                                    suit_meanyr = 2023,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -510,7 +510,7 @@ ms_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 5,
+                                   niter = 3,
                                    suit_meanyr = 2023,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -534,7 +534,7 @@ ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                           random_rec = FALSE, # No random recruitment
                                           msmMode = 1, # Multi species mode
                                           verbose = 1,
-                                          niter = 5,
+                                          niter = 3,
                                           suit_meanyr = 2023,
                                           phase = NULL,
                                           M1Fun = build_M1(M1_model = c(1,2,1),
@@ -559,7 +559,7 @@ ms_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                           random_rec = FALSE, # No random recruitment
                                           msmMode = 1, # Multi species mode
                                           verbose = 1,
-                                          niter = 5,
+                                          niter = 3,
                                           suit_meanyr = 2023,
                                           phase = NULL,
                                           M1Fun = build_M1(M1_model = c(1,2,1),
@@ -584,7 +584,7 @@ ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
                                          random_rec = FALSE, # No random recruitment
                                          msmMode = 1, # Multi species mode
                                          verbose = 1,
-                                         niter = 5,
+                                         niter = 3,
                                          suit_meanyr = 2023,
                                          phase = NULL,
                                          M1Fun = build_M1(M1_model = c(1,2,1),
