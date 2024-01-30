@@ -24,10 +24,10 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1,1,1)
 source("R/Functions/Run_climate_MSE_function.R")
 
 # No cap
-run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[1:2], em_hcr_names = em_names[1:2], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE, cap = NULL)
+run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE, cap = NULL)
 
 # Cap
-run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[1:2], em_hcr_names = em_names[1:2], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE, cap = cap_list)
+run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE, cap = cap_list)
 
 
 # 12 = HCRs 1/2, 1 = HCR 3/4, 3 = HCR 5, 4 = HCR 6, 5 = HCR 7, 9 =  HCR 8

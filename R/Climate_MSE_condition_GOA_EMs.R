@@ -54,7 +54,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
                                          msmMode = 0, # Single species mode
                                          verbose = 1,
                                          phase = NULL,
-                                         initMode = 2,
+                                         initMode = 1,
                                          HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                          DynamicHCR = TRUE, # dynamic reference points
                                                          FsprTarget = 0.4, # F40%
@@ -123,7 +123,7 @@ ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data,
                                  HCR = build_hcr(HCR = 3, # Constant F HCR
                                                  DynamicHCR = FALSE, # Use dynamic reference points
                                                  FsprTarget = 0.4), # F that achieves 40% SB0
-                                 initMode = 2)
+                                 initMode = 1)
 
 
 # -- F that acheives 40% of SB0, where SB0 is derived from first projecting arrowtooth and cod under no fishing, then projecting pollock under no fishing and cod/arrowtooth at SB40.
@@ -144,7 +144,7 @@ ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data,
                                                      DynamicHCR = FALSE, # Use dynamic reference points
                                                      FsprTarget = 0.4,
                                                      HCRorder = c(1,2,1)), # F that achieves 40% SB0
-                                     initMode = 2)
+                                     initMode = 1)
 
 
 # -- Multi-species CMSY
@@ -162,7 +162,7 @@ ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data,
                                                   M1_use_prior = FALSE,
                                                   M2_use_prior = FALSE),
                                  HCR = build_hcr(HCR = 1),
-                                 initMode = 2)
+                                 initMode = 1)
 
 # -- Multi-species CMSY, constrained so that species don't fall below 20% SB0
 # -- SB0 is derived from projecting all species simultaneously under no fishing
@@ -181,7 +181,7 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data,
                                                      M2_use_prior = FALSE),
                                     HCR = build_hcr(HCR = 1,
                                                     Plimit = 0.2),
-                                    initMode = 2)
+                                    initMode = 1)
 
 
 
