@@ -116,13 +116,16 @@ climate_data <- fall_sst_data %>%
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
 ssp_dat_126$env_data <- climate_data %>%
-  select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z )
+  select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z ) %>%
+  filter(Year < 2019)
 
 ssp_dat_245$env_data <- climate_data %>%
-  select(Year, BT_value_ssp245, SST_value_ssp245z, SST_value_squared_ssp245z, MZL_value_ssp245z )
+  select(Year, BT_value_ssp245, SST_value_ssp245z, SST_value_squared_ssp245z, MZL_value_ssp245z ) %>%
+  filter(Year < 2019)
 
 ssp_dat_585$env_data <- climate_data %>%
-  select(Year, BT_value_ssp585, SST_value_ssp585z, SST_value_squared_ssp585z, MZL_value_ssp585z )
+  select(Year, BT_value_ssp585, SST_value_ssp585z, SST_value_squared_ssp585z, MZL_value_ssp585z ) %>%
+  filter(Year < 2019)
 
 
 ## Estimate OMs ----
@@ -201,7 +204,7 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
 
 # - SSP126
 ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -217,7 +220,7 @@ ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # - SSP245
 ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,

@@ -170,7 +170,7 @@ ss_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP245
 ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -183,7 +183,7 @@ ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP585
 ss_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -196,7 +196,7 @@ ss_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 
 # * Ricker recruitment ----
@@ -455,7 +455,7 @@ ms_mod <- Rceattle::fit_mod(data_list = combined_data,
                             M1Fun = build_M1(M1_model = c(1,2,1),
                                              M1_use_prior = FALSE,
                                              M2_use_prior = FALSE),
-                            initMode = 2)
+                            initMode = 1)
 
 # -- SSP126
 ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
@@ -473,7 +473,7 @@ ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP245
 ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -491,7 +491,7 @@ ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP585
 ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -509,7 +509,7 @@ ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # * Ricker recruitment ----
 # - Climate naive
