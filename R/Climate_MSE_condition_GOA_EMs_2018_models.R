@@ -77,7 +77,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
                                   msmMode = 0, # Single species mode
                                   verbose = 1,
                                   phase = NULL,
-                                  initMode = 2,
+                                  initMode = 1,
                                   HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                   DynamicHCR = FALSE, # Dont dynamic reference points
                                                   FsprTarget = 0.4, # F40%
@@ -94,7 +94,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
                                          msmMode = 0, # Single species mode
                                          verbose = 1,
                                          phase = NULL,
-                                         initMode = 2,
+                                         initMode = 1,
                                          HCR = build_hcr(HCR = 5, # Tier3 HCR
                                                          DynamicHCR = TRUE, # dynamic reference points
                                                          FsprTarget = 0.4, # F40%
