@@ -1,17 +1,8 @@
+## Load packages and data ----
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
-load("Models/GOA_23_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
+combined_data <- read_data(file = "Data/GOA_18_5_1_data_1977-2018_no_halibut.xlsx")
 combined_data$projyr <- 2100
 alpha = exp(c(3.143, 1.975, 1.44))
-
-
-## Ajust inits ----
-for(i in 1:length(mod_list_all)){
-  mod_list_all[[i]]$estimated_params$rec_dev <- cbind(
-    mod_list_all[[i]]$estimated_params$rec_dev, matrix(0, nrow = 3, ncol = 50))
-  
-  mod_list_all[[i]]$estimated_params$beta_rec_pars <- matrix(0, 3, 1)
-}
 
 
 ## Climate data ----
@@ -122,7 +113,6 @@ climate_data <- fall_sst_data %>%
 
 
 # - add to Rceattle object
-combined_data$fleet_control$Fleet_type[18] <- 0
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
 ssp_dat_126$env_data <- climate_data %>%
@@ -139,25 +129,15 @@ ssp_dat_585$env_data <- climate_data %>%
 # OM 1) Single-spp fix M ----
 # * Density-independent recruitment ----
 # - Climate naive
-combined_data$fleet_control$Fleet_type[17] <- 0
 ss_mod <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
+                            inits = NULL, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 0, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
                             verbose = 1,
-                            phase = NULL,
-                            initMode = 1)
+                            phase = "default")
 
-ss_mod <- Rceattle::fit_mod(data_list = ss_mod$data_list,
-                            inits = ss_mod$initial_params, # Initial parameters = 0
-                            file = NULL, # Don't save
-                            estimateMode = 0, # Estimate
-                            random_rec = FALSE, # No random recruitment
-                            msmMode = 0, # Single species mode
-                            verbose = 1,
-                            phase = NULL)
 
 # -- SSP126
 ss_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
@@ -170,7 +150,7 @@ ss_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP245
 ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -183,7 +163,7 @@ ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP585
 ss_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -196,7 +176,7 @@ ss_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
                                    phase = NULL,
-                                   initMode = 2)
+                                   initMode = 1)
 
 
 # * Ricker recruitment ----
@@ -221,7 +201,7 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
 
 # - SSP126
 ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -241,7 +221,7 @@ ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
 
 # - SSP245
 ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -261,7 +241,7 @@ ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
 
 # - SSP585
 ss_mod_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -283,7 +263,7 @@ ss_mod_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
 # * Density-independent recruitment ----
 # - Climate naive
 ss_mod_M <- Rceattle::fit_mod(data_list = combined_data,
-                              inits = mod_list_all[[2]]$estimated_params, # Initial parameters = 0
+                              inits = ss_mod$estimated_params, # Initial parameters = 0
                               file = NULL, # Don't save
                               estimateMode = 0, # Estimate
                               random_rec = FALSE, # No random recruitment
@@ -370,7 +350,7 @@ ss_mod_M_ricker <- Rceattle::fit_mod(data_list = combined_data,
 
 # - SSP126
 ss_mod_M_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -393,7 +373,7 @@ ss_mod_M_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
 
 # - SSP245
 ss_mod_M_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -416,7 +396,7 @@ ss_mod_M_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
 
 # - SSP585
 ss_mod_M_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -443,19 +423,19 @@ ss_mod_M_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
 # * Density-independent recruitment ----
 # - Climate naive
 ms_mod <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
+                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 0, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 1, # Multi species mode
                             verbose = 1,
                             niter = 3,
-                            suit_meanyr = 2023,
-                            phase = NULL,
+                            suit_meanyr = 2018,
+                            phase = "default",
                             M1Fun = build_M1(M1_model = c(1,2,1),
                                              M1_use_prior = FALSE,
                                              M2_use_prior = FALSE),
-                            initMode = 2)
+                            initMode = 1)
 
 # -- SSP126
 ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
@@ -466,14 +446,14 @@ ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
                                    niter = 3,
-                                   suit_meanyr = 2023,
+                                   suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
                                                     M1_use_prior = FALSE,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP245
 ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -484,14 +464,14 @@ ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
                                    niter = 3,
-                                   suit_meanyr = 2023,
+                                   suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
                                                     M1_use_prior = FALSE,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # -- SSP585
 ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -502,14 +482,14 @@ ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
                                    niter = 3,
-                                   suit_meanyr = 2023,
+                                   suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
                                                     M1_use_prior = FALSE,
                                                     M2_use_prior = FALSE),
                                    recFun = build_srr(srr_fun = 1,
                                                       srr_env_indices = c(2,3,4)),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # * Ricker recruitment ----
 # - Climate naive
@@ -521,7 +501,7 @@ ms_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
                                    niter = 3,
-                                   suit_meanyr = 2023,
+                                   suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
                                                     M1_use_prior = FALSE,
@@ -545,7 +525,7 @@ ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                           msmMode = 1, # Multi species mode
                                           verbose = 1,
                                           niter = 3,
-                                          suit_meanyr = 2023,
+                                          suit_meanyr = 2018,
                                           phase = NULL,
                                           M1Fun = build_M1(M1_model = c(1,2,1),
                                                            M1_use_prior = FALSE,
@@ -570,7 +550,7 @@ ms_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                           msmMode = 1, # Multi species mode
                                           verbose = 1,
                                           niter = 3,
-                                          suit_meanyr = 2023,
+                                          suit_meanyr = 2018,
                                           phase = NULL,
                                           M1Fun = build_M1(M1_model = c(1,2,1),
                                                            M1_use_prior = FALSE,
@@ -595,7 +575,7 @@ ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
                                          msmMode = 1, # Multi species mode
                                          verbose = 1,
                                          niter = 3,
-                                         suit_meanyr = 2023,
+                                         suit_meanyr = 2018,
                                          phase = NULL,
                                          M1Fun = build_M1(M1_model = c(1,2,1),
                                                           M1_use_prior = FALSE,
@@ -649,7 +629,7 @@ for(i in 1:length(om_list)){
   f_ratio <- f_ratio/sum(f_ratio)
   
   # Adjust future F proportion to each fleet
-  om_list[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0)
+  om_list[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
   om_list[[i]]$estimated_params$proj_F_prop <- om_list[[i]]$data_list$fleet_control$proj_F_prop
 }
 
