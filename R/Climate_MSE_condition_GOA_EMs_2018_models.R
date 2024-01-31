@@ -225,5 +225,9 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data,
 
 
 
-em_list <- list(ss_run_Tier3, ss_run_dynamicTier3, ss_run_M_Tier3, ss_run_M_dynamicTier3, ms_run_fb40, ms_run_fb40iter, ms_run_cmsy, ms_run_concmsy)
-em_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", "ss_run_M_Tier3", "ss_run_M_dynamicTier3", "ms_run_fb40", "ms_run_fb40iter", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
+em_list <- list(ss_run_Tier3, ss_run_dynamicTier3, 
+                ss_run_M_Tier3, ss_run_M_dynamicTier3, 
+                ms_run_fb40, ms_run_fb40iter, ms_run_cmsy, ms_run_concmsy)
+em_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", 
+                     "ss_run_M_Tier3", "ss_run_M_dynamicTier3", 
+                     "ms_run_fb40", "ms_run_fb40iter", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
