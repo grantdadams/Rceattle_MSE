@@ -1,16 +1,54 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
-load("Models/GOA_23_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2130
 
 
+
+ss_mod <- Rceattle::fit_mod(data_list = combined_data,
+                            inits = NULL, # Initial parameters = 0
+                            file = NULL, # Don't save
+                            estimateMode = 0, # Estimate
+                            random_rec = FALSE, # No random recruitment
+                            msmMode = 0, # Single species mode
+                            verbose = 1,
+                            phase = "default",
+                            initMode = 1)
+
+
+ss_mod_M <- Rceattle::fit_mod(data_list = combined_data,
+                              inits = ss_mod$estimated_params, # Initial parameters = 0
+                              file = NULL, # Don't save
+                              estimateMode = 0, # Estimate
+                              random_rec = FALSE, # No random recruitment
+                              msmMode = 0, # Single species mode
+                              verbose = 1,
+                              phase = "default",
+                              M1Fun = build_M1(M1_model = c(1,2,1),
+                                               updateM1 = FALSE,
+                                               M1_use_prior = FALSE,
+                                               M2_use_prior = FALSE),
+                              initMode = 1)
+
+
+ms_mod <- Rceattle::fit_mod(data_list = combined_data,
+                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                            file = NULL, # Don't save
+                            estimateMode = 0, # Estimate
+                            random_rec = FALSE, # No random recruitment
+                            msmMode = 1, # Multi species mode
+                            verbose = 1,
+                            niter = 3,
+                            suit_meanyr = 2023,
+                            phase = "default",
+                            M1Fun = build_M1(M1_model = c(1,2,1),
+                                             M1_use_prior = FALSE,
+                                             M2_use_prior = FALSE),
+                            initMode = 1)
+
+
 ## Ajust inits ----
+mod_list_all <- list(ss_mod, ss_mod_M, ms_mod)
 for(i in 1:length(mod_list_all)){
-  # - Adjust rec-dev dimension
-  mod_list_all[[i]]$estimated_params$rec_dev <- cbind(
-    mod_list_all[[i]]$estimated_params$rec_dev, matrix(0, nrow = 3, ncol = 80))
-  
-  mod_list_all[[i]]$estimated_params$beta_rec_pars <- matrix(0, 3, 1)
   
   # - Adjust Fprop for Cod
   avg_F <- (exp(mod_list_all[[i]]$estimated_params$ln_mean_F+mod_list_all[[i]]$estimated_params$F_dev)) # Average F from last 2 years

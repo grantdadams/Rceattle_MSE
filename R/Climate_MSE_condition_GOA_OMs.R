@@ -1,17 +1,7 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
-load("Models/GOA_23_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2100
 alpha = exp(c(3.143, 1.975, 1.44))
-
-
-## Ajust inits ----
-for(i in 1:length(mod_list_all)){
-  mod_list_all[[i]]$estimated_params$rec_dev <- cbind(
-    mod_list_all[[i]]$estimated_params$rec_dev, matrix(0, nrow = 3, ncol = 50))
-  
-  mod_list_all[[i]]$estimated_params$beta_rec_pars <- matrix(0, 3, 1)
-}
 
 
 ## Climate data ----
@@ -139,25 +129,15 @@ ssp_dat_585$env_data <- climate_data %>%
 # OM 1) Single-spp fix M ----
 # * Density-independent recruitment ----
 # - Climate naive
-combined_data$fleet_control$Fleet_type[17] <- 0
 ss_mod <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
+                            inits = NULL, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 0, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
                             verbose = 1,
-                            phase = NULL,
+                            phase = "default",
                             initMode = 1)
-
-ss_mod <- Rceattle::fit_mod(data_list = ss_mod$data_list,
-                            inits = ss_mod$initial_params, # Initial parameters = 0
-                            file = NULL, # Don't save
-                            estimateMode = 0, # Estimate
-                            random_rec = FALSE, # No random recruitment
-                            msmMode = 0, # Single species mode
-                            verbose = 1,
-                            phase = NULL)
 
 # -- SSP126
 ss_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
