@@ -3,12 +3,6 @@ load("Models/GOA_23_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2130
 
-pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
-load("Models/GOA_23_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
-combined_data$projyr <- 2100
-alpha = exp(c(3.143, 1.975, 1.44))
-
 
 ## Ajust inits ----
 turn_offs <- c("logH_1", "logH_1a", "logH_1b", "logH_2", "logH_3", "H_4", "log_gam_a", "log_gam_b", "log_phi")
