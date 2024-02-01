@@ -598,7 +598,7 @@ ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
 
 
 ## Adjust f prop ----
-om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
+om_list_2018 <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
                 ss_mod_ricker, ss_mod_ricker_ssp126, ss_mod_ricker_ssp245, ss_mod_ricker_ssp585,
                 ss_mod_M, ss_mod_M_ssp126, ss_mod_M_ssp245, ss_mod_M_ssp585,
                 ss_mod_M_ricker, ss_mod_M_ricker_ssp126, ss_mod_M_ricker_ssp245, ss_mod_M_ricker_ssp585,
@@ -608,15 +608,15 @@ om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
 
 
 
-for(i in 1:length(om_list)){
-  avg_F <- (exp(om_list[[i]]$estimated_params$ln_mean_F+om_list[[i]]$estimated_params$F_dev)) # Average F from last 2 years
+for(i in 1:length(om_list_2018)){
+  avg_F <- (exp(om_list_2018[[i]]$estimated_params$ln_mean_F+om_list_2018[[i]]$estimated_params$F_dev)) # Average F from last 2 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-2) : ncol(avg_F)])
   f_ratio <- avg_F[14:16]
   f_ratio <- f_ratio/sum(f_ratio)
   
   # Adjust future F proportion to each fleet
-  om_list[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
-  om_list[[i]]$estimated_params$proj_F_prop <- om_list[[i]]$data_list$fleet_control$proj_F_prop
+  om_list_2018[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
+  om_list_2018[[i]]$estimated_params$proj_F_prop <- om_list_2018[[i]]$data_list$fleet_control$proj_F_prop
 }
 
 
@@ -632,20 +632,20 @@ om_names <- paste0(c("ss_mod", "ss_mod_ssp126", "ss_mod_ssp245", "ss_mod_ssp585"
 
 
 ## Plot ----
-plot_biomass(om_list[1:4], incl_proj = TRUE, model_names = om_names[1:4])
-plot_biomass(om_list[5:8], incl_proj = TRUE, model_names = om_names[5:8])
-plot_biomass(om_list[9:12], incl_proj = TRUE, model_names = om_names[9:12])
-plot_biomass(om_list[13:16], incl_proj = TRUE, model_names = om_names[13:16])
-plot_biomass(om_list[17:20], incl_proj = TRUE, model_names = om_names[17:20])
-plot_biomass(om_list[21:24], incl_proj = TRUE, model_names = om_names[21:24])
+plot_biomass(om_list_2018[1:4], incl_proj = TRUE, model_names = om_names[1:4])
+plot_biomass(om_list_2018[5:8], incl_proj = TRUE, model_names = om_names[5:8])
+plot_biomass(om_list_2018[9:12], incl_proj = TRUE, model_names = om_names[9:12])
+plot_biomass(om_list_2018[13:16], incl_proj = TRUE, model_names = om_names[13:16])
+plot_biomass(om_list_2018[17:20], incl_proj = TRUE, model_names = om_names[17:20])
+plot_biomass(om_list_2018[21:24], incl_proj = TRUE, model_names = om_names[21:24])
 
-plot_recruitment(om_list[1:4], incl_proj = TRUE, model_names = om_names[1:4])
-plot_recruitment(om_list[5:8], incl_proj = TRUE, model_names = om_names[5:8])
-plot_recruitment(om_list[9:12], incl_proj = TRUE, model_names = om_names[9:12])
-plot_recruitment(om_list[13:16], incl_proj = TRUE, model_names = om_names[13:16])
-plot_recruitment(om_list[17:20], incl_proj = TRUE, model_names = om_names[17:20])
-plot_recruitment(om_list[21:24], incl_proj = TRUE, model_names = om_names[21:24])
+plot_recruitment(om_list_2018[1:4], incl_proj = TRUE, model_names = om_names[1:4])
+plot_recruitment(om_list_2018[5:8], incl_proj = TRUE, model_names = om_names[5:8])
+plot_recruitment(om_list_2018[9:12], incl_proj = TRUE, model_names = om_names[9:12])
+plot_recruitment(om_list_2018[13:16], incl_proj = TRUE, model_names = om_names[13:16])
+plot_recruitment(om_list_2018[17:20], incl_proj = TRUE, model_names = om_names[17:20])
+plot_recruitment(om_list_2018[21:24], incl_proj = TRUE, model_names = om_names[21:24])
 
-plot_stock_recruit(om_list[5:8], model_names = om_names[5:8])
-plot_stock_recruit(om_list[13:16], model_names = om_names[13:16])
-plot_stock_recruit(om_list[21:24], model_names = om_names[21:24])
+plot_stock_recruit(om_list_2018[5:8], model_names = om_names[5:8])
+plot_stock_recruit(om_list_2018[13:16], model_names = om_names[13:16])
+plot_stock_recruit(om_list_2018[21:24], model_names = om_names[21:24])
