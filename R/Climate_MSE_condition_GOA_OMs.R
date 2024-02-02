@@ -125,7 +125,7 @@ climate_data <- fall_sst_data %>%
 
 
 # - add to Rceattle object
-combined_data$fleet_control$Fleet_type[18] <- 0
+# combined_data$fleet_control$Fleet_type[18] <- 0
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
 ssp_dat_126$env_data <- climate_data %>%
