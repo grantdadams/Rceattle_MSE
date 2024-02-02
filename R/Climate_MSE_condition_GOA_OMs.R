@@ -6,7 +6,7 @@ alpha = exp(c(3.143, 1.975, 1.44))
 
 
 ## Ajust inits ----
-turn_offs <- c("logH_1", "logH_1a", "logH_1b", "logH_2", "logH_3", "H_4", "log_gam_a", "log_gam_b", "log_phi")
+turn_offs <- c("logH_1", "logH_1a", "logH_1b", "logH_2", "logH_3", "H_4", "log_gam_a", "log_gam_b", "log_phi", "ln_pop_scalar", "sel_coff_dev")
 for(i in 1:length(mod_list_all)){
   mod_list_all[[i]]$estimated_params[turn_offs] <- NULL
   
