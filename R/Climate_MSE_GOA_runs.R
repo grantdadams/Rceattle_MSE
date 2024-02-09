@@ -24,7 +24,10 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1,1,1)
 source("R/Functions/Run_climate_MSE_function.R")
 
 # No cap
-run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = NULL)
+start_time <- Sys.time()
+run_climate_mse(system = "GOA_Climate", om_list = om_list[20], om_names = om_names[20], em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 1, regenerate_past = FALSE, cap = NULL)
+end_time <- Sys.time()
+end_time-start_time
 
 # Cap
 run_climate_mse(system = "GOA_Climate", om_list = om_list, om_names = om_names, em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = cap_list)

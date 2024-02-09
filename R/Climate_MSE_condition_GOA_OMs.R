@@ -201,7 +201,7 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 0, # Single species mode
                                    verbose = 1,
-                                   phase = NULL,
+                                   phase = "default",
                                    recFun = build_srr(srr_fun = 0,
                                                       srr_pred_fun = 4,
                                                       proj_mean_rec = FALSE,
@@ -210,11 +210,11 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                                       srr_prior_sd = 0.2,
                                                       Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
                                    ),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # - SSP126
 ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -230,11 +230,11 @@ ss_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # - SSP245
 ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -250,11 +250,11 @@ ss_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # - SSP585
 ss_mod_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                          inits = ss_mod$estimated_params, # Initial parameters = 0
+                                          inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
                                           file = NULL, # Don't save
                                           estimateMode = 0, # Estimate
                                           random_rec = FALSE, # No random recruitment
@@ -270,7 +270,7 @@ ss_mod_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ss_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # OM 2) Single-species estimated M ----
 # * Density-independent recruitment ----
@@ -359,11 +359,11 @@ ss_mod_M_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                                         srr_prior_sd = 0.2,
                                                         Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
                                      ),
-                                     initMode = 2)
+                                     initMode = 1)
 
 # - SSP126
 ss_mod_M_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -382,11 +382,11 @@ ss_mod_M_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                                srr_prior_sd = 0.2,
                                                                Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
                                             ),
-                                            initMode = 2)
+                                            initMode = 1)
 
 # - SSP245
 ss_mod_M_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -405,11 +405,11 @@ ss_mod_M_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                                                srr_prior_sd = 0.2,
                                                                Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
                                             ),
-                                            initMode = 2)
+                                            initMode = 1)
 
 # - SSP585
 ss_mod_M_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                            inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                            inits = ss_mod_M_ricker$estimated_params, # Initial parameters = 0
                                             file = NULL, # Don't save
                                             estimateMode = 0, # Estimate
                                             random_rec = FALSE, # No random recruitment
@@ -428,7 +428,7 @@ ss_mod_M_ricker_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                                                srr_prior_sd = 0.2,
                                                                Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
                                             ),
-                                            initMode = 2)
+                                            initMode = 1)
 
 
 
@@ -527,7 +527,7 @@ ms_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                                       srr_prior_sd = 0.2,
                                                       Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
                                    ),
-                                   initMode = 2)
+                                   initMode = 1)
 
 # - SSP126
 ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
@@ -552,7 +552,7 @@ ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # - SSP245
 ms_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
@@ -577,7 +577,7 @@ ms_mod_ricker_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
                                                              srr_prior_sd = 0.2,
                                                              Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
                                           ),
-                                          initMode = 2)
+                                          initMode = 1)
 
 # - SSP585
 ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
@@ -602,7 +602,7 @@ ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
                                                             srr_prior_sd = 0.2,
                                                             Bmsy_lim = apply(ms_mod$quantities$biomassSSB, 1, max)
                                          ),
-                                         initMode = 2)
+                                         initMode = 1)
 
 
 

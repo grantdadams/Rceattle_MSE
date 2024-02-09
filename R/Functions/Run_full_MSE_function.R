@@ -71,7 +71,6 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
             niter = om_list[[om]]$data_list$niter,
             msmMode = om_list[[om]]$data_list$msmMode,
             avgnMode = om_list[[om]]$data_list$avgnMode,
-            minNByage = om_list[[om]]$data_list$minNByage,
             suitMode = om_list[[om]]$data_list$suitMode,
             initMode = om_list[[om]]$data_list$initMode,
             phase = NULL,
@@ -83,7 +82,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
         print(paste0("Running OM ",om, " and EM ", em))
         
         # Run MSE
-        mse <- mse_run_parallel(om = om_list[[om]], 
+        mse <- mse_run_parallel_fast(om = om_list[[om]], 
                                 em = em_hcr_list[[em]], 
                                 nsim = nsim, 
                                 start_sim = start_sim, 
