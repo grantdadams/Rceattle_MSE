@@ -201,7 +201,8 @@ ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data,
                                  M1Fun = build_M1(M1_model = c(1,2,1),
                                                   M1_use_prior = FALSE,
                                                   M2_use_prior = FALSE),
-                                 HCR = build_hcr(HCR = 1),
+                                 HCR = build_hcr(HCR = 1,
+                                                 Plimit = 0.01),
                                  initMode = 1)
 
 # -- Multi-species CMSY, constrained so that species don't fall below 20% SB0
