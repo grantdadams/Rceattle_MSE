@@ -616,23 +616,6 @@ om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
                 ms_mod_ricker, ms_mod_ricker_ssp126, ms_mod_ricker_ssp245, ms_mod_ricker_ssp585
 )
 
-plot_biomass(om_list[1:4], incl_proj = TRUE)
-plot_biomass(om_list[5:8], incl_proj = TRUE)
-plot_biomass(om_list[9:12], incl_proj = TRUE)
-plot_biomass(om_list[13:16], incl_proj = TRUE)
-plot_biomass(om_list[17:20], incl_proj = TRUE)
-plot_biomass(om_list[21:24], incl_proj = TRUE)
-
-plot_recruitment(om_list[1:4], incl_proj = TRUE)
-plot_recruitment(om_list[5:8], incl_proj = TRUE)
-plot_recruitment(om_list[9:12], incl_proj = TRUE)
-plot_recruitment(om_list[13:16], incl_proj = TRUE)
-plot_recruitment(om_list[17:20], incl_proj = TRUE)
-plot_recruitment(om_list[21:24], incl_proj = TRUE)
-
-plot_stock_recruit(om_list[5:8])
-plot_stock_recruit(om_list[13:16])
-plot_stock_recruit(om_list[21:24])
 
 
 for(i in 1:length(om_list)){
@@ -656,3 +639,24 @@ om_names <- paste0(c("ss_mod", "ss_mod_ssp126", "ss_mod_ssp245", "ss_mod_ssp585"
                      "ms_mod", "ms_mod_ssp126", "ms_mod_ssp245", "ms_mod_ssp585",
                      "ms_mod_ricker", "ms_mod_ricker_ssp126", "ms_mod_ricker_ssp245", "ms_mod_ricker_ssp585"
 ), "_OM")
+
+
+## Plots ----
+plot_biomass(om_list[1:4], incl_proj = TRUE)
+plot_biomass(om_list[5:8], incl_proj = TRUE)
+plot_biomass(om_list[9:12], incl_proj = TRUE)
+plot_biomass(om_list[13:16], incl_proj = TRUE)
+plot_biomass(om_list[17:20], incl_proj = TRUE)
+plot_biomass(om_list[21:24], incl_proj = TRUE)
+
+plot_recruitment(om_list[1:4], incl_proj = TRUE)
+plot_recruitment(om_list[5:8], incl_proj = TRUE)
+plot_recruitment(om_list[9:12], incl_proj = TRUE)
+plot_recruitment(om_list[13:16], incl_proj = TRUE)
+plot_recruitment(om_list[17:20], incl_proj = TRUE)
+plot_recruitment(om_list[21:24], incl_proj = TRUE)
+
+plot_stock_recruit(om_list[5:8])
+plot_stock_recruit(om_list[13:16])
+plot_stock_recruit(om_list[21:24])
+
