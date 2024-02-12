@@ -83,7 +83,7 @@ run_climate_mse <- function(system = "GOA1977", om_list = NULL, om_names = NULL,
       print(paste0("Running OM ",om, " and EM ", em))
       
       # Run MSE
-      mse <- mse_run_parallel_fast(om = om_list[[om]], 
+      mse <- mse_run_parallel(om = om_list[[om]], 
                               em = em_hcr_list[[em]], 
                               nsim = nsim, 
                               start_sim = start_sim, 
@@ -98,6 +98,7 @@ run_climate_mse <- function(system = "GOA1977", om_list = NULL, om_names = NULL,
                               dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",regenerate_past," regen/",!is.null(cap)," cap"), 
                               file = NULL,
                               regenerate_past = regenerate_past)
+      closeAllConnections()
     }
   }
 }
