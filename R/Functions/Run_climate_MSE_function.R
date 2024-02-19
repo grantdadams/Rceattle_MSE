@@ -97,7 +97,8 @@ run_climate_mse <- function(system = "GOA1977", om_list = NULL, om_names = NULL,
                               cap = cap, 
                               dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",regenerate_past," regen/",!is.null(cap)," cap"), 
                               file = NULL,
-                              regenerate_past = regenerate_past)
+                              regenerate_past = regenerate_past,
+                              timeout = 30)
       closeAllConnections()
     }
   }
