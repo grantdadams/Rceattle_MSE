@@ -249,12 +249,30 @@ ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data,
 ## MSE ----
 ## Sampling period
 sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1,1,1)
-source("~/GitHub/Rceattle/R/11a-mse_run_parallel.R")
+source("D:/GitHub/Rceattle/R/11a-mse_run_parallel.R", echo=TRUE)
 
-mse3a <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse_a")
+## Cap
+# 1. Max historical catch for Arrowtooth flounder
+# 2. No cap
+max_catch <- ss_mod$data_list$fsh_biom %>%
+  filter(Year < 2024) %>%
+  group_by(Year, Species) %>%
+  summarise(Catch = sum(Catch)) %>%
+  group_by(Species) %>%
+  summarise(MaxCatch = max(Catch))
 
-mse3b <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse_b")
 
-mse3c <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse_c")
+# Pollock, cod, atf
+cap_list <-  max_catch$MaxCatch
 
-mse3d <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse_d")
+mse1a <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1a", dir = getwd())
+mse1b <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1b", cap = cap_list, dir = getwd())
+
+mse2a <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2a", dir = getwd())
+mse2b <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2b", cap = cap_list, dir = getwd())
+
+mse3a <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3a", dir = getwd())
+mse3b <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3b", cap = cap_list, dir = getwd())
+
+mse4a <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4a", dir = getwd())
+mse4b <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4b", cap = cap_list, dir = getwd())
