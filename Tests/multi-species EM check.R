@@ -173,6 +173,47 @@ ss_mod_ricker <- Rceattle::fit_mod(data_list = combined_data,
                                    initMode = 1)
 
 
+# OM 2) Single-species estimated M ----
+# * Density-independent recruitment ----
+# - Climate naive
+ss_mod_M <- Rceattle::fit_mod(data_list = combined_data,
+                              inits = ss_mod_ricker$estimated_params, # Initial parameters = 0
+                              file = NULL, # Don't save
+                              estimateMode = 0, # Estimate
+                              random_rec = FALSE, # No random recruitment
+                              msmMode = 0, # Single species mode
+                              verbose = 1,
+                              phase = "default",
+                              M1Fun = build_M1(M1_model = c(1,2,1),
+                                               updateM1 = FALSE,
+                                               M1_use_prior = FALSE,
+                                               M2_use_prior = FALSE),
+                              initMode = 1)
+
+# * Ricker recruitment ----
+# - Climate naive
+ss_mod_M_ricker <- Rceattle::fit_mod(data_list = combined_data,
+                                     inits = ss_mod_M$estimated_params, # Initial parameters = 0
+                                     file = NULL, # Don't save
+                                     estimateMode = 0, # Estimate
+                                     random_rec = FALSE, # No random recruitment
+                                     msmMode = 0, # Single species mode
+                                     verbose = 1,
+                                     phase = NULL,
+                                     M1Fun = build_M1(M1_model = c(1,2,1),
+                                                      M1_use_prior = FALSE,
+                                                      M2_use_prior = FALSE),
+                                     recFun = build_srr(srr_fun = 0,
+                                                        srr_pred_fun = 4,
+                                                        proj_mean_rec = FALSE,
+                                                        srr_est_mode = 1,
+                                                        srr_prior_mean = alpha,
+                                                        srr_prior_sd = 0.2,
+                                                        Bmsy_lim = apply(ss_mod_M$quantities$biomassSSB, 1, max)
+                                     ),
+                                     initMode = 1)
+
+
 ## OMs ----
 load("Models/GOA_23_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
@@ -276,3 +317,29 @@ mse3b <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment
 
 mse4a <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4a", dir = getwd())
 mse4b <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4b", cap = cap_list, dir = getwd())
+
+mse5a <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5a", dir = getwd())
+mse5b <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5b", cap = cap_list, dir = getwd())
+
+## Load MSEs
+mse_runs <- list.files("Tests/Test runs")
+mse_run_list <- list()
+
+for(i in 1:length(mse_runs)){
+  mse_run_list[[i]] <- readRDS(paste0("Tests/Test runs/", mse_runs[i]))
+}
+
+
+plot_biomass(list(mse_run_list[[1]]$OM, mse_run_list[[2]]$OM), model_names = 1:2)
+plot_catch(list(mse_run_list[[1]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[2]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2, incl_proj = T)
+plot_ssb(list(mse_run_list[[1]]$OM, mse_run_list[[2]]$OM), model_names = 1:2)
+plot_ssb(list(mse_run_list[[1]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[2]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2)
+
+
+plot_biomass(list(mse_run_list[[1]]$OM, mse_run_list[[2]]$OM, mse_run_list[[3]]$OM, mse_run_list[[4]]$OM), model_names = c("Ricker OM - NO Cap", "Ricker OM - Cap", "Mean R OM - NO Cap", "Mean R OM - Cap" ))
+plot_ssb(list(mse_run_list[[3]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[4]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2)
+plot_catch(list(mse_run_list[[3]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[4]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2)
+
+
+plot_biomass(list(mse_run_list[[1]]$OM, mse_run_list[[7]]$OM), model_names = c("Ricker OM - MS-EM", "Ricker OM - SS-EM"))
+
