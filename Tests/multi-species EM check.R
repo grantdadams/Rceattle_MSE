@@ -306,20 +306,28 @@ max_catch <- ss_mod$data_list$fsh_biom %>%
 # Pollock, cod, atf
 cap_list <-  max_catch$MaxCatch
 
-mse1a <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1a", dir = getwd())
-mse1b <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1b", cap = cap_list, dir = getwd())
+for(i in 1:2){
+  regenerate_past = c(FALSE, TRUE)[i]
+  
+  mse1a <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse1b <- mse_run_parallel(om = ss_mod_ricker, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse1b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  
+  mse2a <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse2b <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  
+  mse3a <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse3b <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  
+  mse4a <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse4b <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  
+  mse5a <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse5b <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  
+  mse6a <- mse_run_parallel(om = ss_mod_M_ricker , em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse6a", dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+  mse6b <- mse_run_parallel(om = ss_mod_M_ricker , em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse6b", cap = cap_list, dir = paste0("Regen ", regenerate_past), regenerate_past = regenerate_past)
+}
 
-mse2a <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2a", dir = getwd())
-mse2b <- mse_run_parallel(om = ss_mod, em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse2b", cap = cap_list, dir = getwd())
-
-mse3a <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3a", dir = getwd())
-mse3b <- mse_run_parallel(om = ss_mod, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse3b", cap = cap_list, dir = getwd())
-
-mse4a <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4a", dir = getwd())
-mse4b <- mse_run_parallel(om = ss_mod_ricker, em = ss_run_M_Tier3, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse4b", cap = cap_list, dir = getwd())
-
-mse5a <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5a", dir = getwd())
-mse5b <- mse_run_parallel(om = ss_mod_M_ricker , em = ms_run_fb40, nsim = 1, assessment_period = 1, sampling_period = sampling_period, simulate_data = TRUE, sample_rec = TRUE, timeout = 30, file = "mse5b", cap = cap_list, dir = getwd())
 
 ## Load MSEs
 mse_runs <- list.files("Tests/Test runs")
