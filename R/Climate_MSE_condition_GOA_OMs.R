@@ -1,6 +1,6 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
-load("Models/GOA_23_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_20_1_1_data_1977_2023_edited.xlsx")
+load("Models/GOA_20_1_1_mod_list.RData")
+combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2100
 combined_data$endyr <- 2020
 alpha = exp(c(3.143, 1.975, 1.44))
@@ -19,12 +19,13 @@ for(i in 1:length(mod_list_all)){
 
 
 ## Climate data ----
+# * Load and scale ----
 summer_bt_data <- read.csv("Data/goa_temp_610_to_630_summer_300M.csv") %>%
   filter(depthclass == "Bottom", hind == "yes")  %>%
   mutate(varname = "summer bt") %>%
   rename(value = mean_value_dc_610_to_630)
 
-fall_sst_data <- read.csv("Data/goa_temp_610_to_630_winter_300M.csv") %>%
+winter_sst_data <- read.csv("Data/goa_temp_610_to_630_winter_300M.csv") %>%
   filter(depthclass == "Surface", hind == "yes")  %>%
   mutate(varname = "winter sst") %>%
   rename(value = mean_value_dc_610_to_630)
@@ -34,24 +35,27 @@ zoo_data <- read.csv("Data/goa_large_zoo_610_to_630_fall_300M.csv") %>%
   mutate(varname = "mzl") %>%
   rename(value = mean_value_dc_610_to_630)
 
-climate_data <- rbind(summer_bt_data, fall_sst_data, zoo_data) %>%
+nyrs <- length(1980:2020) # Years of hindcast for scaling
+
+climate_data <- rbind(summer_bt_data, winter_sst_data, zoo_data) %>%
+  dplyr::select(-X) %>%
   mutate(value_squared = value^2) %>%
   pivot_wider(names_from = c(simulation), values_from = c(value, value_squared)) %>%
   select(-depthclass, -hind) %>%
   rename(Year = year) %>%
   group_by(varname) %>%
-  mutate(value_ssp126z = scale(value_ssp126 ),
-         value_ssp245z = scale(value_ssp245 ),
-         value_ssp585z = scale(value_ssp585 ),
-         value_squared_ssp126z = scale(value_squared_ssp126 ),
-         value_squared_ssp245z = scale(value_squared_ssp245 ),
-         value_squared_ssp585z = scale(value_squared_ssp585 )
+  mutate(value_ssp126z = (value_ssp126 - mean(value_ssp126[1:nyrs])) / sqrt(var(value_ssp126[1:nyrs])),
+         value_ssp245z = (value_ssp245 - mean(value_ssp245[1:nyrs])) / sqrt(var(value_ssp245[1:nyrs])), 
+         value_ssp585z = (value_ssp585 - mean(value_ssp585[1:nyrs])) / sqrt(var(value_ssp585[1:nyrs])),  
+         value_squared_ssp126z = (value_squared_ssp126 - mean(value_squared_ssp126[1:nyrs])) / sqrt(var(value_squared_ssp126[1:nyrs])),
+         value_squared_ssp245z = (value_squared_ssp245 - mean(value_squared_ssp245[1:nyrs])) / sqrt(var(value_squared_ssp245[1:nyrs])),
+         value_squared_ssp585z = (value_squared_ssp585 - mean(value_squared_ssp585[1:nyrs])) / sqrt(var(value_squared_ssp585[1:nyrs]))
   ) %>%
   ungroup() %>%
   as.data.frame()
 
-# - Add missing years
-# -- Fall SST
+# * Add missing years ----
+# -- summer bottom temp
 summer_bt_data <- climate_data %>%
   filter(varname == "summer bt") %>%
   select(-varname)
@@ -74,18 +78,18 @@ summer_bt_data <- rbind(temp_sub, summer_bt_data)
 colnames(summer_bt_data) <- c("Year", paste0("BT_", colnames(summer_bt_data)[2:ncol(summer_bt_data)]))
 
 
-# -- Summer BT
-fall_sst_data <- climate_data %>%
+# -- winter sst
+winter_sst_data <- climate_data %>%
   filter(varname == "winter sst") %>%
   select(-varname)
 
 temp_sub <- data.frame(Year = 1977:1979, 
-                       value_ssp126 = mean(fall_sst_data$value_ssp126[1:10]), 
-                       value_ssp245 = mean(fall_sst_data$value_ssp245[1:10]),
-                       value_ssp585 = mean(fall_sst_data$value_ssp585[1:10]), 
-                       value_squared_ssp126 = mean(fall_sst_data$value_squared_ssp126[1:10]), 
-                       value_squared_ssp245 = mean(fall_sst_data$value_squared_ssp245[1:10]),
-                       value_squared_ssp585 = mean(fall_sst_data$value_squared_ssp585[1:10]), 
+                       value_ssp126 = mean(winter_sst_data$value_ssp126[1:10]), 
+                       value_ssp245 = mean(winter_sst_data$value_ssp245[1:10]),
+                       value_ssp585 = mean(winter_sst_data$value_ssp585[1:10]), 
+                       value_squared_ssp126 = mean(winter_sst_data$value_squared_ssp126[1:10]), 
+                       value_squared_ssp245 = mean(winter_sst_data$value_squared_ssp245[1:10]),
+                       value_squared_ssp585 = mean(winter_sst_data$value_squared_ssp585[1:10]), 
                        value_ssp126z = 0,
                        value_ssp245z = 0,
                        value_ssp585z = 0,
@@ -93,8 +97,8 @@ temp_sub <- data.frame(Year = 1977:1979,
                        value_squared_ssp245z = 0,
                        value_squared_ssp585z = 0)
 
-fall_sst_data <- rbind(temp_sub, fall_sst_data) 
-colnames(fall_sst_data) <- c("Year", paste0("SST_", colnames(fall_sst_data)[2:ncol(fall_sst_data)]))
+winter_sst_data <- rbind(temp_sub, winter_sst_data) 
+colnames(winter_sst_data) <- c("Year", paste0("SST_", colnames(winter_sst_data)[2:ncol(winter_sst_data)]))
 
 
 # -- Zooplankton
@@ -119,13 +123,13 @@ zoo_data <- rbind(mzl_sub, zoo_data)
 colnames(zoo_data) <- c("Year", paste0("MZL_", colnames(zoo_data)[2:ncol(zoo_data)]))
 
 # - Combine
-climate_data <- fall_sst_data %>% 
+climate_data <- winter_sst_data %>% 
   inner_join(zoo_data, by = "Year") %>%
   inner_join(summer_bt_data, by = "Year") %>%
   arrange(Year)
 
 
-# - add to Rceattle object
+# * add to Rceattle object ----
 # combined_data$fleet_control$Fleet_type[18] <- 0
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
@@ -144,13 +148,13 @@ ssp_dat_585$env_data <- climate_data %>%
 # * Density-independent recruitment ----
 # - Climate naive
 ss_mod <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = NULL, #mod_list_all[[1]]$estimated_params, # Initial parameters = 0
+                            inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 0, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
                             verbose = 1,
-                            phase = "default",
+                            phase = NULL,
                             initMode = 1)
 
 # -- SSP126

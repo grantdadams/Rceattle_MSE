@@ -338,8 +338,14 @@ for(i in 1:length(mse_runs)){
 }
 
 
-plot_biomass(list(mse_run_list[[1]]$OM, mse_run_list[[2]]$OM), model_names = 1:2)
-plot_catch(list(mse_run_list[[1]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[2]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2, incl_proj = T)
+plot_biomass(list(mse_run_list[[1]]$OM, mse_run_list[[9]]$OM), model_names = 1:2)
+plot_catch(mse_run_list[[1]]$EM[2:60], incl_proj = T, ymax = c(1e6,2e5,1e5,1e5,1e5))
+plot_biomass(mse_run_list[[1]]$EM[2:60], incl_proj = T)
+plot_biomass(mse_run_list[[1]]$OM, incl_proj = T)
+
+
+
+plot_catch(list(mse_run_list[[1]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[9]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2, incl_proj = T)
 plot_ssb(list(mse_run_list[[1]]$OM, mse_run_list[[2]]$OM), model_names = 1:2)
 plot_ssb(list(mse_run_list[[1]]$EM$`OM_Sim_1. EM_yr_2100`, mse_run_list[[2]]$EM$`OM_Sim_1. EM_yr_2100`), model_names = 1:2)
 
