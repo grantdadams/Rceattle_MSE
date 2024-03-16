@@ -1,7 +1,8 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
 load("Models/GOA_23_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
+combined_data <- read_data(file = "Data/GOA_20_1_1_data_1977_2023_edited.xlsx")
 combined_data$projyr <- 2100
+combined_data$endyr <- 2020
 alpha = exp(c(3.143, 1.975, 1.44))
 
 
@@ -143,13 +144,13 @@ ssp_dat_585$env_data <- climate_data %>%
 # * Density-independent recruitment ----
 # - Climate naive
 ss_mod <- Rceattle::fit_mod(data_list = combined_data,
-                            inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
+                            inits = NULL, #mod_list_all[[1]]$estimated_params, # Initial parameters = 0
                             file = NULL, # Don't save
                             estimateMode = 0, # Estimate
                             random_rec = FALSE, # No random recruitment
                             msmMode = 0, # Single species mode
                             verbose = 1,
-                            phase = NULL,
+                            phase = "default",
                             initMode = 1)
 
 # -- SSP126
@@ -608,12 +609,13 @@ ms_mod_ricker_ssp585<- Rceattle::fit_mod(data_list = ssp_dat_585,
 
 
 ## Adjust f prop ----
-om_list <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
-                ss_mod_ricker, ss_mod_ricker_ssp126, ss_mod_ricker_ssp245, ss_mod_ricker_ssp585,
-                ss_mod_M, ss_mod_M_ssp126, ss_mod_M_ssp245, ss_mod_M_ssp585,
-                ss_mod_M_ricker, ss_mod_M_ricker_ssp126, ss_mod_M_ricker_ssp245, ss_mod_M_ricker_ssp585,
-                ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585,
-                ms_mod_ricker, ms_mod_ricker_ssp126, ms_mod_ricker_ssp245, ms_mod_ricker_ssp585
+om_list <- list(
+  # ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585,
+  # ss_mod_ricker, ss_mod_ricker_ssp126, ss_mod_ricker_ssp245, ss_mod_ricker_ssp585,
+  # ss_mod_M, ss_mod_M_ssp126, ss_mod_M_ssp245, ss_mod_M_ssp585,
+  # ss_mod_M_ricker, ss_mod_M_ricker_ssp126, ss_mod_M_ricker_ssp245, ss_mod_M_ricker_ssp585,
+  ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585,
+  ms_mod_ricker, ms_mod_ricker_ssp126, ms_mod_ricker_ssp245, ms_mod_ricker_ssp585
 )
 
 
@@ -632,12 +634,13 @@ for(i in 1:length(om_list)){
 
 
 
-om_names <- paste0(c("ss_mod", "ss_mod_ssp126", "ss_mod_ssp245", "ss_mod_ssp585",
-                     "ss_mod_ricker", "ss_mod_ricker_ssp126", "ss_mod_ricker_ssp245", "ss_mod_ricker_ssp585",
-                     "ss_mod_M", "ss_mod_M_ssp126", "ss_mod_M_ssp245", "ss_mod_M_ssp585",
-                     "ss_mod_M_ricker", "ss_mod_M_ricker_ssp126", "ss_mod_M_ricker_ssp245", "ss_mod_M_ricker_ssp585",
-                     "ms_mod", "ms_mod_ssp126", "ms_mod_ssp245", "ms_mod_ssp585",
-                     "ms_mod_ricker", "ms_mod_ricker_ssp126", "ms_mod_ricker_ssp245", "ms_mod_ricker_ssp585"
+om_names <- paste0(c(
+  # "ss_mod", "ss_mod_ssp126", "ss_mod_ssp245", "ss_mod_ssp585",
+  # "ss_mod_ricker", "ss_mod_ricker_ssp126", "ss_mod_ricker_ssp245", "ss_mod_ricker_ssp585",
+  # "ss_mod_M", "ss_mod_M_ssp126", "ss_mod_M_ssp245", "ss_mod_M_ssp585",
+  # "ss_mod_M_ricker", "ss_mod_M_ricker_ssp126", "ss_mod_M_ricker_ssp245", "ss_mod_M_ricker_ssp585",
+  "ms_mod", "ms_mod_ssp126", "ms_mod_ssp245", "ms_mod_ssp585",
+  "ms_mod_ricker", "ms_mod_ricker_ssp126", "ms_mod_ricker_ssp245", "ms_mod_ricker_ssp585"
 ), "_OM")
 
 

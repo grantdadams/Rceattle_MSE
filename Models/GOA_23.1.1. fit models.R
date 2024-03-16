@@ -3,6 +3,7 @@ library(readxl)
 library(dplyr)
 
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
+combined_data$endyr <- 2020
 
 # - Est single-species fixed M
 ss_mod <- Rceattle::fit_mod(data_list = combined_data,
@@ -129,4 +130,4 @@ plot_b_eaten(mod_list_all)
 plot_recruitment(mod_list_all)
 
 # - Save
-save(mod_list_all, file = "Models/GOA_23_1_1_mod_list_new.RData")
+save(mod_list_all, file = "Models/GOA_20_1_1_mod_list.RData")

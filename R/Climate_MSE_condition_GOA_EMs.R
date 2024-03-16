@@ -1,6 +1,7 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
 load("Models/GOA_23_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
+combined_data <- read_data(file = "Data/GOA_20_1_1_data_1977_2023_edited.xlsx")
+combined_data$endyr <- 2020
 combined_data$projyr <- 2130
 
 
