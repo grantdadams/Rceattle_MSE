@@ -26,16 +26,6 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
           # - SINGLE-SPECIES
           if(mse3[[j]]$OM$data_list$msmMode == 0){
             
-            # - Update depletion
-            mse3[[j]]$OM$quantities$SB0[,] <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
-            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0 #FIXME: no longer necessary
-            
-            # -- Dynamic BRPs
-            if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
-              mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$DynamicSB0
-              mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
-            }
-            
             # -- Fix M
             if(sum(mse3[[j]]$OM$data_list$M1_model) == 0){
               

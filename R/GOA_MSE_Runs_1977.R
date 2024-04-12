@@ -54,7 +54,7 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 ### Run the MSE
 source("R/Functions/Run_full_MSE_function.R")
 
-run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[3], om_names = om_names[3], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
+run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[c(3,6)], om_names = om_names[c(3, 6)], em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 300)
 
 run_mse(system = "GOA1977", recname = "ConstantR", om_list = om_list[3], om_names = om_names[3], em_hcr_list = em_hcr_list[c(8,11:16)], em_hcr_names = em_hcr_names[c(8,11:16)], sampling_period = sampling_period, nsim = 300, regenerate_past = FALSE)
 

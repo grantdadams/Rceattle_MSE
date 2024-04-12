@@ -1,8 +1,8 @@
 library(Rceattle)
 library(dplyr)
 
-load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
-mod_list_all <- mod_list_all #  <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
+load("Models/GOA_18_5_1_mod_1-2_2023-07-05_old.RData")
+mod_list_all <- mod_list_all # <- list(ss_run_OM, ss_run_M_OM, ms_run_OM)
 
 
 # Ratio of F across Pcod fleets
@@ -15,6 +15,9 @@ for(i in 1:3){
   # Adjust future F proportion to each fleet
   mod_list_all[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio)
   mod_list_all[[i]]$estimated_params$proj_F_prop <- mod_list_all[[i]]$data_list$fleet_control$proj_F_prop
+  
+  # Remove params
+  # mod_list_all[[i]]$estimated_params[c("ln_pop_scalar", "sel_coff_dev", "logH_1", "logH_1a", "logH_1b", "logH_2", "logH_3", "H_4", "log_gam_a", "log_gam_b", "log_phi")] <- NULL 
 }
 
 

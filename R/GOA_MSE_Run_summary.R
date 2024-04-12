@@ -75,12 +75,13 @@ plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/GOA_OM_", mod
 plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/GOA_OM_", model_names = om_names_print[c(3,6)], width = 6, height = 4.5, line_col = MPcols[c(2,6)], species = c(1,3,2))
 
 # Do summary ----
+source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8', echo=TRUE)
 source("R/Functions/MSE_summary_function.R")
 
 # SAFS 313-12
 # - No SRR
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
 
 # - Ricker SRR
-summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[6], om_names = om_names[6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
 gc()

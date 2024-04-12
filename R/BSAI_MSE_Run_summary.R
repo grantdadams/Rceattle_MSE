@@ -7,7 +7,7 @@ library(gmRi)
 library(Rceattle)
 library(tidyr)
 
-
+gc()
 ms_run$quantities$depletionSSB <- ms_run$quantities$biomassSSB/ms_run$quantities$biomassSSB[,ncol(ms_run$quantities$biomassSSB)]
 ms_run_ricker$quantities$depletionSSB <- ms_run_ricker$quantities$biomassSSB/ms_run_ricker$quantities$biomassSSB[,ncol(ms_run_ricker$quantities$biomassSSB)]
 
@@ -79,14 +79,17 @@ plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/EBS_OM_", m
 # Load and run summary
 ################################################
 # Do summary ----
+source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8', echo=TRUE)
 source("R/Functions/MSE_summary_function.R")
+
 
 # SAFS 313-12
 # - No SRR
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names, species = 1:3)
+summary_fun(system = "EBS", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names, species = 1:3)
+gc()
 
 # - Ricker SRR
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names, species = 1:3)
+summary_fun(system = "EBS", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[6], om_names = om_names[6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names, species = 1:3)
 gc()
 
 

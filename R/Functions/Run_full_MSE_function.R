@@ -82,7 +82,7 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
         print(paste0("Running OM ",om, " and EM ", em))
         
         # Run MSE
-        mse <- mse_run_parallel_fast(om = om_list[[om]], 
+        mse <- mse_run_parallel(om = om_list[[om]], 
                                 em = em_hcr_list[[em]], 
                                 nsim = nsim, 
                                 start_sim = start_sim, 
@@ -96,7 +96,10 @@ run_mse <- function(system = "GOA1977", recname = "ConstantR", om_list = NULL, o
                                 cap = NULL, 
                                 dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",regenerate_past," regen/No cap"), 
                                 file = NULL,
-                                regenerate_past = regenerate_past)
+                                regenerate_past = regenerate_past,
+                                timeout = 30)
+        
+        closeAllConnections()
       }
     }
   }

@@ -1,7 +1,7 @@
 library(Rceattle)
 library(dplyr)
 
-load("Models/GOA_18_5_1_mod_1-2_2023-07-05.RData")
+load("Models/GOA_18_5_1_mod_1-2_2023-07-05_old.RData")
 plot_biomass(mod_list_all, incl_proj = TRUE)
 mod_list_all[[1]]$data_list$fleet_control$Comp_weights
 # Should end with 1.66017
