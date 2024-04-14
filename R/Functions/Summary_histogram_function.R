@@ -27,11 +27,11 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
   }
   
   # - PM names
-  pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion") # Names in table
+  pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
   
   # pm_labels <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion") # Not reversed
   
-  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion")
+  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
   
   
   # - Get output ----
@@ -39,7 +39,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
   OM.res = output_table[[system]] %>%
     filter(Species == species)
   
-  # Colors
+  # Colors (by EM/HCR)
   MPcols <- gmri_pal("main")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
@@ -57,7 +57,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
   
   ## Plot single ----
   if(single){
-    for(pm in c(1:8, 13)){
+    for(pm in c(1:8, 13, 14)){
       
       # - Subset data
       data_sub <- OM.res %>%
@@ -80,7 +80,8 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
                        pull(Value), 
                      na.rm = TRUE)
       }
-      if(pm == 13){
+      
+      if(pm %in% c(13, 14)){
         ylim[1] <- 0
       }
       
@@ -101,7 +102,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
       }
       
       
-      if(pm == 13){abline(h = 0.4, col = "blue", lty = 2)}
+      if(pm %in% c(13, 14)){abline(h = 0.4, col = "blue", lty = 2)}
       abline(v = c(2,4) + 0.5, col = "black")
       
       # - Legends
@@ -130,7 +131,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
     
     
     # Plot it
-    for(pm in c(1:8, 13)){
+    for(pm in c(1:8, 13, 14)){
       
       # - Subset data
       data_sub <- OM.res %>%
@@ -144,14 +145,14 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
                        pull(Value), 
                      na.rm = TRUE)
       }
-      if(pm == 13){
+      if(pm %in% c(13, 14)){
         ylim[1] <- 0
       }
       
       # - Plot it
       plot(NA, NA, ylim = ylim, xlim = c(0.65,6.35), main = pm_labels[pm], xaxt = "na", xlab="", ylab="")
       
-      if(pm == 13){abline(h = 0.4, col = "blue", lty = 2)}
+      if(pm %in% c(13, 14)){abline(h = 0.4, col = "blue", lty = 2)}
       abline(v = 1:5 + 0.5, col = "grey")
       
       # - Points for each OM/EM
@@ -163,7 +164,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
       }
       
       # - Labels
-      if(pm %in% c(13,8)){
+      if(pm %in% c(14,8)){
         axis(side = 1, at = 1:6, labels = c("SS fix M", "w/ Ricker", "SS est M", "w/ Ricker", "MS", "w/ Ricker"), cex.axis = 1.2)
       }
     }
@@ -209,11 +210,11 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   }
   
   # - PM names
-  pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion") # Names in table
+  pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
   
   # pm_labels <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion") # Not reversed
   
-  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion")
+  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
   
   
   # - Get output ----
@@ -240,7 +241,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   
   
   ## Plot single ----
-  for(pm in c(1:8, 13)){
+  for(pm in c(1:8, 13, 14)){
     
     # - Save plot dimensions
     if(!is.null(file)){
@@ -266,7 +267,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
                        pull(Value), 
                      na.rm = TRUE)
       }
-      if(pm == 13){
+      if(pm %in% c(13, 14)){
         ylim[1] <- 0
       }
       
@@ -287,7 +288,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
       }
       
       
-      if(pm == 13){abline(h = 0.4, col = "blue", lty = 2)}
+      if(pm %in% c(13, 14)){abline(h = 0.4, col = "blue", lty = 2)}
       abline(v = c(2,4) + 0.5, col = "black")
       
       # - Legends

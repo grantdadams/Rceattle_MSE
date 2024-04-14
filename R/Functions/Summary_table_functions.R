@@ -34,6 +34,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
   if(reverse){
     # Make larger number better
     reverse_percentage <- c("P(Closed)",
+                            "Catch IAV",
                             "EM: P(Fy > Flimit)",
                             "EM: P(SSB < SSBlimit)",
                             "OM: P(Fy > Flimit)",
@@ -61,6 +62,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
   if(format){
     # - Percentages
     percent_form <- c("P(Closed)",
+                      "Catch IAV",
                       "EM: P(Fy > Flimit)",
                       "EM: P(SSB < SSBlimit)",
                       "OM: P(Fy > Flimit)",
@@ -71,6 +73,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
                       "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",
                       # "OM: Recovery Time",
                       "OM: Terminal SSB Depletion",
+                      "OM: Terminal SSB Depletion (Dynamic)",
                       "Avg terminal SSB Relative MSE") # May need to make to relative in future iterations
     
     row_id <- which(GOA_mse_sum$Performance.metric %in% percent_form)
@@ -80,7 +83,8 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     
     # - Large numbers
     sci_form <- c("Average Catch",
-                  "Catch IAV")
+                  "OM: Terminal B",
+                  "OM: Terminal SSB")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
     EBS_mse_sum[row_id, "Value"] <- format(round(EBS_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
