@@ -86,5 +86,8 @@ summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected
 # - Ricker SRR
 summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
 gc()
+
+
+
 rm(list = ls())
 gc()
