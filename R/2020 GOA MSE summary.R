@@ -109,16 +109,16 @@ max_catch <- fixm_catch_mods %>%
   arrange(Fleet_code)
 
 # - Climate naive
-plot_catch_mse_proj(list(OMs[[5]], OMs[[1]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/FixM_climate_naive", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
+plot_catch_mse_proj(list(OMs[[5]], OMs[[1]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/FixM_climate_naive", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
 
 # - SSP126
-plot_catch_mse_proj(list(OMs[[6]], OMs[[2]]), line_col = c(rep(ms_col[3], 10), rep(ss_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp126", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
+plot_catch_mse_proj(list(OMs[[6]], OMs[[2]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp126", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
 
 # - SSP245
-plot_catch_mse_proj(list(OMs[[7]], OMs[[3]]), line_col = c(rep(ms_col[3], 10), rep(ss_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp245", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
+plot_catch_mse_proj(list(OMs[[7]], OMs[[3]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp245", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
 
 # - SPP585
-plot_catch_mse_proj(list(OMs[[8]], OMs[[4]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp585", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
+plot_catch_mse_proj(list(OMs[[8]], OMs[[4]]), line_col = (adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5)), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp585", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
 
 
 mean_catch <- fixm_catch_mods %>%
@@ -155,72 +155,73 @@ write.csv(mean_rec, "mean_rec.csv")
 
 # # * Est-M ----
 # # - Climate naive
-# plot_catch(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/EstM_climate_naive", lwd = 0.5, width = 10)
+# plot_catch(c(OMs[[2]], OMs[[10]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/EstM_climate_naive", lwd = 0.5, width = 10)
 # 
 # # - SSP126
-# plot_catch(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp126", lwd = 0.5, width = 10)
+# plot_catch(c(OMs[[4]], OMs[[12]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp126", lwd = 0.5, width = 10)
 # 
 # # - SSP245
-# plot_catch(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp245", lwd = 0.5, width = 10)
+# plot_catch(c(OMs[[6]], OMs[[14]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp245", lwd = 0.5, width = 10)
 # 
 # # - SPP585
-# plot_catch(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp585", lwd = 0.5, width = 10)
+# plot_catch(c(OMs[[8]], OMs[[16]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp585", lwd = 0.5, width = 10)
 
 
 # Plot SSB ----
 # * FIX-M ----
 # - Climate naive
-plot_ssb(c(OMs[[1]], OMs[[9]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/FixM_climate_naive", lwd = 1, ymax = c(3, 1.2, 0.5))
+plot_ssb_mse_proj(list(OMs[[1]], OMs[[5]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_climate_naive", lwd = 1, ymax = c(3, 1.2, 0.5))
 
 # - SSP126
-plot_ssb(c(OMs[[3]], OMs[[11]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/FixM_ssp126", lwd = 1, ymax = c(3, 1.2, 0.5))
+plot_ssb_mse_proj(list(OMs[[2]], OMs[[6]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp126", lwd = 1, ymax = c(3, 1.2, 0.5))
 
 # - SSP245
-plot_ssb(c(OMs[[5]], OMs[[13]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/FixM_ssp245", lwd = 1, ymax = c(3, 1.2, 0.5))
+plot_ssb_mse_proj(list(OMs[[3]], OMs[[7]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp245", lwd = 1, ymax = c(3, 1.2, 0.5))
 
 # - SPP585
-plot_ssb(c(OMs[[7]], OMs[[15]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/FixM_ssp585", lwd = 1, ymax = c(3, 1.2, 0.5))
+plot_ssb_mse_proj(list(OMs[[4]], OMs[[8]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp585", lwd = 1, ymax = c(3, 1.2, 0.5))
 
 
 # # * Est-M ----
 # # - Climate naive
-# plot_ssb(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/SSB/EstM_climate_naive", lwd = 1, ymax = c(4, 1.2, 0.5))
+# plot_ssb(list(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/SSB/EstM_climate_naive", lwd = 1, ymax = c(4, 1.2, 0.5))
 # 
 # # - SSP126
-# plot_ssb(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/EstM_ssp126", lwd = 1, ymax = c(4, 1.2, 0.5))
+# plot_ssb(list(OMs[[4]], OMs[[12]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/SSB/EstM_ssp126", lwd = 1, ymax = c(4, 1.2, 0.5))
 # 
 # # - SSP245
-# plot_ssb(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/EstM_ssp245", lwd = 1, ymax = c(4, 1.2, 0.5))
+# plot_ssb(list(OMs[[6]], OMs[[14]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/SSB/EstM_ssp245", lwd = 1, ymax = c(4, 1.2, 0.5))
 # 
 # # - SPP585
-# plot_ssb(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/EstM_ssp585", lwd = 1, ymax = c(4, 1.2, 0.5))
+# plot_ssb(list(OMs[[8]], OMs[[16]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/SSB/EstM_ssp585", lwd = 1, ymax = c(4, 1.2, 0.5))
 
 
 
 # Plot R ----
 # * FIX-M ----
 # - Climate naive
-plot_recruitment(c(OMs[[1]], OMs[[9]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/Recruitment/FixM_climate_naive", lwd = 1, ymax = c(80, 8, 0.7))
+plot_ssb_mse_proj(list(OMs[[1]], OMs[[5]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_climate_naive", lwd = 1, ymax =  c(80, 8, 0.7), rec = TRUE)
 
 # - SSP126
-plot_recruitment(c(OMs[[3]], OMs[[11]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/FixM_ssp126", lwd = 1, ymax = c(80, 8, 0.7))
+plot_ssb_mse_proj(list(OMs[[2]], OMs[[6]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp126", lwd = 1, ymax =  c(80, 8, 0.7), rec = TRUE)
 
 # - SSP245
-plot_recruitment(c(OMs[[5]], OMs[[13]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/FixM_ssp245", lwd = 1, ymax = c(80, 8, 0.7))
+plot_ssb_mse_proj(list(OMs[[3]], OMs[[7]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp245", lwd = 1, ymax =  c(80, 8, 0.7), rec = TRUE)
 
 # - SPP585
-plot_recruitment(c(OMs[[7]], OMs[[15]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/Recruitment/FixM_ssp585", lwd = 1, ymax = c(80, 8, 0.7))
+plot_ssb_mse_proj(list(OMs[[4]], OMs[[8]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.7), file = "Results/Projections/SSB/FixM_ssp585", lwd = 1, ymax =  c(80, 8, 0.7), rec = TRUE)
+
 
 
 # # * Est-M ----
 # # - Climate naive
-# plot_recruitment(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/Recruitment/EstM_climate_naive", lwd = 1, ymax = c(80, 8, 0.7))
+# plot_recruitment(list(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/Recruitment/EstM_climate_naive", lwd = 1, ymax = c(80, 8, 0.7))
 # 
 # # - SSP126
-# plot_recruitment(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/EstM_ssp126", lwd = 1, ymax = c(80, 8, 0.7))
+# plot_recruitment(list(OMs[[4]], OMs[[12]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/Recruitment/EstM_ssp126", lwd = 1, ymax = c(80, 8, 0.7))
 # 
 # # - SSP245
-# plot_recruitment(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/EstM_ssp245", lwd = 1, ymax = c(80, 8, 0.7))
+# plot_recruitment(list(OMs[[6]], OMs[[14]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/Recruitment/EstM_ssp245", lwd = 1, ymax = c(80, 8, 0.7))
 # 
 # # - SPP585
-# plot_recruitment(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/Recruitment/EstM_ssp585", lwd = 1, ymax = c(80, 8, 0.7))
+# plot_recruitment(list(OMs[[8]], OMs[[16]]), line_col = adjustcolor(c(ms_col[3], ss_col[3]), alpha.f = 0.5), file = "Results/Projections/Recruitment/EstM_ssp585", lwd = 1, ymax = c(80, 8, 0.7))
