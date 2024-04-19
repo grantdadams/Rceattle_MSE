@@ -172,7 +172,7 @@ ss_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
 
 # -- SSP245
 ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                   inits = ss_mod$estimated_params, # Initial parameters = 0
+                                   inits = ss_mod_ssp126$estimated_params, # Initial parameters = 0
                                    file = NULL, # Don't save
                                    estimateMode = 0, # Estimate
                                    random_rec = FALSE, # No random recruitment
@@ -185,7 +185,7 @@ ss_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
 
 # -- SSP585
 ss_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                   inits = ss_mod$estimated_params, # Initial parameters = 0
+                                   inits = ss_mod_ssp126$estimated_params, # Initial parameters = 0
                                    file = NULL, # Don't save
                                    estimateMode = 0, # Estimate
                                    random_rec = FALSE, # No random recruitment
@@ -241,7 +241,7 @@ ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 3,
+                                   niter = 4,
                                    suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -253,13 +253,13 @@ ms_mod_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
 
 # -- SSP245
 ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
-                                   inits = ms_mod$estimated_params, # Initial parameters = 0
+                                   inits = ms_mod_ssp126$estimated_params, # Initial parameters = 0
                                    file = NULL, # Don't save
                                    estimateMode = 0, # Estimate
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 3,
+                                   niter = 4,
                                    suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -271,13 +271,13 @@ ms_mod_ssp245 <- Rceattle::fit_mod(data_list = ssp_dat_245,
 
 # -- SSP585
 ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
-                                   inits = ms_mod$estimated_params, # Initial parameters = 0
+                                   inits = ms_mod_ssp126$estimated_params, # Initial parameters = 0
                                    file = NULL, # Don't save
                                    estimateMode = 0, # Estimate
                                    random_rec = FALSE, # No random recruitment
                                    msmMode = 1, # Multi species mode
                                    verbose = 1,
-                                   niter = 3,
+                                   niter = 4,
                                    suit_meanyr = 2018,
                                    phase = NULL,
                                    M1Fun = build_M1(M1_model = c(1,2,1),
@@ -288,6 +288,9 @@ ms_mod_ssp585 <- Rceattle::fit_mod(data_list = ssp_dat_585,
                                    initMode = 1)
 
 
+ms_mod_ssp126$estimated_params$beta_rec_pars
+ms_mod_ssp245$estimated_params$beta_rec_pars
+ms_mod_ssp585$estimated_params$beta_rec_pars
 
 # * Adjust f prop ----
 mod_list_all <- list(ss_mod, ss_mod_M, ms_mod, 
@@ -320,8 +323,8 @@ ms_mod_ssp585 <- mod_list_all[[9]]
 ## Estimate EMs ----
 # EM 1) Single-spp fix M ----
 # - Tier-3
-ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
-                                  inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
+ss_mod_tier3 <- Rceattle::fit_mod(data_list = ss_mod$data_list,
+                                  inits = ss_mod$estimated_params, # Initial parameters = 0
                                   file = NULL, # Don't save
                                   estimateMode = 0, # Estimate
                                   random_rec = FALSE, # No random recruitment
@@ -339,8 +342,8 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
 
 # EM 2) Single-species estimated M ----
 # - Tier-3
-ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
-                                    inits = mod_list_all[[2]]$estimated_params, # Initial parameters = 0
+ss_mod_M_tier3 <- Rceattle::fit_mod(data_list = ss_mod_M$data_list,
+                                    inits = ss_mod_M$estimated_params, # Initial parameters = 0
                                     file = NULL, # Don't save
                                     estimateMode = 0, # Estimate
                                     random_rec = FALSE, # No random recruitment
@@ -397,24 +400,24 @@ save(proj_list_all, file = "Models/GOA_23_mod_projections.RData")
 
 
 
-load(file = "Models/GOA_23_mod_projections.RData")
-
-
-ss_mod_tier3 <- proj_list_all[[1]]
-ss_mod_M_tier3 <- proj_list_all[[2]]
-ss_mod <- proj_list_all[[3]]
-ss_mod_ssp126 <- proj_list_all[[4]]
-ss_mod_ssp245 <- proj_list_all[[5]]
-ss_mod_ssp585 <- proj_list_all[[6]]
-ms_mod <- proj_list_all[[7]]
-ms_mod_ssp126 <- proj_list_all[[8]]
-ms_mod_ssp245 <- proj_list_all[[9]]
-ms_mod_ssp585 <- proj_list_all[[10]]
-
-hcr_list <- list(ss_mod_tier3, ss_mod_M_tier3)
-
-om_list_ss <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585)
-om_list_ms <- list(ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585)
+# # load(file = "Models/GOA_23_mod_projections.RData")
+# 
+# 
+# ss_mod_tier3 <- proj_list_all[[1]]
+# ss_mod_M_tier3 <- proj_list_all[[2]]
+# ss_mod <- proj_list_all[[3]]
+# ss_mod_ssp126 <- proj_list_all[[4]]
+# ss_mod_ssp245 <- proj_list_all[[5]]
+# ss_mod_ssp585 <- proj_list_all[[6]]
+# ms_mod <- proj_list_all[[7]]
+# ms_mod_ssp126 <- proj_list_all[[8]]
+# ms_mod_ssp245 <- proj_list_all[[9]]
+# ms_mod_ssp585 <- proj_list_all[[10]]
+# 
+# hcr_list <- list(ss_mod_tier3, ss_mod_M_tier3)
+# 
+# om_list_ss <- list(ss_mod, ss_mod_ssp126, ss_mod_ssp245, ss_mod_ssp585)
+# om_list_ms <- list(ms_mod, ms_mod_ssp126, ms_mod_ssp245, ms_mod_ssp585)
 
 ## MSE ----
 # * OMs ----
@@ -438,221 +441,5 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_estM_Tier3_EM")
 
 # * Run MSE ----
 source("R/Functions/Run_2023_projection_MSE_function.R", echo=TRUE)
-run_mse(system = "GOA1977", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 50, cap = c(800000, 800000, 800000), catch_mult = c(1, 0.17, 1))
+run_mse(system = "GOA2020_Climate_Projections", om_list = om_list, om_names = om_names, em_hcr_list = em_hcr_list, em_hcr_names = em_hcr_names, sampling_period = sampling_period, nsim = 50, cap = c(800000, 800000, 800000), catch_mult = c(1, 0.17, 1))
 
-
-## MSE Summary ----
-# * Load MSE
-model_names <- c("Climate naive", "SSP-126", "SSP-245", "SSP-585")
-om_names <- paste0(rep(c("SS-", "MS-"), each = 4), model_names)
-em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_estM_Tier3_EM")
-
-mse_list <- list()
-ind <- 1
-for(om in 1:length(om_names)){
-  for(em in 1:length(em_hcr_names)){
-    mse_list[[ind]] <- load_mse(dir = paste0("Runs/GOA1977/", om_names[om],"/", em_hcr_names[em]), file = NULL)
-    names(mse_list)[ind] <- paste0(om_names[om]," OM - ", em_hcr_names[em])
-    ind = ind+1
-  }
-}
-
-# * Get catch ----
-OMs <- list()
-TEMs <- list()
-catch_list <- list()
-
-for(i in 1:length(mse_list)){
-  OMs[[i]] <- list()
-  TEMs[[i]] <- list()
-  catch_list[[i]] <- list()
-  
-  # -- Rename
-  names(OMs)[i] <- names(mse_list)[i]
-  names(TEMs)[i] <- names(mse_list)[i]
-  names(catch_list)[i] <- names(mse_list)[i]
-  
-  for(j in 1:length(mse_list[[i]])){
-    OMs[[i]][[j]] <- mse_list[[i]][[j]]$OM
-    OMs[[i]][[j]]$MSE = names(mse_list)[i]
-    OMs[[i]][[j]]$SIM = j
-    
-    TEMs[[i]][[j]] <- mse_list[[i]][[j]]$EM[[length(mse_list[[i]][[j]]$EM)]]
-    
-    
-    # -- Get catch
-    catch_list[[i]][[j]] <- OMs[[i]][[j]]$data_list$fsh_biom
-    OMs[[i]][[j]]$data_list$fsh_biom$MSE = names(mse_list)[i]
-    OMs[[i]][[j]]$data_list$fsh_biom$SIM = j
-    
-    catch_list[[i]][[j]]$Catch[which(catch_list[[i]][[j]]$Year > 2023)] <- OMs[[i]][[j]]$quantities$fsh_bio_hat[which(catch_list[[i]][[j]]$Year > 2023)]
-    
-    catch_list[[i]][[j]] <- catch_list[[i]][[j]] %>%
-      select(-Fleet_code, - Species, - Month, - Selectivity_block, -Log_sd) %>%
-      mutate(MSE = names(mse_list)[i],
-             SIM = j) %>%
-      pivot_wider(names_from = Fleet_name, values_from = c(Catch)) %>%
-      as.data.frame() %>%
-      relocate(MSE, .before = Year)
-  }
-  
-  # - Combine
-  catch_list[[i]] <- do.call("rbind", catch_list[[i]])
-}
-writexl::write_xlsx(catch_list, path = "Results/Projections/MSE_catch_timeseries.xlsx")
-
-# * Plot catch series ----
-ss_col <- nmfspalette::nmfs_palette("seagrass")(7)[1:4]
-ms_col <- nmfspalette::nmfs_palette("oceans")(7)[1:4]
-
-t_col <- function(color, percent = 50, name = NULL) {
-  #      color = color name
-  #    percent = % transparency
-  #       name = an optional name for the color
-  
-  ## Get RGB values for named color
-  rgb.val <- col2rgb(color)
-  
-  ## Make new color using input color as base and alpha set by transparency
-  t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
-               max = 255,
-               alpha = (100 - percent) * 255 / 100,
-               names = name)
-  
-  ## Save the color
-  invisible(t.col)
-}
-## END
-
-
-source("plot catch.R")
-
-## FIX-M 
-# - Get max catch
-fixm_catch_mods <- c(OMs[[1]], OMs[[9]], OMs[[3]], OMs[[11]], OMs[[5]], OMs[[13]], OMs[[7]], OMs[[15]])
-fixm_catch_mods <- do.call("rbind", lapply(fixm_catch_mods, function(x) x$data_list$fsh_biom))
-max_catch <- fixm_catch_mods %>%
-  group_by(Fleet_name, Fleet_code) %>%
-  summarise(MaxCatch = max(Catch)) %>%
-  arrange(Fleet_code)
-
-# - Climate naive
-plot_catch(c(OMs[[1]], OMs[[9]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/FixM_climate_naive", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
-
-# - SSP126
-plot_catch(c(OMs[[3]], OMs[[11]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp126", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
-
-# - SSP245
-plot_catch(c(OMs[[5]], OMs[[13]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp245", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
-
-# - SPP585
-plot_catch(c(OMs[[7]], OMs[[15]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/FixM_ssp585", lwd = 0.5, width = 10, ymax = max_catch$MaxCatch)
-
-
-mean_catch <- fixm_catch_mods %>%
-  filter(Year > 2090) %>%
-  group_by(Fleet_name, Fleet_code, MSE, Year) %>%
-  summarise(Catch = mean(Catch)) %>%
-  arrange(Fleet_code, MSE, Year)
-
-write.csv(mean_catch, "mean_catch.csv")
-
-
-
-fixm_catch_mods <- c(OMs[[1]], OMs[[9]], OMs[[3]], OMs[[11]], OMs[[5]], OMs[[13]], OMs[[7]], OMs[[15]])
-mse_names <- sapply(fixm_catch_mods, function(x) x$MSE)
-sim_names <- sapply(fixm_catch_mods, function(x) x$SIM)
-
-recs <- lapply(fixm_catch_mods, function(x) x$quantities$R[1,])
-for(i in 1:length(recs)){
-  recs[[i]] <- data.frame(Year = names(recs[[i]]), R = recs[[i]], MSE = mse_names[i], SIM = sim_names[i])
-}
-
-recs <- do.call("rbind", recs)
-
-mean_rec <- recs %>%
-  filter(Year > 2090) %>%
-  group_by(MSE, Year) %>%
-  summarise(MeanR = mean(R)) %>%
-  arrange(Year, MSE)
-
-write.csv(mean_rec, "mean_rec.csv")
-
-
-
-
-## Est-M 
-# - Climate naive
-plot_catch(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/EstM_climate_naive", lwd = 0.5, width = 10)
-
-# - SSP126
-plot_catch(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp126", lwd = 0.5, width = 10)
-
-# - SSP245
-plot_catch(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp245", lwd = 0.5, width = 10)
-
-# - SPP585
-plot_catch(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), top_adj = 1.05, file = "Results/Projections/Catch/EstM_ssp585", lwd = 0.5, width = 10)
-
-
-rm(mse_list);gc()
-# OMs <- lapply(mse_list, function(x) lapply(x, function(y) y$OM))
-
-
-# * Plot SSB ----
-## FIX-M 
-# - Climate naive
-plot_ssb(c(OMs[[1]], OMs[[9]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/FixM_climate_naive", lwd = 1, ymax = c(3, 1.2, 0.5))
-
-# - SSP126
-plot_ssb(c(OMs[[3]], OMs[[11]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/FixM_ssp126", lwd = 1, ymax = c(3, 1.2, 0.5))
-
-# - SSP245
-plot_ssb(c(OMs[[5]], OMs[[13]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/FixM_ssp245", lwd = 1, ymax = c(3, 1.2, 0.5))
-
-# - SPP585
-plot_ssb(c(OMs[[7]], OMs[[15]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/FixM_ssp585", lwd = 1, ymax = c(3, 1.2, 0.5))
-
-
-## Est-M 
-# - Climate naive
-plot_ssb(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/SSB/EstM_climate_naive", lwd = 1, ymax = c(4, 1.2, 0.5))
-
-# - SSP126
-plot_ssb(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/EstM_ssp126", lwd = 1, ymax = c(4, 1.2, 0.5))
-
-# - SSP245
-plot_ssb(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/SSB/EstM_ssp245", lwd = 1, ymax = c(4, 1.2, 0.5))
-
-# - SPP585
-plot_ssb(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/SSB/EstM_ssp585", lwd = 1, ymax = c(4, 1.2, 0.5))
-
-
-
-# * Plot R ----
-## FIX-M 
-# - Climate naive
-plot_recruitment(c(OMs[[1]], OMs[[9]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/Recruitment/FixM_climate_naive", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SSP126
-plot_recruitment(c(OMs[[3]], OMs[[11]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/FixM_ssp126", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SSP245
-plot_recruitment(c(OMs[[5]], OMs[[13]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/FixM_ssp245", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SPP585
-plot_recruitment(c(OMs[[7]], OMs[[15]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/Recruitment/FixM_ssp585", lwd = 1, ymax = c(80, 8, 0.7))
-
-
-## Est-M 
-# - Climate naive
-plot_recruitment(c(OMs[[2]], OMs[[10]]), line_col = (c(rep(ms_col[3], 10), rep(ss_col[3], 10))), file = "Results/Projections/Recruitment/EstM_climate_naive", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SSP126
-plot_recruitment(c(OMs[[4]], OMs[[12]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/EstM_ssp126", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SSP245
-plot_recruitment(c(OMs[[6]], OMs[[14]]), line_col = c(rep(ss_col[3], 10), rep(ms_col[3], 10)), file = "Results/Projections/Recruitment/EstM_ssp245", lwd = 1, ymax = c(80, 8, 0.7))
-
-# - SPP585
-plot_recruitment(c(OMs[[8]], OMs[[16]]), line_col = (c(rep(ss_col[3], 10), rep(ms_col[3], 10))), file = "Results/Projections/Recruitment/EstM_ssp585", lwd = 1, ymax = c(80, 8, 0.7))
