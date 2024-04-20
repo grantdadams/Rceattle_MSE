@@ -1,8 +1,8 @@
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl)
 load("Models/GOA_20_1_1_mod_list.RData")
-combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
-combined_data$endyr <- 2020
-combined_data$projyr <- 2130
+combined_data_em <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
+combined_data_em$endyr <- 2020
+combined_data_em$projyr <- 2130
 
 
 ## Ajust inits ----
@@ -27,7 +27,7 @@ for(i in 1:length(mod_list_all)){
   
   # Adjust future F proportion to each fleet
   mod_list_all[[i]]$data_list$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0)
-  combined_data$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0)
+  combined_data_em$fleet_control$proj_F_prop <- c(rep(0, 7), 1,0,0,1, 0,0, f_ratio, 0, 0)
   mod_list_all[[i]]$estimated_params$proj_F_prop <- mod_list_all[[i]]$data_list$fleet_control$proj_F_prop
 }
 
@@ -36,7 +36,7 @@ for(i in 1:length(mod_list_all)){
 ## Estimate OMs ----
 # EM 1) Single-spp fix M ----
 # - Tier-3
-ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
+ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data_em,
                                   inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
                                   file = NULL, # Don't save
                                   estimateMode = 0, # Estimate
@@ -53,7 +53,7 @@ ss_run_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
                                                   Alpha = 0.05))
 
 # - Dynamic Tier-3
-ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
+ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data_em,
                                          inits = mod_list_all[[1]]$estimated_params, # Initial parameters = 0
                                          file = NULL, # Don't save
                                          estimateMode = 0, # Estimate
@@ -72,7 +72,7 @@ ss_run_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
 
 # EM 2) Single-species estimated M ----
 # - Tier-3
-ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
+ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = combined_data_em,
                                     inits = mod_list_all[[2]]$estimated_params, # Initial parameters = 0
                                     file = NULL, # Don't save
                                     estimateMode = 0, # Estimate
@@ -91,7 +91,7 @@ ss_run_M_Tier3 <- Rceattle::fit_mod(data_list = combined_data,
                                                     Alpha = 0.05),
                                     initMode = 1)
 # - Dynamic Tier-3
-ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
+ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data_em,
                                            inits = mod_list_all[[2]]$estimated_params, # Initial parameters = 0
                                            file = NULL, # Don't save
                                            estimateMode = 0, # Estimate
@@ -114,7 +114,7 @@ ss_run_M_dynamicTier3 <- Rceattle::fit_mod(data_list = combined_data,
 
 # EM 3) Multi-species ----
 # -- F that acheives 40% of SB0, where SB0 is derived from projecting all species simultaneously under no fishing
-ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data,
+ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data_em,
                                  inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
                                  file = NULL, # Don't save
                                  estimateMode = 0, # Estimate
@@ -134,7 +134,7 @@ ms_run_fb40 <- Rceattle::fit_mod(data_list = combined_data,
 
 
 # -- F that acheives 40% of SB0, where SB0 is derived from first projecting arrowtooth and cod under no fishing, then projecting pollock under no fishing and cod/arrowtooth at SB40.
-ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data,
+ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data_em,
                                      inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
                                      file = NULL, # Don't save
                                      estimateMode = 0, # Estimate
@@ -155,7 +155,7 @@ ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data,
 
 
 # -- Multi-species CMSY
-ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data,
+ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data_em,
                                  inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
                                  file = NULL, # Don't save
                                  estimateMode = 0, # Estimate
@@ -174,7 +174,7 @@ ms_run_cmsy <- Rceattle::fit_mod(data_list = combined_data,
 
 # -- Multi-species CMSY, constrained so that species don't fall below 20% SB0
 # -- SB0 is derived from projecting all species simultaneously under no fishing
-ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data,
+ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data_em,
                                     inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
                                     file = NULL, # Don't save
                                     estimateMode = 0, # Estimate
