@@ -1,4 +1,6 @@
 install.packages("pacman")
+install.packages("TMB", type = "source")
+install.packages("Matrix", type = "source")
 pacman::p_load(dplyr,
                ggplot2,
                MASS,
@@ -12,8 +14,8 @@ pacman::p_load(dplyr,
                tidyr,
                testthat,
                foreach,
+R.utils,
                knitr,
                doParallel)
 devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
-install.packages("~/GitHub/Rceattle/Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")
-source("Models/GOA_18.5.1_models_1_2_from_excel.R")
+# install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")

@@ -41,7 +41,7 @@ climate_data <- rbind(summer_bt_data, winter_sst_data, zoo_data) %>%
   dplyr::select(-X) %>%
   mutate(value_squared = value^2) %>%
   pivot_wider(names_from = c(simulation), values_from = c(value, value_squared)) %>%
-  select(-depthclass, -hind) %>%
+  dplyr::select(-depthclass, -hind) %>%
   rename(Year = year) %>%
   group_by(varname) %>%
   mutate(value_ssp126z = (value_ssp126 - mean(value_ssp126[1:nyrs])) / sqrt(var(value_ssp126[1:nyrs])),
@@ -58,7 +58,7 @@ climate_data <- rbind(summer_bt_data, winter_sst_data, zoo_data) %>%
 # -- summer bottom temp
 summer_bt_data <- climate_data %>%
   filter(varname == "summer bt") %>%
-  select(-varname)
+  dplyr::select(-varname)
 
 temp_sub <- data.frame(Year = 1977:1979, 
                        value_ssp126 = mean(summer_bt_data$value_ssp126[1:10]), 
@@ -81,7 +81,7 @@ colnames(summer_bt_data) <- c("Year", paste0("BT_", colnames(summer_bt_data)[2:n
 # -- winter sst
 winter_sst_data <- climate_data %>%
   filter(varname == "winter sst") %>%
-  select(-varname)
+  dplyr::select(-varname)
 
 temp_sub <- data.frame(Year = 1977:1979, 
                        value_ssp126 = mean(winter_sst_data$value_ssp126[1:10]), 
@@ -104,7 +104,7 @@ colnames(winter_sst_data) <- c("Year", paste0("SST_", colnames(winter_sst_data)[
 # -- Zooplankton
 zoo_data <- climate_data %>%
   filter(varname == "mzl") %>%
-  select(-varname)
+  dplyr::select(-varname)
 
 mzl_sub <- data.frame(Year = 1977:1979, 
                       value_ssp126 = mean(zoo_data$value_ssp126[1:10]), 
@@ -134,13 +134,13 @@ climate_data <- winter_sst_data %>%
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
 ssp_dat_126$env_data <- climate_data %>%
-  select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z )
+  dplyr::select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z )
 
 ssp_dat_245$env_data <- climate_data %>%
-  select(Year, BT_value_ssp245, SST_value_ssp245z, SST_value_squared_ssp245z, MZL_value_ssp245z )
+  dplyr::select(Year, BT_value_ssp245, SST_value_ssp245z, SST_value_squared_ssp245z, MZL_value_ssp245z )
 
 ssp_dat_585$env_data <- climate_data %>%
-  select(Year, BT_value_ssp585, SST_value_ssp585z, SST_value_squared_ssp585z, MZL_value_ssp585z )
+  dplyr::select(Year, BT_value_ssp585, SST_value_ssp585z, SST_value_squared_ssp585z, MZL_value_ssp585z )
 
 
 ## Estimate OMs ----
