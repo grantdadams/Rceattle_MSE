@@ -31,11 +31,12 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
   
   # pm_labels <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion") # Not reversed
   
-  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
+  pm_labels <- c("Catch", "Catch IAV", "P(Open)", "SSB RMSE", "EM: P(Overfishing)", "EM: P(Overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
+  
   
   
   # - Get output ----
-  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   OM.res = output_table[[system]] %>%
     filter(Species == species)
   
@@ -214,11 +215,11 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   
   # pm_labels <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion") # Not reversed
   
-  pm_labels <- c("Catch", "1/(Catch IAV)", "P(Open)", "1/(SSB RMSE)", "EM: P(Not overfishing)", "EM: P(Not overfished)", "OM: P(Not overfishing)", "OM: P(Not overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
+  pm_labels <- c("Catch", "Catch IAV", "P(Open)", "SSB RMSE", "EM: P(Overfishing)", "EM: P(Overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
   
   
   # - Get output ----
-  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = TRUE)
+  output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   
   # Colors
   MPcols <- gmri_pal("main")(10)
@@ -260,7 +261,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
         filter(Species == species) %>% 
         filter(Performance.metric == pm_names[pm])
       
-
+      
       # - Plot ranges
       if(pm%in%c(3,5:8)){ylim = c(0,1)}else{
         ylim = range(data_sub %>% 

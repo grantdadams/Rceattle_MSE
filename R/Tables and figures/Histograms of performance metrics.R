@@ -64,12 +64,12 @@ output_table = pm_summary_table(om_names, EM_names)
 output_EBS <- output_table$EBS %>%
   filter(Performance.metric %in% pm_names) %>%
   pivot_wider(names_from = c(OM, EM), values_from = Value)
-write.csv(output_EBS, file = paste0("Results/Tables/TableS", "a_EBS_","_Tier3_summary.csv"))
+write.csv(output_EBS, file = paste0("Results/Tables/Table 5", "a_EBS_","_Tier3_summary.csv"))
 
 output_GOA <- output_table$GOA %>%
   filter(Performance.metric %in% pm_names) %>%
   pivot_wider(names_from = c(OM, EM), values_from = Value)
-write.csv(output_GOA, file = paste0("Results/Tables/TableS", "c_GOA_","_Tier3_summary.csv"))
+write.csv(output_GOA, file = paste0("Results/Tables/Table 5", "b_GOA_","_Tier3_summary.csv"))
 
 # - Dynamic Tier 3
 EM_names <- c("SS_fixM_dynamicTier3_EM", "SS_estM_dynamicTier3_EM")

@@ -30,27 +30,34 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     }
   }
   
+  # Make larger number better
+  reverse_percentage <- c("P(Closed)")
+  
+  row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
+  
+  EBS_mse_sum[row_id, "Value"] <- 1-EBS_mse_sum[row_id, "Value"]
+  GOA_mse_sum[row_id, "Value"] <- 1-GOA_mse_sum[row_id, "Value"]
+  
   
   if(reverse){
     # Make larger number better
-    reverse_percentage <- c("P(Closed)",
-                            "Catch IAV",
-                            "EM: P(Fy > Flimit)",
-                            "EM: P(SSB < SSBlimit)",
-                            "OM: P(Fy > Flimit)",
-                            "OM: P(SSB < SSBlimit)",
-                            "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",
-                            "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",
-                            "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",
-                            "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)")
-    
+    reverse_percentage <- c(
+      "Catch IAV",
+      "Catch IAV","EM: P(Fy > Flimit)",
+      "EM: P(SSB < SSBlimit)",
+      "OM: P(Fy > Flimit)",
+      "OM: P(SSB < SSBlimit)",
+      "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",
+      "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",
+      "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",
+      "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)")
     row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
     
     EBS_mse_sum[row_id, "Value"] <- 1-EBS_mse_sum[row_id, "Value"]
     GOA_mse_sum[row_id, "Value"] <- 1-GOA_mse_sum[row_id, "Value"]
     
     # Inverse
-    inverse_pm <- c("Avg terminal SSB MSE", "Catch IAV")
+    inverse_pm <- c("Avg terminal SSB MSE")
     row_id <- which(GOA_mse_sum$Performance.metric %in% inverse_pm)
     
     EBS_mse_sum[row_id, "Value"] <- 1/EBS_mse_sum[row_id, "Value"]
@@ -87,8 +94,8 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
                   "OM: Terminal SSB")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
-    EBS_mse_sum[row_id, "Value"] <- format(round(EBS_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
-    GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
+    EBS_mse_sum[row_id, "Value"] <- format(round(EBS_mse_sum[row_id, "Value"]/1000, 0), nsmall=0, big.mark=",")
+    GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"]/1000, 0), nsmall=0, big.mark=",")
   }
   
   # Swap cod and ATF for the GOA
