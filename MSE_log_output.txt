@@ -1,0 +1,6 @@
+NO SIMs: OM-1 ms_mod_ricker_OM EM-7 ms_run_cmsy_EM FALSE-regen FALSE-cap
+NO SIMs: OM-1 ms_mod_ricker_ssp245_OM EM-1 ms_run_cmsy_EM FALSE-regen FALSE-cap
+NO SIMs: OM-1 ms_mod_ricker_ssp585_OM EM-1 ms_run_cmsy_EM FALSE-regen FALSE-cap
+NO SIMs: OM-1 ms_mod_ricker_OM EM-3 ms_run_cmsy_EM FALSE-regen FALSE-cap
+NO SIMs: OM-1 ms_mod_ricker_ssp245_OM EM-3 ms_run_cmsy_EM FALSE-regen FALSE-cap
+NO SIMs: OM-2 ms_mod_ricker_ssp585_OM EM-3 ms_run_cmsy_EM FALSE-regen FALSE-cap
