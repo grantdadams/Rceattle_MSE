@@ -76,16 +76,16 @@ discard <- convergence_sims %>%
 summary_fun(system = "GOA_Climate_2", cap = "FALSE", 
             # om_list_no_F = projected_OM_no_F, 
             mse_om_names = om_names[5:8], # OM-6 & 7 (EM 7 & 8)
-            em_hcr_names = em_names[5:8],
+            em_hcr_names = em_names[7],
             exclude = NULL
 )
 gc()
 
 # - Cap
 summary_fun(system = "GOA_Climate_2", cap = "TRUE", 
-            # om_list_no_F = projected_OM_no_F[5:8], 
+            # om_list_no_F = projected_OM_no_F, 
             mse_om_names = om_names[5:8], 
-            em_hcr_names = em_names[5:8], # OM 5 EM 7, OM 6 EM 6
+            em_hcr_names = em_names[7], # OM 5 EM 7, OM 6 EM 6
             exclude = NULL
 )
 gc()
