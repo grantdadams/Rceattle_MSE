@@ -7,58 +7,64 @@
 "6","Pollock","EM: P(Fy > Flimit)",0.1625,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "7","Pollock","EM: P(SSB < SSBlimit)",0.1470625,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "8","Pollock","OM: P(Fy > Flimit)",0.019875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"9","Pollock","OM: P(SSB < SSBlimit)",0.5375,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"9","Pollock","OM: P(SSB < SSBlimit)",0.486875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "10","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.3189375,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "11","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.0336875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"12","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"13","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.3904375,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"12","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",6.25e-05,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"13","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.339875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "14","Pollock","OM: Terminal B",145.515053062282,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
 "15","Pollock","OM: Terminal SSB",26.6788999639925,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"16","Pollock","OM: Terminal SSB Depletion",0.026705605569562,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"17","Pollock","OM: Terminal SSB Depletion (Dynamic)",0.0128718129010619,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"18","Pollock","OM: Average SSB Depletion",0.333772428572922,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"19","Pollock","OM no F: SSB Collapse",143,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"20","Pollock","OM: SSB Collapse",200,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"21","Pollock","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"22","Arrowtooth flounder","Average Catch",32690.9363221129,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"23","Arrowtooth flounder","Catch IAV",0.0956612699007013,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"24","Arrowtooth flounder","P(Closed)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"25","Arrowtooth flounder","Avg SSB Relative MSE",0.339884610313825,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"26","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.483530953997988,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"27","Arrowtooth flounder","EM: P(Fy > Flimit)",0.004,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"28","Arrowtooth flounder","EM: P(SSB < SSBlimit)",6.25e-05,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"29","Arrowtooth flounder","OM: P(Fy > Flimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"30","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0.078125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"31","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.008,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"32","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"33","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"34","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.0780625,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"35","Arrowtooth flounder","OM: Terminal B",175943.585862546,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"36","Arrowtooth flounder","OM: Terminal SSB",27706.8106797605,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"37","Arrowtooth flounder","OM: Terminal SSB Depletion",27.7345452249855,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"38","Arrowtooth flounder","OM: Terminal SSB Depletion (Dynamic)",0.196180715873374,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"39","Arrowtooth flounder","OM: Average SSB Depletion",0.677482811170504,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"40","Arrowtooth flounder","OM no F: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"41","Arrowtooth flounder","OM: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"42","Arrowtooth flounder","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"43","Cod","Average Catch",17727.1969089207,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"44","Cod","Catch IAV",0.244002319964927,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"45","Cod","P(Closed)",0.0005625,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"46","Cod","Avg SSB Relative MSE",0.386107002126763,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"47","Cod","Avg terminal SSB Relative MSE",0.0199371202813505,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"48","Cod","EM: P(Fy > Flimit)",0.0049375,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"49","Cod","EM: P(SSB < SSBlimit)",0.000125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"50","Cod","OM: P(Fy > Flimit)",0.328125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"51","Cod","OM: P(SSB < SSBlimit)",0.549875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"52","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.004875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"53","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.65125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"54","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"55","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.54975,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"56","Cod","OM: Terminal B",123015.73869406,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"57","Cod","OM: Terminal SSB",43749.1169876761,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"58","Cod","OM: Terminal SSB Depletion",43.7929098975737,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"59","Cod","OM: Terminal SSB Depletion (Dynamic)",0.146300595938978,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"60","Cod","OM: Average SSB Depletion",0.283725588924497,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"61","Cod","OM no F: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"62","Cod","OM: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
-"63","Cod","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"16","Pollock","OM: Terminal Dynamic SB0",1372.34905643899,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"17","Pollock","OM: Terminal SSB Depletion",0.026705605569562,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"18","Pollock","OM: Terminal SSB Depletion (Dynamic)",0.0128718129010619,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"19","Pollock","OM: Average SSB Depletion",0.333772428572922,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"20","Pollock","OM no F: SSB Collapse",143,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"21","Pollock","OM: SSB Collapse",200,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"22","Pollock","OM: SSB Collapse from F",200,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"23","Pollock","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"24","Arrowtooth flounder","Average Catch",32690.9363221129,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"25","Arrowtooth flounder","Catch IAV",0.0956612699007013,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"26","Arrowtooth flounder","P(Closed)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"27","Arrowtooth flounder","Avg SSB Relative MSE",0.339884610313825,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"28","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.483530953997988,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"29","Arrowtooth flounder","EM: P(Fy > Flimit)",0.004,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"30","Arrowtooth flounder","EM: P(SSB < SSBlimit)",6.25e-05,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"31","Arrowtooth flounder","OM: P(Fy > Flimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"32","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0.0543125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"33","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.008,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"34","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"35","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"36","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.05425,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"37","Arrowtooth flounder","OM: Terminal B",175943.585862546,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"38","Arrowtooth flounder","OM: Terminal SSB",27706.8106797605,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"39","Arrowtooth flounder","OM: Terminal Dynamic SB0",140294.306900066,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"40","Arrowtooth flounder","OM: Terminal SSB Depletion",27.7345452249855,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"41","Arrowtooth flounder","OM: Terminal SSB Depletion (Dynamic)",0.196180715873374,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"42","Arrowtooth flounder","OM: Average SSB Depletion",0.677482811170504,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"43","Arrowtooth flounder","OM no F: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"44","Arrowtooth flounder","OM: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"45","Arrowtooth flounder","OM: SSB Collapse from F",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"46","Arrowtooth flounder","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"47","Cod","Average Catch",17727.1969089207,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"48","Cod","Catch IAV",0.244002319964927,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"49","Cod","P(Closed)",0.0005625,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"50","Cod","Avg SSB Relative MSE",0.386107002126763,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"51","Cod","Avg terminal SSB Relative MSE",0.0199371202813505,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"52","Cod","EM: P(Fy > Flimit)",0.0049375,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"53","Cod","EM: P(SSB < SSBlimit)",0.000125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"54","Cod","OM: P(Fy > Flimit)",0.328125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"55","Cod","OM: P(SSB < SSBlimit)",0.3403125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"56","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0.004875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"57","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0.65125,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"58","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"59","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.3401875,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"60","Cod","OM: Terminal B",123015.73869406,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"61","Cod","OM: Terminal SSB",43749.1169876761,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"62","Cod","OM: Terminal Dynamic SB0",291671.98826578,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"63","Cod","OM: Terminal SSB Depletion",43.7929098975737,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"64","Cod","OM: Terminal SSB Depletion (Dynamic)",0.146300595938978,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"65","Cod","OM: Average SSB Depletion",0.283725588924497,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"66","Cod","OM no F: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"67","Cod","OM: SSB Collapse",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"68","Cod","OM: SSB Collapse from F",0,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200
+"69","Cod","OM: SSB Collapse FAIL",NA,"ms_mod_ricker_ssp585_OM","ss_run_dynamicTier3_EM","TRUE",200

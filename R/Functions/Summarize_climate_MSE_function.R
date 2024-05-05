@@ -86,7 +86,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
           # 
           # mse[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Update SB0
           # 
-          mse[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
+          mse[[j]]$OM$data_list$Plimit[1:3] <- 0.2 # Update Target
           mse[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit
         }
       }
