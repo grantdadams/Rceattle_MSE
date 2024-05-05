@@ -30,7 +30,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
   # if(length(mse_om_names) != length(om_list_no_F)){
   #   stop("Length of OM names does not equal length of OMs")
   # }
-
+  
   # Loop across OMs, EMs, and Rec Scenarios
   for(om in 1:length(mse_om_names)){  # OM model
     for(em in 1:length(em_hcr_names)){ # EM and HCR
@@ -86,19 +86,27 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
           # 
           # mse[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Update SB0
           # 
-          # mse[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
-          # mse[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit
+          mse[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
+          mse[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit
         }
       }
       
       # Converged MSE ----
-      mse_use <- mse[sapply(mse, function(x) x$use_sim)]
+      use_sim <- sapply(mse, function(x) length(x$EM)) == 81
+      mse_use <- mse[use_sim]
       
       if(length(mse_use) > 0){
         
         # * Performance metrics ----
         # - Get summary
         mse_metrics <- mse_summary(mse_use)
+        
+        if(sum(!use_sim) > 0){ # Sims that did not converge, was there a collapse?
+          mse_metrics$`OM: SSB Collapse FAIL` = mse_summary(mse[!use_sim], om_only = TRUE)$`OM: SSB Collapse`
+        } else{
+          mse_metrics$`OM: SSB Collapse FAIL` <- NA
+        }
+        
         mse_metrics <- mse_metrics[1:3,-c(2:3)]
         mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
         colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
@@ -186,6 +194,8 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         # * Performance metrics ----
         # - Get summary
         mse_metrics <- mse_summary(mse, om_only = TRUE)
+        mse_metrics$`OM: SSB Collapse FAIL` = mse_metrics$`OM: SSB Collapse`
+        mse_metrics$`OM: SSB Collapse` = NA
         mse_metrics <- mse_metrics[1:3,-c(2:3)]
         mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
         colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
@@ -241,7 +251,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         
         # - Catch
         plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
-
+        
       }
       # - Unload for memorys
       rm(mse_use); rm(mse); gc()
