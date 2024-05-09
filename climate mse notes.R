@@ -8,6 +8,8 @@
 # Computer 12: HCR 6 - OMs 5:6 (No Cap & Cap)
 # Computer 8: HCR 6 - OMs 1:2 (No Cap & Cap)
 # Computer 1: HCR 6 - OMs 3:4 (No Cap & Cap)
+# Computer 3: HCR 8 - OMs 5:8 (No Cap & Cap)
+# Computer 4: HCR 8 - OMs 1:4 (No Cap & Cap)
 
 # - Need to be backed up (5/8/12)
 # Computer 8: HCR 6 - cap 5-6 OM
