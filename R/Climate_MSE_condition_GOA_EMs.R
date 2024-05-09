@@ -150,7 +150,7 @@ ms_run_fb40iter <- Rceattle::fit_mod(data_list = combined_data_em,
                                      HCR = build_hcr(HCR = 3, # Constant F HCR
                                                      DynamicHCR = FALSE, # Use dynamic reference points
                                                      FsprTarget = 0.4,
-                                                     HCRorder = c(1,2,1)), # F that achieves 40% SB0
+                                                     HCRorder = c(2,1,1)), # F that achieves 40% SB0
                                      initMode = 1)
 
 
@@ -179,8 +179,7 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data_em,
                                     file = NULL, # Don't save
                                     estimateMode = 0, # Estimate
                                     random_rec = FALSE, # No random recruitment
-                                    msmMode = 1, # Multi species mode
-                                    verbose = 1,
+                                    msmMode = 1, # Multi species mode 
                                     niter = 3,
                                     suit_meanyr = 2018,
                                     phase = NULL,
@@ -188,7 +187,7 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data_em,
                                                      M1_use_prior = FALSE,
                                                      M2_use_prior = FALSE),
                                     HCR = build_hcr(HCR = 1,
-                                                    Plimit = 0.2),
+                                                    Plimit = 0.35),
                                     initMode = 1)
 
 

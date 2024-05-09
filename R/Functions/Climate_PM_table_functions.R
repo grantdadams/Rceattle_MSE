@@ -11,9 +11,12 @@ climate_pm_summary_table <- function(om_names, em_hcr_names, cap = FALSE, regen 
         MSE_names <- paste0(om_names[om],"__", em_hcr_names[em], "_", regen,"regen",  "_", cap[c], "cap")
         
         GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Climate MSE/Tables/GOA_Climate_2/GOA_Climate_2_table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
-        colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value", "OM", "EM", "Cap")
+        colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value", "OM", "EM", "Cap", "Nsim")
+
+        GOA_mse_sum_tmp <- GOA_mse_sum_tmp %>%
+          mutate(Value = ifelse(Nsim < 10, NA, Value))
         
-        if(om * em == 1){
+        if(om * em * c == 1){
           GOA_mse_sum = GOA_mse_sum_tmp
         } else {
           GOA_mse_sum = rbind(GOA_mse_sum, GOA_mse_sum_tmp)
@@ -77,7 +80,8 @@ climate_pm_summary_table <- function(om_names, em_hcr_names, cap = FALSE, regen 
     # - Large numbers
     sci_form <- c("Average Catch",
                   "OM: Terminal B",
-                  "OM: Terminal SSB")
+                  "OM: Terminal SSB",
+                  "OM: Terminal Dynamic SB0")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
     GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"]/1000, 0), nsmall=0, big.mark=",")

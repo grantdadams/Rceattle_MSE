@@ -17,28 +17,27 @@ library(dplyr)
 library(tidyr)
 library(flextable)
 
-# * File names ----
-# OM names ----
-om_names <- paste0(c(
-  "ms_mod",# "ms_mod_ricker",
-  "ms_mod_ssp126",# "ms_mod_ricker_ssp126",
-  "ms_mod_ssp245",# "ms_mod_ricker_ssp245",
-  "ms_mod_ssp585"#, "ms_mod_ricker_ssp585" 
-), "_OM")
+ # OM and EM names ----
+  om_names <- paste0(c(
+    "ms_mod", "ms_mod_ricker",
+    "ms_mod_ssp126", "ms_mod_ricker_ssp126",
+    "ms_mod_ssp245", "ms_mod_ricker_ssp245",
+    "ms_mod_ssp585", "ms_mod_ricker_ssp585" 
+  ), "_OM")
 
-om_names_print = c("1. Naive",# "2. w Ricker", 
-                   "3. SSP-126",# "4. w Ricker", 
-                   "5. SSP-245",# "6. w Ricker", 
-                   "7. SSP-585"#, "8. w Ricker"
+om_names_print = c("1. Naive", "2. w Ricker", 
+                   "3. SSP-126", "4. w Ricker", 
+                   "5. SSP-245", "6. w Ricker", 
+                   "7. SSP-585", "8. w Ricker"
 )
+
 OM_df <- data.frame(OM = om_names, OM_print = om_names_print)
 
 
-
 # * EM names ----
-EM_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", "ss_run_M_Tier3", "ss_run_M_dynamicTier3", "ms_run_fb40", "ms_run_fb40iter", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
+EM_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", "ss_run_M_Tier3", "ss_run_M_dynamicTier3", "ms_run_fb40iter", "ms_run_fb40", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
 
-HCR_names_print <-  (c("NPFMC Fix-M", "NPFMC Fix-M (Dynamic B0)", "NPFMC Est-M" , "NPFMC Est-M (Dynamic B0)", "MS-B40a", "MS-B40b", "MS-MSY", "MS-cMSY"))
+HCR_names_print <-  (c("NPFMC Fix-M", "NPFMC Fix-M (Dynamic B0)", "NPFMC Est-M" , "NPFMC Est-M (Dynamic B0)", "MS-B40 iter", "MS-B40 simul", "MS-MSY", "MS-cMSY"))
 em_df <- data.frame(EM = EM_names, EM_print = HCR_names_print, Cap = FALSE)
 em_df_cap <- em_df
 em_df_cap$Cap <- TRUE
@@ -47,12 +46,16 @@ em_df <- rbind(em_df, em_df_cap)
 em_df$No <- 1:nrow(em_df)
 
 # - PMs
-performance_metrics <- c("Average Catch", "Catch IAV", "Avg terminal SSB Relative MSE" , "OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
+performance_metrics <- c("Average Catch", "Catch IAV", # "Avg terminal SSB Relative MSE" ,
+                         "OM: P(SSB < SSBlimit)" , "OM: Terminal SSB", "OM: Terminal Dynamic SB0", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
 
-performance_metrics_print <- c("average annual catch", 
+
+performance_metrics_print <- c("average annual catch (1,000 mt)", 
                                "average interannual variation in catch (IAV)", 
-                               "average relative mean squared error in estimate of spawning biomass in 2100", 
+                               # "average relative mean squared error in estimate of spawning biomass in 2100", 
                                "probability that the population is overfished as determined from the OM", 
+                               "terminal spawning stock biomass (1,000 mt)",
+                               "terminal dynamic SB0 (1,000 mt)",
                                "terminal spawning stock biomass depletion relative to dynamic SB0")
 
 
@@ -66,16 +69,17 @@ for(sp in 1:3){
     
     table_save <- output_table %>% 
       filter(Species == species & Performance.metric == performance_metrics[pm]) %>%
+      select(-Nsim) %>%
       pivot_wider(names_from = OM, values_from = Value) %>%
       mutate(System = "GOA") %>%
       left_join(em_df, by = c("EM", "Cap"))
     
     table_save <- table_save %>%
       select(Cap, EM_print,  No,
-             ms_mod_OM,# ms_mod_ricker_OM,
-             ms_mod_ssp126_OM,# ms_mod_ricker_ssp126_OM,
-             ms_mod_ssp245_OM,# ms_mod_ricker_ssp245_OM,
-             ms_mod_ssp585_OM#, ms_mod_ricker_ssp585_OM 
+             ms_mod_OM, ms_mod_ricker_OM,
+             ms_mod_ssp126_OM, ms_mod_ricker_ssp126_OM,
+             ms_mod_ssp245_OM, ms_mod_ricker_ssp245_OM,
+             ms_mod_ssp585_OM, ms_mod_ricker_ssp585_OM 
       ) %>%
       arrange(No) %>%
       select(-No)
@@ -97,7 +101,7 @@ for(sp in 1:3){
     
     
     # - Write table
-    print(paste0("**Supplementary Table ", 3+sp, ".PM-",pm,".** Summary of performance metric ", pm," (", performance_metrics_print[pm], ") across OMs for **", species,"**."))
+    print(paste0("**Supplementary Table ", 0+sp, ".PM-",pm,".** Summary of performance metric ", pm," (", performance_metrics_print[pm], ") across OMs for **", species,"**."))
     
     ft <- flextable(table_save) %>%
       bg(i = ((length(HCR_names_print)+1):(length(HCR_names_print)*2)), bg = "#e5e5e5") %>%

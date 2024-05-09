@@ -14,7 +14,7 @@ pacman::p_load(dplyr,
                tidyr,
                testthat,
                foreach,
-R.utils,
+               R.utils,
                knitr,
                doParallel)
 devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
