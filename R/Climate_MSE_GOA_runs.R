@@ -33,10 +33,10 @@ source("D:/GitHub/Rceattle/R/11a-mse_run_parallel.R")
 source("R/Functions/Run_climate_MSE_function.R")
 
 # No cap
-run_climate_mse(system = "GOA_Climate_2", om_list = om_list[5:6], om_names = om_names[5:6], em_hcr_list = em_list[6], em_hcr_names = em_names[6], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = NULL)
+run_climate_mse(system = "GOA_Climate_2", om_list = om_list[4:3], om_names = om_names[4:3], em_hcr_list = em_list[6], em_hcr_names = em_names[6], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = NULL)
 
 # Cap
-run_climate_mse(system = "GOA_Climate_2", om_list = om_list[5:6], om_names = om_names[5:6], em_hcr_list = em_list[6], em_hcr_names = em_names[6], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = cap_list)
+run_climate_mse(system = "GOA_Climate_2", om_list = om_list[4:3], om_names = om_names[4:3], em_hcr_list = em_list[6], em_hcr_names = em_names[6], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = cap_list)
 gc()
 
 
