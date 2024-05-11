@@ -170,7 +170,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
                      line_col = MPcols[c(1,7)], rec = TRUE, species = species, width = 4.3, height = 4, maxyr = maxyr, alpha = 0.6)
         plot_ssb_mse(list(lapply(mse_use, function(x) x$OM_no_F)), 
                      file = paste0(savedir, "Figures/R/",  system, " OM_no_F ", mse_om_names[om], "_", regen,"regen"),
-                     line_col = "#5F0F40", rec = TRUE, species = species, width = 4.3, height = 4, maxyr = maxyr, alpha = 0.6)
+                     line_col = "#04395E", rec = TRUE, species = species, width = 4.3, height = 4, maxyr = maxyr, alpha = 0.6)
         
         
         # - F and M

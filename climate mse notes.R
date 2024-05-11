@@ -11,12 +11,11 @@
 # Computer 3: HCR 8 - OMs 5:8 (No Cap & Cap)
 # Computer 4: HCR 8 - OMs 1:4 (No Cap & Cap)
 # Computer 5: HCR 8 - OMs 5:8 (Cap)
+# Computer 6: HCR 8 - OMs 1:4 (Cap)
+# Computer 7: HCR 7 - OMs 5:8 (Cap)
 
 # - Need to be backed up (5/8/12)
-# Computer 8: HCR 6 - cap 5-6 OM
-# Computer 10: HCR 6 - no cap on 5-6 OM
-# Computer 12: HCR 6: no cap 7-8 OM 
-# Computer 1: HCR 6 - cap 1-2 OM 
+
 
 # Need reinstall Rceattle (5/8/12)
 
