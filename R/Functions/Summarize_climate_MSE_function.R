@@ -151,6 +151,14 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
                      line_col = MPcols[c(1,7)], species = species, width = 4.3, height = 4, maxyr = maxyr, alpha = 0.6)
         
         
+        
+        plot_ssb_mse(list(lapply(mse_use, function(x) x$OM_no_F)), 
+                     file = paste0(savedir, "Figures/SSB/",  system, " OM_no_F ", mse_om_names[om], "_", regen,"regen"),
+                     line_col = "#04395E", alpha = 0.6,
+                     species = species, 
+                     width = 4.3, height = 4, maxyr = maxyr)
+        
+        
         # - Biomass
         print("-B plot")
         plot_biomass(mse_use, mse = TRUE, OM = TRUE, file = paste0(savedir, "Figures/B/True/", system, " True ", MSE_names),
