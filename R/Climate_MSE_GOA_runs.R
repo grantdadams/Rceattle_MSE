@@ -29,14 +29,14 @@ sampling_period <- c(2,2,1,2,2,2,2,1,2,2,1,2,2,1,1,1,1,1)
 # Management strategy evaluation
 ################################################
 ### Run the MSE
-source("D:/GitHub/Rceattle/R/11a-mse_run_parallel.R")
+source("~/GitHub/Rceattle/R/11a-mse_run_parallel.R")
 source("R/Functions/Run_climate_MSE_function.R")
 
 # No cap
-run_climate_mse(system = "GOA_Climate_2", om_list = om_list[7:8], om_names = om_names[7:8], em_hcr_list = em_list[7], em_hcr_names = em_names[7], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = NULL)
+run_climate_mse(system = "GOA_Climate_2", om_list = om_list[5:8], om_names = om_names[5:8], em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = NULL)
 
 # Cap
-run_climate_mse(system = "GOA_Climate_2", om_list = om_list[5:8], om_names = om_names[5:8], em_hcr_list = em_list[7], em_hcr_names = em_names[7], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = cap_list)
+run_climate_mse(system = "GOA_Climate_2", om_list = om_list[5:8], om_names = om_names[5:8], em_hcr_list = em_list[8], em_hcr_names = em_names[8], sampling_period = sampling_period, nsim = 200, regenerate_past = FALSE, cap = cap_list)
 gc()
 
 
