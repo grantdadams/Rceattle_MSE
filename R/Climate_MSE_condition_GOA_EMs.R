@@ -187,7 +187,7 @@ ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data_em,
                                                      M1_use_prior = FALSE,
                                                      M2_use_prior = FALSE),
                                     HCR = build_hcr(HCR = 1,
-                                                    Plimit = 0.35),
+                                                    Plimit = 0.20),
                                     initMode = 1)
 
 

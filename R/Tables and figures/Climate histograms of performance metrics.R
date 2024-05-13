@@ -10,20 +10,20 @@ source("R/Functions/Climate_PM_table_functions.R")
 # - Combined
 climate_mse_histogram(species = "Pollock", file = "Results/Climate MSE/Figures/Histograms by PM/Pollock/", height = 6, width = 12)
 climate_mse_histogram(species = "Pollock", file = "Results/Climate MSE/Figures/Histograms by PM/Pollock/", height = 6, width = 12, cap_leg = 2)
-climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12)
-climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12)
+# climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12)
+# climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12)
 
 climate_mse_histogram(species = "Pollock", file = "Results/Climate MSE/Figures/Histograms by PM/Pollock/", height = 6, width = 12, legend.pos = "bottomleft")
 climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12, legend.pos = NA)
 climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12, legend.pos = NA)
 
 climate_mse_histogram(species = "Pollock", file = "Results/Climate MSE/Figures/Histograms by PM/Pollock/", height = 6, width = 12, legend.pos = "topright")
-climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12, legend.pos = "topright")
-climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12, legend.pos = "topright")
+# climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12, legend.pos = "topright")
+# climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12, legend.pos = "topright")
 
 climate_mse_histogram(species = "Pollock", file = "Results/Climate MSE/Figures/Histograms by PM/Pollock/", height = 6, width = 12, legend.pos = "bottomright")
-climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12, legend.pos = "bottomright")
-climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12, legend.pos = "bottomright")
+# climate_mse_histogram(species = "Cod", file = "Results/Climate MSE/Figures/Histograms by PM/Cod/", height = 6, width = 12, legend.pos = "bottomright")
+# climate_mse_histogram(species = "Arrowtooth flounder", file = "Results/Climate MSE/Figures/Histograms by PM/ATF/", height = 6, width = 12, legend.pos = "bottomright")
 
 
 
@@ -36,18 +36,37 @@ om_names <- paste0(c(
   "ms_mod_ssp585", "ms_mod_ricker_ssp585" 
 ), "_OM")
 
-em_hcr_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", "ss_run_M_Tier3", "ss_run_M_dynamicTier3", "ms_run_fb40", "ms_run_fb40iter", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
+em_hcr_names <- paste0(c("ss_run_Tier3", "ss_run_dynamicTier3", "ss_run_M_Tier3", "ss_run_M_dynamicTier3", "ms_run_fb40iter", "ms_run_fb40", "ms_run_cmsy", "ms_run_concmsy"), "_EM")
 
 
-# - Get output ----
+# Summary tables ----
+# * Performance metrics
 output_table = climate_pm_summary_table(om_names, em_hcr_names, cap = c(TRUE, FALSE), format = FALSE, reverse = FALSE)
 output_table %>% group_by(OM, EM, Cap) %>% slice(n()) %>%
-  arrange(Nsim) %>%
-  arrange(EM) %>%
+  filter(Nsim < 190) %>%
+  arrange(EM, Cap, OM, Nsim) %>%
   as.data.frame()
 
+pm_names <- c("Average Catch", "Catch IAV", "OM: P(SSB < SSBlimit)" , "OM: Terminal SSB", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
 
-# * Model parameters ----
+output_table = climate_pm_summary_table(om_names, em_hcr_names, cap = c(TRUE, FALSE), format = TRUE, reverse = FALSE)
+table_save <- output_table %>%
+  filter(Performance.metric %in% pm_names & OM %in% c("ms_mod_OM") & Cap == FALSE) %>%
+  select(-Cap, -Nsim) %>%
+  pivot_wider(names_from = c(OM, EM), values_from = Value)
+write.csv(table_save, file = paste0("Results/Climate MSE/Tables/Table 7 - EM summary climate naive no srr.csv"))
+
+
+output_table = climate_pm_summary_table(om_names, em_hcr_names, cap = c(TRUE, FALSE), format = TRUE, reverse = FALSE)
+table_save <- output_table %>%
+  filter(Performance.metric %in% pm_names & OM %in% c("ms_mod_ricker_OM") & Cap == FALSE) %>%
+  select(-Cap, -Nsim) %>%
+  pivot_wider(names_from = c(OM, EM), values_from = Value)
+write.csv(table_save, file = paste0("Results/Climate MSE/Tables/Table 8 - EM summary climate naive ricker.csv"))
+
+
+
+# Model parameters ----
 pacman::p_load(Rceattle, readxl, dplyr, tidyr, writexl, ggplot2)
 load("Models/GOA_20_1_1_mod_list.RData")
 combined_data <- read_data(file = "Data/GOA_23_1_1_data_1977_2023_edited.xlsx")
@@ -56,7 +75,7 @@ combined_data$endyr <- 2020
 alpha = exp(c(3.143, 1.975, 1.44))
 
 
-## Ajust inits ----
+# * Ajust inits ----
 turn_offs <- c("logH_1", "logH_1a", "logH_1b", "logH_2", "logH_3", "H_4", "log_gam_a", "log_gam_b", "log_phi", "ln_pop_scalar", "sel_coff_dev")
 for(i in 1:length(mod_list_all)){
   mod_list_all[[i]]$estimated_params[turn_offs] <- NULL
@@ -68,7 +87,7 @@ for(i in 1:length(mod_list_all)){
 }
 
 
-## Climate data ----
+
 # * Load and scale ----
 summer_bt_data <- read.csv("Data/goa_temp_610_to_630_summer_300M.csv") %>%
   filter(depthclass == "Bottom", hind == "yes")  %>%
@@ -179,7 +198,7 @@ climate_data <- winter_sst_data %>%
   arrange(Year)
 
 
-# Plots ----
+# SST Plots ----
 MPcols <- gmri_pal("main")(3)
 
 sst_plot <- climate_data %>%
@@ -231,7 +250,7 @@ ssp_dat_585$env_data <- climate_data %>%
   dplyr::select(Year, BT_value_ssp585, SST_value_ssp585z, SST_value_squared_ssp585z, MZL_value_ssp585z )
 
 
-# OM 3) Multi-species ----
+# Stock-recruit parameters ----
 # * Density-independent recruitment ----
 # - Climate naive
 ms_mod <- Rceattle::fit_mod(data_list = combined_data,
@@ -320,3 +339,26 @@ ms_mod_ricker_ssp126 <- Rceattle::fit_mod(data_list = ssp_dat_126,
 
 beta_rec_pars <- cbind(ms_mod_ssp126$estimated_params$beta_rec_pars, ms_mod_ricker_ssp126$estimated_params$beta_rec_pars)
 write.csv(beta_rec_pars, "Results/Climate MSE/beta_rec_pars.csv")
+
+# Plot EMs ----
+library(Rceattle)
+library(tidyr)
+library(gmRi)
+library(dplyr)
+source("R/Climate_MSE_condition_GOA_EMs.R")
+
+MPcols <- gmri_pal("main")(11)[c(1,3,5,7,9,11)]
+plot_ssb(list(ss_run_Tier3, ss_run_M_Tier3, ms_run_fb40, ms_run_fb40iter, ms_run_cmsy, ms_run_concmsy), 
+         file = "Results/Climate MSE/Figures/Climate_OM_projected", 
+         model_names =   c("NPFMC Fix-M", "NPFMC Est-M" , "MS-B40a", "MS-B40b", "MS-MSY", "MS-cMSY"), 
+         width = 6, height = 4.5, 
+         line_col = MPcols, lty = c(2,2,1,1,1,1), 
+         species = c(1,3,2), endyr = 2100)
+
+
+plot_catch(list(ss_run_Tier3, ss_run_M_Tier3, ms_run_fb40, ms_run_fb40iter, ms_run_cmsy, ms_run_concmsy), 
+         file = "Results/Climate MSE/Figures/Climate_OM_projected", 
+         model_names =   c("NPFMC Fix-M", "NPFMC Est-M" , "MS-B40a", "MS-B40b", "MS-MSY", "MS-cMSY"), 
+         width = 6, height = 4.5, 
+         line_col = MPcols, lty = c(2,2,1,1,1,1), 
+         species = c(1,3,2), endyr = 2100)
