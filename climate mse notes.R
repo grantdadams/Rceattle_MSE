@@ -3,23 +3,17 @@
 
 
 # Currently running (5/8/12)
-# Computer 11: HCR 7 OMs 5-8  (No Cap & Cap)
-# Computer 7: HCR 7 - OMs 5:8 (Cap)
 
-# Computer 10: HCR 6 - OMs 7:8 (No Cap & Cap)
-# Computer 12: HCR 6 - OMs 4:3 (No Cap & Cap)
-# Computer 8: HCR 6 - OMs 1:2 (No Cap & Cap)
-# Computer 1: HCR 6 - OMs 5:6 (No Cap & Cap)
+# - Computer 4: HCR 5 OMs 5-8  (No Cap & Cap)
 
-# Computer 3: HCR 8 - OMs 5:8 (No Cap & Cap)
-# Computer 4: HCR 8 - OMs 1:4 (No Cap & Cap)
-# Computer 5: HCR 8 - OMs 5:8 (Cap)
-# Computer 6: HCR 8 - OMs 1:4 (Cap)
-
-# - Need to be backed up (5/8/12)
+# - Computer 8:  HCR 6 - OMs 1:2 (No Cap & Cap)
+# - Computer 12: HCR 6 - OMs 4:3 (No Cap & Cap)
+# - Computer 1:  HCR 6 - OMs 5:6 (No Cap & Cap)
+# - Computer 10: HCR 6 - OMs 7:8 (No Cap & Cap)
 
 
-# Need reinstall Rceattle (5/8/12)
+# - Computer 3: HCR 8 - OMs 5:8 (No Cap & Cap)
+# - Computer 11: HCR 8 OMs 5-8  (Cap)
 
 # Need to be re-run
-# HCR 5 FB40 Ricker
+# HCR 5, 7, 8 OMs 1:4
