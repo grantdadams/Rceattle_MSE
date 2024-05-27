@@ -50,6 +50,7 @@ MPcols <- rev(oce::oce.colorsViridis(6))
 
 # Do summary ----
 source("D:/GitHub/Rceattle/R/11b-mse_summary.R", encoding = 'UTF-8', echo=TRUE)
+source("D:/GitHub/Rceattle/R/7c-plot_diagnostics.R", encoding = 'UTF-8', echo=TRUE)
 source("R/Functions/Summarize_climate_MSE_function.R")
 source("R/Functions/Plot SSB MSE function.R", echo=TRUE)
 
@@ -76,7 +77,7 @@ discard <- convergence_sims %>%
 summary_fun(system = "GOA_Climate_2", cap = "FALSE", 
             # om_list_no_F = projected_OM_no_F, 
             mse_om_names = om_names, # OM-6 & 7 (EM 7 & 8)
-            em_hcr_names = em_names[8],
+            em_hcr_names = em_names[1:4],
             exclude = NULL
 )
 gc()
@@ -85,7 +86,7 @@ gc()
 summary_fun(system = "GOA_Climate_2", cap = "TRUE", 
             # om_list_no_F = projected_OM_no_F, 
             mse_om_names = om_names, 
-            em_hcr_names = em_names[8], # OM 5 EM 7, OM 6 EM 6
+            em_hcr_names = em_names[1:4], # OM 5 EM 7, OM 6 EM 6
             exclude = NULL
 )
 gc()

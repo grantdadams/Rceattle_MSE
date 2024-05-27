@@ -45,6 +45,7 @@ plot_ssb_mse <- function(Rceattle,
   
   # Species names
   spnames =  Rceattle[[1]][[1]]$data_list$spnames
+  nspp <- Rceattle[[1]][[1]]$data_list$nspp
   
   if(depletion == TRUE & rec == TRUE){
     stop("rec and depletion cant be true at the same time")
@@ -79,7 +80,6 @@ plot_ssb_mse <- function(Rceattle,
     species <- 1:nspp
   }
   spp <- species 
-  nspp <- length(species)
   
   
   # Get depletion

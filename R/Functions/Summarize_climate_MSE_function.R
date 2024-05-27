@@ -53,7 +53,9 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
       
       dir.create(paste0(savedir, "Figures/SSB/Perceived/"), recursive = TRUE, showWarnings = FALSE)
       dir.create(paste0(savedir, "Figures/SSB/True/"), recursive = TRUE, showWarnings = FALSE)
-      dir.create(paste0(savedir, "Figures/SSB/Comparison/"), recursive = TRUE, showWarnings = FALSE)
+      dir.create(paste0(savedir, "Figures/SSB/True/"), recursive = TRUE, showWarnings = FALSE)
+      dir.create(paste0(savedir, "Figures/SSB/Comparison/"), recursive = TRUE, showWarnings = FALSE)      
+      dir.create(paste0(savedir, "Figures/SSB/Pollock/"), recursive = TRUE, showWarnings = FALSE)
       
       dir.create(paste0(savedir, "Figures/B/Perceived/"), recursive = TRUE, showWarnings = FALSE)
       dir.create(paste0(savedir, "Figures/B/True/"), recursive = TRUE, showWarnings = FALSE)
@@ -67,6 +69,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
       dir.create(paste0(savedir, "Figures/F/True/"), recursive = TRUE, showWarnings = FALSE)
       
       dir.create(paste0(savedir, "Figures/Catch/"), recursive = TRUE, showWarnings = FALSE)
+      dir.create(paste0(savedir, "Figures/Catch/Pollock/"), recursive = TRUE, showWarnings = FALSE)
       
       
       # Adjust depletions ----
@@ -149,6 +152,11 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         plot_ssb_mse(Rceattle = list(lapply(mse_use, function(x) x$OM_no_F), lapply(mse_use, function(x) x$OM)), 
                      file = paste0(savedir, "Figures/SSB/Comparison/",  system, " True with reference ", MSE_names),
                      line_col = MPcols[c(1,7)], species = species, width = 4.3, height = 4, maxyr = maxyr, alpha = 0.6)
+        
+        
+        plot_ssb_mse(Rceattle = list(lapply(mse_use, function(x) x$OM_no_F), lapply(mse_use, function(x) x$OM)), 
+                     file = paste0(savedir, "Figures/SSB/Pollock/",  system, " True with reference ", MSE_names),
+                     line_col = MPcols[c(1,7)], species = 1, width = 4.3, height = 3, maxyr = maxyr, alpha = 0.6)
         
         
         
@@ -263,6 +271,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         
         # - Catch
         plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
+        plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/Pollock/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr, fleets = 1)
         
       }
       # - Unload for memorys
