@@ -201,8 +201,7 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         
         # - Catch
         plot_catch(mse_use, mse = TRUE, file = paste0(savedir, "Figures/Catch/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
-        
-        
+        plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/Pollock/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr, fleets = 1)
       } 
       
       # Unconverged MSE ----
@@ -271,8 +270,6 @@ summary_fun <- function(system = "GOA_Climate_2", regen = "FALSE", cap = FALSE, 
         
         # - Catch
         plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
-        plot_catch(mse, mse = TRUE, file = paste0(savedir, "Figures/Catch/Pollock/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr, fleets = 1)
-        
       }
       # - Unload for memorys
       rm(mse_use); rm(mse); gc()
