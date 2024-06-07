@@ -133,6 +133,10 @@ climate_data <- winter_sst_data %>%
 # combined_data$fleet_control$Fleet_type[18] <- 0
 ssp_dat_126 <- ssp_dat_245 <- ssp_dat_585 <- combined_data
 
+combined_data$env_data <- climate_data %>%
+  dplyr::select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z ) %>%
+  filter(Year <= 2020)
+
 ssp_dat_126$env_data <- climate_data %>%
   dplyr::select(Year, BT_value_ssp126, SST_value_ssp126z, SST_value_squared_ssp126z, MZL_value_ssp126z )
 

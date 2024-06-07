@@ -24,6 +24,8 @@ mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/F
 
 # - Combined
 mse_histogram_two_system(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 6, width = 12)
+mse_histogram_defense(species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", height = 6, width = 12)
+
 mse_histogram_two_system(species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 6, width = 12)
 mse_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 6, width = 12)
 

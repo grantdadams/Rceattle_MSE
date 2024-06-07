@@ -10,7 +10,7 @@ climate_pm_summary_table <- function(om_names, em_hcr_names, cap = FALSE, regen 
         # STEP 1 -- File names
         MSE_names <- paste0(om_names[om],"__", em_hcr_names[em], "_", regen,"regen",  "_", cap[c], "cap")
         
-        GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Climate MSE/Tables/GOA_Climate_2/GOA_Climate_2_table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
+        GOA_mse_sum_tmp <- read.csv(file = paste0("~/GitHub/Rceattle_MSE/Results/Climate MSE/Tables/GOA_Climate_2/GOA_Climate_2_table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
         colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value", "OM", "EM", "Cap", "Nsim")
 
         GOA_mse_sum_tmp <- GOA_mse_sum_tmp %>%
@@ -29,6 +29,15 @@ climate_pm_summary_table <- function(om_names, em_hcr_names, cap = FALSE, regen 
   reverse_percentage <- c("P(Closed)")
   row_id <- which(GOA_mse_sum$Performance.metric %in% reverse_percentage)
   GOA_mse_sum[row_id, "Value"] <- 1-GOA_mse_sum[row_id, "Value"]
+  
+  # Scale to 1,000 mt
+  scale_vars <- c("Average Catch",
+                "OM: Terminal B",
+                "OM: Terminal SSB",
+                "OM: Terminal Dynamic SB0")
+  row_id <- which(GOA_mse_sum$Performance.metric %in% scale_vars)
+  
+  GOA_mse_sum[row_id, "Value"] <- GOA_mse_sum[row_id, "Value"]/1000
   
   
   if(reverse){
@@ -84,7 +93,7 @@ climate_pm_summary_table <- function(om_names, em_hcr_names, cap = FALSE, regen 
                   "OM: Terminal Dynamic SB0")
     row_id <- which(GOA_mse_sum$Performance.metric %in% sci_form)
     
-    GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"]/1000, 0), nsmall=0, big.mark=",")
+    GOA_mse_sum[row_id, "Value"] <- format(round(GOA_mse_sum[row_id, "Value"], 0), nsmall=0, big.mark=",")
   }
   
   # Swap cod and ATF for the GOA

@@ -116,21 +116,44 @@ for(i in 1:length(mod_list_all)){
 
 # -- Multi-species CMSY, constrained so that species don't fall below 20% SB0
 # -- SB0 is derived from projecting all species simultaneously under no fishing
-ms_run_concmsy <- Rceattle::fit_mod(data_list = combined_data_em,
-                                    inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
-                                    file = NULL, # Don't save
-                                    estimateMode = 0, # Estimate
-                                    random_rec = FALSE, # No random recruitment
-                                    msmMode = 1, # Multi species mode 
-                                    niter = 3,
-                                    suit_meanyr = 2018,
-                                    phase = NULL,
-                                    M1Fun = build_M1(M1_model = c(1,2,1),
-                                                     M1_use_prior = FALSE,
-                                                     M2_use_prior = FALSE),
-                                    HCR = build_hcr(HCR = 1,
-                                                    Plimit = 0.35),
-                                    initMode = 1)
+ms_run_concmsy <- Rceattle::fit_mod(
+  data_list = combined_data_em,
+  inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
+  file = NULL, # Don't save
+  estimateMode = 0, # Estimate
+  random_rec = FALSE, # No random recruitment
+  msmMode = 1, # Multi species mode 
+  niter = 3,
+  suit_meanyr = 2018,
+  phase = NULL,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   M1_use_prior = FALSE,
+                   M2_use_prior = FALSE),
+  HCR = build_hcr(HCR = 1,
+                  Plimit = 0.35),
+  initMode = 1)
+
+
+ms_run_fb40iter <- Rceattle::fit_mod(
+  data_list = combined_data_em,
+  inits = mod_list_all[[3]]$estimated_params, # Initial parameters = 0
+  file = NULL, # Don't save
+  estimateMode = 0, # Estimate
+  random_rec = FALSE, # No random recruitment
+  msmMode = 1, # Multi species mode
+  verbose = 1,
+  niter = 3,
+  suit_meanyr = 2018,
+  phase = NULL,
+  M1Fun = build_M1(M1_model = c(1,2,1),
+                   M1_use_prior = FALSE,
+                   M2_use_prior = FALSE),
+  HCR = build_hcr(HCR = 3, # Constant F HCR
+                  DynamicHCR = FALSE, # Use dynamic reference points
+                  FsprTarget = 0.4,
+                  HCRorder = c(2,1,1)), # F that achieves 40% SB0
+  initMode = 1)
+
 
 ## Cap
 # - Max historical catch for Arrowtooth flounder
@@ -181,6 +204,34 @@ msecheck <- mse_run_parallel(
   timeout = 30,
   endyr = 2040
 )
+
+plot_biomass(msecheck[[1]]$OM)
+plot_catch(msecheck[[1]]$OM)
+
+
+msecheck2 <- mse_run_parallel(
+  om = ms_mod_ricker, 
+  em = ms_run_fb40iter, 
+  nsim = 1, 
+  start_sim = 1, 
+  seed = 666, 
+  regenerate_seed = 666,
+  assessment_period = 1, 
+  sampling_period = sampling_period, 
+  simulate_data = TRUE, 
+  sample_rec = TRUE, 
+  rec_trend = 0,
+  cap = NULL, 
+  dir = NULL,
+  file = NULL,
+  regenerate_past = FALSE,
+  timeout = 30,
+  endyr = 2050
+)
+
+plot_biomass(msecheck2[[1]]$OM)
+plot_catch(list(msecheck2[[1]]$OM, msecheck2[[1]]$EM$EM), incl_proj = T)
+
 
 #--------------------------------------------------
 # MSE SPECIFICATIONS ----
