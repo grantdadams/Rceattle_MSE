@@ -6,15 +6,12 @@
 
 # - Computer 12: HCR 1:2 - OMs 1:8 (No Cap & Cap) SLOW
 
-# - Computer 1: HCR 3:4 - OMs 1:8 (No Cap & Cap)
-
-# - Computer 4: HCR 5 - OMs 1,5 (No Cap & Cap)
-
-# - Computer 11: HCR 7 - OMs 1,5 (No Cap & Cap)
+# - Computer 1: HCR 3:4 - OMs 1,5 (No Cap & Cap)
 
 
-# Need to be re-run ----
 
+# Need to be backup ----
+1, 4, 11, 12
 
 
 # Locations ----
