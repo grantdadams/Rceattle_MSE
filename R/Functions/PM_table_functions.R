@@ -30,6 +30,13 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     }
   }
   
+  # Scale catch
+  row_id <- which(GOA_mse_sum$Performance.metric %in% "Average Catch")
+  
+  EBS_mse_sum[row_id, "Value"] <- EBS_mse_sum[row_id, "Value"]/1000
+  GOA_mse_sum[row_id, "Value"] <- GOA_mse_sum[row_id, "Value"]/1000
+  
+  
   # Make larger number better
   reverse_percentage <- c("P(Closed)")
   
