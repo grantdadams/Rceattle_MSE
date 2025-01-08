@@ -63,7 +63,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
           # - MULTI-SPECIES
           # - Calculate depletion for multi-species models
           if(mse3[[j]]$OM$data_list$msmMode == 1){
-            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Divide ssb by SSB in 2060 under no fishing
+            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Divide ssb by SSB in 2100 under no fishing
             
             mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Update SB0
             

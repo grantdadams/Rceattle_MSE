@@ -18,4 +18,4 @@ pacman::p_load(dplyr,
                knitr,
                doParallel)
 devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
-# install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")
+install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")
