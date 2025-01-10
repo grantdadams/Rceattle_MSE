@@ -10,17 +10,17 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 cat("\\pagebreak")
 
 # Tables of performance metrics
-setwd("~/GitHub/Rceattle_MSE")
-source("R/Functions/Summary_table_functions.R")
-source("R/Functions/Summary_histogram_function.R")
+setwd("~/Documents/GitHub/Rceattle_MSE")
+source("R/Functions/PM_table_functions.R")
+source("R/Functions/PM_histogram_function.R")
 library(dplyr)
 library(tidyr)
 library(flextable)
 
 # * File names ----
 # - OMs
-om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
-om_names_print = c("1. SS fix M", "2. w Ricker", "3. SS est M", "4. w Ricker", "5. MS", "6. w Ricker")
+om_names = c("SSM_OM", "SSM_Ricker_OM", "SS_OM", "SS_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+om_names_print = c("1. SS", "2. w Ricker", "3. SS age-M", "4. w Ricker", "5. MS", "6. w Ricker")
 OM_df <- data.frame(OM = om_names, OM_print = om_names_print)
 
 # - EMs

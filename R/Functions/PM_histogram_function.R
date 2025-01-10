@@ -4,7 +4,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
   library(dplyr)
   
   # OM and EM names ----
-  om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+  om_names = c("SSM_OM", "SSM_Ricker_OM", "SS_OM", "SS_Ricker_OM", "MS_OM", "MS_Ricker_OM")
   
   # - EMs - Tier 3 NPFMC only
   EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
@@ -41,7 +41,7 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
     filter(Species == species)
   
   # Colors (by EM/HCR)
-  MPcols <- gmri_pal("main")(10)
+  MPcols <- gmri_pal("mixed")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
   colors <- c()
@@ -150,6 +150,11 @@ mse_histogram <- function(system = "GOA", species = "Pollock", file = NULL, heig
         ylim[1] <- 0
       }
       
+      if(all(ylim == ylim[1])){
+        ylim <- c(0,1)
+      }
+      
+      
       # - Plot it
       plot(NA, NA, ylim = ylim, xlim = c(0.65,6.35), main = pm_labels[pm], xaxt = "na", xlab="", ylab="")
       
@@ -185,7 +190,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   library(dplyr)
   
   # OM and EM names ----
-  om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+  om_names = c("SSM_OM", "SSM_Ricker_OM", "SS_OM", "SS_Ricker_OM", "MS_OM", "MS_Ricker_OM")
   systems = c("EBS", "GOA")
   
   # - EMs - Tier 3 NPFMC only
@@ -221,8 +226,8 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   # - Get output ----
   output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   
-  # Colors
-  MPcols <- gmri_pal("main")(10)
+  # Colors (by EM/HCR)
+  MPcols <- gmri_pal("mixed")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
   colors <- c()
@@ -233,7 +238,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   colors <- c(colors, MPcols[7:10])
   point_type <- c(point_type, 21, 21, 21, 21)
   
-  colors <- c(colors[c(1,2,5,6,9,10,13,15)], colors[-c(1,2,5,6,9,10,13,15)])
+  colors <- c(colors[c(1,2,5,6,9,10,13,15)], colors[c(1,2,5,6,9,10,13,15)])
   point_type <- c(point_type[c(1,2,5,6,9,10,13,15)], point_type[-c(1,2,5,6,9,10,13,15)])
   
   
@@ -251,7 +256,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
     
     par(oma=c(0,2,0.5,0.1), mar=c(0,2,0.5,0), mai = c(0,0.3,0.3,0))
     layout(mat = matrix(1:3, 3, 1, byrow = TRUE),
-           heights = c(1, 1, 0.25), # Heights of the two rows
+           heights = c(1, 1, 0.35), # Heights of the two rows
            widths = 1) # Widths of the two columns
     
     for(sys in 1:2){
@@ -263,13 +268,22 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
       
       
       # - Plot ranges
-      if(pm%in%c(3,5:8)){ylim = c(0,1)}else{
-        ylim = range(data_sub %>% 
-                       pull(Value), 
-                     na.rm = TRUE)
-      }
-      if(pm %in% c(13, 14)){
+      ylim = range(data_sub %>% 
+                     pull(Value), 
+                   na.rm = TRUE)
+      
+      if(pm %in% c(13, 14,5:8)){
         ylim[1] <- 0
+      }
+      
+      if(pm %in% c(3)){
+        ylim[2] <- 1
+      }
+      
+      
+      
+      if(all(ylim == ylim[1])){
+        ylim <- c(0,1)
       }
       
       # - Plot
@@ -302,7 +316,8 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
       
       if(sys == 2){
         axis(side = 1, at = 1:6, labels = c("No SRR", "Ricker", "No SRR", "Ricker", "No SRR", "Ricker"), cex.axis = 1.5, padj = -0.2)
-        mtext(side = 1, line = 3, at = c(1.5, 3.5, 5.5), text = c("SS fix M", "SS est M", "MS"), cex = 1.5)
+        mtext(side = 1, line = 3, at = c(1.5, 3.5, 5.5), text = c("Age-invariant M", "Age-varying M", "Age- and time-varying M"), cex = 1.25)
+        mtext(side = 1, line = 5.5, at = c(2.5, 5.5), text = c(expression(bold("Single-spp OM")), expression(bold("Multi-spp OM"))), cex = 1.5)
       }
       box(which = "plot", lty = "solid")
     }

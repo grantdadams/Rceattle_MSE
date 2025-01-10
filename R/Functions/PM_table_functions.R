@@ -9,8 +9,8 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
       
-      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_Table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
-      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
+      GOA_mse_sum_tmp <- read.csv(file = paste0("~/Documents/GitHub/Rceattle_MSE/Results/Tables/GOA1977/GOA1977", "_Table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
+      EBS_mse_sum_tmp <- read.csv(file = paste0("~/Documents/GitHub/Rceattle_MSE/Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
       colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
       colnames(EBS_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
       
@@ -30,11 +30,22 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     }
   }
   
-  # Scale catch
-  row_id <- which(GOA_mse_sum$Performance.metric %in% "Average Catch")
+  # Scale RRMSE
+  #FIXME - remove later
+  inverse_pm <- c("Avg terminal SSB Relative MSE")
+  row_id <- which(GOA_mse_sum$Performance.metric %in% inverse_pm)
   
-  EBS_mse_sum[row_id, "Value"] <- EBS_mse_sum[row_id, "Value"]/1000
-  GOA_mse_sum[row_id, "Value"] <- GOA_mse_sum[row_id, "Value"]/1000
+  EBS_mse_sum[row_id, "Value"] <- sqrt(EBS_mse_sum[row_id, "Value"])
+  GOA_mse_sum[row_id, "Value"] <- sqrt(GOA_mse_sum[row_id, "Value"])
+  
+  
+  # Scale catch
+  if(!format){
+    row_id <- which(GOA_mse_sum$Performance.metric %in% "Average Catch")
+    
+    EBS_mse_sum[row_id, "Value"] <- EBS_mse_sum[row_id, "Value"]/1000
+    GOA_mse_sum[row_id, "Value"] <- GOA_mse_sum[row_id, "Value"]/1000
+  }
   
   
   # Make larger number better
@@ -64,7 +75,7 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
     GOA_mse_sum[row_id, "Value"] <- 1-GOA_mse_sum[row_id, "Value"]
     
     # Inverse
-    inverse_pm <- c("Avg terminal SSB MSE")
+    inverse_pm <- c("Avg terminal SSB Relative MSE")
     row_id <- which(GOA_mse_sum$Performance.metric %in% inverse_pm)
     
     EBS_mse_sum[row_id, "Value"] <- 1/EBS_mse_sum[row_id, "Value"]
