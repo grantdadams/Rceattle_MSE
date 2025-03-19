@@ -1,10 +1,9 @@
 ################################################
 # Set-up
 ################################################
-fit_all <- FALSE
+fit_all <- TRUE
 source("R/GOA_condition_models_1977.R")
 source("R/GOA_condition_ricker_models_1977.R")
-source("R/Functions/Project recruitment stochasticity.R") # Function to update quantities for Ricker models (given bias in R0)
 library(Rceattle)
 library(tidyr)
 library(gmRi)
@@ -22,7 +21,6 @@ ss_run$data_list$spnames <- paste("GOA", ss_run$data_list$spnames)
 om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
 om_names_print = c("SS fix M", "SS est M", "MS", "SS fix M Ricker", "SS est M Ricker", "MS Ricker")
 projected_OM_no_F <- list(ss_run, ss_run_M, ms_run, ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
-projected_OM_no_F <- update_quantities(projected_OM_no_F)  # Update projections
 
 # Update depletion (not done internally)
 for(i in c(3, 6)){
@@ -49,14 +47,12 @@ om_hcr_list_ricker_fixM <- list(ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3,
                                 ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, 
                                 ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1, 
                                 ss_run_ricker_Fspr, ss_run_ricker_AvgF) # Fixed M
-om_hcr_list_ricker_fixM <- update_quantities(om_hcr_list_ricker_fixM) # Update projections
 om_hcr_list_ricker_fixM <- c(om_hcr_list_ricker_fixM, om_hcr_list_ricker_fixM)
 
 om_hcr_list_ricker_estM <- list(ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3,
                                 ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, 
                                 ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1, 
                                 ss_run_ricker_M_Fspr, ss_run_ricker_M_AvgF) # Estimate M
-om_hcr_list_ricker_estM <- update_quantities(om_hcr_list_ricker_estM) # Update projections
 om_hcr_list_ricker_estM <- c(om_hcr_list_ricker_estM, om_hcr_list_ricker_estM)
 
 
@@ -93,21 +89,31 @@ plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/GOA_OM_", m
 
 # - Plot projections
 MPcols <- gmri_pal("main")(3)
-plot_ssb(projected_OM_no_F, file = "Results/Figures/GOA_OM_projection", , model_names = om_names_print[1:3], incl_proj = TRUE, width = 7, height = 6, line_col = MPcols[c(3:1, 3:1)], lty = c(1,1,1,5,6,6), maxyr = 2060)
+model_names <- c("Single-spp age-invariant M", "Single-spp age-varying M", "Multi-spp")
+plot_ssb(projected_OM_no_F[c(2,1,3,5,4,6)],, file = "Results/Figures/GOA_OM_projection", model_names = model_names, incl_proj = TRUE, width = 7, height = 6, line_col = MPcols[c(3:1, 3:1)], lty = c(1,1,1,5,6,6), maxyr = 2060)
 
 
 ################################################
 # Do summary ----
 ################################################
-source("R/Functions/MSE_summary.R", encoding = 'UTF-8', echo=TRUE)
-source("R/Functions/MSE_summary_function.R")
+source("R/Functions/MSE_performance_metrics.R", encoding = 'UTF-8', echo=TRUE)
+source("R/Functions/Summarize_MSE_function.R")
 
 # SAFS 313-12
 # - No SRR
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:2], om_names = om_names[1:2], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
-summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], om_hcr_list_fixM = om_hcr_list_fixM, om_hcr_list_estM = om_hcr_list_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:2], om_names = om_names[1:2], 
+            om_hcr_list_fixM = om_hcr_list_fixM, 
+            om_hcr_list_estM = om_hcr_list_estM, 
+            em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], 
+            om_hcr_list_fixM = om_hcr_list_fixM, 
+            om_hcr_list_estM = om_hcr_list_estM, 
+            em_hcr_names = em_hcr_names)
 
 # - Ricker SRR
-summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], om_hcr_list_fixM = om_hcr_list_ricker_fixM, om_hcr_list_estM = om_hcr_list_ricker_estM, em_hcr_names = em_hcr_names)
+summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], 
+            om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
+            om_hcr_list_estM = om_hcr_list_ricker_estM, 
+            em_hcr_names = em_hcr_names)
 gc()
 
