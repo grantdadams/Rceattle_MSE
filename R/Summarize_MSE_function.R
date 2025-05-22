@@ -1,4 +1,4 @@
-source("R/Functions/plot_m_through_time.R")
+source("R/plot_m_through_time.R")
 
 summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F =  NULL, om_names = NULL, om_hcr_list_fixM = NULL, om_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2)){
   ################################################
@@ -13,10 +13,10 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         print(paste0("OM ", om, ": EM ", em))
         
         # STEP 1 -- Load MSE
-        if(!dir.exists(paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"))){
-          stop(paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap DOES NOT EXIST"))
-          }
-        mse3 <- load_mse(dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), file = NULL)
+        if(!dir.exists(paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"))){
+          stop(paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap DOES NOT EXIST"))
+        }
+        mse3 <- load_mse(dir = paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/",recname[rec],"/No cap"), file = NULL)
         MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
         
         
@@ -153,7 +153,7 @@ summary_fun <- function(system = "GOA1977", recname = "ConstantR", om_list_no_F 
         # 
         # # - Catch
         # plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Catch/", system, "/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
-
+        
         # - Unload for memory
         rm(mse3); gc()
       }

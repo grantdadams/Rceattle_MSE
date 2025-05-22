@@ -1,8 +1,8 @@
 ################################################
 # Set-up
 ################################################
-source("R/BSAI_condition_models.R")
-source("R/BSAI_condition_ricker_models.R")
+source("BSAI_condition_models.R")
+source("BSAI_condition_ricker_models.R")
 library(gmRi)
 library(Rceattle)
 library(tidyr)
@@ -94,8 +94,8 @@ plot_ssb(projected_OM_no_F[c(2,1,3,5,4,6)], file = "Results/Figures/EBS_OM_proje
 # Load and run summary
 ################################################
 # Do summary ----
-source("R/Functions/MSE_performance_metrics.R", encoding = 'UTF-8', echo=TRUE)
-source("R/Functions/Summarize_MSE_function.R")
+source("R/MSE_performance_metrics.R") # Performance metric function
+source("R/Summarize_MSE_function.R")  # Load and summarize sims function
 
 
 # SAFS 313-12
@@ -103,7 +103,7 @@ source("R/Functions/Summarize_MSE_function.R")
 summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1], om_names = om_names[1],
             om_hcr_list_fixM = om_hcr_list_fixM[16:1], 
             om_hcr_list_estM = om_hcr_list_estM[16:1], 
-            em_hcr_names = em_hcr_names[16:1], species = 1:3)
+            em_hcr_names = em_hcr_names[16:1], species = 1:3) ## SS OMs
 summary_fun(system = "EBS", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], 
             om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
             om_hcr_list_estM = om_hcr_list_ricker_estM, 
