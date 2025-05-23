@@ -185,30 +185,24 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   library(dplyr)
   
   # OM and EM names ----
-  om_names = c("SS_OM", "SS_Ricker_OM", "SSM_OM", "SSM_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+  om_names = c("SSM_OM", "SSM_Ricker_OM", "SS_OM", "SS_Ricker_OM", "MS_OM", "MS_Ricker_OM")
+  om_names_print = c("1. SS fix M", "2. w Ricker", "3. SS est M", "4. w Ricker", "5. MS", "6. w Ricker")
   systems = c("EBS", "GOA")
   
-  # - EMs - Tier 3 NPFMC only
-  EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
-                 "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM") 
-  EM_names_print <-  c("Fix M: NPFMC", "Est M: NPFMC") 
   
-  # - All EMs
-  if(allHCR){
-    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", 
-                   "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", 
-                   "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", 
-                   "SS_fixM_Fspr_EM", 
-                   "SS_fixM_AvgF_EM", 
-                   
-                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM",
-                   "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", 
-                   "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", 
-                   "SS_estM_Fspr_EM", 
-                   "SS_estM_AvgF_EM")
-    
-    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4", "Fix M: HCR 5", "Est M: HCR 5")
-  }
+  # - EMs
+  EM_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
+  
+  EM_names_print <-  c("HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                       "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                       "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                       "HCR 4 (NEFMC)", "HCR 5 (Avg F)",
+                       
+                       "HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                       "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                       "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                       "HCR 4 (NEFMC)", "HCR 5 (Avg F)")
   
   # - PM names
   pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
@@ -222,7 +216,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   
   # Colors
-  MPcols <- gmri_pal("main")(10)
+  MPcols <- gmri_pal("mixed")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
   point_type = c()
   colors <- c()
@@ -233,7 +227,8 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   colors <- c(colors, MPcols[7:10])
   point_type <- c(point_type, 21, 21, 21, 21)
   
-  colors <- c(colors[c(1,2,5,6,9,10,13,15)], colors[-c(1,2,5,6,9,10,13,15)])
+  colors <- c(colors[c(1,2,5,6,9,10,13,15)], 
+              colors[c(1,2,5,6,9,10,13,15)])
   point_type <- c(point_type[c(1,2,5,6,9,10,13,15)], point_type[-c(1,2,5,6,9,10,13,15)])
   
   
@@ -251,7 +246,7 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
     
     par(oma=c(0,2,0.5,0.1), mar=c(0,2,0.5,0), mai = c(0,0.3,0.3,0))
     layout(mat = matrix(1:3, 3, 1, byrow = TRUE),
-           heights = c(1, 1, 0.25), # Heights of the two rows
+           heights = c(1, 1, 0.35), # Heights of the two rows
            widths = 1) # Widths of the two columns
     
     for(sys in 1:2){
@@ -301,8 +296,9 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
       }
       
       if(sys == 2){
-        axis(side = 1, at = 1:6, labels = c("No SRR", "Ricker", "No SRR", "Ricker", "No SRR", "Ricker"), cex.axis = 1.5, padj = -0.2)
-        mtext(side = 1, line = 3, at = c(1.5, 3.5, 5.5), text = c("SS fix M", "SS est M", "MS"), cex = 1.5)
+        axis(side = 1, at = 1:6, labels = c("No SRR", "Ricker", "No SRR", "Ricker", "No SRR", "Ricker"), cex.axis = 1.6, padj = -0.2)
+        mtext(side = 1, line = 3, at = c(1.5, 3.5, 5.5), text = c("Age-invariant M", "Age-varying M", "Age- and time-varying M"), cex = 1.3)
+        mtext(side = 1, line = 5.5, at = c(2.5, 5.5), text = c("Single-spp OM", "Multi-spp OM"), cex = 1.5, font = 2)
       }
       box(which = "plot", lty = "solid")
     }

@@ -6,9 +6,9 @@ library(gmRi) # devtools::install_github("https://github.com/gulfofmaine/gmRi")
 library(scales)
 library(tidyr)
 library(dplyr)
-source("R/Functions/PM_table_functions.R")
-source("R/Functions/PM_histogram_function.R")
-source("R/Functions/PM_histogram_function_defense.R")
+source("R/PM_table_functions.R")
+source("R/PM_histogram_function.R")
+source("R/PM_histogram_function_defense.R")
 
 
 ## Figures for each PM and Species ----

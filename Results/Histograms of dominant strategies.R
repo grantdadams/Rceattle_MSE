@@ -11,36 +11,17 @@ source("R/PM_dominant_strategy_histogram_function.R")
 
 
 ## Figures for all PMs and Species ----
-# - EBS
-mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
+# - Combined
+dom_histogram_two_system(species = "Pollock", file = "Results/Figures/Dominant histograms/Pollock/", type = 1, height = 7, width = 14, legend.pos = "bottomleft")
+dom_histogram_two_system(species = "Cod", file = "Results/Figures/Dominant histograms/Cod/", type = 1, height = 6, width = 12, legend.pos = NA)
+dom_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Dominant histograms/ATF/", type = 1, height = 6, width = 12, legend.pos = NA)
 
-# - GOA
-mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
+# - Economic
+dom_histogram_two_system(species = "Pollock", file = "Results/Figures/Dominant histograms/Pollock/", type = 2, height = 6, width = 12, legend.pos = NA)
+dom_histogram_two_system(species = "Cod", file = "Results/Figures/Dominant histograms/Cod/", type = 2, height = 6, width = 12, legend.pos = NA)
+dom_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Dominant histograms/ATF/", type = 2, height = 6, width = 12, legend.pos = NA)
 
-
-## Figures for economic PMs and Species ----
-# - EBS
-mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
-
-# - GOA
-mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
-
-
-## Figures for conservation PMs and Species ----
-# - EBS
-mse_histogram(system = "EBS", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "EBS", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
-
-# - GOA
-mse_histogram(system = "GOA", species = "Pollock", file = "Results/Figures/Histograms by PM/Pollock/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Cod", file = "Results/Figures/Histograms by PM/Cod/", allHCR = TRUE, height = 4, width = 12)
-mse_histogram(system = "GOA", species = "Arrowtooth flounder", file = "Results/Figures/Histograms by PM/ATF/", allHCR = TRUE, height = 4, width = 12)
+# - Conservation
+dom_histogram_two_system(species = "Pollock", file = "Results/Figures/Dominant histograms/Pollock/", type = 3, height = 6, width = 12, legend.pos = NA)
+dom_histogram_two_system(species = "Cod", file = "Results/Figures/Dominant histograms/Cod/", type = 3, height = 6, width = 12, legend.pos = NA)
+dom_histogram_two_system(species = "Arrowtooth flounder", file = "Results/Figures/Dominant histograms/ATF/", type = 3, height = 6, width = 12, legend.pos = NA)
