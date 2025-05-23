@@ -193,39 +193,30 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   om_names = c("SSM_OM", "SSM_Ricker_OM", "SS_OM", "SS_Ricker_OM", "MS_OM", "MS_Ricker_OM")
   systems = c("EBS", "GOA")
   
-  # - EMs - Tier 3 NPFMC only
-  EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
-                 "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM") 
-  EM_names_print <-  c("Fix M: NPFMC", "Est M: NPFMC") 
   
-  # - All EMs
-  if(allHCR){
-    EM_names <-  c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", 
-                   "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", 
-                   "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", 
-                   "SS_fixM_Fspr_EM", 
-                   "SS_fixM_AvgF_EM", 
-                   
-                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM",
-                   "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", 
-                   "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", 
-                   "SS_estM_Fspr_EM", 
-                   "SS_estM_AvgF_EM")
-    
-    EM_names_print <-  c("Fix M: HCR 1", "Est M: HCR 1" , "Fix M: HCR 2", "Est M: HCR 2", "Fix M: HCR 3", "Est M: HCR 3", "Fix M: HCR 4", "Est M: HCR 4", "Fix M: HCR 5", "Est M: HCR 5")
-  }
+  # - EMs
+  EM_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
+  
+  EM_names_print <-  c("HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                       "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                       "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                       "HCR 4 (NEFMC)", "HCR 5 (Avg F)",
+                       
+                       "HCR 1a (NPFMC)", "HCR 1b (Dynamic NPFMC)",
+                       "HCR 2a (PFMC)", "HCR 2b (Dynamic PFMC)",
+                       "HCR 3a (SESSF)", "HCR 3b (Dynamic SESSF)",
+                       "HCR 4 (NEFMC)", "HCR 5 (Avg F)")
   
   # - PM names
   pm_names <- c("Average Catch", "Catch IAV", "P(Closed)", "Avg terminal SSB Relative MSE" , "EM: P(Fy > Flimit)"  , "EM: P(SSB < SSBlimit)" , "OM: P(Fy > Flimit)", "OM: P(SSB < SSBlimit)" , "EM: P(Fy > Flimit) but OM: P(Fy < Flimit)", "EM: P(Fy < Flimit) but OM: P(Fy > Flimit)" , "EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)", "EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)", "OM: Terminal SSB Depletion", "OM: Terminal SSB Depletion (Dynamic)") # Names in table
-  
-  # pm_labels <- c("Catch", "Catch IAV", "P(Closed)", "1/(SSB RMSE)", "EM: P(Overfishing)", "EM: P(overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion") # Not reversed
-  
   pm_labels <- c("Catch", "Catch IAV", "P(Open)", "SSB RMSE", "EM: P(Overfishing)", "EM: P(Overfished)", "OM: P(Overfishing)", "OM: P(Overfished)", "1-P(EM Overfishing & OM Underfishing)", "1-P(EM Underfishing & OM Overfishing)", "1-P(EM Overfished & OM Underfished)", "1-P(EM Underfished & OM Overfished)","Depletion", "Depletion (dynamic B0)")
   
   
   # - Get output ----
   output_table = pm_summary_table(om_names, EM_names, format = FALSE, reverse = FALSE)
   
+
   # Colors (by EM/HCR)
   MPcols <- gmri_pal("mixed")(10)
   MPcolsalpha <- alpha(MPcols[1:6], alpha = 0.6)
@@ -237,8 +228,9 @@ mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   }
   colors <- c(colors, MPcols[7:10])
   point_type <- c(point_type, 21, 21, 21, 21)
-  
-  colors <- c(colors[c(1,2,5,6,9,10,13,15)], colors[c(1,2,5,6,9,10,13,15)])
+
+  colors <- c(colors[c(1,2,5,6,9,10,13,15)], 
+              colors[c(1,2,5,6,9,10,13,15)])
   point_type <- c(point_type[c(1,2,5,6,9,10,13,15)], point_type[-c(1,2,5,6,9,10,13,15)])
   
   

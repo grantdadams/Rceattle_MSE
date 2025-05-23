@@ -2,54 +2,60 @@
 "1","Pollock","Average Catch",2120900.57863169
 "2","Pollock","Catch IAV",0.198411009776973
 "3","Pollock","P(Closed)",0.000310077519379845
-"4","Pollock","Avg SSB Relative MSE",0.557690168146579
-"5","Pollock","Avg terminal SSB Relative MSE",0.000482284110475604
-"6","Pollock","EM: P(Fy > Flimit)",0
-"7","Pollock","EM: P(SSB < SSBlimit)",0
-"8","Pollock","OM: P(Fy > Flimit)",0
-"9","Pollock","OM: P(SSB < SSBlimit)",0.000930232558139535
-"10","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"11","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
-"12","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"13","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.000930232558139535
-"14","Pollock","OM: Terminal B",15088710.3784246
-"15","Pollock","OM: Terminal SSB",3694889.86636913
-"16","Pollock","OM: Terminal SSB Depletion",0.416259981166243
-"17","Pollock","OM: Terminal SSB Depletion (Dynamic)",0.413447273039137
-"18","Pollock","OM: Average SSB Depletion",0.414762551522876
-"19","Cod","Average Catch",147134.140060314
-"20","Cod","Catch IAV",0.14794201857175
-"21","Cod","P(Closed)",7.75193798449612e-05
-"22","Cod","Avg SSB Relative MSE",0.630663070439598
-"23","Cod","Avg terminal SSB Relative MSE",0.000301088178515318
-"24","Cod","EM: P(Fy > Flimit)",0
-"25","Cod","EM: P(SSB < SSBlimit)",0
-"26","Cod","OM: P(Fy > Flimit)",0
-"27","Cod","OM: P(SSB < SSBlimit)",0.000232558139534884
-"28","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"29","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
-"30","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"31","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.000232558139534884
-"32","Cod","OM: Terminal B",1197254.44142758
-"33","Cod","OM: Terminal SSB",244325.529016797
-"34","Cod","OM: Terminal SSB Depletion",0.413802634343489
-"35","Cod","OM: Terminal SSB Depletion (Dynamic)",0.413543542673187
-"36","Cod","OM: Average SSB Depletion",0.397820604922604
-"37","Arrowtooth flounder","Average Catch",33496.8650029203
-"38","Arrowtooth flounder","Catch IAV",0.0810031214966859
-"39","Arrowtooth flounder","P(Closed)",0
-"40","Arrowtooth flounder","Avg SSB Relative MSE",0.185936769323496
-"41","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.000199585982078593
-"42","Arrowtooth flounder","EM: P(Fy > Flimit)",0
-"43","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
-"44","Arrowtooth flounder","OM: P(Fy > Flimit)",0
-"45","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
-"46","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
-"47","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
-"48","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
-"49","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
-"50","Arrowtooth flounder","OM: Terminal B",324416.640609338
-"51","Arrowtooth flounder","OM: Terminal SSB",179705.829053879
-"52","Arrowtooth flounder","OM: Terminal SSB Depletion",0.406429060569134
-"53","Arrowtooth flounder","OM: Terminal SSB Depletion (Dynamic)",0.405353803264885
-"54","Arrowtooth flounder","OM: Average SSB Depletion",0.436726627331079
+"4","Pollock","Avg SSB relative bias",-0.74571838166976
+"5","Pollock","Avg terminal SSB relative bias",0.00489428571455779
+"6","Pollock","Avg SSB Relative MSE",0.746786561305557
+"7","Pollock","Avg terminal SSB Relative MSE",0.021960967885674
+"8","Pollock","EM: P(Fy > Flimit)",0
+"9","Pollock","EM: P(SSB < SSBlimit)",0
+"10","Pollock","OM: P(Fy > Flimit)",0
+"11","Pollock","OM: P(SSB < SSBlimit)",0.000930232558139535
+"12","Pollock","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"13","Pollock","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
+"14","Pollock","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
+"15","Pollock","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.000930232558139535
+"16","Pollock","OM: Terminal B",15088710.3784246
+"17","Pollock","OM: Terminal SSB",3694889.86636913
+"18","Pollock","OM: Terminal SSB Depletion",0.416259975197336
+"19","Pollock","OM: Terminal SSB Depletion (Dynamic)",0.413447273039137
+"20","Pollock","OM: Average SSB Depletion",0.414762545575441
+"21","Cod","Average Catch",147134.140060314
+"22","Cod","Catch IAV",0.14794201857175
+"23","Cod","P(Closed)",7.75193798449612e-05
+"24","Cod","Avg SSB relative bias",-0.793731827639977
+"25","Cod","Avg terminal SSB relative bias",0.00298685517339173
+"26","Cod","Avg SSB Relative MSE",0.794142978587356
+"27","Cod","Avg terminal SSB Relative MSE",0.0173518926493717
+"28","Cod","EM: P(Fy > Flimit)",0
+"29","Cod","EM: P(SSB < SSBlimit)",0
+"30","Cod","OM: P(Fy > Flimit)",0
+"31","Cod","OM: P(SSB < SSBlimit)",0.000232558139534884
+"32","Cod","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"33","Cod","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
+"34","Cod","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
+"35","Cod","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0.000232558139534884
+"36","Cod","OM: Terminal B",1197254.44142758
+"37","Cod","OM: Terminal SSB",244325.529016797
+"38","Cod","OM: Terminal SSB Depletion",0.413802635119535
+"39","Cod","OM: Terminal SSB Depletion (Dynamic)",0.413543542673187
+"40","Cod","OM: Average SSB Depletion",0.397820605668677
+"41","Arrowtooth flounder","Average Catch",33496.8650029203
+"42","Arrowtooth flounder","Catch IAV",0.0810031214966859
+"43","Arrowtooth flounder","P(Closed)",0
+"44","Arrowtooth flounder","Avg SSB relative bias",-0.428880085141214
+"45","Arrowtooth flounder","Avg terminal SSB relative bias",0.00961599522649868
+"46","Arrowtooth flounder","Avg SSB Relative MSE",0.431203860515529
+"47","Arrowtooth flounder","Avg terminal SSB Relative MSE",0.0141274902965315
+"48","Arrowtooth flounder","EM: P(Fy > Flimit)",0
+"49","Arrowtooth flounder","EM: P(SSB < SSBlimit)",0
+"50","Arrowtooth flounder","OM: P(Fy > Flimit)",0
+"51","Arrowtooth flounder","OM: P(SSB < SSBlimit)",0
+"52","Arrowtooth flounder","EM: P(Fy > Flimit) but OM: P(Fy < Flimit)",0
+"53","Arrowtooth flounder","EM: P(Fy < Flimit) but OM: P(Fy > Flimit)",0
+"54","Arrowtooth flounder","EM: P(SSB < SSBlimit) but OM: P(SSB > SSBlimit)",0
+"55","Arrowtooth flounder","EM: P(SSB > SSBlimit) but OM: P(SSB < SSBlimit)",0
+"56","Arrowtooth flounder","OM: Terminal B",324416.640609338
+"57","Arrowtooth flounder","OM: Terminal SSB",179705.829053879
+"58","Arrowtooth flounder","OM: Terminal SSB Depletion",0.406429067681424
+"59","Arrowtooth flounder","OM: Terminal SSB Depletion (Dynamic)",0.405353803264885
+"60","Arrowtooth flounder","OM: Average SSB Depletion",0.43672663497356
