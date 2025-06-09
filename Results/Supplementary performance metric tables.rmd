@@ -95,8 +95,8 @@ for(sp in 1:3){
     
     
     # - Save table
-    dir.create(paste0("Results/Tables/PM Tables/",species,"/"), recursive = TRUE, showWarnings = FALSE)
-    write.csv(table_save, file = paste0("Results/Tables/PM Tables/",species,"/",pm,species,performance_metrics[pm],".csv"))
+    # dir.create(paste0("Results/Tables/PM Tables/",species,"/"), recursive = TRUE, showWarnings = FALSE)
+    # write.csv(table_save, file = paste0("Results/Tables/PM Tables/",species,"/",pm,species,performance_metrics[pm],".csv"))
     
     
     # - Write table
@@ -176,7 +176,7 @@ for(sp in 1:3){
   dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
   
   # - Save csv
-  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table6_dominated_table_", species,".csv"))
+  # write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table6_dominated_table_", species,".csv"))
   
   # - Print via rmarkdown
   print(paste0("**Supplementary Table ", 7, c("a", "b", "c")[sp],".** Number of times a management strategy performed the best for performance metrics across OMs for **", species, "**. Note, the maximum for each OM is 10 and across OMs is 60."))
@@ -256,7 +256,7 @@ for(sp in 1:3){
   dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
   
   # - Save csv
-  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table9_dominated_table_economic_", species,".csv"))
+  # write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table9_dominated_table_economic_", species,".csv"))
   
   # - Print via rmarkdown
   print(paste0("**Supplementary Table ", 8,c("a", "b", "c")[sp],".** Number of times a management strategy performed the best for economic performance metrics (1-3) across OMs for **", species, "**. Note, the maximum for each OM is 3 and across OMs is 18."))
@@ -335,7 +335,7 @@ for(sp in 1:3){
   dominant_strategy$`All OMs` = rowSums(dominant_strategy[,om_names_print])
   
   # - Save csv
-  write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table12_dominated_table_conservation_", species,".csv"))
+  # write.csv(dominant_strategy, file = paste0("Results/Tables/PM Tables/Table12_dominated_table_conservation_", species,".csv"))
   
   # - Print via rmarkdown
   print(paste0("**Supplementary Table ", 9, c("a", "b", "c")[sp],".** Number of times a management strategy performed the best for conservation performance metrics (5-8) across OMs for **", species, "**. Note, the maximum for each OM is 4 and across OMs is 24."))
