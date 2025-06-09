@@ -77,7 +77,6 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 # Plots ----
 ################################################
 MPcols <- rev(oce::oce.colorsViridis(6))
-# plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,2,4,6)])
 plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,5,5))
 plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6))
 plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6))
@@ -98,25 +97,15 @@ source("R/MSE_performance_metrics.R") # Performance metric function
 source("R/Summarize_MSE_function.R")  # Load and summarize sims function
 
 
-# SAFS 313-12
 # - No SRR OMs
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1], om_names = om_names[1],
-            om_hcr_list_fixM = om_hcr_list_fixM[16:1], 
-            om_hcr_list_estM = om_hcr_list_estM[16:1], 
-            em_hcr_names = em_hcr_names[16:1], species = 1:3) ## SS OMs
-summary_fun(system = "EBS", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], 
-            om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
-            om_hcr_list_estM = om_hcr_list_ricker_estM, 
-            em_hcr_names = em_hcr_names, species = 1:3)
+summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3],
+            om_hcr_list_fixM = om_hcr_list_fixM, 
+            om_hcr_list_estM = om_hcr_list_estM, 
+            em_hcr_names = em_hcr_names, species = 1:3) 
 
 # - Ricker SRR OMs
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:5], om_names = om_names[4:5],
+summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6],
             om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
             om_hcr_list_estM = om_hcr_list_ricker_estM, 
             em_hcr_names = em_hcr_names, species = 1:3)
-summary_fun(system = "EBS", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[6], om_names = om_names[6], 
-            om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
-            om_hcr_list_estM = om_hcr_list_ricker_estM, 
-            em_hcr_names = em_hcr_names, species = 1:3)
-gc()
 

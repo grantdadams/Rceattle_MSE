@@ -2,8 +2,8 @@
 # Set-up
 ################################################
 fit_all <- TRUE
-source("R/GOA_condition_models_1977.R")
-source("R/GOA_condition_ricker_models_1977.R")
+source("GOA_condition_models_1977.R")
+source("GOA_condition_ricker_models_1977.R")
 library(Rceattle)
 library(tidyr)
 library(gmRi)
@@ -75,11 +75,7 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 
 # Plots ----
-MPcols <- gmri_pal("main")(8)
-
 MPcols <- rev(oce::oce.colorsViridis(6))
-# plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,2,4,6)])
-
 plot_recruitment(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,5,5), species = c(1,3,2))
 plot_ssb(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6), species = c(1,3,2))
 plot_biomass(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6), species = c(1,3,2))
@@ -96,22 +92,18 @@ plot_ssb(projected_OM_no_F[c(2,1,3,5,4,6)],, file = "Results/Figures/GOA_OM_proj
 ################################################
 # Do summary ----
 ################################################
-source("R/Functions/MSE_performance_metrics.R", encoding = 'UTF-8', echo=TRUE)
-source("R/Functions/Summarize_MSE_function.R")
+source("R/MSE_performance_metrics.R", encoding = 'UTF-8', echo=TRUE)
+source("R/Summarize_MSE_function.R")
 
 # SAFS 313-12
 # - No SRR
-summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:2], om_names = om_names[1:2], 
-            om_hcr_list_fixM = om_hcr_list_fixM, 
-            om_hcr_list_estM = om_hcr_list_estM, 
-            em_hcr_names = em_hcr_names)
-summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[3], om_names = om_names[3], 
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], 
             om_hcr_list_fixM = om_hcr_list_fixM, 
             om_hcr_list_estM = om_hcr_list_estM, 
             em_hcr_names = em_hcr_names)
 
 # - Ricker SRR
-summary_fun(system = "GOA1977", recname = "TRUE regen", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], 
+summary_fun(system = "GOA1977", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], 
             om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
             om_hcr_list_estM = om_hcr_list_ricker_estM, 
             em_hcr_names = em_hcr_names)
