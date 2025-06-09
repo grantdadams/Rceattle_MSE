@@ -1,15 +1,12 @@
 library(Rceattle)
 library(dplyr)
 
-load("Models/GOA_18_5_1_mod_1-2_2023-07-05_old.RData")
-plot_biomass(mod_list_all, incl_proj = TRUE)
-mod_list_all[[1]]$data_list$fleet_control$Comp_weights
-# Should end with 1.66017
-
-# - Asign to list
-ss_run <- mod_list_all[[1]]
-ss_run_M <- mod_list_all[[2]]
-ms_run <- mod_list_all[[3]]
+# Source models with no curve to initialize
+if(!exists("fit_all")){fit_all = TRUE}
+fit_alltmp <- fit_all
+fit_all = FALSE
+source("R/GOA_condition_models_1977.R")
+fit_all <- fit_alltmp
 
 alpha = exp(c(3.143, 1.975, 1.44))
 
@@ -157,7 +154,6 @@ ss_run_ricker_M <- mod_list_all_ricker[[2]]
 ms_run_ricker <- mod_list_all_ricker[[3]]
 
 
-if(!exists("fit_all")){fit_all = TRUE}
 if(fit_all){
   ################################################
   # EMs: Multi-species w/ harvest control rules ----

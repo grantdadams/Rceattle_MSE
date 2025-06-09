@@ -1,30 +1,32 @@
 ################################################
 # Set-up
 ################################################
-source("BSAI_condition_models.R")
-source("BSAI_condition_ricker_models.R")
-library(gmRi)
+fit_all <- TRUE
+source("GOA_condition_models_1977.R")
+source("GOA_condition_ricker_models_1977.R")
 library(Rceattle)
 library(tidyr)
-
-ss_run$data_list$spnames <- paste("EBS", ss_run$data_list$spnames)
-
+library(gmRi)
 
 ################################################
-# Management strategy evaluation
+# Management strategy evaluation OMs and EMs
 ################################################
 ### OMS
 # 1. Single-species fix M
 # 2. Single-species estimate M
 # 3. Multi-species type II
+
 om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
 om_names_print = c("SS fix M", "SS est M", "MS", "SS fix M Ricker", "SS est M Ricker", "MS Ricker")
 projected_OM_no_F <- list(ss_run, ss_run_M, ms_run, ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
 
 # Update depletion (not done internally)
-for(i in c(3, 6)){
-  projected_OM_no_F[[i]]$quantities$depletionSSB <- projected_OM_no_F[[i]]$quantities$biomassSSB/projected_OM_no_F[[i]]$quantities$biomassSSB[,ncol(projected_OM_no_F[[i]]$quantities$biomassSSB)]
-  ms_run_ricker$quantities$depletionSSB <- ms_run_ricker$quantities$biomassSSB/ms_run_ricker$quantities$biomassSSB[,ncol(ms_run_ricker$quantities$biomassSSB)]
+# Update depletion (not done internally)
+for(i in 1:length(projected_OM_no_F)){
+  projected_OM_no_F[[i]]$data_list$spnames <- paste("GOA", projected_OM_no_F[[i]]$data_list$spnames)
+  if(i %in% c(3, 6)){
+    projected_OM_no_F[[i]]$quantities$depletionSSB <- projected_OM_no_F[[i]]$quantities$biomassSSB/projected_OM_no_F[[i]]$quantities$biomassSSB[,ncol(projected_OM_no_F[[i]]$quantities$biomassSSB)]
+  }
 }
 
 # Lists to update reference points in OM
@@ -73,39 +75,38 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
                   "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
-################################################
 # Plots ----
-################################################
 MPcols <- rev(oce::oce.colorsViridis(6))
-plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,5,5))
-plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6))
-plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6))
-plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/EBS_OM_", model_names = om_names_print[4:6], width = 6, height = 4.5, line_col = MPcols[c(1,3,5)])
-plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/EBS_OM_", model_names = om_names_print[c(3,6)], width = 6, height = 4.5, line_col = MPcols[c(2,6)])
+plot_recruitment(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,5,5), species = c(1,3,2))
+plot_ssb(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6), species = c(1,3,2))
+plot_biomass(projected_OM_no_F, file = "Results/Figures/GOA_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,6,6), species = c(1,3,2))
+plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/GOA_OM_", model_names = om_names_print[4:6], width = 6, height = 4.5, line_col = MPcols[c(1,3,5)], species = c(1,3,2))
+plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/GOA_OM_", model_names = om_names_print[c(3,6)], width = 6, height = 4.5, line_col = MPcols[c(2,6)], species = c(1,3,2))
+
 
 # - Plot projections
 MPcols <- gmri_pal("main")(3)
 model_names <- c("Single-spp age-invariant M", "Single-spp age-varying M", "Multi-spp")
-plot_ssb(projected_OM_no_F[c(2,1,3,5,4,6)], file = "Results/Figures/EBS_OM_projection", model_names = model_names, incl_proj = TRUE, width = 7, height = 6, line_col = MPcols[c(3:1, 3:1)], lty = c(1,1,1,5,6,6), maxyr = 2060)
+plot_ssb(projected_OM_no_F[c(2,1,3,5,4,6)],, file = "Results/Figures/GOA_OM_projection", model_names = model_names, incl_proj = TRUE, width = 7, height = 6, line_col = MPcols[c(3:1, 3:1)], lty = c(1,1,1,5,6,6), maxyr = 2060)
 
 
-################################################
-# Load and run summary
 ################################################
 # Do summary ----
-source("R/MSE_performance_metrics.R") # Performance metric function
-source("R/Summarize_MSE_function.R")  # Load and summarize sims function
+################################################
+source("R/MSE_performance_metrics.R", encoding = 'UTF-8', echo=TRUE)
+source("R/Summarize_MSE_function.R")
 
-
-# - No SRR OMs
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3],
+# SAFS 313-12
+# - No SRR
+summary_fun(system = "GOA1977", om_list_no_F = projected_OM_no_F[1:3], om_names = om_names[1:3], 
             om_hcr_list_fixM = om_hcr_list_fixM, 
             om_hcr_list_estM = om_hcr_list_estM, 
-            em_hcr_names = em_hcr_names, species = 1:3) 
+            em_hcr_names = em_hcr_names)
 
-# - Ricker SRR OMs
-summary_fun(system = "EBS", recname = "ConstantR", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6],
+# - Ricker SRR
+summary_fun(system = "GOA1977", om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6], 
             om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
             om_hcr_list_estM = om_hcr_list_ricker_estM, 
-            em_hcr_names = em_hcr_names, species = 1:3)
+            em_hcr_names = em_hcr_names)
+gc()
 
