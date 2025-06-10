@@ -1,6 +1,5 @@
 .Rproj.user
 .Rhistory
-.RData
 .Ruserdata
 R/Runs/mse5.RData
 R/Runs/mse4.RData
@@ -8,5 +7,4 @@ R/Runs/mse3.RData
 R/Runs/mse2.RData
 R/Runs/mse1.RData
 R/Runs.zip
-*.RData
 *.rds

@@ -93,7 +93,7 @@ dom_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
   
   # - Save plot dimensions
   if(!is.null(file)){
-    png(filename = paste0(file, species, "_", type,"_", legend.pos, ".png"), width = width, height = height, units = "in", res = 400)
+    png(filename = paste0(file, species, "_", type,"_",dm_name, "_", legend.pos, ".png"), width = width, height = height, units = "in", res = 400)
   }
   
   par(oma=c(0,2,0.5,0.1), mar=c(0,2,0.5,0), mai = c(0,0.3,0.3,0))
@@ -124,6 +124,10 @@ dom_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
       # Rect for est M
       rect(xleft = c(1:6)[om], -1, xright = c(1:6 + 0.5)[om], ylim[2]*2, density = NULL, angle = 45,
            col = "grey92", border = "grey92")
+      if(om == length(om_names)){
+        rect(xleft = 6, -1, xright = 7, ylim[2]*2, density = NULL, angle = 45,
+             col = "grey92", border = "grey92")
+      }
       
       points(x = om + point_loc, y = as.numeric(data_sub[,om_names[om]]), bg = alpha(colors, alpha = 0.5), pch = point_type, cex = 4.5)
     }
@@ -135,7 +139,7 @@ dom_histogram_two_system <- function(species = "Pollock", file = NULL, height = 
     mtext(systems[sys], side = 3, line = 0.2, cex = 1.5, font = 2)
     
     if(sys == 1){
-      legend(legend.pos, legend = (c("HCR 1 (NPFMC)", "HCR 2 (PFMC)" , "HCR 3 (SESSF)", "HCR 4 (NEFMC)", "HCR 5 (Avg F)")), bty = "n", pch = 16, cex = 1.5,  col = colors[c(1,3,5,7,8)], pt.cex = 2)
+      legend(legend.pos, legend = (c("HCR 1 (NPFMC)", "HCR 2 (PFMC)" , "HCR 3 (SESSF)", "HCR 4 (NEFMC)", "HCR 5 (Avg F)")), bty = "n", pch = 16, cex = 1.4,  col = colors[c(1,3,5,7,8)], pt.cex = 2)
     }
     
     if(sys == 2){
