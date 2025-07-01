@@ -1,4 +1,4 @@
-mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 7, width = 6, allHCR = FALSE, legend.pos = "topleft"){
+mse_histogram_two_system <- function(species = "Pollock", file = NULL, height = 7, width = 6, legend.pos = "topleft"){
   
   library(dplyr)
   

@@ -1,6 +1,6 @@
-source("R/plot_m_through_time.R")
+source("R/Plot M at age function.R")
 
-summary_fun <- function(system = "GOA1977", om_list_no_F =  NULL, om_names = NULL, om_hcr_list_fixM = NULL, om_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2)){
+summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =  NULL, om_names = NULL, om_hcr_list_fixM = NULL, om_hcr_list_estM = NULL, em_hcr_names = NULL, species = c(1,3,2)){
   ################################################
   # Load and run summary
   ################################################
@@ -12,15 +12,19 @@ summary_fun <- function(system = "GOA1977", om_list_no_F =  NULL, om_names = NUL
       print(paste0("OM ", om, ": EM ", em))
       
       # STEP 1 -- Load MSE
-      if(!dir.exists(paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap"))){
-        stop(paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap DOES NOT EXIST"))
+      if(!dir.exists(paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap"))){
+        stop(paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap DOES NOT EXIST"))
       }
-      mse3 <- load_mse(dir = paste0("D:/MSE Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap"), file = NULL)
+      mse3 <- load_mse(dir = paste0("Runs/", system,"/", om_names[om],"/", em_hcr_names[em],"/No cap"), file = NULL)
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
       
       
       # STEP 2 -- Update Ftarget, Flimit, and depletion for OMs
       for(j in 1:length(mse3)){
+        
+        # Add system to species names
+        mse3[[j]]$OM$data_list$spnames <- paste(spname_system, mse3[[j]]$OM$data_list$spnames)
+        mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$data_list$spnames <- paste(spname_system, mse3[[j]]$EM[[length(mse3[[j]]$EM)]]$data_list$spnames)
         
         # - SINGLE-SPECIES
         if(mse3[[j]]$OM$data_list$msmMode == 0){
@@ -81,11 +85,11 @@ summary_fun <- function(system = "GOA1977", om_list_no_F =  NULL, om_names = NUL
       mse_metrics <- mse_metrics[1:3,-c(2:3)]
       mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
       colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
-      
+
       # - Save
       dir.create(paste0("Results/Tables/",system), recursive = TRUE, showWarnings = FALSE)
       write.csv(mse_metrics, file = paste0("Results/Tables/",system,"/",system, "_table", MSE_names,".csv"))
-      
+
       
       # STEP 4 - Plot
       # - Create directories
@@ -125,22 +129,22 @@ summary_fun <- function(system = "GOA1977", om_list_no_F =  NULL, om_names = NUL
                line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/SSB/", system,  "/Perceived/",  system, " Perceived ", MSE_names),
                line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-      
+
       plot_ssb(c(list(mse3$Sim_1$OM), mse3$Sim_1$EM), # file = paste0("Results/Figures/Time-series plots/SSB/", system,  "/",  system, " single sim ", MSE_names),
                species = species, maxyr = maxyr)
-      
+
       # - Biomass
       plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/B/", system,  "/True/", system, " True ", MSE_names),
                    line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/B/", system,  "/Perceived/", system, " Perceived ", MSE_names),
                    line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-      
+
       # - Recruitment
       plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/R/", system,  "/True/", system, " True ", MSE_names),
                        line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/R/", system,  "/Perceived/",  system, " Perceived ", MSE_names),
                        line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-      
+
       # - F and M
       plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/F/",system,  "/True/", system, " True ", MSE_names),
              line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
@@ -148,8 +152,8 @@ summary_fun <- function(system = "GOA1977", om_list_no_F =  NULL, om_names = NUL
              line_col  = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_m_at_age_mse(mse3, file = paste0("Results/Figures/Time-series plots/M/", system,  "/", system, " Perceived ", MSE_names),
                         line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, age = 1)
-      
-      
+
+
       # - Catch
       plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Time-series plots/Catch/", system, "/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
       
