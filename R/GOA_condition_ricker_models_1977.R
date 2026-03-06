@@ -24,13 +24,13 @@ ss_run_ricker <- Rceattle::fit_mod(
                      srr_pred_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha,
+                     srr_prior = alpha,
                      srr_prior_sd = 0.2,
-                     Bmsy_lim = apply(ss_run$quantities$biomassSSB, 1, max)
+                     Bmsy_lim = apply(ss_run$quantities$ssb, 1, max)
   ),
   random_rec = FALSE, # No random recruitment
   msmMode = 0, # Single species mode
-  phase = "default",
+  phase = TRUE,
   verbose = 1, 
   initMode = 2)
 plot_biomass(ss_run_ricker, incl_proj = TRUE)
@@ -39,7 +39,7 @@ plot_stock_recruit(ss_run_ricker)
 # -- Check Bmsy
 alpha <- exp(ss_run_ricker$estimated_params$rec_pars[,2])
 beta <- exp(ss_run_ricker$estimated_params$rec_pars[,3])
-apply(ss_run$quantities$biomassSSB, 1, max)
+apply(ss_run$quantities$ssb, 1, max)
 1/(beta/1000000)
 
 
@@ -51,20 +51,19 @@ ss_run_ricker_M <- Rceattle::fit_mod(
   file = NULL, # Don't save
   estimateMode = 1, # Estimate hindcast only
   M1Fun = build_M1(M1_model = c(1,2,1),
-                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 0,
                      srr_pred_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha,
+                     srr_prior = alpha,
                      srr_prior_sd = 0.2,
-                     Bmsy_lim = apply(ss_run_ricker_M$quantities$biomassSSB, 1, max)
+                     Bmsy_lim = apply(ss_run_ricker_M$quantities$ssb, 1, max)
   ),
   random_rec = FALSE, # No random recruitment
   msmMode = 0, # Single species mode
-  phase = "default",
+  phase = TRUE,
   verbose = 1, 
   initMode = 2)
 
@@ -74,7 +73,7 @@ plot_stock_recruit(ss_run_ricker_M)
 # -- Check Bmsy
 alpha <- exp(ss_run_ricker_M$estimated_params$rec_pars[,2])
 beta <- exp(ss_run_ricker_M$estimated_params$rec_pars[,3])
-apply(ss_run_M$quantities$biomassSSB, 1, max)
+apply(ss_run_M$quantities$ssb, 1, max)
 1/(beta/1000000)
 
 
@@ -97,22 +96,21 @@ ms_run_ricker <- Rceattle::fit_mod(
   estimateMode = 1, # Estimate hindcast only
   map = NULL,
   M1Fun = build_M1(M1_model = c(1,2,1),
-                   updateM1 = TRUE,
                    M1_use_prior = FALSE,
                    M2_use_prior = FALSE),
   recFun = build_srr(srr_fun = 0,
                      srr_pred_fun = 3,
                      proj_mean_rec = FALSE,
                      srr_est_mode = 1,
-                     srr_prior_mean = alpha * 3,
+                     srr_prior = alpha * 3,
                      
-                     Bmsy_lim = c(600000, apply(ms_run_ricker$quantities$biomassSSB, 1, max)[2:3])
+                     Bmsy_lim = c(600000, apply(ms_run_ricker$quantities$ssb, 1, max)[2:3])
   ),
   niter = 3, # 10 iterations around population and predation dynamics
   random_rec = FALSE, # No random recruitment
   msmMode = 1, # MSVPA based
   suitMode = 0, # empirical suitability
-  phase = NULL,
+  phase = FALSE,
   verbose = 1, 
   initMode = 0)
 
@@ -122,8 +120,8 @@ plot_stock_recruit(ms_run_ricker)
 # -- Check Bmsy
 alpha <- exp(ms_run_ricker$estimated_params$rec_pars[,2])
 beta <- exp(ms_run_ricker$estimated_params$rec_pars[,3])
-apply(ms_run_ricker$quantities$biomassSSB, 1, max)
-apply(ms_run$quantities$biomassSSB, 1, max)
+apply(ms_run_ricker$quantities$ssb, 1, max)
+apply(ms_run$quantities$ssb, 1, max)
 1/(beta/1000000)
 
 
@@ -138,7 +136,7 @@ plot_stock_recruit(list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker), model_na
 mod_list_all_ricker <- list(ss_run_ricker, ss_run_ricker_M, ms_run_ricker)
 
 for(i in 1:3){
-  avg_F <- (exp(mod_list_all_ricker[[i]]$estimated_params$ln_mean_F+mod_list_all_ricker[[i]]$estimated_params$F_dev)) # Average F from last 2 years
+  avg_F <- (exp(mod_list_all_ricker[[i]]$estimated_params$ln_F)) # Average F from last 2 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-2) : ncol(avg_F)])
   f_ratio <- avg_F[14:16]
   f_ratio <- f_ratio/sum(f_ratio)
@@ -162,7 +160,7 @@ if(fit_all){
     
     data_list = ms_run_ricker$data_list,
     inits = ms_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ms_run_ricker$data_list$M1_model,
                      M1_use_prior = ms_run_ricker$data_list$M1_use_prior,
@@ -171,7 +169,7 @@ if(fit_all){
                        srr_pred_fun = ms_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ms_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ms_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ms_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ms_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ms_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ms_run_ricker$data_list$Bmsy_lim),
     msmMode = ms_run_ricker$data_list$msmMode,
@@ -181,7 +179,7 @@ if(fit_all){
     niter = ms_run_ricker$data_list$niter,
     HCR = build_hcr(HCR = 3, # Constant F HCR
                     DynamicHCR = FALSE, # Use dynamic reference points
-                    FsprTarget = 0.25)
+                    Ftarget = 0.25)
   )
   
   
@@ -189,7 +187,7 @@ if(fit_all){
   # EMs: Fixed M w/ harvest control rules ----
   ################################################
   # -- Avg F
-  avg_F <- (exp(ss_run_ricker$estimated_params$ln_mean_F+ss_run_ricker$estimated_params$F_dev)) # Average F from last 5 years
+  avg_F <- (exp(ss_run_ricker$estimated_params$ln_F)) # Average F from last 5 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
   avg_F <- data.frame(avg_F = avg_F, spp = ss_run_ricker$data_list$fleet_control$Species)
   avg_F <- avg_F %>%
@@ -200,7 +198,7 @@ if(fit_all){
   ss_run_ricker_AvgF <- fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -209,15 +207,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 2, # Input F
-                    FsprTarget = avg_F$avg_F, # F40%
-                    FsprLimit = 0.35,
+                    Ftarget = avg_F$avg_F, # F40%
+                    Flimit = 0.35,
                     Plimit = 0.2
     )
   )
@@ -226,7 +224,7 @@ if(fit_all){
   ss_run_ricker_Fspr <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -235,15 +233,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 4, # Tier3 HCR
-                    FsprTarget = 0.4, # 0.75 * F40%
-                    FsprLimit = 0.4, # F40%
+                    Ftarget = 0.4, # 0.75 * F40%
+                    Flimit = 0.4, # F40%
                     Fmult = 0.75,
                     Plimit = 0.2
     )
@@ -254,7 +252,7 @@ if(fit_all){
   ss_run_ricker_Tier3 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -263,15 +261,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 5, # Tier3 HCR
-                    FsprTarget = 0.4, # F40%
-                    FsprLimit = 0.35, # F35%
+                    Ftarget = 0.4, # F40%
+                    Flimit = 0.35, # F35%
                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                     Alpha = 0.05)
   )
@@ -280,7 +278,7 @@ if(fit_all){
   ss_run_ricker_dynamicTier3 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -289,7 +287,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
@@ -297,8 +295,8 @@ if(fit_all){
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 5, # Tier3 HCR
                     DynamicHCR = TRUE, # Use dynamic reference points
-                    FsprTarget = 0.4, # F40%
-                    FsprLimit = 0.35, # F35%
+                    Ftarget = 0.4, # F40%
+                    Flimit = 0.35, # F35%
                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                     Alpha = 0.05)
   )
@@ -307,7 +305,7 @@ if(fit_all){
   ss_run_ricker_Cat1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -316,14 +314,14 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                    FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                    Flimit = c(0.45, 0.3, 0.45), # F45%
                     Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
                     Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                     Pstar = 0.45,
@@ -333,7 +331,7 @@ if(fit_all){
   ss_run_ricker_dynamicCat1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -342,7 +340,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
@@ -350,7 +348,7 @@ if(fit_all){
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 6, # Cat 1 HCR
                     DynamicHCR = TRUE, # Use dynamic reference points
-                    FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                    Flimit = c(0.45, 0.3, 0.45), # F45%
                     Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
                     Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                     Pstar = 0.45,
@@ -361,7 +359,7 @@ if(fit_all){
   ss_run_ricker_Tier1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -370,15 +368,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 7, # Tier 1 HCR
-                    FsprTarget = 0.48, # F40%
-                    FsprLimit = 0.20, # F20%
+                    Ftarget = 0.48, # F40%
+                    Flimit = 0.20, # F20%
                     Ptarget = 0.35, # Target is 35% SSB0
                     Plimit = 0.20, # No fishing when B<B20
     )
@@ -388,7 +386,7 @@ if(fit_all){
   ss_run_ricker_dynamicTier1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker$data_list,
     inits = ss_run_ricker$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker$data_list$M1_model,
                      M1_use_prior = ss_run_ricker$data_list$M1_use_prior,
@@ -397,7 +395,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker$data_list$Bmsy_lim),
     msmMode = ss_run_ricker$data_list$msmMode,
@@ -405,8 +403,8 @@ if(fit_all){
     initMode = ss_run_ricker$data_list$initMode,
     HCR = build_hcr(HCR = 7, # Tier 1 HCR
                     DynamicHCR = TRUE,
-                    FsprTarget = 0.48, # F40%
-                    FsprLimit = 0.20, # F20%
+                    Ftarget = 0.48, # F40%
+                    Flimit = 0.20, # F20%
                     Ptarget = 0.35, # Target is 35% SSB0
                     Plimit = 0.20, # No fishing when B<B20
     )
@@ -418,7 +416,7 @@ if(fit_all){
   # EMs: Estimate M w/ harvest control rules ----
   ###############################################
   # -- Avg F
-  avg_F <- (exp(ss_run_ricker_M$estimated_params$ln_mean_F+ss_run_ricker_M$estimated_params$F_dev)) # Average F from last 5 years
+  avg_F <- (exp(ss_run_ricker_M$estimated_params$ln_F)) # Average F from last 5 years
   avg_F <- rowMeans(avg_F[,(ncol(avg_F)-4) : ncol(avg_F)])
   avg_F <- data.frame(avg_F = avg_F, spp = ss_run_ricker_M$data_list$fleet_control$Species)
   avg_F <- avg_F %>%
@@ -430,7 +428,7 @@ if(fit_all){
   ss_run_ricker_M_AvgF <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -439,15 +437,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 2, # Input F
-                    FsprTarget = avg_F$avg_F, # F40%
-                    FsprLimit = 0.35, 
+                    Ftarget = avg_F$avg_F, # F40%
+                    Flimit = 0.35, 
                     Plimit = 0.2
     )
   )
@@ -456,7 +454,7 @@ if(fit_all){
   ss_run_ricker_M_Fspr <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -465,15 +463,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 4, # Fspr HCR
-                    FsprTarget = 0.4, # 0.75 * F40%
-                    FsprLimit = 0.4, # F40%
+                    Ftarget = 0.4, # 0.75 * F40%
+                    Flimit = 0.4, # F40%
                     Fmult = 0.75,
                     Plimit = 0.2
     )
@@ -484,7 +482,7 @@ if(fit_all){
   ss_run_ricker_M_Tier3 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -493,15 +491,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 5, # Tier3 HCR
-                    FsprTarget = 0.4, # F40%
-                    FsprLimit = 0.35, # F35%
+                    Ftarget = 0.4, # F40%
+                    Flimit = 0.35, # F35%
                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                     Alpha = 0.05))
   
@@ -509,7 +507,7 @@ if(fit_all){
   ss_run_ricker_M_dynamicTier3 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -518,7 +516,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
@@ -526,8 +524,8 @@ if(fit_all){
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 5, # Tier3 HCR
                     DynamicHCR = TRUE, # Use dynamic reference points
-                    FsprTarget = 0.4, # F40%
-                    FsprLimit = 0.35, # F35%
+                    Ftarget = 0.4, # F40%
+                    Flimit = 0.35, # F35%
                     Plimit = c(0.2, 0, 0.2), # No fishing when SB<SB20
                     Alpha = 0.05)
   )
@@ -536,7 +534,7 @@ if(fit_all){
   ss_run_ricker_M_Cat1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -545,14 +543,14 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 6, # Cat 1 HCR
-                    FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                    Flimit = c(0.45, 0.3, 0.45), # F45%
                     Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
                     Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                     Pstar = 0.45,
@@ -562,7 +560,7 @@ if(fit_all){
   ss_run_ricker_M_dynamicCat1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -571,7 +569,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
@@ -579,7 +577,7 @@ if(fit_all){
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 6, # Cat 1 HCR
                     DynamicHCR = TRUE, # Use dynamic reference points
-                    FsprLimit = c(0.45, 0.3, 0.45), # F45%
+                    Flimit = c(0.45, 0.3, 0.45), # F45%
                     Ptarget = c(0.4, 0.25, 0.4), # Target is 40% B0
                     Plimit = c(0.1, 0.05, 0.1), # No fishing when SB<SB10
                     Pstar = 0.45,
@@ -590,7 +588,7 @@ if(fit_all){
   ss_run_ricker_M_Tier1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -599,15 +597,15 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
     verbose = 1,
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 7, # Tier 1 HCR
-                    FsprTarget = 0.48, # F40%
-                    FsprLimit = 0.20, # F20%
+                    Ftarget = 0.48, # F40%
+                    Flimit = 0.20, # F20%
                     Ptarget = 0.35, # Target is 35% SSB0
                     Plimit = 0.20, # No fishing when B<B20
     )
@@ -617,7 +615,7 @@ if(fit_all){
   ss_run_ricker_M_dynamicTier1 <- Rceattle::fit_mod(
     data_list = ss_run_ricker_M$data_list,
     inits = ss_run_ricker_M$estimated_params, 
-    phase = NULL, 
+    phase = FALSE, 
     estimateMode = 0, # Run projection only
     M1Fun = build_M1(M1_model = ss_run_ricker_M$data_list$M1_model,
                      M1_use_prior = ss_run_ricker_M$data_list$M1_use_prior,
@@ -626,7 +624,7 @@ if(fit_all){
                        srr_pred_fun = ss_run_ricker_M$data_list$srr_pred_fun,
                        proj_mean_rec = ss_run_ricker_M$data_list$proj_mean_rec,
                        srr_est_mode = ss_run_ricker_M$data_list$srr_est_mode,
-                       srr_prior_mean = ss_run_ricker_M$data_list$srr_prior_mean,
+                       srr_prior = ss_run_ricker_M$data_list$srr_prior,
                        srr_prior_sd = ss_run_ricker_M$data_list$srr_prior_sd,
                        Bmsy_lim = ss_run_ricker_M$data_list$Bmsy_lim),
     msmMode = ss_run_ricker_M$data_list$msmMode,
@@ -634,8 +632,8 @@ if(fit_all){
     initMode = ss_run_ricker_M$data_list$initMode,
     HCR = build_hcr(HCR = 7, # Tier 1 HCR
                     DynamicHCR = TRUE,
-                    FsprTarget = 0.48, # F40%
-                    FsprLimit = 0.20, # F20%
+                    Ftarget = 0.48, # F40%
+                    Flimit = 0.20, # F20%
                     Ptarget = 0.35, # Target is 35% SSB0
                     Plimit = 0.20, # No fishing when B<B20
     )

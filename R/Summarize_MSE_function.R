@@ -31,11 +31,11 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
           
           # Adjust SB0 because MSE OM uses proj_mean_rec = FALSE
           mse3[[j]]$OM$quantities$SB0[,] <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
-          mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$SB0 #FIXME: no longer necessary
+          mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$ssb/mse3[[j]]$OM$quantities$SB0 #FIXME: no longer necessary
           
           # -- Dynamic BRPs
           if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
-            mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$biomassSSB/mse3[[j]]$OM$quantities$DynamicSB0
+            mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$ssb/mse3[[j]]$OM$quantities$DynamicSB0
             mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
           }
           
@@ -66,9 +66,9 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
         # - MULTI-SPECIES
         # - Calculate depletion for multi-species models
         if(mse3[[j]]$OM$data_list$msmMode == 1){
-          mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$biomassSSB / om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Divide ssb by SSB in 2100 under no fishing
+          mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$ssb / om_list_no_F[[om]]$quantities$ssb[,ncol(om_list_no_F[[om]]$quantities$ssb)] # Divide ssb by SSB in 2100 under no fishing
           
-          mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$biomassSSB[,ncol(om_list_no_F[[om]]$quantities$biomassSSB)] # Update SB0
+          mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$ssb[,ncol(om_list_no_F[[om]]$quantities$ssb)] # Update SB0
           
           mse3[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
           mse3[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit

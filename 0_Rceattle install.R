@@ -1,3 +1,4 @@
+# Dependencies
 install.packages("pacman")
 install.packages("TMB", type = "source")
 install.packages("Matrix", type = "source")
@@ -18,4 +19,6 @@ pacman::p_load(dplyr,
                knitr,
                doParallel)
 devtools::install_github("kaskr/TMB_contrib_R/TMBhelper")
-install.packages("Rceattle_1.0.0.0000.tar.gz", repos = NULL, type = "source")
+
+# Rceattle
+devtools::install_github("grantdadams/Rceattle")

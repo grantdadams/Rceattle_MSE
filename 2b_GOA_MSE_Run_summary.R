@@ -25,7 +25,7 @@ projected_OM_no_F <- list(ss_run_M, ss_run, ms_run, ss_run_ricker_M, ss_run_rick
 for(i in 1:length(projected_OM_no_F)){
   projected_OM_no_F[[i]]$data_list$spnames <- paste("GOA", projected_OM_no_F[[i]]$data_list$spnames)
   if(i %in% c(3, 6)){
-    projected_OM_no_F[[i]]$quantities$depletionSSB <- projected_OM_no_F[[i]]$quantities$biomassSSB/projected_OM_no_F[[i]]$quantities$biomassSSB[,ncol(projected_OM_no_F[[i]]$quantities$biomassSSB)]
+    projected_OM_no_F[[i]]$quantities$depletionSSB <- projected_OM_no_F[[i]]$quantities$ssb/projected_OM_no_F[[i]]$quantities$ssb[,ncol(projected_OM_no_F[[i]]$quantities$ssb)]
   }
 }
 

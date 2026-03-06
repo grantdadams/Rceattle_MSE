@@ -93,7 +93,7 @@ plot_ssb_mse <- function(Rceattle,
       } else if(depletion){
         quantity[[i]][, 1:nyrs , j] <- Rceattle[[i]][[j]]$quantities$depletionSSB[,1:nyrs]
       }else{
-        quantity[[i]][, 1:nyrs , j] <- Rceattle[[i]][[j]]$quantities$biomassSSB[,1:nyrs] / 1000000
+        quantity[[i]][, 1:nyrs , j] <- Rceattle[[i]][[j]]$quantities$ssb[,1:nyrs] / 1000000
       }
     }
   }
