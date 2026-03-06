@@ -172,7 +172,7 @@ if(fit_all){
     inits = ss_run_ricker$estimated_params, # Initial parameters from ss_run_ricker
     phase = NULL, 
     estimateMode = 0, # Run projection only
-    HCR = build_hcr(HCR = 4, # Tier3 HCR
+    HCR = build_hcr(HCR = 4, 
                     FsprTarget = 0.4, # 0.75 * F40%
                     FsprLimit = 0.4, # F40%
                     Fmult = 0.75,
