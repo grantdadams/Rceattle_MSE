@@ -20,8 +20,8 @@ pm_summary_table <- function(om_names, em_hcr_names, format = TRUE, reverse = FA
       # STEP 1 -- File names
       MSE_names <- paste0(om_names[om],"__", em_hcr_names[em])
       
-      GOA_mse_sum_tmp <- read.csv(file = paste0("~/Documents/GitHub/Rceattle_MSE/Results/Tables/GOA1977/GOA1977", "_Table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
-      EBS_mse_sum_tmp <- read.csv(file = paste0("~/Documents/GitHub/Rceattle_MSE/Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
+      GOA_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/GOA1977/GOA1977", "_Table", MSE_names,".csv"))[,-1] # May need to add "_" after table for later iterations
+      EBS_mse_sum_tmp <- read.csv(file = paste0("Results/Tables/EBS/EBS", "_Table", MSE_names,".csv"))[,-1]
       colnames(GOA_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
       colnames(EBS_mse_sum_tmp) = c("Species", "Performance.metric", "Value")
       

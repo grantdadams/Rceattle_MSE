@@ -4,7 +4,7 @@
 source("Results/Figure 1 - HCR shape plot.R", echo=TRUE)
 
 # Figures 4-9: Performance metric histograms
-source("Results/Figure 1 - HCR shape plot.R", echo=TRUE)
+source("Results/Figure 4 to 9 - Histograms of performance metrics.R", echo=TRUE)
 
 # Figure 10: Dominant strategy histogram
 source("Results/Figure 10 - Histograms of dominant strategies.R", echo=TRUE)
