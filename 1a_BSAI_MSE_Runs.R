@@ -2,8 +2,8 @@
 # Management strategy evaluation
 ################################################
 library(dplyr)
-source("R/BSAI_condition_models.R")
-source("R/BSAI_condition_ricker_models.R")
+source("R/BSAI_condition_models.R") 
+source("R/BSAI_condition_ricker_models.R") # Some operating models may not fully converge and that is OK
 
 sampling_period = c(1,1,1,1,1,1,2)
 
@@ -12,10 +12,9 @@ sampling_period = c(1,1,1,1,1,1,2)
 # Management strategy evaluation
 ################################################
 ### OMS
-# 1. Single-species estimate M
 # 2. Multi-species type II
-om_list <- list(ss_run_Tier3, ss_run_M_Tier3, ms_run_f25, ss_run_ricker_Tier3, ss_run_ricker_M_Tier3, ms_run_ricker_f25)
-om_names = c("SS_OM", "SSM_OM", "MS_OM", "SS_Ricker_OM", "SSM_Ricker_OM", "MS_Ricker_OM")
+om_list <- list(ms_run_f25, ms_run_ricker_f25)
+om_names = c("MS_OM", "MS_Ricker_OM")
 
 
 ### Management strategies
