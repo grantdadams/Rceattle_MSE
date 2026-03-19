@@ -17,35 +17,40 @@ library(tidyr)
 # 3. Multi-species type II
 om_names = c("MS_OM", "MS_Ricker_OM")
 om_names_print = c("Multi-spp",
-                  "Multi-spp w/ Ricker")
+                   "Multi-spp w/ Ricker")
 projected_OM_no_F <- list(ms_run, ms_run_ricker)
 
 
 # Lists to update reference points in OM
 # - No ricker
-om_hcr_list_fixM <- list(ss_run_Tier3, ss_run_dynamicTier3, 
-                         ss_run_Cat1, ss_run_dynamicCat1, 
-                         ss_run_Tier1, ss_run_dynamicTier1, 
-                         ss_run_Fspr, ss_run_AvgF) # Fixed M
+om_hcr_list_fixM <- list(ss_run_Tier3, ss_run_dynamicTier3)
+
+# GRANT COMMENTED OUT (3/19/2026):
+# ss_run_Cat1, ss_run_dynamicCat1, 
+# ss_run_Tier1, ss_run_dynamicTier1, 
+# ss_run_Fspr, ss_run_AvgF) # Fixed M
 om_hcr_list_fixM = c(om_hcr_list_fixM, om_hcr_list_fixM)
 
-om_hcr_list_estM <- list(ss_run_M_Tier3, ss_run_M_dynamicTier3, 
-                         ss_run_M_Cat1, ss_run_M_dynamicCat1, 
-                         ss_run_M_Tier1, ss_run_M_dynamicTier1, 
-                         ss_run_M_Fspr, ss_run_M_AvgF) # Estimate M
+om_hcr_list_estM <- list(ss_run_M_Tier3, ss_run_M_dynamicTier3)
+# GRANT COMMENTED OUT (3/19/2026):
+# ss_run_M_Cat1, ss_run_M_dynamicCat1, 
+# ss_run_M_Tier1, ss_run_M_dynamicTier1, 
+# ss_run_M_Fspr, ss_run_M_AvgF) # Estimate M
 om_hcr_list_estM = c(om_hcr_list_estM, om_hcr_list_estM)
 
 # - Ricker
-om_hcr_list_ricker_fixM <- list(ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3, 
-                                ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, 
-                                ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1, 
-                                ss_run_ricker_Fspr, ss_run_ricker_AvgF) # Fixed M
+om_hcr_list_ricker_fixM <- list(ss_run_ricker_Tier3, ss_run_ricker_dynamicTier3)
+# GRANT COMMENTED OUT (3/19/2026):
+                                # ss_run_ricker_Cat1, ss_run_ricker_dynamicCat1, 
+                                # ss_run_ricker_Tier1, ss_run_ricker_dynamicTier1, 
+                                # ss_run_ricker_Fspr, ss_run_ricker_AvgF) # Fixed M
 om_hcr_list_ricker_fixM <- c(om_hcr_list_ricker_fixM, om_hcr_list_ricker_fixM)
 
-om_hcr_list_ricker_estM <- list(ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3,
-                                ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, 
-                                ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1, 
-                                ss_run_ricker_M_Fspr, ss_run_ricker_M_AvgF) # Estimate M
+om_hcr_list_ricker_estM <- list(ss_run_ricker_M_Tier3, ss_run_ricker_M_dynamicTier3)
+# GRANT COMMENTED OUT (3/19/2026):
+                                # ss_run_ricker_M_Cat1, ss_run_ricker_M_dynamicCat1, 
+                                # ss_run_ricker_M_Tier1, ss_run_ricker_M_dynamicTier1, 
+                                # ss_run_ricker_M_Fspr, ss_run_ricker_M_AvgF) # Estimate M
 om_hcr_list_ricker_estM <- c(om_hcr_list_ricker_estM, om_hcr_list_ricker_estM)
 
 
@@ -57,14 +62,18 @@ om_hcr_list_ricker_estM <- c(om_hcr_list_ricker_estM, om_hcr_list_ricker_estM)
 # HCR
 # 1, NPFMC Tier 3 HCR
 # 1b. NPFMC Tier 3 dynamic HCR 
+
+# GRANT COMMENTED OUT (3/19/2026):
 # 2. PFMC Category 1 40-10 HCR
 # 2b. PFMC Category 1 40-10 dynamic HCR
 # 3. SESSF Tier 1 HCR
 # 3b. SESSF Tier 1 dynamic HCR
 # 4. Average F
 # 5. Equilibrium F_(40%)
-em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
-                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM", "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
+em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM",
+                  # GRANT COMMENTED OUT (3/19/2026): "SS_fixM_Cat1_EM", "SS_fixM_dynamicCat1_EM", "SS_fixM_Tier1_EM", "SS_fixM_dynamicTier1_EM", "SS_fixM_Fspr_EM", "SS_fixM_AvgF_EM", # Fixed M
+                  "SS_estM_Tier3_EM", "SS_estM_dynamicTier3_EM")
+# GRANT COMMENTED OUT (3/19/2026):, "SS_estM_Cat1_EM", "SS_estM_dynamicCat1_EM", "SS_estM_Tier1_EM", "SS_estM_dynamicTier1_EM", "SS_estM_Fspr_EM", "SS_estM_AvgF_EM")
 
 
 ################################################
