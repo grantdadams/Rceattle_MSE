@@ -8,8 +8,6 @@ library(Rceattle)
 library(tidyr)
 
 
-
-
 ################################################
 # Management strategy evaluation
 ################################################
@@ -17,18 +15,11 @@ library(tidyr)
 # 1. Single-species fix M
 # 2. Single-species estimate M
 # 3. Multi-species type II
-om_names = c( "SSM_OM", "SS_OM", "MS_OM", "SSM_Ricker_OM", "SS_Ricker_OM", "MS_Ricker_OM")
-om_names_print = c("Single-spp age-invariant M", "Single-spp age-varying M", "Multi-spp",
-                   "Single-spp age-invariant M w/ Ricker", "Single-spp age-varying M w/ Ricker", "Multi-spp w/ Ricker")
-projected_OM_no_F <- list(ss_run_M, ss_run, ms_run, ss_run_ricker_M, ss_run_ricker, ms_run_ricker)
+om_names = c("MS_OM", "MS_Ricker_OM")
+om_names_print = c("Multi-spp",
+                  "Multi-spp w/ Ricker")
+projected_OM_no_F <- list(ms_run, ms_run_ricker)
 
-# Update depletion (not done internally)
-for(i in 1:length(projected_OM_no_F)){
-  projected_OM_no_F[[i]]$data_list$spnames <- paste("EBS", projected_OM_no_F[[i]]$data_list$spnames)
-  if(i %in% c(3, 6)){
-    projected_OM_no_F[[i]]$quantities$depletionSSB <- projected_OM_no_F[[i]]$quantities$ssb/projected_OM_no_F[[i]]$quantities$ssb[,ncol(projected_OM_no_F[[i]]$quantities$ssb)]
-  }
-}
 
 # Lists to update reference points in OM
 # - No ricker
@@ -77,21 +68,6 @@ em_hcr_names <- c("SS_fixM_Tier3_EM", "SS_fixM_dynamicTier3_EM", "SS_fixM_Cat1_E
 
 
 ################################################
-# Plots ----
-################################################
-MPcols <- rev(oce::oce.colorsViridis(6))
-plot_recruitment(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,5,5,5))
-plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,6,6,6))
-plot_biomass(projected_OM_no_F, file = "Results/Figures/EBS_OM_", model_names = om_names_print[1:3], width = 6, height = 4.5, line_col = MPcols[c(1,3,5,1,3,5)], lty = c(1,1,1,6,6,6))
-plot_stock_recruit(projected_OM_no_F[4:6], file = "Results/Figures/EBS_OM_", model_names = om_names_print[4:6], width = 6, height = 4.5, line_col = MPcols[c(1,3,5)])
-plot_b_eaten_prop(projected_OM_no_F[c(3,6)], file = "Results/Figures/EBS_OM_", model_names = om_names_print[c(3,6)], width = 6, height = 4.5, line_col = MPcols[c(2,6)])
-
-# - Plot projections
-MPcols <- gmri_pal("main")(3)
-plot_ssb(projected_OM_no_F, file = "Results/Figures/EBS_OM_projection", incl_proj = TRUE, width = 7, height = 6, line_col = MPcols[c(3:1, 3:1)], lty = c(1,1,1,6,6,6), maxyr = 2060)
-
-
-################################################
 # Load and run summary
 ################################################
 # Do summary ----
@@ -101,14 +77,14 @@ source("R/Summarize_MSE_function.R")  # Load and summarize sims function
 
 # - No SRR OMs
 summary_fun(system = "EBS", spname_system = "EBS",
-            om_list_no_F = projected_OM_no_F[3], om_names = om_names[3],
-            om_hcr_list_fixM = om_hcr_list_fixM[1], 
-            om_hcr_list_estM = om_hcr_list_estM[1], 
-            em_hcr_names = em_hcr_names[1], species = 1:3) 
+            om_list_no_F = projected_OM_no_F[1], om_names = om_names[1],
+            om_hcr_list_fixM = om_hcr_list_fixM, 
+            om_hcr_list_estM = om_hcr_list_estM, 
+            em_hcr_names = em_hcr_names, species = 1:3) 
 
 # - Ricker SRR OMs
 summary_fun(system = "EBS", spname_system = "EBS",
-            om_list_no_F = projected_OM_no_F[4:6], om_names = om_names[4:6],
+            om_list_no_F = projected_OM_no_F[2], om_names = om_names[2],
             om_hcr_list_fixM = om_hcr_list_ricker_fixM, 
             om_hcr_list_estM = om_hcr_list_ricker_estM, 
             em_hcr_names = em_hcr_names, species = 1:3)

@@ -29,38 +29,32 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
         # - SINGLE-SPECIES
         if(mse3[[j]]$OM$data_list$msmMode == 0){
           
-          # Adjust SB0 because MSE OM uses proj_mean_rec = FALSE
-          mse3[[j]]$OM$quantities$SB0[,] <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
-          mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$ssb/mse3[[j]]$OM$quantities$SB0 #FIXME: no longer necessary
-          
-          # -- Dynamic BRPs
+          # Adjust equilibrium SB0
+          #FIXME: no longer necessary
           if(mse3[[j]]$EM[[1]]$data_list$DynamicHCR == 1){
-            mse3[[j]]$OM$quantities$depletionSSB = mse3[[j]]$OM$quantities$ssb/mse3[[j]]$OM$quantities$DynamicSB0
-            mse3[[j]]$OM$quantities$depletion = mse3[[j]]$OM$quantities$biomass/mse3[[j]]$OM$quantities$DynamicB0
+            mse3[[j]]$OM$quantities$SB0[,] <- om_list_no_F[[om]]$quantities$SB0[,ncol(om_list_no_F[[om]]$quantities$SB0)]
+            mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$ssb/mse3[[j]]$OM$quantities$SB0 
           }
           
           # -- Fix M
           if(sum(mse3[[j]]$OM$data_list$M1_model) == 0){
-            
-            mse3[[j]]$OM$quantities$SBF[,] <- om_hcr_list_fixM[[em]]$quantities$SBF[,ncol(om_hcr_list_fixM[[em]]$quantities$SBF)] # Adjust SBF because MSE OM uses proj_mean_rec = FALSE
-            
-            mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_fixM[[em]]$data_list$Plimit # Update Target
-            mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_fixM[[em]]$data_list$Ptarget # Update Limit
-            
-            mse3[[j]]$OM$quantities$Flimit <- om_hcr_list_fixM[[em]]$quantities$Flimit # Update Flimit from Ftarget that was optimized
-            mse3[[j]]$OM$quantities$Ftarget <- om_hcr_list_fixM[[em]]$quantities$Ftarget # Update Flimit from Ftarget that was optimized
+            OM_brp = om_hcr_list_fixM[[em]]
           }
           
           # -- Estimate M
           if(sum(mse3[[j]]$OM$data_list$M1_model) > 0){
-            mse3[[j]]$OM$quantities$SBF[,] <- om_hcr_list_estM[[em]]$quantities$SBF[,ncol(om_hcr_list_estM[[em]]$quantities$SBF)] # Adjust SBF because MSE OM uses proj_mean_rec = FALSE
-            
-            mse3[[j]]$OM$data_list$Plimit <- om_hcr_list_estM[[em]]$data_list$Plimit # Update Target
-            mse3[[j]]$OM$data_list$Ptarget <- om_hcr_list_estM[[em]]$data_list$Ptarget # Update Limit
-            
-            mse3[[j]]$OM$quantities$Flimit <- om_hcr_list_estM[[em]]$quantities$Flimit # Update Flimit from Ftarget that was optimized
-            mse3[[j]]$OM$quantities$Ftarget <- om_hcr_list_estM[[em]]$quantities$Ftarget # Update Flimit from Ftarget that was optimized
+            OM_brp = om_hcr_list_estM[[em]]
           }
+          
+          # Adjust BRPs because MSE OM uses proj_mean_rec = FALSE
+          mse3[[j]]$OM$quantities$SBF[,] <- OM_brp$quantities$SBF[,ncol(OM_brp$quantities$SBF)] # Adjust SBF because MSE OM had no HCR
+          
+          mse3[[j]]$OM$data_list$Plimit <- OM_brp$data_list$Plimit # Update Target
+          mse3[[j]]$OM$data_list$Ptarget <- OM_brp$data_list$Ptarget # Update Limit
+          
+          mse3[[j]]$OM$quantities$Flimit <- OM_brp$quantities$Flimit # Update Flimit from Ftarget that was optimized
+          mse3[[j]]$OM$quantities$Ftarget <- OM_brp$quantities$Ftarget # Update Flimit from Ftarget that was optimized
+          
         }
         
         # - MULTI-SPECIES
@@ -68,7 +62,8 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
         if(mse3[[j]]$OM$data_list$msmMode == 1){
           mse3[[j]]$OM$quantities$depletionSSB <- mse3[[j]]$OM$quantities$ssb / om_list_no_F[[om]]$quantities$ssb[,ncol(om_list_no_F[[om]]$quantities$ssb)] # Divide ssb by SSB in 2100 under no fishing
           
-          mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$ssb[,ncol(om_list_no_F[[om]]$quantities$ssb)] # Update SB0
+          mse3[[j]]$OM$quantities$SB0 <- om_list_no_F[[om]]$quantities$ssb[,ncol(om_list_no_F[[om]]$quantities$ssb)] # Update equilibrium SB0 because OM uses proj_mean_rec = FALSE 
+          #FIXME: no longer necessary
           
           mse3[[j]]$OM$data_list$Plimit[1:3] <- 0.25 # Update Target
           mse3[[j]]$OM$data_list$Ptarget[1:3] <- 0.40 # Update Limit
@@ -85,11 +80,11 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
       mse_metrics <- mse_metrics[1:3,-c(2:3)]
       mse_metrics <- tidyr::pivot_longer(mse_metrics, cols = 2:ncol(mse_metrics))
       colnames(mse_metrics) <- c("Species", "Performance metric", MSE_names)
-
+      
       # - Save
       dir.create(paste0("Results/Tables/",system), recursive = TRUE, showWarnings = FALSE)
       write.csv(mse_metrics, file = paste0("Results/Tables/",system,"/",system, "_table", MSE_names,".csv"))
-
+      
       
       # STEP 4 - Plot
       # - Create directories
@@ -129,22 +124,22 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
                line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_ssb(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/SSB/", system,  "/Perceived/",  system, " Perceived ", MSE_names),
                line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-
+      
       plot_ssb(c(list(mse3$Sim_1$OM), mse3$Sim_1$EM), # file = paste0("Results/Figures/Time-series plots/SSB/", system,  "/",  system, " single sim ", MSE_names),
                species = species, maxyr = maxyr)
-
+      
       # - Biomass
       plot_biomass(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/B/", system,  "/True/", system, " True ", MSE_names),
                    line_col  = "#04395E", reference = om_list_no_F[[om]], species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_biomass(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/B/", system,  "/Perceived/", system, " Perceived ", MSE_names),
                    line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-
+      
       # - Recruitment
       plot_recruitment(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/R/", system,  "/True/", system, " True ", MSE_names),
                        line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_recruitment(mse3, mse = TRUE, OM = FALSE, file = paste0("Results/Figures/Time-series plots/R/", system,  "/Perceived/",  system, " Perceived ", MSE_names),
                        line_col = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
-
+      
       # - F and M
       plot_f(mse3, mse = TRUE, OM = TRUE, file = paste0("Results/Figures/Time-series plots/F/",system,  "/True/", system, " True ", MSE_names),
              line_col  = "#04395E", species = species, width = 4.3, height = 4, maxyr = maxyr)
@@ -152,8 +147,8 @@ summary_fun <- function(system = "GOA1977", spname_system = NULL, om_list_no_F =
              line_col  = "#5F0F40", species = species, width = 4.3, height = 4, maxyr = maxyr)
       plot_m_at_age_mse(mse3, file = paste0("Results/Figures/Time-series plots/M/", system,  "/", system, " Perceived ", MSE_names),
                         line_col = "#5F0F40", top_adj = 1, species = species, width = 4.3, height = 4, age = 1)
-
-
+      
+      
       # - Catch
       plot_catch(mse3, mse = TRUE, file = paste0("Results/Figures/Time-series plots/Catch/", system, "/", MSE_names), line_col  = "#04395E", width = 4.3, height = 4, maxyr = maxyr)
       
